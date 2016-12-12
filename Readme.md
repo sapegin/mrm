@@ -8,13 +8,16 @@ Command line tool to help you keep dotfiles (.gitignore, .eslintrc, etc.) of all
 
 Most of the available tools are tepmplate based. It works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to codemods than templates.
 
+## Installation
+
+```
+npm install -g mrm
+```
+
 ## Usage
 
-Command | Result
-------- | ------
-`npm install -g mrm` | Installation
-`mrm` | Print list of commands
-`mrm <command>` | Run command
+* `mrm` — Print list of commands
+* `mrm <command>` — Run command
 
 ## Configuration
 
