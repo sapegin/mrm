@@ -1,5 +1,6 @@
 # Marmot (mrm)
 
+[![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm)
 [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
 
 Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of all your open source project in sync.
