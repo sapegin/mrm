@@ -41,6 +41,6 @@
   "release": {
     "analyzeCommits": "semantic-release-tamia/analyzeCommits",
     "generateNotes": "semantic-release-tamia/generateNotes",
-    "verifyRelease": "semantic-release-tamia/verifyReleas"
+    "verifyRelease": "semantic-release-tamia/verifyRelease"
   }
 }
