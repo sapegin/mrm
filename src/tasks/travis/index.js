@@ -2,8 +2,7 @@
 
 const path = require('path');
 const last = require('lodash/last');
-const yaml = require('../../formats/yaml');
-const markdown = require('../../formats/markdown');
+const { yaml, markdown } = require('mrm-core');
 
 const nodeVersions = [
 	4,

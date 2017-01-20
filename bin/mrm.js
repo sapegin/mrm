@@ -10,10 +10,11 @@ const longest = require('longest');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
 const { config, runAlias, runTask, getAllTasks } = require('../src/index');
-const MrmError = require('../src/error');
+
+const isMrmEror = err => err.constructor.name === 'MrmError';
 
 process.on('uncaughtException', err => {
-	if (err instanceof MrmError) {
+	if (isMrmEror(err)) {
 		console.error(chalk.bold.red(err.message));
 		console.log();
 		process.exit(1);
@@ -39,7 +40,7 @@ else {
 		}
 	}
 	catch (err) {
-		if (err instanceof MrmError && /(Alias|Command) ".*?" not found/.test(err.message)) {
+		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
 			console.error(chalk.bold.red(err.message));
 			console.log();
 			commandHelp();
@@ -54,16 +55,16 @@ function commandHelp() {
 	console.log([
 		chalk.underline('Usage'),
 		'',
-		'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<command>') + ' ' + chalk.yellow('[<options>]'),
+		'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task>') + ' ' + chalk.yellow('[<options>]'),
 		'',
-		chalk.underline('Available commands'),
+		chalk.underline('Available tasks'),
 		'',
-		getCommandsList(),
+		getTasksList(),
 		'',
 	].join('\n'));
 }
 
-function getCommandsList() {
+function getTasksList() {
 	const tasks = getAllTasks();
 	const names = sortBy(Object.keys(tasks));
 	const nameColWidth = longest(names).length;

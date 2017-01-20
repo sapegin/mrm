@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const template = require('../../formats/template');
+const { template } = require('mrm-core');
 
 module.exports = function(config) {
 	template('License.md', path.join(__dirname, 'License.md'))

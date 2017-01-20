@@ -1,6 +1,6 @@
 'use strict';
 
-const lines = require('../../formats/lines');
+const { lines } = require('mrm-core');
 
 const ignores = [
 	'node_modules',

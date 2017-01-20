@@ -2,14 +2,11 @@
 
 const fs = require('fs');
 const path = require('path');
-const vm = require('vm');
 const glob = require('glob');
 const chalk = require('chalk');
 const get = require('lodash/get');
-const codeFrame = require('babel-code-frame');
-const stripBom = require('strip-bom');
 const userHome = require('user-home');
-const MrmError = require('./error');
+const { MrmError } = require('mrm-core');
 
 /* eslint-disable no-console */
 
@@ -18,20 +15,6 @@ const DIRS = [
 	path.resolve(userHome, '.mrm'),
 	path.resolve(__dirname, '../src/tasks'),
 ];
-
-function applyTemplate(templateFile, context) {
-	const template = readFile(templateFile).replace(/`/g, '\\`');
-	try {
-		return vm.runInNewContext('`' + template + '`', context);
-	}
-	catch (exception) {
-		const m = exception.stack.match(/evalmachine\.<anonymous>:(\d+)(?::(\d+))?\n/);
-		const line = m[1];
-		const col = m[2] || 1;
-		const code = codeFrame(template, Number(line), Number(col));
-		throw new MrmError(`Error in template ${templateFile}:${line}:${col}\n${exception.message}\n\n${code}`);
-	}
-}
 
 function config(prop, defaultValue) {
 	if (!prop) {
@@ -65,14 +48,6 @@ function getConfig() {
 	return require(filename);
 }
 
-function printStatus(filename, updated) {
-	const message = updated ? 'Updated' : 'Created';
-	console.log(chalk.green(`${message} ${filename}`));
-}
-
-function readFile(filepath) {
-	return stripBom(fs.readFileSync(filepath, 'utf8'));
-}
 
 function runAlias(aliasName) {
 	const tasks = config('aliases', {})[aliasName];
@@ -88,7 +63,7 @@ function runAlias(aliasName) {
 function runTask(taskName, params) {
 	const filename = tryFile(`${taskName}/index.js`);
 	if (!filename) {
-		throw new MrmError(`Command "${taskName}" not found.`);
+		throw new MrmError(`Task "${taskName}" not found.`);
 	}
 
 	console.log(chalk.cyan(`Running ${taskName}...`));
@@ -107,22 +82,11 @@ function tryFile(filename) {
 	return false;
 }
 
-function updateFile(filename, content, originalContent, exists) {
-	if (content.trim() !== originalContent.trim()) {
-		fs.writeFileSync(filename, content);
-		printStatus(filename, exists);
-	}
-}
-
 module.exports = {
-	applyTemplate,
 	config,
 	getAllTasks,
 	getConfig,
-	printStatus,
-	readFile,
 	runAlias,
 	runTask,
 	tryFile,
-	updateFile,
 };

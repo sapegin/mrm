@@ -1,6 +1,6 @@
 'use strict';
 
-const ini = require('../../formats/ini');
+const { ini } = require('mrm-core');
 
 const generalRules = {
 	indent_style: 'tab',

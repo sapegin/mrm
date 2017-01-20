@@ -1,8 +1,6 @@
 'use strict';
 
-const json = require('../../formats/json');
-const lines = require('../../formats/lines');
-const { install } = require('../../npm');
+const { json, lines, install } = require('mrm-core');
 
 const defaultTest = 'echo "Error: no test specified" && exit 1';
 const packages = [

@@ -1,8 +1,7 @@
 'use strict';
 
 const path = require('path');
-const json = require('../../formats/json');
-const markdown = require('../../formats/markdown');
+const { json, markdown } = require('mrm-core');
 
 module.exports = function(config) {
 	const name = path.basename(process.cwd());

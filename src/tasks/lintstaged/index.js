@@ -1,7 +1,6 @@
 'use strict';
 
-const json = require('../../formats/json');
-const { install } = require('../../npm');
+const { json, install } = require('mrm-core');
 
 const packages = [
 	'lint-staged',
