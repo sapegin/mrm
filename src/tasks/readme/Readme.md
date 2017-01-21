@@ -14,4 +14,4 @@ Everyone is welcome to contribute. Please take a moment to review the [contribut
 
 [${name}](${url}) and [contributors](https://github.com/${github}/${package}/graphs/contributors).
 
-MIT License, see the included [License.md](License.md) file.
+MIT License, see the included [${license}](${license}) file.

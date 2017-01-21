@@ -23,7 +23,9 @@ module.exports = function(config) {
 			node: '>=4',
 		},
 		main: 'index.js',
-		files: [],
+		files: [
+			'index.js',
+		],
 		scripts: {},
 		keywords: [],
 	})
@@ -31,7 +33,7 @@ module.exports = function(config) {
 	;
 
 	// Add npm package badge to Readme
-	markdown('Readme.md')
+	markdown(config('readme', 'Readme.md'))
 		.addBadge(
 			`https://img.shields.io/npm/v/${name}.svg`,
 			`https://www.npmjs.com/package/${name}`,

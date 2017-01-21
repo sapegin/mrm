@@ -35,10 +35,11 @@ module.exports = function(config) {
 	travisYml.save();
 
 	// Add Travis package badge to Readme
-	markdown('Readme.md')
+	const url = `https://travis-ci.org/${config('github')}/${name}`;
+	markdown(config('readme', 'Readme.md'))
 		.addBadge(
-			`https://travis-ci.org/${config('github')}/${name}.svg`,
-			`https://travis-ci.org/${config('github')}/${name}`,
+			`${url}.svg`,
+			url,
 			'Build Status'
 		)
 		.save()

@@ -2,13 +2,6 @@
 
 const { ini } = require('mrm-core');
 
-const generalRules = {
-	indent_style: 'tab',
-	end_of_line: 'lf',
-	charset: 'utf-8',
-	trim_trailing_whitespace: true,
-	insert_final_newline: true,
-};
 const jsonRules = {
 	indent_style: 'space',
 	indent_size: 2,
@@ -23,7 +16,20 @@ const jsonExtensions = [
 	'remarkrc',
 ];
 
-module.exports = function() {
+module.exports = function(config) {
+	const indent = config('indent', 'tab');
+	const generalRules = Object.assign(indent === 'tab' ? {
+		indent_style: 'tab',
+	} : {
+		indent_style: 'space',
+		indent_size: indent,
+	}, {
+		end_of_line: 'lf',
+		charset: 'utf-8',
+		trim_trailing_whitespace: true,
+		insert_final_newline: true,
+	});
+
 	// .editorconfig
 	const editorconfig = ini('.editorconfig', 'editorconfig.org');
 	editorconfig

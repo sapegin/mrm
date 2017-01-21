@@ -3,17 +3,22 @@
 const { json, lines, install } = require('mrm-core');
 
 const defaultTest = 'echo "Error: no test specified" && exit 1';
-const packages = [
-	'eslint',
-	'eslint-config-tamia',
-];
 
-module.exports = function() {
+module.exports = function(config) {
+	const preset = config('eslintPreset', 'eslint:recommended');
+	const presetPkg = preset !== 'eslint:recommended' ? `eslint-config-${preset}` : null;
+	const packages = [
+		'eslint',
+	];
+	if (presetPkg) {
+		packages.push(presetPkg);
+	}
+
 	// .eslintrc
 	const eslintrc = json('.eslintrc');
-	if (!eslintrc.get('extends').startsWith('tamia')) {
+	if (!eslintrc.get('extends').startsWith(preset)) {
 		eslintrc
-			.set('extends', 'tamia')
+			.set('extends', preset)
 			.save()
 		;
 	}
@@ -46,8 +51,8 @@ module.exports = function() {
 	packageJson.save();
 
 	// package.json: dependencies
-	if (!packageJson.get('devDependencies.eslint-config-tamia')) {
+	if (!packageJson.get(`devDependencies.${packages[0]}`)) {
 		install(packages);
 	}
 };
-module.exports.description = 'Adds ESLint with a custom preset';
+module.exports.description = 'Adds ESLint';

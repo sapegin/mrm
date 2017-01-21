@@ -5,13 +5,13 @@ const { template } = require('mrm-core');
 
 module.exports = function(config) {
 	// Create Readme.md (no update)
-	const filename = 'Readme.md';
-	const readme = template(filename, path.join(__dirname, filename));
+	const readme = template(config('readme', 'Readme.md'), path.join(__dirname, 'Readme.md'));
 	if (!readme.get()) {
 		readme
-			.apply(config(), {
+			.apply({
 				package: path.basename(process.cwd()),
-			})
+				license: config('license', 'License.md'),
+			}, config())
 			.save()
 		;
 	}
