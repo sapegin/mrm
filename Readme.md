@@ -5,6 +5,13 @@
 
 Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of all your open source project in sync.
 
+## Features
+
+* Will not overwrite your date if you don’t want
+* Has tools to work with JSON, YAML, INI, Markdown and text files
+* Has bunch customizable taks (see the list below)
+* Easy to write your own tasks
+
 ## Motivation
 
 Most of the available tools are template based. It works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to codemods than templates.
@@ -24,17 +31,58 @@ npm install -g mrm
 
 Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
-```json
+```json5
 {
     "name": "Tobias Müller",
     "email": "tobias2000@gmail.com",
     "url": "http://tobias2000.io",
     "github": "tobias2000",
-    "aliases": {
-        "node": ["license", "readme", "contributing", "package", "editorconfig", "eslint", "gitignore"]
+    "indent": "tab", // "tab" or number of spaces
+    "readme", "Readme.md", // Name of readme file
+    "license", "License.md", // Name of license file
+    "aliases": {  // Aliases to run multiple tasks at once
+        "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
     }
 }
 ```
+
+## Tasks
+
+## editorconfig
+
+Adds `.editorconfig`.
+
+## eslint
+
+Adds `.eslintrc` and `.eslintignore`, adds npm script and inistalls dependencies.
+
+Config options:
+
+* `eslintPreset` — preset name (not npm package name, by default will instal `eslint:recommended` preset)
+
+## gitignore
+
+Adds `.gitignore` with `node_modules`, logs and artifacts of popular code editors.
+
+## license
+
+Adds MIT license file.
+
+## lintstaged
+
+Adds lint-staged: creates `.lintstagedrc`, sets up pre-commit Git hook and inistalls dependencies.
+
+## package
+
+Creates `package.json` and adds npm badge to Readme.
+
+## readme
+
+Creates readme file.
+
+## travis
+
+Creates `.travis.yml`and adds Travis CI badge to Readme.
 
 ## Custom tasks
 
@@ -43,7 +91,7 @@ Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.j
 ```js
 const { /* ... */ } = require('mrm-core');
 module.exports = function(config) {
-  // config('name') - config value
+  // config('name', 'default value') - config value
   // config() - all config values
 };
 module.exports.description = 'Taks description';
