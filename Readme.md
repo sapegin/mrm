@@ -48,11 +48,11 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ## Tasks
 
-## editorconfig
+### editorconfig
 
 Adds `.editorconfig`.
 
-## eslint
+### eslint
 
 Adds `.eslintrc` and `.eslintignore`, adds npm script and inistalls dependencies.
 
@@ -60,27 +60,27 @@ Config options:
 
 * `eslintPreset` — preset name (not npm package name, by default will instal `eslint:recommended` preset)
 
-## gitignore
+### gitignore
 
 Adds `.gitignore` with `node_modules`, logs and artifacts of popular code editors.
 
-## license
+### license
 
 Adds MIT license file.
 
-## lintstaged
+### lintstaged
 
 Adds lint-staged: creates `.lintstagedrc`, sets up pre-commit Git hook and inistalls dependencies.
 
-## package
+### package
 
 Creates `package.json` and adds npm badge to Readme.
 
-## readme
+### readme
 
 Creates readme file.
 
-## travis
+### travis
 
 Creates `.travis.yml`and adds Travis CI badge to Readme.
 
