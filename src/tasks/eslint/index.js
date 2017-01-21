@@ -46,7 +46,7 @@ module.exports = function() {
 	packageJson.save();
 
 	// package.json: dependencies
-	if (!packageJson.get('dependencies.eslint-config-tamia')) {
+	if (!packageJson.get('devDependencies.eslint-config-tamia')) {
 		install(packages);
 	}
 };

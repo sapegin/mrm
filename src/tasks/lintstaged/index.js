@@ -26,7 +26,7 @@ module.exports = function() {
 	;
 
 	// package.json: dependencies
-	if (!packageJson.get('dependencies.eslint-config-tamia')) {
+	if (!packageJson.get('devDependencies.lint-staged')) {
 		install(packages);
 	}
 };
