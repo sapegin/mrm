@@ -5,11 +5,9 @@ const { template } = require('mrm-core');
 
 module.exports = function(config) {
 	template('License.md', path.join(__dirname, 'License.md'))
-		.apply(Object.assign({}, config(),
-			{
-				year: (new Date()).getFullYear(),
-			}
-		))
+		.apply(config(), {
+			year: (new Date()).getFullYear(),
+		})
 		.save()
 	;
 };
