@@ -9,7 +9,7 @@ Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of
 
 * Will not overwrite your date if you don’t want
 * Has tools to work with JSON, YAML, INI, Markdown and text files
-* Has bunch customizable taks (see the list below)
+* Has bunch customizable tasks (see the list below)
 * Easy to write your own tasks
 
 ## Motivation
@@ -25,7 +25,7 @@ npm install -g mrm
 ## Usage
 
 * `mrm` — Print list of task
-* `mrm <task>` — Run taks
+* `mrm <task>` — Run tasks
 
 ## Configuration
 
@@ -94,7 +94,7 @@ module.exports = function(config) {
   // config('name', 'default value') - config value
   // config() - all config values
 };
-module.exports.description = 'Taks description';
+module.exports.description = 'Task description';
 ```
 
 See [mrm-core](https://github.com/sapegin/mrm-core) library for useful functions for your tasks.
