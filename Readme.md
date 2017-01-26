@@ -38,8 +38,8 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
     "url": "http://tobias2000.io",
     "github": "tobias2000",
     "indent": "tab", // "tab" or number of spaces
-    "readme", "Readme.md", // Name of readme file
-    "license", "License.md", // Name of license file
+    "readme": "Readme.md", // Name of readme file
+    "license": "License.md", // Name of license file
     "aliases": {  // Aliases to run multiple tasks at once
         "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
     }
