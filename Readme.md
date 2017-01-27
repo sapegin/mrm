@@ -27,6 +27,8 @@ npm install -g mrm
 * `mrm` — Print list of task
 * `mrm <task>` — Run tasks
 
+(You will need a configuration file first.)
+
 ## Configuration
 
 Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
@@ -95,6 +97,15 @@ module.exports = function(config) {
   // config() - all config values
 };
 module.exports.description = 'Task description';
+```
+
+If your custom tasks have dependencies (such as `mrm-core`) you should initialize the mrm folder as an npm module, and set your dependencies there:
+
+```bash
+cd ~/.mrm
+# or: cd ~/dotfiles/mrm
+npm init -y
+npm install --save mrm-core
 ```
 
 See [mrm-core](https://github.com/sapegin/mrm-core) library for useful functions for your tasks.
