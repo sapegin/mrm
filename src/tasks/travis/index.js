@@ -49,7 +49,7 @@ module.exports = function(config) {
 1. Activate your repository on Travis CI:
 ${url}
 
-2. Push your changes
+2. Commit and push your changes
 `);
 };
 module.exports.description = 'Adds Travis CI';
