@@ -1,41 +1,45 @@
 'use strict';
 
-const path = require('path');
-const last = require('lodash/last');
-const { yaml, markdown } = require('mrm-core');
+const fs = require('fs');
+const range = require('lodash/range');
+const semverUtils = require('semver-utils');
+const { yaml, json, markdown } = require('mrm-core');
 
-const nodeVersions = [
-	4,
-	6,
-	7,
-];
+const latestNodeVersion = 7;
 
 module.exports = function(config) {
-	const name = path.basename(process.cwd());
+	const pkg = json('package.json');
 
 	// .travis.yml
 	const travisYml = yaml('.travis.yml');
 
-	if (travisYml.get('node_js', []).length === 1) {
-		// Project uses single Node version, update to the latest
-		travisYml
-			.merge({
-				node_js: last(nodeVersions),
-			})
-		;
+	travisYml.merge({
+		language: 'node_js',
+		cache: {
+			directories: [
+				'node_modules',
+			],
+		},
+	});
+
+	// Enable caching for Yarn
+	if (fs.existsSync('yarn.lock')) {
+		travisYml.set('cache.yarn', true);
 	}
-	else {
-		// Create of update
-		travisYml
-			.set('language', 'node_js')
-			.set('node_js', nodeVersions)  // Overwrite current value if it exists
-		;
-	}
+
+	// Node versions range
+	const requireNodeVersion = pkg.get('engines.node');
+	const minNodeVersion = requireNodeVersion
+		? semverUtils.parseRange(requireNodeVersion)[0].major
+		: latestNodeVersion
+	;
+	const nodeVersions = range(minNodeVersion, latestNodeVersion + 1);
+	travisYml.set('node_js', nodeVersions);
 
 	travisYml.save();
 
 	// Add Travis package badge to Readme
-	const url = `https://travis-ci.org/${config('github')}/${name}`;
+	const url = `https://travis-ci.org/${config('github')}/${pkg.get('name')}`;
 	markdown(config('readme', 'Readme.md'))
 		.addBadge(
 			`${url}.svg`,
