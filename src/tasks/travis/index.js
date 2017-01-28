@@ -44,5 +44,12 @@ module.exports = function(config) {
 		)
 		.save()
 	;
+
+	console.log(`
+1. Activate your repository on Travis CI:
+${url}
+
+2. Push your changes
+`);
 };
 module.exports.description = 'Adds Travis CI';
