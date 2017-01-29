@@ -29,7 +29,7 @@
     "lodash": "^4.17.4",
     "longest": "^1.0.1",
     "minimist": "^1.2.0",
-    "mrm-core": "^0.1.1",
+    "mrm-core": "^0.2.0",
     "semver-utils": "^1.1.1",
     "user-home": "^2.0.0"
   },

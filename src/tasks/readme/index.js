@@ -6,7 +6,7 @@ const { template } = require('mrm-core');
 module.exports = function(config) {
 	// Create Readme.md (no update)
 	const readme = template(config('readme', 'Readme.md'), path.join(__dirname, 'Readme.md'));
-	if (!readme.get()) {
+	if (!readme.exists()) {
 		readme
 			.apply({
 				package: path.basename(process.cwd()),

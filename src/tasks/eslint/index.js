@@ -31,7 +31,7 @@ module.exports = function(config) {
 	;
 
 	// package.json
-	const packageJson = json('package.json')
+	const pkg = json('package.json')
 		.merge({
 			scripts: {
 				lint: 'eslint . --ext .js --fix',
@@ -40,19 +40,17 @@ module.exports = function(config) {
 	;
 
 	// package.json: test command
-	const test = packageJson.get('scripts.test');
+	const test = pkg.get('scripts.test');
 	if (!test || test === defaultTest) {
-		packageJson.set('scripts.test', 'npm run lint');
+		pkg.set('scripts.test', 'npm run lint');
 	}
 	else if (!test.includes('lint')) {
-		packageJson.set('scripts.test', `npm run lint && ${test}`);
+		pkg.set('scripts.test', `npm run lint && ${test}`);
 	}
 
-	packageJson.save();
+	pkg.save();
 
 	// package.json: dependencies
-	if (!packageJson.get(`devDependencies.${packages[0]}`)) {
-		install(packages);
-	}
+	install(packages);
 };
 module.exports.description = 'Adds ESLint';

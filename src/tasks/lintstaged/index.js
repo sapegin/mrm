@@ -15,7 +15,7 @@ module.exports = function() {
 	;
 
 	// package.json
-	const packageJson = json('package.json')
+	json('package.json')
 		.merge({
 			scripts: {
 				'lint-staged': 'lint-staged',
@@ -26,8 +26,6 @@ module.exports = function() {
 	;
 
 	// package.json: dependencies
-	if (!packageJson.get('devDependencies.lint-staged')) {
-		install(packages);
-	}
+	install(packages);
 };
 module.exports.description = 'Adds lint-staged';
