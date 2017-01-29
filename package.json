@@ -17,7 +17,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
-    "node": ">=7"
+    "node": ">=6"
   },
   "files": [
     "bin",
