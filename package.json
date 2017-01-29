@@ -43,5 +43,22 @@
     "analyzeCommits": "semantic-release-tamia/analyzeCommits",
     "generateNotes": "semantic-release-tamia/generateNotes",
     "verifyRelease": "semantic-release-tamia/verifyRelease"
-  }
+  },
+  "keywords": [
+    "boilerplate",
+    "cli",
+    "codemod",
+    "command line",
+    "generate",
+    "generator",
+    "ini",
+    "json",
+    "markdown",
+    "runner",
+    "scaffold",
+    "task",
+    "template",
+    "tool",
+    "yaml"
+  ]
 }
