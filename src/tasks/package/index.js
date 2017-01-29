@@ -33,13 +33,16 @@ module.exports = function(config) {
 	;
 
 	// Add npm package badge to Readme
-	markdown(config('readme', 'Readme.md'))
-		.addBadge(
-			`https://img.shields.io/npm/v/${name}.svg`,
-			`https://www.npmjs.com/package/${name}`,
-			'npm'
-		)
-		.save()
-	;
+	const readme = markdown(config('readme', 'Readme.md'));
+	if (readme.exists()) {
+		readme
+			.addBadge(
+				`https://img.shields.io/npm/v/${name}.svg`,
+				`https://www.npmjs.com/package/${name}`,
+				'npm'
+			)
+			.save()
+		;
+	}
 };
 module.exports.description = 'Adds package.json';
