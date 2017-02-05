@@ -16,7 +16,7 @@ module.exports = function(config) {
 
 	// .eslintrc
 	const eslintrc = json('.eslintrc');
-	if (!eslintrc.get('extends').startsWith(preset)) {
+	if (!eslintrc.get('extends', '').startsWith(preset)) {
 		eslintrc
 			.set('extends', preset)
 			.save()
