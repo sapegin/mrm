@@ -29,13 +29,13 @@
     "lodash": "^4.17.4",
     "longest": "^1.0.1",
     "minimist": "^1.2.0",
-    "mrm-core": "^0.2.0",
+    "mrm-core": "^0.3.2",
     "semver-utils": "^1.1.1",
     "user-home": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.13.1",
-    "eslint-config-tamia": "^3.3.1",
+    "eslint": "^3.15.0",
+    "eslint-config-tamia": "^3.3.2",
     "semantic-release": "^6.3.2",
     "semantic-release-tamia": "^1.1.0"
   },
