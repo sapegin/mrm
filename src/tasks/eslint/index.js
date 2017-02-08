@@ -1,6 +1,6 @@
 'use strict';
 
-const { json, lines, install } = require('mrm-core');
+const { json, install } = require('mrm-core');
 
 module.exports = function(config) {
 	const preset = config('eslintPreset', 'eslint:recommended');
@@ -21,20 +21,9 @@ module.exports = function(config) {
 		;
 	}
 
-	// .eslintignore
-	const eslintignore = lines('.eslintignore');
-	eslintignore
-		.append('node_modules')
-		.save()
-	;
-
 	// package.json
 	const pkg = json('package.json')
-		.merge({
-			scripts: {
-				lint: 'eslint . --fix',
-			},
-		})
+		.set('scripts.lint', 'eslint . --fix')
 	;
 
 	// package.json: pretest command
@@ -49,7 +38,7 @@ module.exports = function(config) {
 
 	pkg.save();
 
-	// package.json: dependencies
+	// Dependencies
 	install(packages);
 };
 module.exports.description = 'Adds ESLint';

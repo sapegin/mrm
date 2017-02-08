@@ -56,7 +56,7 @@ Adds `.editorconfig`.
 
 ### eslint
 
-Adds `.eslintrc` and `.eslintignore`, adds npm script and inistalls dependencies.
+Adds `.eslintrc`, adds npm script and inistalls dependencies.
 
 Config options:
 
