@@ -3,11 +3,11 @@
 const { lines } = require('mrm-core');
 
 const ignores = [
-	'node_modules',
+	'node_modules/',
 	'.DS_Store',
 	'Thumbs.db',
-	'.idea',
-	'.vscode',
+	'.idea/',
+	'.vscode/',
 	'*.sublime-project',
 	'*.sublime-workspace',
 	'*.log',
