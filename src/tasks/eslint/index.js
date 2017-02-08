@@ -2,8 +2,6 @@
 
 const { json, lines, install } = require('mrm-core');
 
-const defaultTest = 'echo "Error: no test specified" && exit 1';
-
 module.exports = function(config) {
 	const preset = config('eslintPreset', 'eslint:recommended');
 	const presetPkg = preset !== 'eslint:recommended' ? `eslint-config-${preset}` : null;
@@ -34,18 +32,19 @@ module.exports = function(config) {
 	const pkg = json('package.json')
 		.merge({
 			scripts: {
-				lint: 'eslint . --ext .js --fix',
+				lint: 'eslint . --fix',
 			},
 		})
 	;
 
-	// package.json: test command
-	const test = pkg.get('scripts.test');
-	if (!test || test === defaultTest) {
-		pkg.set('scripts.test', 'npm run lint');
+	// package.json: pretest command
+	const lintCommand = 'npm run lint';
+	const pretest = pkg.get('scripts.pretest');
+	if (!pretest) {
+		pkg.set('scripts.pretest', lintCommand);
 	}
-	else if (!test.includes('lint')) {
-		pkg.set('scripts.test', `npm run lint && ${test}`);
+	else if (!pretest.includes(lintCommand)) {
+		pkg.set('scripts.pretest', `${lintCommand} && ${pretest}`);
 	}
 
 	pkg.save();

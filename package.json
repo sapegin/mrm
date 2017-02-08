@@ -12,8 +12,8 @@
   "main": "src/index.js",
   "bin": "bin/mrm.js",
   "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint . --ext .js --fix",
+    "pretest": "npm run lint",
+    "lint": "eslint . --fix",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "engines": {
