@@ -31,6 +31,7 @@
     "minimist": "^1.2.0",
     "mrm-core": "^0.3.2",
     "semver-utils": "^1.1.1",
+    "update-notifier": "^1.0.3",
     "user-home": "^2.0.0"
   },
   "devDependencies": {

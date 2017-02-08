@@ -7,11 +7,16 @@
 const minimist = require('minimist');
 const chalk = require('chalk');
 const longest = require('longest');
+const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
 const { config, runAlias, runTask, getAllTasks } = require('../src/index');
 
 const isMrmEror = err => err.constructor.name === 'MrmError';
+
+// Update notifier
+const pkg = require('../package.json');
+updateNotifier({ pkg }).notify();
 
 process.on('uncaughtException', err => {
 	if (isMrmEror(err)) {
