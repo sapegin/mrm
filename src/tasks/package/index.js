@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const { json, markdown } = require('mrm-core');
+const { json } = require('mrm-core');
 
 module.exports = function(config) {
 	const name = path.basename(process.cwd());
@@ -31,18 +31,5 @@ module.exports = function(config) {
 	})
 		.save()
 	;
-
-	// Add npm package badge to Readme
-	const readme = markdown(config('readme', 'Readme.md'));
-	if (readme.exists()) {
-		readme
-			.addBadge(
-				`https://img.shields.io/npm/v/${name}.svg`,
-				`https://www.npmjs.com/package/${name}`,
-				'npm'
-			)
-			.save()
-		;
-	}
 };
 module.exports.description = 'Adds package.json';
