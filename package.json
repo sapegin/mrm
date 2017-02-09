@@ -29,7 +29,7 @@
     "lodash": "^4.17.4",
     "longest": "^1.0.1",
     "minimist": "^1.2.0",
-    "mrm-core": "^0.3.2",
+    "mrm-core": "^1.0.0",
     "semver-utils": "^1.1.1",
     "update-notifier": "^1.0.3",
     "user-home": "^2.0.0"
@@ -38,7 +38,7 @@
     "eslint": "^3.15.0",
     "eslint-config-tamia": "^3.3.2",
     "semantic-release": "^6.3.2",
-    "semantic-release-tamia": "^1.1.0"
+    "semantic-release-tamia": "^1.1.1"
   },
   "release": {
     "analyzeCommits": "semantic-release-tamia/analyzeCommits",

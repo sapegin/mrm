@@ -16,7 +16,7 @@ const ignores = [
 module.exports = function() {
 	// .gitignore
 	lines('.gitignore')
-		.append(ignores)
+		.add(ignores)
 		.save()
 	;
 };
