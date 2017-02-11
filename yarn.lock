@@ -150,7 +150,7 @@ arrify@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
-asap@^2.0.0, asap@~2.0.3:
+asap@^2.0.0:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.5.tgz#522765b50c3510490e52d7dcfe085ef9ba96958f"
 
@@ -165,10 +165,6 @@ assert-plus@^0.2.0:
 assert-plus@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
-
-async@^1.4.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
 async@^2.0.1:
   version "2.1.4"
@@ -353,10 +349,6 @@ co@^4.6.0:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
-
-colors@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
@@ -880,16 +872,6 @@ git-latest-semver-tag@~1.0.2:
     git-semver-tags "^1.1.2"
     meow "^3.3.0"
 
-git-lib@~1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/git-lib/-/git-lib-1.6.0.tgz#f7b82d01fe8d45af55daa60b188d0cdd25dace3c"
-  dependencies:
-    async "^1.4.2"
-    colors "^1.1.2"
-    lodash "^3.10.1"
-    promise "^7.0.4"
-    xcept "^1.0.0"
-
 git-log-parser@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/git-log-parser/-/git-log-parser-1.2.0.tgz#2e6a4c1b13fc00028207ba795a7ac31667b9fd4a"
@@ -1364,7 +1346,7 @@ lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
 
-lodash@^3.10.1, lodash@^3.6.0:
+lodash@^3.6.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
@@ -1455,9 +1437,9 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mrm-core@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/mrm-core/-/mrm-core-0.3.2.tgz#7047ba679ee318864410f2d01cfa2a04994a0953"
+mrm-core@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/mrm-core/-/mrm-core-1.0.0.tgz#e5a927b13caa7afdda344d8d9f5e25ec070234c1"
   dependencies:
     babel-code-frame "^6.22.0"
     chalk "^1.1.3"
@@ -1465,11 +1447,11 @@ mrm-core@^0.3.2:
     js-yaml "^3.7.0"
     lodash "^4.17.4"
     mkdirp "^0.5.1"
-    parse-json "^2.2.0"
     prop-ini "^0.0.2"
     readme-badger "^0.1.2"
     split-lines "^1.1.0"
     strip-bom "^3.0.0"
+    strip-json-comments "^2.0.1"
     webpack-merge "^2.4.0"
     yarn-install "^0.2.1"
 
@@ -1740,12 +1722,6 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-promise@^7.0.4:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/promise/-/promise-7.1.1.tgz#489654c692616b8aa55b0724fa809bb7db49c5bf"
-  dependencies:
-    asap "~2.0.3"
-
 prop-ini@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/prop-ini/-/prop-ini-0.0.2.tgz#6733a7cb5242acab2be42e607583d8124b172a5b"
@@ -1998,17 +1974,17 @@ rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
 
-semantic-release-tamia@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/semantic-release-tamia/-/semantic-release-tamia-1.1.0.tgz#bb4867a7d84709b21f1a290d388499486641584a"
+semantic-release-tamia@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/semantic-release-tamia/-/semantic-release-tamia-1.1.1.tgz#d7a1263fe469d7b820dacdaa89de8a42d6302587"
   dependencies:
     "@semantic-release/error" "~1.0.0"
     commits-between "~0.2.0"
     conventional-commits-parser "~1.3.0"
     git-latest-semver-tag "~1.0.2"
-    git-lib "~1.6.0"
     indent "0.0.2"
     opn "~4.0.2"
+    shell-escape "^0.2.0"
 
 semantic-release@^6.3.2:
   version "6.3.6"
@@ -2058,6 +2034,10 @@ semver@~5.0.1:
 set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
+
+shell-escape@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/shell-escape/-/shell-escape-0.2.0.tgz#68fd025eb0490b4f567a027f0bf22480b5f84133"
 
 shelljs@^0.7.5:
   version "0.7.6"
@@ -2220,13 +2200,13 @@ strip-indent@^1.0.1:
   dependencies:
     get-stdin "^4.0.1"
 
+strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
+
 strip-json-comments@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-1.0.4.tgz#1e15fbcac97d3ee99bf2d73b4c656b082bbafb91"
-
-strip-json-comments@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
 suffix@^0.1.0:
   version "0.1.0"
@@ -2446,10 +2426,6 @@ write@^0.2.1:
   resolved "https://registry.yarnpkg.com/write/-/write-0.2.1.tgz#5fc03828e264cea3fe91455476f7a3c566cb0757"
   dependencies:
     mkdirp "^0.5.1"
-
-xcept@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/xcept/-/xcept-1.0.0.tgz#aeae9665eca4204765130172a252ac5222103570"
 
 xdg-basedir@^2.0.0:
   version "2.0.0"
