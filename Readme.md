@@ -56,11 +56,11 @@ Adds `.editorconfig`.
 
 ### eslint
 
-Adds `.eslintrc`, adds npm script and inistalls dependencies.
+Adds `.eslintrc`, adds npm script and installs dependencies.
 
 Config options:
 
-* `eslintPreset` — preset name (not npm package name, by default will instal `eslint:recommended` preset)
+* `eslintPreset` — preset name (not npm package name, by default will install `eslint:recommended` preset)
 
 ### gitignore
 
@@ -72,15 +72,15 @@ Adds MIT license file.
 
 ### lintstaged
 
-Adds lint-staged: creates `.lintstagedrc`, sets up pre-commit Git hook and inistalls dependencies.
+Adds lint-staged: creates `.lintstagedrc`, sets up pre-commit Git hook and installs dependencies.
 
 ### package
 
-Creates `package.json` and adds npm badge to Readme.
+Creates `package.json`.
 
 ### readme
 
-Creates readme file.
+Creates Readme file.
 
 ### travis
 
@@ -112,9 +112,9 @@ See [mrm-core](https://github.com/sapegin/mrm-core) library for useful functions
 
 You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of internal tasks](https://github.com/sapegin/mrm/tree/master/src/tasks).
 
-## Changelog
+## Change log
 
-The changelog can be found on the [Releases page](https://github.com/sapegin/mrm/releases).
+The change log can be found on the [Releases page](https://github.com/sapegin/mrm/releases).
 
 ## Contributing
 
