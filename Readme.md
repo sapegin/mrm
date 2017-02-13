@@ -3,13 +3,13 @@
 [![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm)
 [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
 
-Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of all your open source project in sync.
+Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of all your open source projects in sync.
 
 ## Features
 
-* Will not overwrite your date if you don’t want
+* Will not overwrite your data if you don’t want it to
 * Has tools to work with JSON, YAML, INI, Markdown and text files
-* Has bunch customizable tasks (see the list below)
+* Has bunch of customizable tasks (see the [list below](#tasks))
 * Easy to write your own tasks
 
 ## Motivation
@@ -24,7 +24,7 @@ npm install -g mrm
 
 ## Usage
 
-* `mrm` — Print list of task
+* `mrm` — Print list of tasks
 * `mrm <task>` — Run tasks
 
 (You will need a configuration file first.)
@@ -84,7 +84,7 @@ Creates Readme file.
 
 ### travis
 
-Creates `.travis.yml`and adds Travis CI badge to Readme.
+Creates `.travis.yml` and adds Travis CI badge to Readme.
 
 ## Custom tasks
 
