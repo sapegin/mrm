@@ -10,7 +10,9 @@ const packages = [
 module.exports = function() {
 	// .lintstagedrc
 	json('.lintstagedrc')
-		.set('*.js', ['eslint --fix', 'git add'])
+		.merge({
+			'*.js': ['eslint --fix', 'git add'],
+		})
 		.save()
 	;
 
