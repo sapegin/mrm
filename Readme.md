@@ -60,7 +60,8 @@ Adds `.eslintrc`, adds npm script and installs dependencies.
 
 Config options:
 
-* `eslintPreset` — preset name (not npm package name, by default will install `eslint:recommended` preset)
+* `eslintPreset` — preset name (not npm package name, by default will install `eslint:recommended` preset)
+* `eslintPeerDependencies` — additional dependencies to install (e.g. `['prettier', 'eslint-plugin-prettier']`)
 
 ### gitignore
 

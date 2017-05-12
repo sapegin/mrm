@@ -4,12 +4,10 @@ const { json, install } = require('mrm-core');
 
 module.exports = function(config) {
 	const preset = config('eslintPreset', 'eslint:recommended');
-	const presetPkg = preset !== 'eslint:recommended' ? `eslint-config-${preset}` : null;
-	const packages = [
-		'eslint',
-	];
-	if (presetPkg) {
-		packages.push(presetPkg);
+	const packages = config('eslintPeerDependencies', []);
+	packages.push('eslint');
+	if (preset !== 'eslint:recommended') {
+		packages.push(`eslint-config-${preset}`);
 	}
 
 	// .eslintrc
