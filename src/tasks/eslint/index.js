@@ -21,7 +21,7 @@ module.exports = function(config) {
 
 	// package.json
 	const pkg = json('package.json')
-		.set('scripts.lint', 'eslint . --fix')
+		.set('scripts.lint', 'eslint . --cache --fix')
 	;
 
 	// package.json: pretest command

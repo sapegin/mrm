@@ -11,6 +11,7 @@ const ignores = [
 	'*.sublime-project',
 	'*.sublime-workspace',
 	'*.log',
+	'.eslintcache',
 ];
 
 module.exports = function() {
