@@ -73,7 +73,7 @@ Adds MIT license file.
 
 ### lintstaged
 
-Adds lint-staged: creates `.lintstagedrc`, sets up pre-commit Git hook and installs dependencies.
+Adds lint-staged: creates config in `package.json`, sets up pre-commit Git hook and installs dependencies.
 
 ### package
 

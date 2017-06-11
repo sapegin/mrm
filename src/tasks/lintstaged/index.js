@@ -4,25 +4,19 @@ const { json, install } = require('mrm-core');
 
 const packages = [
 	'lint-staged',
-	'pre-commit',
+	'husky',
 ];
 
 module.exports = function() {
-	// .lintstagedrc
-	json('.lintstagedrc')
-		.merge({
-			'*.js': ['eslint --fix', 'git add'],
-		})
-		.save()
-	;
-
 	// package.json
 	json('package.json')
 		.merge({
 			scripts: {
-				'lint-staged': 'lint-staged',
+				precommit: 'lint-staged',
 			},
-			'pre-commit': 'lint-staged',
+			'lint-staged': {
+				'*.js': ['eslint --fix', 'git add'],
+			},
 		})
 		.save()
 	;

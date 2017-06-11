@@ -12,7 +12,6 @@ const jsonExtensions = [
 	'md',
 	'babelrc',
 	'eslintrc',
-	'lintstagedrc',
 	'remarkrc',
 ];
 
