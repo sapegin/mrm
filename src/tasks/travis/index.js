@@ -5,7 +5,7 @@ const range = require('lodash/range');
 const semverUtils = require('semver-utils');
 const { yaml, json, markdown } = require('mrm-core');
 
-const latestNodeVersion = 7;
+const latestNodeVersion = 8;
 
 module.exports = function(config) {
 	const pkg = json('package.json');
@@ -27,13 +27,20 @@ module.exports = function(config) {
 		travisYml.set('cache.yarn', true);
 	}
 
+	// Install latest npm
+	if (fs.existsSync('package-lock.json') && !travisYml.get('before_install')) {
+		travisYml.set('before_install', ['if [[ `npm -v` != 5* ]]; then npm install -g npm@latest; fi']);
+	}
+
 	// Node versions range
 	const requireNodeVersion = pkg.get('engines.node');
 	const minNodeVersion = requireNodeVersion
 		? semverUtils.parseRange(requireNodeVersion)[0].major
 		: latestNodeVersion
 	;
-	const nodeVersions = range(minNodeVersion, latestNodeVersion + 1);
+	// Only LTS or latest
+	const nodeVersions = range(minNodeVersion, latestNodeVersion + 1)
+		.filter(ver => ver % 2 === 0 || ver === latestNodeVersion);
 	travisYml.set('node_js', nodeVersions);
 
 	travisYml.save();
