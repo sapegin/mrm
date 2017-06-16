@@ -48,7 +48,6 @@ function getConfig() {
 	return require(filename);
 }
 
-
 function runAlias(aliasName) {
 	const tasks = config('aliases', {})[aliasName];
 	if (!tasks) {

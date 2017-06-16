@@ -8,12 +8,14 @@ module.exports = function(config) {
 	const readme = template(config('readme', 'Readme.md'), path.join(__dirname, 'Readme.md'));
 	if (!readme.exists()) {
 		readme
-			.apply({
-				package: path.basename(process.cwd()),
-				license: config('license', 'License.md'),
-			}, config())
-			.save()
-		;
+			.apply(
+				{
+					package: path.basename(process.cwd()),
+					license: config('license', 'License.md'),
+				},
+				config()
+			)
+			.save();
 	}
 };
 module.exports.description = 'Adds readme';

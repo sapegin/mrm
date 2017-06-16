@@ -6,9 +6,8 @@ const { template } = require('mrm-core');
 module.exports = function(config) {
 	template(config('license', 'License.md'), path.join(__dirname, 'License.md'))
 		.apply(config(), {
-			year: (new Date()).getFullYear(),
+			year: new Date().getFullYear(),
 		})
-		.save()
-	;
+		.save();
 };
 module.exports.description = 'Adds MIT license file';

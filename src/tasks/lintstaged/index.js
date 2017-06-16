@@ -2,10 +2,7 @@
 
 const { json, install } = require('mrm-core');
 
-const packages = [
-	'lint-staged',
-	'husky',
-];
+const packages = ['lint-staged', 'husky'];
 
 module.exports = function() {
 	// package.json
@@ -18,8 +15,7 @@ module.exports = function() {
 				'*.js': ['eslint --fix', 'git add'],
 			},
 		})
-		.save()
-	;
+		.save();
 
 	// package.json: dependencies
 	install(packages);

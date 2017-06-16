@@ -23,13 +23,9 @@ module.exports = function(config) {
 			node: '>=4',
 		},
 		main: 'index.js',
-		files: [
-			'index.js',
-		],
+		files: ['index.js'],
 		scripts: {},
 		keywords: [],
-	})
-		.save()
-	;
+	}).save();
 };
 module.exports.description = 'Adds package.json';

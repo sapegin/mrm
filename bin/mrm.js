@@ -23,8 +23,7 @@ process.on('uncaughtException', err => {
 		console.error(chalk.bold.red(err.message));
 		console.log();
 		process.exit(1);
-	}
-	else {
+	} else {
 		throw err;
 	}
 });
@@ -34,39 +33,37 @@ const command = argv._[0];
 
 if (command === 'help' || !command) {
 	commandHelp();
-}
-else {
+} else {
 	try {
 		if (config('aliases', {})[command]) {
 			runAlias(command);
-		}
-		else {
+		} else {
 			runTask(command, argv);
 		}
-	}
-	catch (err) {
+	} catch (err) {
 		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
 			console.error(chalk.bold.red(err.message));
 			console.log();
 			commandHelp();
-		}
-		else {
+		} else {
 			throw err;
 		}
 	}
 }
 
 function commandHelp() {
-	console.log([
-		chalk.underline('Usage'),
-		'',
-		'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task>') + ' ' + chalk.yellow('[<options>]'),
-		'',
-		chalk.underline('Available tasks'),
-		'',
-		getTasksList(),
-		'',
-	].join('\n'));
+	console.log(
+		[
+			chalk.underline('Usage'),
+			'',
+			'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task>') + ' ' + chalk.yellow('[<options>]'),
+			'',
+			chalk.underline('Available tasks'),
+			'',
+			getTasksList(),
+			'',
+		].join('\n')
+	);
 }
 
 function getTasksList() {
@@ -74,16 +71,12 @@ function getTasksList() {
 	const names = sortBy(Object.keys(tasks));
 	const nameColWidth = longest(names).length;
 
-	return names.map(name => {
-		const description = Array.isArray(tasks[name])
-			? `Runs ${tasks[name].join(', ')}`
-			: tasks[name]
-		;
-		return (
-			'    ' +
-			chalk.bold(padEnd(name, nameColWidth)) +
-			'  ' +
-			description
-		);
-	}).join('\n');
+	return names
+		.map(name => {
+			const description = Array.isArray(tasks[name])
+				? `Runs ${tasks[name].join(', ')}`
+				: tasks[name];
+			return '    ' + chalk.bold(padEnd(name, nameColWidth)) + '  ' + description;
+		})
+		.join('\n');
 }
