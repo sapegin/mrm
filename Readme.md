@@ -81,11 +81,11 @@ Adds `.gitignore` with `node_modules`, logs and artifacts of popular code editor
 
 ### license
 
-Adds MIT license file.
+Adds license file based on `license` field in `package.json`.
 
 Config options:
 
-* `license` — Name of the license file (by default `License.md`).
+* `license` — File name (by default `License.md`).
 
 ### lintstaged
 
