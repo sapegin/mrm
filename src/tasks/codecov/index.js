@@ -1,6 +1,6 @@
 'use strict';
 
-const { MrmError, json, yaml, markdown, packageJson } = require('mrm-core');
+const { MrmError, yaml, markdown, packageJson } = require('mrm-core');
 
 const uploadCommand = 'bash <(curl -s https://codecov.io/bash)';
 const coverageScript = 'test:coverage';
