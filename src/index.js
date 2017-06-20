@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const fs = require('fs');
@@ -5,28 +6,21 @@ const path = require('path');
 const glob = require('glob');
 const chalk = require('chalk');
 const get = require('lodash/get');
-const userHome = require('user-home');
 const { MrmError } = require('mrm-core');
+const directories = require('./directories');
 
 /* eslint-disable no-console */
 
-const DIRS = [
-	path.resolve(userHome, 'dotfiles/mrm'),
-	path.resolve(userHome, '.mrm'),
-	path.resolve(__dirname, '../src/tasks'),
-];
+const CONFIG_FILE = 'config.json';
 
-function config(prop, defaultValue) {
-	if (!prop) {
-		return getConfig();
-	}
-
-	return get(getConfig(), prop, defaultValue);
-}
-
+/**
+ * Return all task and alias names and descriptions from all search directories.
+ *
+ * @return {Object}
+ */
 function getAllTasks() {
 	const allTasks = config('aliases', {});
-	for (const dir of DIRS) {
+	for (const dir of directories) {
 		const tasks = glob.sync(`${dir}/*/index.js`);
 		tasks.forEach(filename => {
 			const taskName = path.basename(path.dirname(filename));
@@ -39,15 +33,11 @@ function getAllTasks() {
 	return allTasks;
 }
 
-function getConfig() {
-	const filename = tryFile('config.json');
-	if (!filename) {
-		throw new MrmError('Config not found.');
-	}
-
-	return require(filename);
-}
-
+/**
+ * Run an alias.
+ *
+ * @param {string} aliasName
+ */
 function runAlias(aliasName) {
 	const tasks = config('aliases', {})[aliasName];
 	if (!tasks) {
@@ -59,6 +49,12 @@ function runAlias(aliasName) {
 	tasks.forEach(runTask);
 }
 
+/**
+ * Run a task.
+ *
+ * @param {string} taskName
+ * @param {object} [params]
+ */
 function runTask(taskName, params) {
 	const filename = tryFile(`${taskName}/index.js`);
 	if (!filename) {
@@ -68,24 +64,60 @@ function runTask(taskName, params) {
 	console.log(chalk.cyan(`Running ${taskName}...`));
 
 	const module = require(filename);
-	return module(config, params);
+	module(config, params);
 }
 
+/**
+ * Return a config value.
+ *
+ * @param {string} [prop]
+ * @param {any} [defaultValue]
+ * @return {any}
+ */
+function config(prop, defaultValue) {
+	if (!prop) {
+		return getConfig();
+	}
+
+	return get(getConfig(), prop, defaultValue);
+}
+
+/**
+ * Find and load config file.
+ *
+ * @param {string} [filename]
+ * @return {Object}
+ */
+function getConfig(filename = CONFIG_FILE) {
+	const filepath = tryFile(filename);
+	if (!filepath) {
+		throw new MrmError('Config not found.');
+	}
+
+	return require(filepath);
+}
+
+/**
+ * Try to load a file from a list of folders.
+ *
+ * @param {string} filename
+ * @return {string|undefined} Absolute path or undefined
+ */
 function tryFile(filename) {
-	for (const dir of DIRS) {
+	for (const dir of directories) {
 		const filepath = path.resolve(dir, filename);
 		if (fs.existsSync(filepath)) {
 			return filepath;
 		}
 	}
-	return false;
+	return undefined;
 }
 
 module.exports = {
-	config,
 	getAllTasks,
-	getConfig,
-	runAlias,
 	runTask,
+	runAlias,
+	config,
+	getConfig,
 	tryFile,
 };

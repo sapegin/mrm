@@ -1,0 +1,7 @@
+{
+  "pizza": "salami",
+  "aliases": {
+    "alias1": ["task1", "task3"]
+  }
+}
+

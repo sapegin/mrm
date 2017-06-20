@@ -7,3 +7,4 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 *.log
+coverage/

@@ -13,6 +13,10 @@
   "bin": "bin/mrm.js",
   "scripts": {
     "pretest": "npm run lint",
+    "test": "npm run test:jest",
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint . --fix",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -39,6 +43,7 @@
   "devDependencies": {
     "eslint": "^4.0.0",
     "eslint-config-tamia": "^4.1.1",
+    "jest": "^20.0.4",
     "semantic-release": "^6.3.6",
     "semantic-release-tamia": "^1.1.1"
   },
