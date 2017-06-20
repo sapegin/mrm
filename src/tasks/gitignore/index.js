@@ -2,6 +2,7 @@
 
 const { lines } = require('mrm-core');
 
+const badIgnores = ['node_modules'];
 const ignores = [
 	'node_modules/',
 	'.DS_Store',
@@ -16,6 +17,6 @@ const ignores = [
 
 module.exports = function() {
 	// .gitignore
-	lines('.gitignore').add(ignores).save();
+	lines('.gitignore').remove(badIgnores).add(ignores).save();
 };
 module.exports.description = 'Adds .gitignore';
