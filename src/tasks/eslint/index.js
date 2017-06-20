@@ -1,6 +1,9 @@
 'use strict';
 
-const { json, install } = require('mrm-core');
+const minimist = require('minimist');
+const { json, packageJson, install, uninstall } = require('mrm-core');
+
+const oldPackages = ['jslint', 'jshint'];
 
 module.exports = function(config) {
 	const preset = config('eslintPreset', 'eslint:recommended');
@@ -17,20 +20,30 @@ module.exports = function(config) {
 	}
 
 	// package.json
-	const pkg = json('package.json').set('scripts.lint', 'eslint . --cache --fix');
+	const pkg = packageJson();
 
-	// package.json: pretest command
-	const lintCommand = 'npm run lint';
-	const pretest = pkg.get('scripts.pretest');
-	if (!pretest) {
-		pkg.set('scripts.pretest', lintCommand);
-	} else if (!pretest.includes(lintCommand)) {
-		pkg.set('scripts.pretest', `${lintCommand} && ${pretest}`);
+	// Keep custom extensions
+	let exts = '';
+	const lintScript = pkg.getScript('lint');
+	if (lintScript) {
+		const args = minimist(lintScript.split(' ').slice(1));
+		if (args.ext && args.ext !== 'js') {
+			exts = ` --ext ${args.ext}`;
+		}
 	}
 
-	pkg.save();
+	pkg
+		// Remove existing JS linters
+		.removeScript(/^(lint:js|eslint|jshint|jslint)$/)
+		.removeScript('test', /\b(lint:js|eslint|jshint|jslint)\b/)
+		// Add lint script
+		.setScript('lint', 'eslint . --cache --fix' + exts)
+		// Add pretest script
+		.prependScript('pretest', 'npm run lint')
+		.save();
 
 	// Dependencies
+	uninstall(oldPackages);
 	install(packages);
 };
 module.exports.description = 'Adds ESLint';
