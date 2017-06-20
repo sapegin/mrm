@@ -34,7 +34,7 @@
     "lodash": "^4.17.4",
     "longest": "^2.0.1",
     "minimist": "^1.2.0",
-    "mrm-core": "^2.0.0",
+    "mrm-core": "^2.1.0",
     "prettier": "^1.4.4",
     "semver-utils": "^1.1.1",
     "update-notifier": "^2.2.0",
