@@ -50,13 +50,21 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ## Tasks
 
+### codecov
+
+Adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](#travis) task) and Readme badge.
+
 ### editorconfig
 
-Adds `.editorconfig`.
+[EditorConfig](http://editorconfig.org/): adds `.editorconfig`.
+
+Config options:
+
+* `indent` — indentation, `tab` or number of spaces (by default `tab`).
 
 ### eslint
 
-Adds `.eslintrc`, adds npm script and installs dependencies.
+[ESLint](http://eslint.org/): adds `.eslintrc`, adds npm script and installs dependencies.
 
 Config options:
 
@@ -67,13 +75,21 @@ Config options:
 
 Adds `.gitignore` with `node_modules`, logs and artifacts of popular code editors.
 
+### jest
+
+[Jest](https://facebook.github.io/jest/): adds npm scripts, updates `.gitignore`, `.npmignore`, `.eslintignore` with common patterns, installs dependencies. Tries to get rid of Mocha and AVA configs.
+
 ### license
 
 Adds MIT license file.
 
+Config options:
+
+* `license` — Name of the license file (by default `License.md`).
+
 ### lintstaged
 
-Adds lint-staged: creates config in `package.json`, sets up pre-commit Git hook and installs dependencies.
+[lint-staged](https://github.com/okonet/lint-staged): creates config in `package.json`, sets up pre-commit Git hook and installs dependencies.
 
 ### package
 
@@ -83,9 +99,22 @@ Creates `package.json`.
 
 Creates Readme file.
 
+Config options:
+
+* `readme` — Name of the readme file (by default `Readme.md`).
+
+### stylelint
+
+[Stylelint](https://stylelint.io/): adds `.stylelintrc`, adds npm script and installs dependencies.
+
+Config options:
+
+* `stylelintPreset` — preset name (by default will install `stylelint-config-standard` preset)
+* `stylelintExtensions` — file extensions to lint (by default `.css`)
+
 ### travis
 
-Creates `.travis.yml` and adds Travis CI badge to Readme.
+[Travis CI](https://travis-ci.org/): creates `.travis.yml` and adds Travis CI badge to Readme.
 
 ## Custom tasks
 
