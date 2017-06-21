@@ -12,6 +12,8 @@ Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of
 * Has bunch of customizable tasks (see the [list below](#tasks))
 * Easy to write your own tasks
 
+![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
+
 ## Motivation
 
 Most of the available tools are template based. It works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to codemods than templates.
