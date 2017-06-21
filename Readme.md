@@ -3,20 +3,20 @@
 [![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm)
 [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
 
-Command line tool to help you keep dotfiles (`.gitignore`, `.eslintrc`, etc.) of all your open source projects in sync.
+Command line tool to help you keep configuration (`package.json`, `.gitignore`, `.eslintrc`, etc.) of your open source projects in sync.
 
 ## Features
 
 * Will not overwrite your data if you don’t want it to
 * Has tools to work with JSON, YAML, INI, Markdown and text files
-* Has bunch of customizable tasks (see the [list below](#tasks))
-* Easy to write your own tasks
+* Has bunch of [customizable tasks](#tasks)
+* Easy to write [your own tasks](#custom-tasks)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
 
 ## Motivation
 
-Most of the available tools are template based. It works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to codemods than templates.
+Most of the available tools are template based. Template approach works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to [codemods](https://github.com/facebook/codemod) than templates.
 
 ## Installation
 
@@ -26,10 +26,10 @@ npm install -g mrm
 
 ## Usage
 
-* `mrm` — Print list of tasks
-* `mrm <task>` — Run tasks
+* `mrm` — print list of tasks
+* `mrm <task>` — run a task
 
-(You will need a configuration file first.)
+(You need to create a configuration file first — see below.)
 
 ## Configuration
 
@@ -120,7 +120,7 @@ Config options:
 
 ## Custom tasks
 
-Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.js`. If `<taskname>` is the same as one of the internal tasks, then your task will override internal one:
+Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.js`. If `<taskname>` is the same as one of the internal tasks your task will override an internal one.
 
 ```js
 const { /* ... */ } = require('mrm-core');
@@ -131,16 +131,15 @@ module.exports = function(config) {
 module.exports.description = 'Task description';
 ```
 
-If your custom tasks have dependencies (such as `mrm-core`) you should initialize the mrm folder as an npm module, and set your dependencies there:
+If your custom tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
 
 ```bash
-cd ~/.mrm
-# or: cd ~/dotfiles/mrm
+cd ~/.mrm # or cd ~/dotfiles/mrm
 npm init -y
 npm install --save mrm-core
 ```
 
-See [mrm-core](https://github.com/sapegin/mrm-core) library for useful functions for your tasks.
+[mrm-core](https://github.com/sapegin/mrm-core) is an utility library created to write Mrm tasks, it has function to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
 You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of internal tasks](https://github.com/sapegin/mrm/tree/master/src/tasks).
 
