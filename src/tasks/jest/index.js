@@ -30,7 +30,9 @@ module.exports = function() {
 	}
 
 	// Clean up old scripts
-	pkg.removeScript(/^mocha|ava|test:mocha|test:ava$/).removeScript('test', /mocha|ava/);
+	pkg
+		.removeScript(/^mocha|mocha:.*?|ava|ava:.*?|test:mocha|test:ava$/)
+		.removeScript('test', /mocha|ava/);
 
 	// package.json: test command
 	pkg.appendScript('test', 'npm run test:jest');

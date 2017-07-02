@@ -35,7 +35,7 @@ module.exports = function(config) {
 	pkg
 		// Remove existing JS linters
 		.removeScript(/^(lint:js|eslint|jshint|jslint)$/)
-		.removeScript('test', /\b(lint:js|eslint|jshint|jslint)\b/)
+		.removeScript('test', / (lint|lint:js|eslint|jshint|jslint)( |$)/)
 		// Add lint script
 		.setScript('lint', 'eslint . --cache --fix' + exts)
 		// Add pretest script
