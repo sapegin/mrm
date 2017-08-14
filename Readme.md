@@ -122,6 +122,10 @@ Config options:
 
 [Travis CI](https://travis-ci.org/): creates `.travis.yml` and adds Travis CI badge to Readme.
 
+### typescript
+
+[TypeScript](https://stylelint.io/): adds `tsconfig.json` and installs dependencies.
+
 ## Custom tasks
 
 Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.js`. If `<taskname>` is the same as one of the internal tasks your task will override an internal one.
