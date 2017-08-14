@@ -105,6 +105,10 @@ Config options:
 
 * `readme` — Name of the readme file (by default `Readme.md`).
 
+### styleguidist
+
+[React Styleguidist](https://react-styleguidist.js.org/): adds style guide config, adds npm scripts and installs dependencies.
+
 ### stylelint
 
 [Stylelint](https://stylelint.io/): adds `.stylelintrc`, adds npm script and installs dependencies.
