@@ -26,10 +26,35 @@ npm install -g mrm
 
 ## Usage
 
-* `mrm` — print list of tasks
-* `mrm <task>` — run a task
+Print a list available of tasks:
 
-(You need to create a configuration file first — see below.)
+```shell
+mrm
+```
+
+Run a task or alias
+
+```shell
+mrm <task or alias>
+mrm gitignore
+mrm license
+```
+
+Override config options (or run without a config file):
+
+```shell
+mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
+```
+
+## Usage via npx
+
+If you have npm 5.3 or newer you can use mrm without installation:
+
+```shell
+npx mrm
+npx mrm gitignore
+npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
+```
 
 ## Configuration
 
@@ -49,6 +74,8 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
     }
 }
 ```
+
+*Config file isn’t required, you can also pass config options via command line.*
 
 ## Tasks
 

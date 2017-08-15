@@ -20,7 +20,10 @@ function task(config) {
 	}
 
 	template(filename, templateFile)
-		.apply(config(), {
+		.apply({
+			name: config('name'),
+			email: config('email'),
+			url: config('url'),
 			year: new Date().getFullYear(),
 		})
 		.save();

@@ -10,7 +10,8 @@ const longest = require('longest');
 const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
-const { config, runAlias, runTask, getAllTasks } = require('../src/index');
+const { run, getConfig, getAllTasks } = require('../src/index');
+const directories = require('../src/directories');
 
 const isMrmEror = err => err.constructor.name === 'MrmError';
 
@@ -31,15 +32,13 @@ process.on('uncaughtException', err => {
 const argv = minimist(process.argv.slice(2));
 const command = argv._[0];
 
+const options = getConfig(directories, 'config.json', argv);
+
 if (command === 'help' || !command) {
 	commandHelp();
 } else {
 	try {
-		if (config('aliases', {})[command]) {
-			runAlias(command);
-		} else {
-			runTask(command, argv);
-		}
+		run(command, directories, options, argv);
 	} catch (err) {
 		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
 			console.error(chalk.bold.red(err.message));
@@ -56,18 +55,24 @@ function commandHelp() {
 		[
 			chalk.underline('Usage'),
 			'',
-			'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task>') + ' ' + chalk.yellow('[<options>]'),
+			'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task or alias>'),
+			'    ' +
+				chalk.bold('mrm') +
+				' ' +
+				chalk.cyan('<task or alias>') +
+				' ' +
+				chalk.yellow('--config:foo coffee --config:bar pizza'),
 			'',
 			chalk.underline('Available tasks'),
 			'',
-			getTasksList(),
+			getTasksList(options),
 			'',
 		].join('\n')
 	);
 }
 
 function getTasksList() {
-	const tasks = getAllTasks();
+	const tasks = getAllTasks(directories, options);
 	const names = sortBy(Object.keys(tasks));
 	const nameColWidth = longest(names).length;
 

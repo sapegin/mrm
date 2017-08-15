@@ -6,20 +6,20 @@ const path = require('path');
 const glob = require('glob');
 const chalk = require('chalk');
 const get = require('lodash/get');
+const forEach = require('lodash/forEach');
 const { MrmError } = require('mrm-core');
-const directories = require('./directories');
 
 /* eslint-disable no-console */
-
-const CONFIG_FILE = 'config.json';
 
 /**
  * Return all task and alias names and descriptions from all search directories.
  *
+ * @param {string[]} directories
+ * @param {Object} options
  * @return {Object}
  */
-function getAllTasks() {
-	const allTasks = config('aliases', {});
+function getAllTasks(directories, options) {
+	const allTasks = getAllAliases(options);
 	for (const dir of directories) {
 		const tasks = glob.sync(`${dir}/*/index.js`);
 		tasks.forEach(filename => {
@@ -34,29 +34,58 @@ function getAllTasks() {
 }
 
 /**
+ *
+ * @param {Object} options
+ * @return {Object}
+ */
+function getAllAliases(options) {
+	return get(options, 'aliases', {});
+}
+
+/**
+ *
+ * @param {string} name
+ * @param {string[]} directories
+ * @param {Object} options
+ * @param {Object} argv
+ */
+function run(name, directories, options, argv) {
+	if (getAllAliases(options)[name]) {
+		runAlias(name, directories, options, argv);
+	} else {
+		runTask(name, directories, options, argv);
+	}
+}
+
+/**
  * Run an alias.
  *
  * @param {string} aliasName
+ * @param {string[]} directories
+ * @param {Object} options
+ * @param {Object} [argv]
  */
-function runAlias(aliasName) {
-	const tasks = config('aliases', {})[aliasName];
+function runAlias(aliasName, directories, options, argv) {
+	const tasks = getAllAliases(options)[aliasName];
 	if (!tasks) {
 		throw new MrmError(`Alias "${aliasName}" not found.`);
 	}
 
 	console.log(chalk.yellow(`Running alias ${aliasName}...`));
 
-	tasks.forEach(runTask);
+	tasks.forEach(name => runTask(name, directories, options, argv));
 }
 
 /**
  * Run a task.
  *
  * @param {string} taskName
- * @param {object} [params]
+ * @param {string[]} directories
+ * @param {Object} options
+ * @param {Object} [argv]
  */
-function runTask(taskName, params) {
-	const filename = tryFile(`${taskName}/index.js`);
+function runTask(taskName, directories, options, argv) {
+	const filename = tryFile(directories, `${taskName}/index.js`);
 	if (!filename) {
 		throw new MrmError(`Task "${taskName}" not found.`);
 	}
@@ -64,46 +93,101 @@ function runTask(taskName, params) {
 	console.log(chalk.cyan(`Running ${taskName}...`));
 
 	const module = require(filename);
-	module(config, params);
+	module(getConfigGetter(options), argv);
 }
 
 /**
- * Return a config value.
+ * Return a config getter.
  *
- * @param {string} [prop]
- * @param {any} [defaultValue]
- * @return {any}
+ * @param {Object} options
+ * @return {Function}
  */
-function config(prop, defaultValue) {
-	if (!prop) {
-		return getConfig();
-	}
+function getConfigGetter(options) {
+	/**
+	 * Return a config value.
+	 *
+	 * @param {string} [prop]
+	 * @param {any} [defaultValue]
+	 * @return {any}
+	 */
+	return (prop, defaultValue) => {
+		if (!prop) {
+			return options;
+		}
 
-	return get(getConfig(), prop, defaultValue);
+		const value = get(options, prop, defaultValue);
+		if (value === undefined && defaultValue === undefined) {
+			throw new MrmError(
+				`Config option "${prop}" not defined.
+
+Create "~/.mrm/config.json" or "~/dotfiles/mrm/config.json" file.
+
+Or pass options via command line:
+
+  mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
+`
+			);
+		}
+
+		return value;
+	};
+}
+
+/**
+ *
+ * @param {string[]} directories
+ * @param {string} filename
+ * @param {Object} argv
+ * @return {Object}
+ */
+function getConfig(directories, filename, argv) {
+	return Object.assign(
+		{},
+		getConfigFromFile(directories, filename),
+		getConfigFromCommandLine(argv)
+	);
 }
 
 /**
  * Find and load config file.
  *
- * @param {string} [filename]
+ * @param {string[]} directories
+ * @param {string} filename
  * @return {Object}
  */
-function getConfig(filename = CONFIG_FILE) {
-	const filepath = tryFile(filename);
+function getConfigFromFile(directories, filename) {
+	const filepath = tryFile(directories, filename);
 	if (!filepath) {
-		throw new MrmError('Config not found.');
+		return {};
 	}
 
 	return require(filepath);
 }
 
 /**
+ * Get config options from command line, passed as --config:foo bar.
+ *
+ * @param {Object} argv
+ * @return {Object}
+ */
+function getConfigFromCommandLine(argv) {
+	const options = {};
+	forEach(argv, (value, key) => {
+		if (key.startsWith('config:')) {
+			options[key.replace(/^config:/, '')] = value;
+		}
+	});
+	return options;
+}
+
+/**
  * Try to load a file from a list of folders.
  *
+ * @param {string[]} directories
  * @param {string} filename
  * @return {string|undefined} Absolute path or undefined
  */
-function tryFile(filename) {
+function tryFile(directories, filename) {
 	for (const dir of directories) {
 		const filepath = path.resolve(dir, filename);
 		if (fs.existsSync(filepath)) {
@@ -114,10 +198,14 @@ function tryFile(filename) {
 }
 
 module.exports = {
+	getAllAliases,
 	getAllTasks,
+	run,
 	runTask,
 	runAlias,
-	config,
+	getConfigGetter,
 	getConfig,
+	getConfigFromFile,
+	getConfigFromCommandLine,
 	tryFile,
 };
