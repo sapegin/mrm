@@ -17,6 +17,13 @@ const directories = require('../src/directories');
 
 const isMrmEror = err => err.constructor.name === 'MrmError';
 
+const EXAMPLES = [
+	['', '', 'List of available tasks'],
+	['<task or alias>', '', 'Run a task or an alias'],
+	['<task or alias>', '--dir ~/unicorn', 'Custom config and tasks folder'],
+	['<task or alias>', '--config:foo coffee --config:bar pizza', 'Override config options'],
+];
+
 // Update notifier
 const pkg = require('../package.json');
 updateNotifier({ pkg }).notify();
@@ -65,27 +72,26 @@ function commandHelp() {
 	console.log(
 		[
 			chalk.underline('Usage'),
-			'',
-			'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task or alias>'),
-			'    ' +
-				chalk.bold('mrm') +
-				' ' +
-				chalk.cyan('<task or alias>') +
-				' ' +
-				chalk.yellow('--dir ~/unicorn'),
-			'    ' +
-				chalk.bold('mrm') +
-				' ' +
-				chalk.cyan('<task or alias>') +
-				' ' +
-				chalk.yellow('--config:foo coffee --config:bar pizza'),
-			'',
+			getUsage(),
 			chalk.underline('Available tasks'),
-			'',
 			getTasksList(options),
-			'',
-		].join('\n')
+		].join('\n\n')
 	);
+}
+
+function getUsage() {
+	const commands = EXAMPLES.map(x => x[0] + x[1]);
+	const commandsWidth = longest(commands).length;
+	return EXAMPLES.map(([command, options, description]) =>
+		[
+			'   ',
+			chalk.bold('mrm'),
+			chalk.cyan(command),
+			chalk.yellow(options),
+			padEnd('', commandsWidth - (command + options).length),
+			description && `# ${description}`,
+		].join(' ')
+	).join('\n');
 }
 
 function getTasksList() {
