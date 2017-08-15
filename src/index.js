@@ -134,7 +134,7 @@ In one of these folders:
 
 2. Or pass the option via command line:
 
-  mrm ${taskName} --config:${prop} "Gandalf the Grey"
+  ${getBinaryName()} ${taskName} --config:${prop} "Gandalf the Grey"
 `
 			);
 		}
@@ -207,6 +207,15 @@ function tryFile(directories, filename) {
 	return undefined;
 }
 
+/**
+ * Detect that mrm was ran using npx, return either "mrm" or "npx mrm".
+ *
+ * @return {string}
+ */
+function getBinaryName() {
+	return process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
+}
+
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -218,4 +227,5 @@ module.exports = {
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	tryFile,
+	getBinaryName,
 };

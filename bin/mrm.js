@@ -12,7 +12,7 @@ const isDirectory = require('is-directory');
 const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
-const { run, getConfig, getAllTasks } = require('../src/index');
+const { run, getConfig, getAllTasks, getBinaryName } = require('../src/index');
 const directories = require('../src/directories');
 
 const isMrmEror = err => err.constructor.name === 'MrmError';
@@ -80,12 +80,13 @@ function commandHelp() {
 }
 
 function getUsage() {
+	const bin = getBinaryName();
 	const commands = EXAMPLES.map(x => x[0] + x[1]);
 	const commandsWidth = longest(commands).length;
 	return EXAMPLES.map(([command, options, description]) =>
 		[
 			'   ',
-			chalk.bold('mrm'),
+			chalk.bold(bin),
 			chalk.cyan(command),
 			chalk.yellow(options),
 			padEnd('', commandsWidth - (command + options).length),

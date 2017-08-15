@@ -14,6 +14,7 @@ const {
 	run,
 	getAllAliases,
 	getAllTasks,
+	getBinaryName,
 } = require('../index');
 const task1 = require('../../test/dir1/task1');
 const task2 = require('../../test/dir1/task2');
@@ -223,5 +224,22 @@ describe('getAllTasks', () => {
 			task2: 'Taks 1.2',
 			task3: 'Taks 2.3',
 		});
+	});
+});
+
+describe('getBinaryName', () => {
+	it('should return a binary name', () => {
+		const result = getBinaryName();
+		expect(result).toBe('mrm');
+	});
+
+	it('should return a binary name if ran via npx', () => {
+		const _ = process.env._;
+		process.env._ = '/bin/npx';
+
+		const result = getBinaryName();
+		expect(result).toBe('npx mrm');
+
+		process.env._ = _;
 	});
 });
