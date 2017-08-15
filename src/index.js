@@ -93,7 +93,7 @@ function runTask(taskName, directories, options, argv) {
 	console.log(chalk.cyan(`Running ${taskName}...`));
 
 	const module = require(filename);
-	module(getConfigGetter(options, taskName), argv);
+	module(getConfigGetter(options, taskName, directories), argv);
 }
 
 /**
@@ -101,9 +101,10 @@ function runTask(taskName, directories, options, argv) {
  *
  * @param {Object} options
  * @param {string} taskName
+ * @param {string[]} directories
  * @return {Function}
  */
-function getConfigGetter(options, taskName) {
+function getConfigGetter(options, taskName, directories) {
 	/**
 	 * Return a config value.
 	 *
@@ -121,13 +122,17 @@ function getConfigGetter(options, taskName) {
 			throw new MrmError(
 				`Config option "${prop}" is not defined.
 
-Create "~/.mrm/config.json" or "~/dotfiles/mrm/config.json" file:
+1. Create "config.json" file:
 
   {
     "${prop}": "Gandalf the Grey"
   }
 
-Or pass the option via command line:
+In one of these folders:
+
+- ${directories.slice(0, -1).join('\n- ')}
+
+2. Or pass the option via command line:
 
   mrm ${taskName} --config:${prop} "Gandalf the Grey"
 `

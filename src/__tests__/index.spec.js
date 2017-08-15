@@ -108,30 +108,30 @@ describe('getConfig', () => {
 
 describe('getConfigGetter', () => {
 	it('should return a function', () => {
-		const result = getConfigGetter({}, 'pizza');
+		const result = getConfigGetter({}, 'pizza', directories);
 		expect(result).toEqual(expect.any(Function));
 	});
 
 	it('should return a full config object if a property name wasn’t passed', () => {
-		const config = getConfigGetter(options, 'pizza');
+		const config = getConfigGetter(options, 'pizza', directories);
 		const result = config();
 		expect(result).toEqual(options);
 	});
 
 	it('function should return a config option value', () => {
-		const config = getConfigGetter(options, 'pizza');
+		const config = getConfigGetter(options, 'pizza', directories);
 		const result = config('pizza');
 		expect(result).toBe('salami');
 	});
 
 	it('function should return a default valueif if a config option is not defined', () => {
-		const config = getConfigGetter({}, 'pizza');
+		const config = getConfigGetter({}, 'pizza', directories);
 		const result = config('pizza', 'salami');
 		expect(result).toBe('salami');
 	});
 
 	it('function should throw if a config option not defined and no default value provided', () => {
-		const config = getConfigGetter({}, 'pizza');
+		const config = getConfigGetter({}, 'pizza', directories);
 		const fn = () => config('pizza');
 		expect(fn).toThrowError('Config option "pizza" is not defined');
 	});

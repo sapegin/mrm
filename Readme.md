@@ -46,6 +46,12 @@ Override config options (or run without a config file):
 mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
 ```
 
+Custom config and tasks folder:
+
+```shell
+mrm license --dir ~/unicorn
+```
+
 ## Usage via npx
 
 If you have npm 5.3 or newer you can use mrm without installation:

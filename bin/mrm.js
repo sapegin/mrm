@@ -4,9 +4,11 @@
 
 /* eslint-disable no-console */
 
+const path = require('path');
 const minimist = require('minimist');
 const chalk = require('chalk');
 const longest = require('longest');
+const isDirectory = require('is-directory');
 const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
@@ -21,8 +23,7 @@ updateNotifier({ pkg }).notify();
 
 process.on('uncaughtException', err => {
 	if (isMrmEror(err)) {
-		console.error(chalk.bold.red(err.message));
-		console.log();
+		printError(err.message);
 		process.exit(1);
 	} else {
 		throw err;
@@ -31,6 +32,17 @@ process.on('uncaughtException', err => {
 
 const argv = minimist(process.argv.slice(2));
 const command = argv._[0];
+
+// Custom config / tasks directory
+if (argv.dir) {
+	const dir = path.resolve(argv.dir);
+	if (!isDirectory.sync(dir)) {
+		printError(`Directory "${dir} not found.`);
+		process.exit(1);
+	}
+
+	directories.unshift(dir);
+}
 
 const options = getConfig(directories, 'config.json', argv);
 
@@ -41,8 +53,7 @@ if (command === 'help' || !command) {
 		run(command, directories, options, argv);
 	} catch (err) {
 		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
-			console.error(chalk.bold.red(err.message));
-			console.log();
+			printError(err.message);
 			commandHelp();
 		} else {
 			throw err;
@@ -56,6 +67,12 @@ function commandHelp() {
 			chalk.underline('Usage'),
 			'',
 			'    ' + chalk.bold('mrm') + ' ' + chalk.cyan('<task or alias>'),
+			'    ' +
+				chalk.bold('mrm') +
+				' ' +
+				chalk.cyan('<task or alias>') +
+				' ' +
+				chalk.yellow('--dir ~/unicorn'),
 			'    ' +
 				chalk.bold('mrm') +
 				' ' +
@@ -84,4 +101,9 @@ function getTasksList() {
 			return '    ' + chalk.bold(padEnd(name, nameColWidth)) + '  ' + description;
 		})
 		.join('\n');
+}
+
+function printError(message) {
+	console.error(chalk.bold.red(message));
+	console.log();
 }
