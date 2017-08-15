@@ -44,12 +44,17 @@ function getAllAliases(options) {
 
 /**
  *
- * @param {string} name
+ * @param {string|string[]} name
  * @param {string[]} directories
  * @param {Object} options
  * @param {Object} argv
  */
 function run(name, directories, options, argv) {
+	if (Array.isArray(name)) {
+		name.forEach(n => run(n, directories, options, argv));
+		return;
+	}
+
 	if (getAllAliases(options)[name]) {
 		runAlias(name, directories, options, argv);
 	} else {

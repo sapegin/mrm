@@ -32,12 +32,17 @@ Print a list available of tasks:
 mrm
 ```
 
-Run a task or alias
+Run a task or an alias
 
 ```shell
-mrm <task or alias>
 mrm gitignore
 mrm license
+```
+
+Run multiple tasks:
+
+```shell
+mrm gitignore license
 ```
 
 Override config options (or run without a config file):

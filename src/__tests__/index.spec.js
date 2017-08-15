@@ -199,6 +199,12 @@ describe('run', () => {
 		expect(task2).toHaveBeenCalledTimes(0);
 		expect(task3).toHaveBeenCalledTimes(1);
 	});
+
+	it('should run multiple tasks', () => {
+		run(['task1', 'task2'], directories, optionsWithAliases, {});
+		expect(task1).toHaveBeenCalledTimes(1);
+		expect(task2).toHaveBeenCalledTimes(1);
+	});
 });
 
 describe('getAllAliases', () => {

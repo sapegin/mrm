@@ -39,7 +39,7 @@ process.on('uncaughtException', err => {
 });
 
 const argv = minimist(process.argv.slice(2));
-const command = argv._[0];
+const tasks = argv._;
 
 // Custom config / tasks directory
 if (argv.dir) {
@@ -53,12 +53,11 @@ if (argv.dir) {
 }
 
 const options = getConfig(directories, 'config.json', argv);
-
-if (command === 'help' || !command) {
+if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
 	try {
-		run(command, directories, options, argv);
+		run(tasks, directories, options, argv);
 	} catch (err) {
 		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
 			printError(err.message);
