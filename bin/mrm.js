@@ -20,9 +20,9 @@ const isMrmEror = err => err.constructor.name === 'MrmError';
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
-	['<task or alias>', '', 'Run a task or an alias'],
-	['<task or alias>', '--dir ~/unicorn', 'Custom config and tasks folder'],
-	['<task or alias>', '--config:foo coffee --config:bar pizza', 'Override config options'],
+	['<task>', '', 'Run a task or an alias'],
+	['<task>', '--dir ~/unicorn', 'Custom config and tasks folder'],
+	['<task>', '--config:foo coffee --config:bar pizza', 'Override config options'],
 ];
 
 // Update notifier
