@@ -104,7 +104,7 @@ function getTasksList() {
 	return names
 		.map(name => {
 			const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
-			return '    ' + chalk.bold(padEnd(name, nameColWidth)) + '  ' + description;
+			return '    ' + chalk.cyan(padEnd(name, nameColWidth)) + '  ' + description;
 		})
 		.join('\n');
 }
