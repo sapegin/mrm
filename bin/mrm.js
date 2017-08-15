@@ -9,6 +9,7 @@ const minimist = require('minimist');
 const chalk = require('chalk');
 const longest = require('longest');
 const isDirectory = require('is-directory');
+const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
@@ -102,9 +103,7 @@ function getTasksList() {
 
 	return names
 		.map(name => {
-			const description = Array.isArray(tasks[name])
-				? `Runs ${tasks[name].join(', ')}`
-				: tasks[name];
+			const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
 			return '    ' + chalk.bold(padEnd(name, nameColWidth)) + '  ' + description;
 		})
 		.join('\n');
