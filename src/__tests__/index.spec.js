@@ -14,7 +14,6 @@ const {
 	run,
 	getAllAliases,
 	getAllTasks,
-	getBinaryName,
 } = require('../index');
 const task1 = require('../../test/dir1/task1');
 const task2 = require('../../test/dir1/task2');
@@ -108,33 +107,34 @@ describe('getConfig', () => {
 });
 
 describe('getConfigGetter', () => {
-	it('should return a function', () => {
-		const result = getConfigGetter({}, 'pizza', directories);
+	it('should return an API', () => {
+		const result = getConfigGetter({});
 		expect(result).toEqual(expect.any(Function));
+		expect(result.require).toEqual(expect.any(Function));
 	});
 
-	it('should return a full config object if a property name wasn’t passed', () => {
-		const config = getConfigGetter(options, 'pizza', directories);
-		const result = config();
-		expect(result).toEqual(options);
-	});
-
-	it('function should return a config option value', () => {
-		const config = getConfigGetter(options, 'pizza', directories);
+	it('config function should return a config option value', () => {
+		const config = getConfigGetter(options);
 		const result = config('pizza');
 		expect(result).toBe('salami');
 	});
 
-	it('function should return a default valueif if a config option is not defined', () => {
-		const config = getConfigGetter({}, 'pizza', directories);
+	it('config function should return a default valueif if a config option is not defined', () => {
+		const config = getConfigGetter({});
 		const result = config('pizza', 'salami');
 		expect(result).toBe('salami');
 	});
 
-	it('function should throw if a config option not defined and no default value provided', () => {
-		const config = getConfigGetter({}, 'pizza', directories);
-		const fn = () => config('pizza');
-		expect(fn).toThrowError('Config option "pizza" is not defined');
+	it('require function should not throw if all config options are difended', () => {
+		const config = getConfigGetter({ coffee: 'americano' });
+		const fn = () => config.require('coffee');
+		expect(fn).not.toThrowError();
+	});
+
+	it('require function should throw if some config options are not difended', () => {
+		const config = getConfigGetter({ coffee: 'americano' });
+		const fn = () => config.require('pizza', 'coffee');
+		expect(fn).toThrowError('Required config options are missed: pizza');
 	});
 });
 
@@ -152,7 +152,7 @@ describe('runTask', () => {
 		const params = { coffee: 'cappuccino' };
 		runTask('task1', directories, options, params);
 		expect(task1).toHaveBeenCalledWith(expect.any(Function), params);
-		expect(task1.mock.calls[0][0]()).toEqual(options);
+		expect(task1.mock.calls[0][0]('pizza')).toEqual('salami');
 	});
 
 	it('should throw when module not found', () => {
@@ -230,22 +230,5 @@ describe('getAllTasks', () => {
 			task2: 'Taks 1.2',
 			task3: 'Taks 2.3',
 		});
-	});
-});
-
-describe('getBinaryName', () => {
-	it('should return a binary name', () => {
-		const result = getBinaryName();
-		expect(result).toBe('mrm');
-	});
-
-	it('should return a binary name if ran via npx', () => {
-		const _ = process.env._;
-		process.env._ = '/bin/npx';
-
-		const result = getBinaryName();
-		expect(result).toBe('npx mrm');
-
-		process.env._ = _;
 	});
 });

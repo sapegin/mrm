@@ -4,6 +4,8 @@ const path = require('path');
 const { json } = require('mrm-core');
 
 module.exports = function(config) {
+	config.require('name', 'url', 'github');
+
 	const name = path.basename(process.cwd());
 	const github = `https://github.com/${config('github')}`;
 

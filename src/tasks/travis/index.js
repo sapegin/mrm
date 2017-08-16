@@ -8,6 +8,8 @@ const { yaml, json, markdown } = require('mrm-core');
 const latestNodeVersion = 8;
 
 module.exports = function(config) {
+	config.require('github');
+
 	const pkg = json('package.json');
 
 	// .travis.yml

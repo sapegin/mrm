@@ -14,7 +14,7 @@ module.exports = function(config) {
 			.merge({
 				extends: preset,
 				rules: {
-					indentation: config('indent'),
+					indentation: config('indent', 'tab'),
 					'selector-pseudo-class-no-unknown': [
 						true,
 						{

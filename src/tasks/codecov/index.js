@@ -6,6 +6,8 @@ const uploadCommand = 'bash <(curl -s https://codecov.io/bash)';
 const coverageScript = 'test:coverage';
 
 module.exports = function(config) {
+	config.require('github');
+
 	const travisYml = yaml('.travis.yml');
 
 	// Require .travis.yml

@@ -170,9 +170,11 @@ Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.j
 
 ```js
 const { /* ... */ } = require('mrm-core');
-module.exports = function(config) {
-  // config('name', 'default value') - config value
-  // config() - all config values
+module.exports = function(config, argv) {
+  config.require('name', 'email') // Mark config values as required
+  // config('name') - config value
+  // config('name', 'default value') - config value with a default value
+  // argv - command line arguments
 };
 module.exports.description = 'Task description';
 ```

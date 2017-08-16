@@ -98,54 +98,41 @@ function runTask(taskName, directories, options, argv) {
 	console.log(chalk.cyan(`Running ${taskName}...`));
 
 	const module = require(filename);
-	module(getConfigGetter(options, taskName, directories), argv);
+	module(getConfigGetter(options), argv);
 }
 
 /**
  * Return a config getter.
  *
  * @param {Object} options
- * @param {string} taskName
- * @param {string[]} directories
- * @return {Function}
+ * @return {any}
  */
-function getConfigGetter(options, taskName, directories) {
+function getConfigGetter(options) {
 	/**
 	 * Return a config value.
 	 *
-	 * @param {string} [prop]
+	 * @param {string} prop
 	 * @param {any} [defaultValue]
 	 * @return {any}
 	 */
-	return (prop, defaultValue) => {
-		if (!prop) {
-			return options;
+	function config(prop, defaultValue) {
+		return get(options, prop, defaultValue);
+	}
+
+	/**
+	 * Mark config options as required.
+	 *
+	 * @param {string[]} names...
+	 */
+	function require(...names) {
+		const unknown = names.filter(name => !(name in options));
+		if (unknown.length > 0) {
+			throw new MrmError(`Required config options are missed: ${unknown.join(', ')}.`, unknown);
 		}
+	}
 
-		const value = get(options, prop, defaultValue);
-		if (value === undefined && defaultValue === undefined) {
-			throw new MrmError(
-				`Config option "${prop}" is not defined.
-
-1. Create "config.json" file:
-
-  {
-    "${prop}": "Gandalf the Grey"
-  }
-
-In one of these folders:
-
-- ${directories.slice(0, -1).join('\n- ')}
-
-2. Or pass the option via command line:
-
-  ${getBinaryName()} ${taskName} --config:${prop} "Gandalf the Grey"
-`
-			);
-		}
-
-		return value;
-	};
+	config.require = require;
+	return config;
 }
 
 /**
@@ -212,15 +199,6 @@ function tryFile(directories, filename) {
 	return undefined;
 }
 
-/**
- * Detect that mrm was ran using npx, return either "mrm" or "npx mrm".
- *
- * @return {string}
- */
-function getBinaryName() {
-	return process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
-}
-
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -232,5 +210,4 @@ module.exports = {
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	tryFile,
-	getBinaryName,
 };

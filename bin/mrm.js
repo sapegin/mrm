@@ -13,6 +13,7 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const padEnd = require('lodash/padEnd');
 const sortBy = require('lodash/sortBy');
+const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks, getBinaryName } = require('../src/index');
 const directories = require('../src/directories');
 
@@ -41,6 +42,8 @@ process.on('uncaughtException', err => {
 const argv = minimist(process.argv.slice(2));
 const tasks = argv._;
 
+const binaryName = process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
+
 // Custom config / tasks directory
 if (argv.dir) {
 	const dir = path.resolve(argv.dir);
@@ -62,6 +65,28 @@ if (tasks.length === 0 || tasks[0] === 'help') {
 		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
 			printError(err.message);
 			commandHelp();
+		} else if (isMrmEror(err) && /Required config options are missed/.test(err.message)) {
+			const unknown = err.extra;
+			const values = unknown.map(name => [name, random()]);
+			const userDirectories = directories.slice(0, -1);
+			printError(
+				`${err.message}
+
+1. Create "config.json" file:
+
+{
+${values.map(([n, v]) => `  "${n}": "${v}"`).join(',\n')}
+}
+
+In one of these folders:
+
+- ${userDirectories.join('\n- ')}
+
+2. Or pass the option via command line:
+
+${binaryName} ${tasks.join(' ')} ${values.map(([n, v]) => `--config:${n} "${v}"`).join(' ')}
+	`
+			);
 		} else {
 			throw err;
 		}

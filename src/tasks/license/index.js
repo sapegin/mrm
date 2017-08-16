@@ -8,6 +8,8 @@ const { template, packageJson } = require('mrm-core');
 const defaultLicense = 'mit';
 
 function task(config) {
+	config.require('name', 'email', 'url');
+
 	const filename = config('license', 'License.md');
 
 	const pkg = packageJson();
