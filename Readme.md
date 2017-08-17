@@ -73,10 +73,10 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ```json5
 {
-    "name": "Tobias Müller",
-    "email": "tobias2000@gmail.com",
-    "url": "http://tobias2000.io",
-    "github": "tobias2000",
+    "name": "Gandalf the Grey",
+    "email": "gandalf@middleearth.com",
+    "url": "http://middleearth.com",
+    "github": "gandalf",
     "indent": "tab", // "tab" or number of spaces
     "readme": "Readme.md", // Name of readme file
     "license": "License.md", // Name of license file
