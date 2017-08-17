@@ -1,7 +1,5 @@
 #!/usr/bin/env node
-
 'use strict';
-
 /* eslint-disable no-console */
 
 const path = require('path');
@@ -11,13 +9,11 @@ const longest = require('longest');
 const isDirectory = require('is-directory');
 const listify = require('listify');
 const updateNotifier = require('update-notifier');
-const padEnd = require('lodash/padEnd');
-const sortBy = require('lodash/sortBy');
+const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks, getBinaryName } = require('../src/index');
+const { MrmUnknownTask, MrmUndefinedOption } = require('../src/errors');
 const directories = require('../src/directories');
-
-const isMrmEror = err => err.constructor.name === 'MrmError';
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
@@ -31,7 +27,7 @@ const pkg = require('../package.json');
 updateNotifier({ pkg }).notify();
 
 process.on('uncaughtException', err => {
-	if (isMrmEror(err)) {
+	if (err.constructor.name === 'MrmError') {
 		printError(err.message);
 		process.exit(1);
 	} else {
@@ -62,15 +58,15 @@ if (tasks.length === 0 || tasks[0] === 'help') {
 	try {
 		run(tasks, directories, options, argv);
 	} catch (err) {
-		if (isMrmEror(err) && /(Alias|Task) ".*?" not found/.test(err.message)) {
+		if (err.constructor === MrmUnknownTask) {
 			printError(err.message);
 			commandHelp();
-		} else if (isMrmEror(err) && /Required config options are missed/.test(err.message)) {
-			const unknown = err.extra;
+		} else if (err.constructor === MrmUndefinedOption) {
+			const { unknown } = err.extra;
 			const values = unknown.map(name => [name, random()]);
 			const userDirectories = directories.slice(0, -1);
 			printError(
-				`${err.message}
+				`Required config options are missed: ${listify(unknown)}.
 
 1. Create "config.json" file:
 

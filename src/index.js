@@ -5,9 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const chalk = require('chalk');
-const get = require('lodash/get');
-const forEach = require('lodash/forEach');
-const { MrmError } = require('mrm-core');
+const { get, forEach } = require('lodash');
+const { MrmUnknownTask, MrmUndefinedOption } = require('./errors');
 
 /* eslint-disable no-console */
 
@@ -73,7 +72,7 @@ function run(name, directories, options, argv) {
 function runAlias(aliasName, directories, options, argv) {
 	const tasks = getAllAliases(options)[aliasName];
 	if (!tasks) {
-		throw new MrmError(`Alias "${aliasName}" not found.`);
+		throw new MrmUnknownTask(`Alias "${aliasName}" not found.`);
 	}
 
 	console.log(chalk.yellow(`Running alias ${aliasName}...`));
@@ -92,7 +91,7 @@ function runAlias(aliasName, directories, options, argv) {
 function runTask(taskName, directories, options, argv) {
 	const filename = tryFile(directories, `${taskName}/index.js`);
 	if (!filename) {
-		throw new MrmError(`Task "${taskName}" not found.`);
+		throw new MrmUnknownTask(`Task "${taskName}" not found.`);
 	}
 
 	console.log(chalk.cyan(`Running ${taskName}...`));
@@ -127,7 +126,9 @@ function getConfigGetter(options) {
 	function require(...names) {
 		const unknown = names.filter(name => !(name in options));
 		if (unknown.length > 0) {
-			throw new MrmError(`Required config options are missed: ${unknown.join(', ')}.`, unknown);
+			throw new MrmUndefinedOption(`Required config options are missed: ${unknown.join(', ')}.`, {
+				unknown,
+			});
 		}
 	}
 
