@@ -11,7 +11,7 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks, getBinaryName } = require('../src/index');
+const { run, getConfig, getAllTasks } = require('../src/index');
 const { MrmUnknownTask, MrmUndefinedOption } = require('../src/errors');
 const directories = require('../src/directories');
 
@@ -101,13 +101,12 @@ function commandHelp() {
 }
 
 function getUsage() {
-	const bin = getBinaryName();
 	const commands = EXAMPLES.map(x => x[0] + x[1]);
 	const commandsWidth = longest(commands).length;
 	return EXAMPLES.map(([command, options, description]) =>
 		[
 			'   ',
-			chalk.bold(bin),
+			chalk.bold(binaryName),
 			chalk.cyan(command),
 			chalk.yellow(options),
 			padEnd('', commandsWidth - (command + options).length),
