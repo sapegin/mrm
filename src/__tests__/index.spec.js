@@ -56,11 +56,11 @@ describe('tryFile', () => {
 
 describe('tryRequire', () => {
 	it('should require an npm module if it’s installed', () => {
-		expect(tryRequire('user-meta')).toEqual(expect.any(Object));
+		expect(tryRequire('listify')).toEqual(expect.any(Function));
 	});
 
 	it('should require the first installed npm module', () => {
-		expect(tryRequire('pizza', 'user-meta')).toEqual(expect.any(Object));
+		expect(tryRequire('pizza', 'listify')).toEqual(expect.any(Function));
 	});
 
 	it('should return undefined if none of the npm mudules are installed', () => {
