@@ -1,14 +1,19 @@
+// @ts-check
 'use strict';
 
 const fs = require('fs');
-const range = require('lodash/range');
+const { range } = require('lodash');
 const semverUtils = require('semver-utils');
+const gitUsername = require('git-username');
 const { yaml, json, markdown } = require('mrm-core');
 
 const latestNodeVersion = 8;
 
-module.exports = function(config) {
-	config.require('github');
+function task(config) {
+	const { github, readmeFile } = config
+		.defaults({ github: gitUsername(), readmeFile: 'Readme.md' })
+		.require('github')
+		.values();
 
 	const pkg = json('package.json');
 
@@ -42,8 +47,8 @@ module.exports = function(config) {
 	travisYml.save();
 
 	// Add Travis package badge to Readme
-	const url = `https://travis-ci.org/${config('github')}/${pkg.get('name')}`;
-	markdown(config('readme', 'Readme.md')).addBadge(`${url}.svg`, url, 'Build Status').save();
+	const url = `https://travis-ci.org/${github}/${pkg.get('name')}`;
+	markdown(readmeFile).addBadge(`${url}.svg`, url, 'Build Status').save();
 
 	console.log(`
 1. Activate your repository on Travis CI:
@@ -51,5 +56,7 @@ ${url}
 
 2. Commit and push your changes
 `);
-};
-module.exports.description = 'Adds Travis CI';
+}
+
+task.description = 'Adds Travis CI';
+module.exports = task;

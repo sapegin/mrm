@@ -1,23 +1,32 @@
+// @ts-check
 'use strict';
 
 const path = require('path');
-const { template } = require('mrm-core');
+const meta = require('user-meta');
+const gitUsername = require('git-username');
+const { template, packageJson } = require('mrm-core');
 
-module.exports = function(config) {
-	config.require('name', 'url', 'github');
+function task(config) {
+	const { name, url, github, readmeFile, licenseFile } = config
+		.defaults({ github: gitUsername(), readmeFile: 'Readme.md', licenseFile: 'License.md' })
+		.defaults(meta)
+		.require('name', 'url', 'github')
+		.values();
 
 	// Create Readme.md (no update)
-	const readme = template(config('readme', 'Readme.md'), path.join(__dirname, 'Readme.md'));
+	const readme = template(readmeFile, path.join(__dirname, 'Readme.md'));
 	if (!readme.exists()) {
 		readme
 			.apply({
-				name: config('name'),
-				url: config('url'),
-				github: config('github'),
-				license: config('license', 'License.md'),
-				package: path.basename(process.cwd()),
+				name,
+				url,
+				github,
+				license: licenseFile,
+				package: packageJson().get('name'),
 			})
 			.save();
 	}
-};
-module.exports.description = 'Adds readme';
+}
+
+task.description = 'Adds readme file';
+module.exports = task;

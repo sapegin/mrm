@@ -4,13 +4,16 @@
 const fs = require('fs');
 const path = require('path');
 const { template, packageJson } = require('mrm-core');
+const meta = require('user-meta');
 
 const defaultLicense = 'mit';
 
 function task(config) {
-	config.require('name', 'email', 'url');
-
-	const filename = config('license', 'License.md');
+	const { name, email, url, licenseFile } = config
+		.defaults({ licenseFile: 'License.md' })
+		.defaults(meta)
+		.require('name', 'email', 'url')
+		.values();
 
 	const pkg = packageJson();
 	const license = pkg.get('license', defaultLicense);
@@ -21,11 +24,11 @@ function task(config) {
 		return;
 	}
 
-	template(filename, templateFile)
+	template(licenseFile, templateFile)
 		.apply({
-			name: config('name'),
-			email: config('email'),
-			url: config('url'),
+			name,
+			email,
+			url,
 			year: new Date().getFullYear(),
 		})
 		.save();

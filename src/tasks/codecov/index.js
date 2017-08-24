@@ -1,12 +1,17 @@
+// @ts-check
 'use strict';
 
+const gitUsername = require('git-username');
 const { MrmError, yaml, markdown, packageJson } = require('mrm-core');
 
 const uploadCommand = 'bash <(curl -s https://codecov.io/bash)';
 const coverageScript = 'test:coverage';
 
-module.exports = function(config) {
-	config.require('github');
+function task(config) {
+	const { readme, github } = config
+		.defaults({ readmeFile: 'Readme.md', github: gitUsername() })
+		.require('github')
+		.values();
 
 	const travisYml = yaml('.travis.yml');
 
@@ -41,9 +46,9 @@ module.exports = function(config) {
 	}
 
 	// Add Codecov badge to Readme
-	const url = `https://codecov.io/gh/${config('github')}/${pkg.get('name')}`;
-	markdown(config('readme', 'Readme.md'))
-		.addBadge(`${url}/branch/master/graph/badge.svg`, url, 'Codecov')
-		.save();
-};
-module.exports.description = 'Adds Codecov';
+	const url = `https://codecov.io/gh/${github}/${pkg.get('name')}`;
+	markdown(readme).addBadge(`${url}/branch/master/graph/badge.svg`, url, 'Codecov').save();
+}
+
+task.description = 'Adds Codecov';
+module.exports = task;

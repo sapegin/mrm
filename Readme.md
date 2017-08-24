@@ -76,17 +76,16 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
     "name": "Gandalf the Grey",
     "email": "gandalf@middleearth.com",
     "url": "http://middleearth.com",
-    "github": "gandalf",
     "indent": "tab", // "tab" or number of spaces
-    "readme": "Readme.md", // Name of readme file
-    "license": "License.md", // Name of license file
+    "readmeFile": "Readme.md", // Name of readme file
+    "licenseFile": "License.md", // Name of license file
     "aliases": {  // Aliases to run multiple tasks at once
         "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
     }
 }
 ```
 
-*Config file isn’t required, you can also pass config options via command line.*
+*Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration.*
 
 ## Tasks
 
@@ -125,7 +124,7 @@ Adds license file based on `license` field in `package.json`.
 
 Config options:
 
-* `license` — File name (by default `License.md`).
+* `licenseFile` — File name (by default `License.md`).
 
 ### lintstaged
 
@@ -141,7 +140,7 @@ Creates Readme file.
 
 Config options:
 
-* `readme` — Name of the readme file (by default `Readme.md`).
+* `readmeFile` — Name of the readme file (by default `Readme.md`).
 
 ### styleguidist
 
@@ -170,8 +169,12 @@ Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.j
 
 ```js
 const { /* ... */ } = require('mrm-core');
+const meta = require('user-meta');
 module.exports = function(config, argv) {
-  config.require('name', 'email') // Mark config values as required
+  const { name, email } = config
+    .defaults({ name: meta.name }) // Set “dynamic” default values (this will affect require() method below)
+    .require('name', 'email') // Mark config values as required
+    .values(); // Returns object with all config options
   // config('name') - config value
   // config('name', 'default value') - config value with a default value
   // argv - command line arguments

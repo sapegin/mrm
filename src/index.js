@@ -119,9 +119,19 @@ function getConfigGetter(options) {
 	}
 
 	/**
+	 * Return an object with all config values.
+	 *
+	 * @return {Object}
+	 */
+	function values() {
+		return options;
+	}
+
+	/**
 	 * Mark config options as required.
 	 *
 	 * @param {string[]} names...
+	 * @return {Object} this
 	 */
 	function require(...names) {
 		const unknown = names.filter(name => !(name in options));
@@ -130,9 +140,23 @@ function getConfigGetter(options) {
 				unknown,
 			});
 		}
+		return config;
+	}
+
+	/**
+	 * Set default values.
+	 *
+	 * @param {Object} defaultOptions
+	 * @return {any}
+	 */
+	function defaults(defaultOptions) {
+		options = Object.assign({}, defaultOptions, options);
+		return config;
 	}
 
 	config.require = require;
+	config.defaults = defaults;
+	config.values = values;
 	return config;
 }
 

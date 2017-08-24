@@ -111,6 +111,8 @@ describe('getConfigGetter', () => {
 		const result = getConfigGetter({});
 		expect(result).toEqual(expect.any(Function));
 		expect(result.require).toEqual(expect.any(Function));
+		expect(result.defaults).toEqual(expect.any(Function));
+		expect(result.values).toEqual(expect.any(Function));
 	});
 
 	it('config function should return a config option value', () => {
@@ -125,6 +127,13 @@ describe('getConfigGetter', () => {
 		expect(result).toBe('salami');
 	});
 
+	it('values function should return options object', () => {
+		const options = { coffee: 'americano' };
+		const config = getConfigGetter(options);
+		const result = config.values();
+		expect(result).toEqual(options);
+	});
+
 	it('require function should not throw if all config options are difended', () => {
 		const config = getConfigGetter({ coffee: 'americano' });
 		const fn = () => config.require('coffee');
@@ -135,6 +144,12 @@ describe('getConfigGetter', () => {
 		const config = getConfigGetter({ coffee: 'americano' });
 		const fn = () => config.require('pizza', 'coffee');
 		expect(fn).toThrowError('Required config options are missed: pizza');
+	});
+
+	it('defaults function should update not defined options', () => {
+		const config = getConfigGetter({ coffee: 'americano' });
+		config.defaults({ coffee: 'cappuccino', pizza: 'salami' });
+		expect(config.values()).toEqual({ coffee: 'americano', pizza: 'salami' });
 	});
 });
 
