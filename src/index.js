@@ -5,8 +5,9 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const chalk = require('chalk');
+const requireg = require('requireg');
 const { get, forEach } = require('lodash');
-const { MrmUnknownTask, MrmUndefinedOption } = require('./errors');
+const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('./errors');
 
 /* eslint-disable no-console */
 
@@ -72,7 +73,7 @@ function run(name, directories, options, argv) {
 function runAlias(aliasName, directories, options, argv) {
 	const tasks = getAllAliases(options)[aliasName];
 	if (!tasks) {
-		throw new MrmUnknownTask(`Alias "${aliasName}" not found.`);
+		throw new MrmUnknownAlias(`Alias "${aliasName}" not found.`);
 	}
 
 	console.log(chalk.yellow(`Running alias ${aliasName}...`));
@@ -89,14 +90,16 @@ function runAlias(aliasName, directories, options, argv) {
  * @param {Object} [argv]
  */
 function runTask(taskName, directories, options, argv) {
-	const filename = tryFile(directories, `${taskName}/index.js`);
-	if (!filename) {
-		throw new MrmUnknownTask(`Task "${taskName}" not found.`);
+	const module = tryRequire(
+		tryFile(directories, `${taskName}/index.js`),
+		`mrm-task-${taskName}`,
+		taskName
+	);
+	if (!module) {
+		throw new MrmUnknownTask(`Task "${taskName}" not found.`, { taskName });
 	}
 
 	console.log(chalk.cyan(`Running ${taskName}...`));
-
-	const module = require(filename);
 	module(getConfigGetter(options), argv);
 }
 
@@ -224,6 +227,30 @@ function tryFile(directories, filename) {
 	return undefined;
 }
 
+/**
+ * Try to require any of the given npm modules. Works with local files, local and global npm modules.
+ *
+ * @param {string[]} names...
+ * @return {any}
+ */
+function tryRequire(...names) {
+	for (const name of names) {
+		if (!name) {
+			continue;
+		}
+
+		try {
+			return requireg(name);
+		} catch (err) {
+			if (err.code !== 'MODULE_NOT_FOUND' && !err.message.includes('Could not require module')) {
+				throw err;
+			}
+		}
+	}
+
+	return undefined;
+}
+
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -235,4 +262,5 @@ module.exports = {
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	tryFile,
+	tryRequire,
 };

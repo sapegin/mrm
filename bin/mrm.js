@@ -12,7 +12,7 @@ const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks } = require('../src/index');
-const { MrmUnknownTask, MrmUndefinedOption } = require('../src/errors');
+const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
 const directories = require('../src/directories');
 
 const EXAMPLES = [
@@ -58,9 +58,25 @@ if (tasks.length === 0 || tasks[0] === 'help') {
 	try {
 		run(tasks, directories, options, argv);
 	} catch (err) {
-		if (err.constructor === MrmUnknownTask) {
+		if (err.constructor === MrmUnknownAlias) {
 			printError(err.message);
-			commandHelp();
+		} else if (err.constructor === MrmUnknownTask) {
+			const { taskName } = err.extra;
+			const modules = directories
+				.slice(0, -1)
+				.map(d => `${d}/${taskName}/index.js`)
+				.concat([
+					`"${taskName}" in the default mrm tasks`,
+					`npm install -g mrm-task-${taskName}`,
+					`npm install -g ${taskName}`,
+				]);
+			printError(
+				`${err.message}
+
+We’ve tried these locations:
+
+- ${modules.join('\n- ')}`
+			);
 		} else if (err.constructor === MrmUndefinedOption) {
 			const { unknown } = err.extra;
 			const values = unknown.map(name => [name, random()]);

@@ -5,6 +5,7 @@
 const path = require('path');
 const {
 	tryFile,
+	tryRequire,
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
@@ -50,6 +51,20 @@ describe('tryFile', () => {
 	it('should return undefined if the file doesn’t exist', () => {
 		const result = tryFile([], 'pizza');
 		expect(result).toBeFalsy();
+	});
+});
+
+describe('tryRequire', () => {
+	it('should require an npm module if it’s installed', () => {
+		expect(tryRequire('user-meta')).toEqual(expect.any(Object));
+	});
+
+	it('should require the first installed npm module', () => {
+		expect(tryRequire('pizza', 'user-meta')).toEqual(expect.any(Object));
+	});
+
+	it('should return undefined if none of the npm mudules are installed', () => {
+		expect(tryRequire('pizza', 'cappuccino')).toBeFalsy();
 	});
 });
 

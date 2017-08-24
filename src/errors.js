@@ -2,6 +2,18 @@
 'use strict';
 
 class MrmUnknownTask extends Error {
+	constructor(message, extra) {
+		super(message);
+		Object.defineProperty(this, 'name', {
+			value: this.constructor.name,
+		});
+		Object.defineProperty(this, 'extra', {
+			value: extra,
+		});
+	}
+}
+
+class MrmUnknownAlias extends Error {
 	constructor(message) {
 		super(message);
 		Object.defineProperty(this, 'name', {
@@ -24,5 +36,6 @@ class MrmUndefinedOption extends Error {
 
 module.exports = {
 	MrmUnknownTask,
+	MrmUnknownAlias,
 	MrmUndefinedOption,
 };
