@@ -194,6 +194,14 @@ npm install --save mrm-core
 
 You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of internal tasks](https://github.com/sapegin/mrm/tree/master/src/tasks).
 
+## Work with Lerna
+
+To run a task for each package in a [Lerna](https://github.com/lerna/lerna) repository:
+
+```
+for d in packages/* ; do echo "$d..."; cd $d; mrm TASK; cd ../..; done
+```
+
 ## Change log
 
 The change log can be found on the [Releases page](https://github.com/sapegin/mrm/releases).
