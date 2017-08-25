@@ -1,10 +1,17 @@
+// @ts-check
 'use strict';
 
 const { json, packageJson, install } = require('mrm-core');
 
-module.exports = function(config) {
-	const ext = config('stylelintExtensions', '.css');
-	const preset = config('stylelintPreset', 'stylelint-config-standard');
+function task(config) {
+	config.default({
+		stylelintExtensions: '.css',
+		stylelintPreset: 'stylelint-config-standard',
+	});
+	const { indent } = config.values();
+	const ext = config.values().stylelintExtensions;
+	const preset = config.values().stylelintPreset;
+
 	const packages = ['stylelint', preset];
 
 	// .stylelintrc
@@ -14,7 +21,7 @@ module.exports = function(config) {
 			.merge({
 				extends: preset,
 				rules: {
-					indentation: config('indent', 'tab'),
+					indentation: indent,
 					'selector-pseudo-class-no-unknown': [
 						true,
 						{
@@ -41,5 +48,7 @@ module.exports = function(config) {
 
 	// Dependencies
 	install(packages);
-};
-module.exports.description = 'Adds Stylelint';
+}
+
+task.description = 'Adds Stylelint';
+module.exports = task;

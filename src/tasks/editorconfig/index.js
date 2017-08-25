@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const { ini } = require('mrm-core');
@@ -8,8 +9,9 @@ const jsonRules = {
 };
 const jsonExtensions = ['json', 'yml', 'md', 'babelrc', 'eslintrc', 'remarkrc'];
 
-module.exports = function(config) {
-	const indent = config('indent', 'tab');
+function task(config) {
+	const { indent } = config.default({ indent: 'tab' }).values();
+
 	const generalRules = Object.assign(
 		indent === 'tab'
 			? {
@@ -39,5 +41,7 @@ module.exports = function(config) {
 	editorconfig.set('*.{' + jsonExtensions.join(',') + '}', jsonRules);
 
 	editorconfig.save();
-};
-module.exports.description = 'Adds EditorConfig';
+}
+
+task.description = 'Adds EditorConfig';
+module.exports = task;

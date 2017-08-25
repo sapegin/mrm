@@ -1,25 +1,32 @@
+// @ts-check
 'use strict';
 
 const path = require('path');
+const meta = require('user-meta');
+const gitUsername = require('git-username');
 const { json } = require('mrm-core');
 
-module.exports = function(config) {
-	config.require('name', 'url', 'github');
+function task(config) {
+	const { name, url, github } = config
+		.defaults({ github: gitUsername(), readmeFile: 'Readme.md' })
+		.defaults(meta)
+		.require('name', 'url', 'github')
+		.values();
 
-	const name = path.basename(process.cwd());
-	const github = `https://github.com/${config('github')}`;
+	const packageName = path.basename(process.cwd());
+	const repository = `${github}/${name}`;
 
 	// Create package.json (no update)
 	json('package.json', {
-		name,
+		name: packageName,
 		version: '1.0.0',
 		description: '',
 		author: {
-			name: config('name'),
-			url: config('url'),
+			name,
+			url,
 		},
-		homepage: `${github}/${name}`,
-		repository: `${config('github')}/${name}`,
+		homepage: `https://github.com/${repository}`,
+		repository,
 		license: 'MIT',
 		engines: {
 			node: '>=4',
@@ -29,5 +36,7 @@ module.exports = function(config) {
 		scripts: {},
 		keywords: [],
 	}).save();
-};
-module.exports.description = 'Adds package.json';
+}
+
+task.description = 'Adds package.json';
+module.exports = task;

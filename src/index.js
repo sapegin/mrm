@@ -120,6 +120,9 @@ function getConfigGetter(options) {
 	 * @return {any}
 	 */
 	function config(prop, defaultValue) {
+		console.warn(
+			'Warning: calling config as a function is deprecated. Use config.values() instead'
+		);
 		return get(options, prop, defaultValue);
 	}
 

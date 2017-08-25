@@ -170,16 +170,15 @@ Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.j
 ```js
 const { /* ... */ } = require('mrm-core');
 const meta = require('user-meta');
-module.exports = function(config, argv) {
+function task(config, argv) {
   const { name, email } = config
     .defaults({ name: meta.name }) // Set “dynamic” default values (this will affect require() method below)
     .require('name', 'email') // Mark config values as required
     .values(); // Returns object with all config options
-  // config('name') - config value
-  // config('name', 'default value') - config value with a default value
   // argv - command line arguments
 };
-module.exports.description = 'Task description';
+task.description = 'Task description';
+module.exports = task;
 ```
 
 If your custom tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:

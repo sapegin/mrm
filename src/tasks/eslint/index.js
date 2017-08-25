@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const minimist = require('minimist');
@@ -5,9 +6,14 @@ const { json, packageJson, install, uninstall } = require('mrm-core');
 
 const oldPackages = ['jslint', 'jshint'];
 
-module.exports = function(config) {
-	const preset = config('eslintPreset', 'eslint:recommended');
-	const packages = config('eslintPeerDependencies', []);
+function task(config) {
+	config.defaults({
+		eslintPreset: 'eslint:recommended',
+		eslintPeerDependencies: [],
+	});
+	const preset = config.values().eslintPreset;
+	const packages = config.values().eslintPeerDependencies;
+
 	packages.push('eslint');
 	if (preset !== 'eslint:recommended') {
 		packages.push(`eslint-config-${preset}`);
@@ -45,5 +51,7 @@ module.exports = function(config) {
 	// Dependencies
 	uninstall(oldPackages);
 	install(packages);
-};
-module.exports.description = 'Adds ESLint';
+}
+
+task.description = 'Adds ESLint';
+module.exports = task;
