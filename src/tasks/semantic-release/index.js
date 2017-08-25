@@ -5,11 +5,6 @@ const { MrmError, packageJson, lines, yaml, markdown, uninstall } = require('mrm
 
 const PACKAGE_NAME = 'semantic-release';
 
-function hasSemanticRelease() {
-	const commands = yaml('.travis.yml').get('after_success');
-	return commands && commands.find(cmd => cmd.includes(PACKAGE_NAME)).length > 0;
-}
-
 module.exports = function(config) {
 	// Require .travis.yml
 	if (!fs.existsSync('.travis.yml')) {
@@ -22,7 +17,7 @@ module.exports = function(config) {
 	// package.json
 	const pkg = packageJson();
 
-	if (!hasSemanticRelease()) {
+	if (!pkg.getScript('semantic-release')) {
 		throw new MrmError(
 			`Setup semantic-release first:
   npx semantic-release-cli setup
@@ -46,12 +41,15 @@ https://github.com/semantic-release/semantic-release#setup
 	pkg.save();
 
 	const travisYml = yaml('.travis.yml');
-	travisYml
-		// Remove the official semantic-release runner from commands list on .travis.yml
-		.set(
+	const travisCommands = travisYml.get('after_success');
+	// Remove the official semantic-release runner from commands list on .travis.yml
+	if (Array.isArray(travisCommands)) {
+		travisYml.set(
 			'after_success',
-			travisYml.get('after_success').filter(cmd => cmd !== 'npm run semantic-release')
-		)
+			travisCommands.filter(cmd => cmd !== 'npm run semantic-release')
+		);
+	}
+	travisYml
 		// Add global semantic-release runner to .travis.yml
 		.merge({
 			after_success: [
