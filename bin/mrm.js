@@ -63,8 +63,6 @@ We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally in
 		process.exit(1);
 	}
 
-	console.log('PPP', path.dirname(presetPath));
-
 	directories.unshift(path.dirname(presetPath));
 }
 
