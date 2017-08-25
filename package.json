@@ -18,7 +18,6 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --fix",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "precommit": "lint-staged"
   },
   "engines": {
@@ -50,7 +49,6 @@
     "jest": "^20.0.4",
     "lint-staged": "^4.0.4",
     "prettier": "^1.4.4",
-    "semantic-release": "^6.3.6",
     "semantic-release-tamia": "^1.1.1"
   },
   "release": {
