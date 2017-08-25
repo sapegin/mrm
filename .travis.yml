@@ -6,7 +6,8 @@ cache:
   directories:
     - node_modules
 after_success:
-  - npm run semantic-release
+  - npm install -g semantic-release
+  - semantic-release pre && npm publish && semantic-release post
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
