@@ -11,7 +11,7 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks } = require('../src/index');
+const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
 const directories = require('../src/directories');
 
@@ -19,6 +19,7 @@ const EXAMPLES = [
 	['', '', 'List of available tasks'],
 	['<task>', '', 'Run a task or an alias'],
 	['<task>', '--dir ~/unicorn', 'Custom config and tasks folder'],
+	['<task>', '--preset unicorn', 'Load config and tasks from a preset'],
 	['<task>', '--config:foo coffee --config:bar pizza', 'Override config options'],
 ];
 
@@ -51,6 +52,22 @@ if (argv.dir) {
 	directories.unshift(dir);
 }
 
+// Preset
+if (argv.preset) {
+	const { preset } = argv;
+	const presetPath = tryResolve(`mrm-preset-${preset}`, preset);
+	if (!presetPath) {
+		printError(`Preset “${preset}” not found.
+
+We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
+		process.exit(1);
+	}
+
+	console.log('PPP', path.dirname(presetPath));
+
+	directories.unshift(path.dirname(presetPath));
+}
+
 const options = getConfig(directories, 'config.json', argv);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
@@ -66,7 +83,7 @@ if (tasks.length === 0 || tasks[0] === 'help') {
 				.slice(0, -1)
 				.map(d => `${d}/${taskName}/index.js`)
 				.concat([
-					`"${taskName}" in the default mrm tasks`,
+					`“${taskName}” in the default mrm tasks`,
 					`npm install -g mrm-task-${taskName}`,
 					`npm install -g ${taskName}`,
 				]);

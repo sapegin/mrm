@@ -90,16 +90,18 @@ function runAlias(aliasName, directories, options, argv) {
  * @param {Object} [argv]
  */
 function runTask(taskName, directories, options, argv) {
-	const module = tryRequire(
+	const modulePath = tryResolve(
 		tryFile(directories, `${taskName}/index.js`),
 		`mrm-task-${taskName}`,
 		taskName
 	);
-	if (!module) {
-		throw new MrmUnknownTask(`Task "${taskName}" not found.`, { taskName });
+	if (!modulePath) {
+		throw new MrmUnknownTask(`Task “${taskName}” not found.`, { taskName });
 	}
 
 	console.log(chalk.cyan(`Running ${taskName}...`));
+
+	const module = require(modulePath);
 	module(getConfigGetter(options), argv);
 }
 
@@ -137,7 +139,7 @@ function getConfigGetter(options) {
 	 * @return {Object} this
 	 */
 	function require(...names) {
-		const unknown = names.filter(name => !(name in options));
+		const unknown = names.filter(name => options[name] === undefined);
 		if (unknown.length > 0) {
 			throw new MrmUndefinedOption(`Required config options are missed: ${unknown.join(', ')}.`, {
 				unknown,
@@ -218,36 +220,40 @@ function getConfigFromCommandLine(argv) {
  * @return {string|undefined} Absolute path or undefined
  */
 function tryFile(directories, filename) {
-	for (const dir of directories) {
+	return firstResult(directories, dir => {
 		const filepath = path.resolve(dir, filename);
-		if (fs.existsSync(filepath)) {
-			return filepath;
-		}
-	}
-	return undefined;
+		return fs.existsSync(filepath) ? filepath : undefined;
+	});
 }
 
 /**
- * Try to require any of the given npm modules. Works with local files, local and global npm modules.
+ * Try to resolve any of the given npm modules. Works with local files, local and global npm modules.
  *
  * @param {string[]} names...
  * @return {any}
  */
-function tryRequire(...names) {
-	for (const name of names) {
-		if (!name) {
+function tryResolve(...names) {
+	return firstResult(names, requireg.resolve);
+}
+
+/**
+ * Return the first truthy result of a callback.
+ *
+ * @param {any[]} items
+ * @param {Function} fn
+ * @return {any}
+ */
+function firstResult(items, fn) {
+	for (const item of items) {
+		if (!item) {
 			continue;
 		}
 
-		try {
-			return requireg(name);
-		} catch (err) {
-			if (err.code !== 'MODULE_NOT_FOUND' && !err.message.includes('Could not require module')) {
-				throw err;
-			}
+		const result = fn(item);
+		if (result) {
+			return result;
 		}
 	}
-
 	return undefined;
 }
 
@@ -262,5 +268,6 @@ module.exports = {
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	tryFile,
-	tryRequire,
+	tryResolve,
+	firstResult,
 };
