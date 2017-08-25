@@ -73,7 +73,7 @@ function run(name, directories, options, argv) {
 function runAlias(aliasName, directories, options, argv) {
 	const tasks = getAllAliases(options)[aliasName];
 	if (!tasks) {
-		throw new MrmUnknownAlias(`Alias "${aliasName}" not found.`);
+		throw new MrmUnknownAlias(`Alias “${aliasName}” not found.`);
 	}
 
 	console.log(chalk.yellow(`Running alias ${aliasName}...`));

@@ -45,7 +45,7 @@ const binaryName = process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
 if (argv.dir) {
 	const dir = path.resolve(argv.dir);
 	if (!isDirectory.sync(dir)) {
-		printError(`Directory "${dir} not found.`);
+		printError(`Directory “${dir}” not found.`);
 		process.exit(1);
 	}
 
