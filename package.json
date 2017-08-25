@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --fix",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "precommit": "lint-staged"
   },
   "engines": {
     "node": ">=6"
@@ -45,7 +46,9 @@
     "eslint": "^4.0.0",
     "eslint-config-tamia": "^4.1.1",
     "eslint-plugin-prettier": "^2.1.2",
+    "husky": "^0.14.3",
     "jest": "^20.0.4",
+    "lint-staged": "^4.0.4",
     "prettier": "^1.4.4",
     "semantic-release": "^6.3.6",
     "semantic-release-tamia": "^1.1.1"
@@ -71,5 +74,11 @@
     "template",
     "tool",
     "yaml"
-  ]
+  ],
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
