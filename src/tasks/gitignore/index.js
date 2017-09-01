@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const { lines } = require('mrm-core');
@@ -15,8 +16,10 @@ const ignores = [
 	'.eslintcache',
 ];
 
-module.exports = function() {
+function task() {
 	// .gitignore
 	lines('.gitignore').remove(badIgnores).add(ignores).save();
-};
-module.exports.description = 'Adds .gitignore';
+}
+
+task.description = 'Adds .gitignore';
+module.exports = task;

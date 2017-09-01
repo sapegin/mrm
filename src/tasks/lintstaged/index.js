@@ -1,10 +1,11 @@
+// @ts-check
 'use strict';
 
 const { json, install } = require('mrm-core');
 
 const packages = ['lint-staged', 'husky'];
 
-module.exports = function() {
+function task() {
 	// package.json
 	json('package.json')
 		.merge({
@@ -19,5 +20,7 @@ module.exports = function() {
 
 	// package.json: dependencies
 	install(packages);
-};
-module.exports.description = 'Adds lint-staged';
+}
+
+task.description = 'Adds lint-staged';
+module.exports = task;

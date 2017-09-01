@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const fs = require('fs');
@@ -6,7 +7,7 @@ const { lines, packageJson, copyFiles, install, uninstall } = require('mrm-core'
 const packages = ['jest'];
 const oldPackages = ['mocha', 'chai', 'ava'];
 
-module.exports = function() {
+function task() {
 	// package.json
 	const pkg = packageJson().merge({
 		scripts: {
@@ -74,5 +75,7 @@ More info:
 https://github.com/skovhus/jest-codemods
 `);
 	}
-};
-module.exports.description = 'Adds Jest';
+}
+
+task.description = 'Adds Jest';
+module.exports = task;
