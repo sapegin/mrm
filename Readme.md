@@ -1,4 +1,4 @@
-# Marmot (mrm)
+# Mrm
 
 [![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm)
 [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
