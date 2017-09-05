@@ -38,6 +38,7 @@
     "middleearth-names": "^1.1.0",
     "minimist": "^1.2.0",
     "mrm-core": "^2.2.2",
+    "mrm-preset-default": "^1.0.0",
     "requireg": "^0.1.7",
     "semver-utils": "^1.1.1",
     "update-notifier": "^2.2.0",

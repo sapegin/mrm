@@ -57,6 +57,12 @@ Custom config and tasks folder:
 mrm license --dir ~/unicorn
 ```
 
+Run a task from a preset (globally installed `mrm-preset-unicorn` npm package):
+
+```shell
+mrm license --preset unicorn
+```
+
 ## Usage via npx
 
 If you have npm 5.3 or newer you can use mrm without installation:
@@ -89,83 +95,25 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ## Tasks
 
-### codecov
+These tasks are included by default:
 
-Adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](#travis) task) and Readme badge.
+* [codecov](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-codecov)
+* [editorconfig](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-editorconfig)
+* [eslint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-eslint)
+* [gitignore](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-gitignore)
+* [jest](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-jest)
+* [license](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-license)
+* [lintstaged](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-lintstaged)
+* [package](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-package)
+* [readme](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-readme)
+* [styleguidist](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-styleguidist)
+* [stylelint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-stylelint)
+* [travis](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-travis)
+* [typescript](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-typescript)
 
-### editorconfig
+## Writing custom tasks
 
-[EditorConfig](http://editorconfig.org/): adds `.editorconfig`.
-
-Config options:
-
-* `indent` — indentation, `tab` or number of spaces (by default `tab`).
-
-### eslint
-
-[ESLint](http://eslint.org/): adds `.eslintrc`, adds npm script and installs dependencies.
-
-Config options:
-
-* `eslintPreset` — preset name (not npm package name, by default will install `eslint:recommended` preset)
-* `eslintPeerDependencies` — additional dependencies to install (e.g. `['prettier', 'eslint-plugin-prettier']`)
-
-### gitignore
-
-Adds `.gitignore` with `node_modules`, logs and artifacts of popular code editors.
-
-### jest
-
-[Jest](https://facebook.github.io/jest/): adds npm scripts, updates `.gitignore`, `.npmignore`, `.eslintignore` with common patterns, installs dependencies. Tries to get rid of Mocha and AVA configs.
-
-### license
-
-Adds license file based on `license` field in `package.json`.
-
-Config options:
-
-* `licenseFile` — File name (by default `License.md`).
-
-### lintstaged
-
-[lint-staged](https://github.com/okonet/lint-staged): creates config in `package.json`, sets up pre-commit Git hook and installs dependencies.
-
-### package
-
-Creates `package.json`.
-
-### readme
-
-Creates Readme file.
-
-Config options:
-
-* `readmeFile` — Name of the readme file (by default `Readme.md`).
-
-### styleguidist
-
-[React Styleguidist](https://react-styleguidist.js.org/): adds style guide config, adds npm scripts and installs dependencies.
-
-### stylelint
-
-[Stylelint](https://stylelint.io/): adds `.stylelintrc`, adds npm script and installs dependencies.
-
-Config options:
-
-* `stylelintPreset` — preset name (by default will install `stylelint-config-standard` preset)
-* `stylelintExtensions` — file extensions to lint (by default `.css`)
-
-### travis
-
-[Travis CI](https://travis-ci.org/): creates `.travis.yml` and adds Travis CI badge to Readme.
-
-### typescript
-
-[TypeScript](https://stylelint.io/): adds `tsconfig.json` and installs dependencies.
-
-## Custom tasks
-
-Create either `~/.mrm/<taskname>/index.js` or `~/dotfiles/mrm/<taskname>/index.js`. If `<taskname>` is the same as one of the internal tasks your task will override an internal one.
+Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the internal tasks your task will override an internal one.
 
 ```js
 const { /* ... */ } = require('mrm-core');
@@ -192,6 +140,88 @@ npm install --save mrm-core
 [mrm-core](https://github.com/sapegin/mrm-core) is an utility library created to write Mrm tasks, it has function to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
 You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of internal tasks](https://github.com/sapegin/mrm/tree/master/src/tasks).
+
+## Custom presets
+
+Preset is an npm package (or a directory) that contains a config and tasks.
+
+The file structure looks like this:
+
+```
+.
+├── task1
+│   └── index.js
+├── task2
+│   └── index.js
+├── config.json
+├── package.json
+```
+
+And the package.json would look like this:
+
+```json
+{
+  "name": "mrm-preset-default",
+  "version": "0.1.0",
+  "description": "Common tasks for Mrm",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-preset-default",
+  "repository": "sapegin/mrm-tasks",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "main": "config.json",
+  "files": [
+    "config.json",
+    "*/index.js"
+  ],
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "mrm-preset"
+  ],
+  "dependencies": {
+    "mrm-core": "^2.1.3",
+    "mrm-task-gitignore": "^0.1.0"
+  }
+}
+```
+
+See the *Writing custom tasks* section above to learn how to write Mrm tasks. To add a task to a preset put it into a `<TASK>/index.js` file in your preset package folder.
+
+If you want to use a task from npm (or any default task), you should include it as a dependency. That way you can be sure that you’ll always have a task version that works for your project.
+
+For example, if you want to use `mrm-task-gitignore` task, you need to create a `gitignore/index.js` file in your preset package folder:
+
+```js
+module.exports = require('mrm-task-gitignore');
+```
+
+## Config resolution rules
+
+* `<DIR>/config.json` if `--dir <DIR>` command line option was passed
+* `$HOME/dotfiles/mrm/config.json`
+* `$HOME/.mrm/mrm/config.json`
+* `mrm-preset-default/config.json`
+
+if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
+
+* `mrm-preset-<PRESET>/config.json`
+
+## Task resolution rules
+
+* `<DIR>/<TASK>/index.js` if `--dir <DIR>` command line option was passed
+* `$HOME/dotfiles/mrm/<TASK>/index.js`
+* `$HOME/.mrm/mrm/<TASK>/index.js`
+* `mrm-preset-default/<TASK>/index.js`
+
+if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
+
+* `mrm-preset-<PRESET>/<TASK>/index.js`
 
 ## Work with Lerna
 
