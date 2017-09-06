@@ -17,7 +17,7 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 
 ## Motivation
 
-Most of the available tools are template based. Template approach works moderately well for new project generation but doesn’t work well for updating. Marmot’s approach is closer to [codemods](https://github.com/facebook/codemod) than templates.
+Most of the available tools are template based. Template approach works moderately well for new project generation but doesn’t work well for updating. Mrm’s approach is closer to [codemods](https://github.com/facebook/codemod) than templates.
 
 ## Installation
 
