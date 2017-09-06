@@ -8,9 +8,10 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 ## Features
 
 * Will not overwrite your data if you don’t want it to
-* Has tools to work with JSON, YAML, INI, Markdown and text files
-* Has bunch of [customizable tasks](#tasks)
+* Tools to work with JSON, YAML, INI, Markdown and text files
+* Bunch of [customizable tasks](#tasks) included
 * Easy to write [your own tasks](#custom-tasks)
+* Share tasks via npm and group them into [presets](#custom-presets)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
 
@@ -57,7 +58,7 @@ Custom config and tasks folder:
 mrm license --dir ~/unicorn
 ```
 
-Run a task from a preset (globally installed `mrm-preset-unicorn` npm package):
+Run a task from a preset (globally installed `mrm-preset-unicorn` npm package, read more [about preset](#custom-presets)):
 
 ```shell
 mrm license --preset unicorn
@@ -79,15 +80,15 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ```json5
 {
-    "name": "Gandalf the Grey",
-    "email": "gandalf@middleearth.com",
-    "url": "http://middleearth.com",
-    "indent": "tab", // "tab" or number of spaces
-    "readmeFile": "Readme.md", // Name of readme file
-    "licenseFile": "License.md", // Name of license file
-    "aliases": {  // Aliases to run multiple tasks at once
-        "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
-    }
+  "name": "Gandalf the Grey",
+  "email": "gandalf@middleearth.com",
+  "url": "http://middleearth.com",
+  "indent": "tab", // "tab" or number of spaces
+  "readmeFile": "Readme.md", // Name of readme file
+  "licenseFile": "License.md", // Name of license file
+  "aliases": {  // Aliases to run multiple tasks at once
+    "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
+  }
 }
 ```
 
@@ -113,7 +114,7 @@ These tasks are included by default:
 
 ## Writing custom tasks
 
-Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the internal tasks your task will override an internal one.
+Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override an internal one.
 
 ```js
 const { /* ... */ } = require('mrm-core');
@@ -139,7 +140,56 @@ npm install --save mrm-core
 
 [mrm-core](https://github.com/sapegin/mrm-core) is an utility library created to write Mrm tasks, it has function to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
-You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of internal tasks](https://github.com/sapegin/mrm/tree/master/src/tasks).
+You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of default tasks](https://github.com/sapegin/mrm-tasks/tree/master/packages).
+
+## Sharing tasks via npm
+
+The basic file structure of a shared task looks like this:
+
+```
+.
+├── index.js
+├── package.json
+```
+
+`index.js` is the same as described [in the previous section](#writing-custom-tasks). And the `package.json` would look like this:
+
+```json
+{
+  "name": "mrm-task-unicorn",
+  "version": "0.1.0",
+  "description": "Unicorn task for Mrm",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-task-unicorn",
+  "repository": "sapegin/mrm-tasks",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "unicorn"
+  ],
+  "dependencies": {
+    "mrm-core": "^2.1.3"
+  }
+}
+```
+
+The package name should should follow this pattern: `mrm-task-<TASK>`, otherwise you’ll have to type full package name when you run a task:
+
+```
+mrm unicorn # mrm-task-unicorn
+mrm @mycompany/unicorn-task # @mycompany/unicorn-task
+```
 
 ## Custom presets
 
@@ -157,7 +207,7 @@ The file structure looks like this:
 ├── package.json
 ```
 
-And the package.json would look like this:
+And the `package.json` would look like this:
 
 ```json
 {
@@ -191,7 +241,7 @@ And the package.json would look like this:
 }
 ```
 
-See the *Writing custom tasks* section above to learn how to write Mrm tasks. To add a task to a preset put it into a `<TASK>/index.js` file in your preset package folder.
+See the [Writing custom tasks](#writing-custom-tasks) section above to learn how to write Mrm tasks. To add a task to a preset put it into a `<TASK>/index.js` file in your preset package folder.
 
 If you want to use a task from npm (or any default task), you should include it as a dependency. That way you can be sure that you’ll always have a task version that works for your project.
 
@@ -199,6 +249,13 @@ For example, if you want to use `mrm-task-gitignore` task, you need to create a 
 
 ```js
 module.exports = require('mrm-task-gitignore');
+```
+
+The package name should should follow this pattern: `mrm-preset-<TASK>`, otherwise you’ll have to type full package name when you run a task:
+
+```
+mrm license --preset unicorn # mrm-preset-unicorn
+mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
 ```
 
 ## Config resolution rules
@@ -227,8 +284,8 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 
 To run a task for each package in a [Lerna](https://github.com/lerna/lerna) repository:
 
-```
-for d in packages/* ; do echo "$d..."; cd $d; mrm TASK; cd ../..; done
+```bash
+for d in packages/* ; do echo "$d..."; cd $d; mrm <TASK>; cd ../..; done
 ```
 
 ## Change log
