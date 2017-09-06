@@ -15,6 +15,30 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
 
+## Table of contents
+
+<!-- Update: npx markdown-toc -i Readme.md -->
+
+<!-- toc -->
+
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Usage via npx](#usage-via-npx)
+- [Configuration](#configuration)
+- [Tasks](#tasks)
+- [Writing custom tasks](#writing-custom-tasks)
+- [Sharing tasks via npm](#sharing-tasks-via-npm)
+- [Custom presets](#custom-presets)
+- [Config resolution rules](#config-resolution-rules)
+- [Task resolution rules](#task-resolution-rules)
+- [Work with Lerna](#work-with-lerna)
+- [Change log](#change-log)
+- [Contributing](#contributing)
+- [Authors and license](#authors-and-license)
+
+<!-- tocstop -->
+
 ## Motivation
 
 Most of the available tools are template based. Template approach works moderately well for new project generation but doesn’t work well for updating. Mrm’s approach is closer to [codemods](https://github.com/facebook/codemod) than templates.
