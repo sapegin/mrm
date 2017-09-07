@@ -182,10 +182,10 @@ describe('getConfigGetter', () => {
 		expect(fn).toThrowError('Required config options are missed: pizza');
 	});
 
-	it('require function should throw if some config options are "undefined"', () => {
-		const config = getConfigGetter({ coffee: undefined });
-		const fn = () => config.require('coffee');
-		expect(fn).toThrowError('Required config options are missed: coffee');
+	it('require function should throw if some config options are "undefined", "null" or ""', () => {
+		const config = getConfigGetter({ a: undefined, b: null, c: '' });
+		const fn = () => config.require('a', 'b', 'c');
+		expect(fn).toThrowError('Required config options are missed: a, b, c');
 	});
 
 	it('defaults function should update not defined options', () => {
