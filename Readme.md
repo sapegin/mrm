@@ -309,7 +309,7 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 To run a task for each package in a [Lerna](https://github.com/lerna/lerna) repository:
 
 ```bash
-for d in packages/* ; do echo "$d..."; cd $d; mrm <TASK>; cd ../..; done
+./node_modules/.bin/lerna exec -- mrm <TASK>
 ```
 
 ## Change log
