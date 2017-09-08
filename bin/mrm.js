@@ -7,18 +7,21 @@ const minimist = require('minimist');
 const chalk = require('chalk');
 const longest = require('longest');
 const isDirectory = require('is-directory');
+const userHome = require('user-home');
 const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks } = require('../src/index');
-const { MrmUnknownTask, MrmUndefinedOption } = require('../src/errors');
-const directories = require('../src/directories');
+const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
+const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
+
+let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
 	['<task>', '', 'Run a task or an alias'],
 	['<task>', '--dir ~/unicorn', 'Custom config and tasks folder'],
+	['<task>', '--preset unicorn', 'Load config and tasks from a preset'],
 	['<task>', '--config:foo coffee --config:bar pizza', 'Override config options'],
 ];
 
@@ -44,11 +47,27 @@ const binaryName = process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
 if (argv.dir) {
 	const dir = path.resolve(argv.dir);
 	if (!isDirectory.sync(dir)) {
-		printError(`Directory "${dir} not found.`);
+		printError(`Directory “${dir}” not found.`);
 		process.exit(1);
 	}
 
 	directories.unshift(dir);
+}
+
+// Preset
+const preset = argv.preset || 'default';
+const isDefaultPreset = preset === 'default';
+if (isDefaultPreset) {
+	directories.push(path.dirname(require.resolve('mrm-preset-default')));
+} else {
+	const presetPath = tryResolve(`mrm-preset-${preset}`, preset);
+	if (!presetPath) {
+		printError(`Preset “${preset}” not found.
+
+We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
+		process.exit(1);
+	}
+	directories = [path.dirname(presetPath)];
 }
 
 const options = getConfig(directories, 'config.json', argv);
@@ -58,17 +77,44 @@ if (tasks.length === 0 || tasks[0] === 'help') {
 	try {
 		run(tasks, directories, options, argv);
 	} catch (err) {
-		if (err.constructor === MrmUnknownTask) {
+		if (err.constructor === MrmUnknownAlias) {
 			printError(err.message);
-			commandHelp();
+		} else if (err.constructor === MrmUnknownTask) {
+			const { taskName } = err.extra;
+			if (isDefaultPreset) {
+				const modules = directories
+					.slice(0, -1)
+					.map(d => `${d}/${taskName}/index.js`)
+					.concat([
+						`“${taskName}” in the default mrm tasks`,
+						`npm install -g mrm-task-${taskName}`,
+						`npm install -g ${taskName}`,
+					]);
+				printError(
+					`${err.message}
+
+We’ve tried these locations:
+
+- ${modules.join('\n- ')}`
+				);
+			} else {
+				printError(`Task “${taskName}” not found in the “${preset}” preset.
+
+Note that when a preset is specified no default search locations are used.`);
+			}
 		} else if (err.constructor === MrmUndefinedOption) {
 			const { unknown } = err.extra;
 			const values = unknown.map(name => [name, random()]);
-			const userDirectories = directories.slice(0, -1);
-			printError(
-				`Required config options are missed: ${listify(unknown)}.
+			const heading = `Required config options are missed: ${listify(unknown)}.`;
+			const cliHelp = `  ${binaryName} ${tasks.join(' ')} ${values
+				.map(([n, v]) => `--config:${n} "${v}"`)
+				.join(' ')}`;
+			if (isDefaultPreset) {
+				const userDirectories = directories.slice(0, -1);
+				printError(
+					`${heading}
 
-1. Create "config.json" file:
+1. Create a “config.json” file:
 
 {
 ${values.map(([n, v]) => `  "${n}": "${v}"`).join(',\n')}
@@ -78,11 +124,22 @@ In one of these folders:
 
 - ${userDirectories.join('\n- ')}
 
-2. Or pass the option via command line:
+2. Or pass options via command line:
 
-${binaryName} ${tasks.join(' ')} ${values.map(([n, v]) => `--config:${n} "${v}"`).join(' ')}
+${cliHelp}
 	`
-			);
+				);
+			} else {
+				printError(
+					`${heading}
+
+You can pass the option via command line:
+
+${cliHelp}
+
+Note that when a preset is specified no default search locations are used.`
+				);
+			}
 		} else {
 			throw err;
 		}
@@ -129,6 +186,7 @@ function getTasksList() {
 }
 
 function printError(message) {
+	console.log();
 	console.error(chalk.bold.red(message));
 	console.log();
 }

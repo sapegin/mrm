@@ -4,7 +4,9 @@
 
 const path = require('path');
 const {
+	firstResult,
 	tryFile,
+	tryResolve,
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
@@ -41,6 +43,18 @@ const argv = {
 
 const file = name => path.join(__dirname, '../../test', name);
 
+describe('firstResult', () => {
+	it('should return the first truthy result', () => {
+		const result = firstResult([0, undefined, 'pizza', false, 'cappuccino'], a => a);
+		expect(result).toMatch('pizza');
+	});
+
+	it('should return undefined if no truthy results found', () => {
+		const result = firstResult([0, undefined, false, ''], a => a);
+		expect(result).toBeFalsy();
+	});
+});
+
 describe('tryFile', () => {
 	it('should return an absolute file path if the file exists', () => {
 		expect(tryFile(directories, 'task1/index.js')).toBe(file('dir1/task1/index.js'));
@@ -50,6 +64,28 @@ describe('tryFile', () => {
 	it('should return undefined if the file doesn’t exist', () => {
 		const result = tryFile([], 'pizza');
 		expect(result).toBeFalsy();
+	});
+});
+
+describe('tryResolve', () => {
+	it('should resolve an npm module if it’s installed', () => {
+		const result = tryResolve('listify');
+		expect(result).toMatch('node_modules/listify/index.js');
+	});
+
+	it('should resolve the first installed npm module', () => {
+		const result = tryResolve('pizza', 'listify');
+		expect(result).toMatch('node_modules/listify/index.js');
+	});
+
+	it('should return undefined if none of the npm mudules are installed', () => {
+		const result = tryResolve('pizza', 'cappuccino');
+		expect(result).toBeFalsy();
+	});
+
+	it('should not throw when undefined was passed instead of a module name', () => {
+		const fn = () => tryResolve(undefined);
+		expect(fn).not.toThrowError();
 	});
 });
 
@@ -111,6 +147,8 @@ describe('getConfigGetter', () => {
 		const result = getConfigGetter({});
 		expect(result).toEqual(expect.any(Function));
 		expect(result.require).toEqual(expect.any(Function));
+		expect(result.defaults).toEqual(expect.any(Function));
+		expect(result.values).toEqual(expect.any(Function));
 	});
 
 	it('config function should return a config option value', () => {
@@ -125,16 +163,35 @@ describe('getConfigGetter', () => {
 		expect(result).toBe('salami');
 	});
 
-	it('require function should not throw if all config options are difended', () => {
+	it('values function should return options object', () => {
+		const options = { coffee: 'americano' };
+		const config = getConfigGetter(options);
+		const result = config.values();
+		expect(result).toEqual(options);
+	});
+
+	it('require function should not throw if all config options are defined', () => {
 		const config = getConfigGetter({ coffee: 'americano' });
 		const fn = () => config.require('coffee');
 		expect(fn).not.toThrowError();
 	});
 
-	it('require function should throw if some config options are not difended', () => {
+	it('require function should throw if some config options are not defined', () => {
 		const config = getConfigGetter({ coffee: 'americano' });
 		const fn = () => config.require('pizza', 'coffee');
 		expect(fn).toThrowError('Required config options are missed: pizza');
+	});
+
+	it('require function should throw if some config options are "undefined", "null" or ""', () => {
+		const config = getConfigGetter({ a: undefined, b: null, c: '' });
+		const fn = () => config.require('a', 'b', 'c');
+		expect(fn).toThrowError('Required config options are missed: a, b, c');
+	});
+
+	it('defaults function should update not defined options', () => {
+		const config = getConfigGetter({ coffee: 'americano' });
+		config.defaults({ coffee: 'cappuccino', pizza: 'salami' });
+		expect(config.values()).toEqual({ coffee: 'americano', pizza: 'salami' });
 	});
 });
 
