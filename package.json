@@ -38,7 +38,7 @@
     "middleearth-names": "^1.1.0",
     "minimist": "^1.2.0",
     "mrm-core": "^2.2.2",
-    "mrm-preset-default": "^1.0.0",
+    "mrm-preset-default": "^1.0.1",
     "requireg": "^0.1.7",
     "semver-utils": "^1.1.1",
     "update-notifier": "^2.2.0",
@@ -46,11 +46,11 @@
     "user-meta": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
-    "eslint-config-tamia": "^4.1.1",
-    "eslint-plugin-prettier": "^2.1.2",
-    "jest": "^20.0.4",
-    "prettier": "^1.4.4",
+    "eslint": "^4.6.1",
+    "eslint-config-tamia": "^4.2.2",
+    "eslint-plugin-prettier": "^2.2.0",
+    "jest": "^21.0.1",
+    "prettier": "^1.6.1",
     "semantic-release": "^6.3.6",
     "semantic-release-tamia": "^1.1.1"
   },
