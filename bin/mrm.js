@@ -41,7 +41,8 @@ process.on('uncaughtException', err => {
 const argv = minimist(process.argv.slice(2));
 const tasks = argv._;
 
-const binaryName = process.env._.endsWith('/npx') ? 'npx mrm' : 'mrm';
+const binaryPath = process.env._;
+const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
 // Custom config / tasks directory
 if (argv.dir) {
