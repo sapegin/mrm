@@ -8,8 +8,10 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 ## Features
 
 * Will not overwrite your data if you don’t want it to
-* Tools to work with JSON, YAML, INI, Markdown and text files
+* Minimal changes: will keep the original file formatting or read the style from EditorConfig
+* Minimal configuration: will try to infer configuration from the project itself or from the environment
 * Bunch of [customizable tasks](#tasks) included
+* Tools to work with JSON, YAML, INI, Markdown and new line separated text files
 * Easy to write [your own tasks](#custom-tasks)
 * Share tasks via npm and group them into [presets](#custom-presets)
 
@@ -17,7 +19,7 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 
 ## Table of contents
 
-<!-- Update: npx markdown-toc -i Readme.md -->
+<!-- Update: npx markdown-toc --maxdepth 3 -i Readme.md -->
 
 <!-- toc -->
 
@@ -32,9 +34,13 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 - [Custom presets](#custom-presets)
 - [Config resolution rules](#config-resolution-rules)
 - [Task resolution rules](#task-resolution-rules)
-- [Work with Lerna](#work-with-lerna)
+- [FAQ](#faq)
+  * [How to use Mrm with Lerna?](#how-to-use-mrm-with-lerna)
+  * [How to infer user metadata, like user name or email?](#how-to-infer-user-metadata-like-user-name-or-email)
+  * [How to infer GitHub user name?](#how-to-infer-github-user-name)
 - [Change log](#change-log)
 - [Contributing](#contributing)
+- [Sponsors](#sponsors)
 - [Authors and license](#authors-and-license)
 
 <!-- tocstop -->
@@ -305,12 +311,46 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 
 * `mrm-preset-<PRESET>/<TASK>/index.js`
 
-## Work with Lerna
+## FAQ
+
+### How to use Mrm with Lerna?
 
 To run a task for each package in a [Lerna](https://github.com/lerna/lerna) repository:
 
 ```bash
 ./node_modules/.bin/lerna exec -- mrm <TASK>
+```
+
+### How to infer user metadata, like user name or email?
+
+Use the [user-meta](https://github.com/sapegin/user-meta) package to read user name, email and URL from `.npmrc` or `.gitconfig`:
+
+```js
+const meta = require('user-meta');
+module.exports = function task(config) {
+	const { name, email, url } = config
+		.defaults(meta)
+		.require('name', 'email', 'url')
+		.values();
+  /* ... */
+}
+```
+
+### How to infer GitHub user name?
+
+Use the [git-username](https://github.com/jonschlinkert/git-username) package:
+
+```js
+const gitUsername = require('git-username');
+module.exports = function task(config) {
+	const { github } = config
+		.defaults({
+			github: gitUsername(),
+		})
+		.require('github')
+		.values();
+  /* ... */
+}
 ```
 
 ## Change log
