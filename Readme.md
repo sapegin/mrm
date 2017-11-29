@@ -361,12 +361,6 @@ The change log can be found on the [Releases page](https://github.com/sapegin/mr
 
 Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
 
-## Sponsors
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/Ehc9nFenMsMG6p9KFod8F3df/sapegin/mrm'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/Ehc9nFenMsMG6p9KFod8F3df/sapegin/mrm.svg' />
-</a>
-
 ## Authors and license
 
 [Artem Sapegin](http://sapegin.me) and [contributors](https://github.com/sapegin/mrm/graphs/contributors).
