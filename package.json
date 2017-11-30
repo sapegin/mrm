@@ -1,7 +1,7 @@
 {
   "name": "mrm",
   "version": "0.0.0-development",
-  "description": "Simplistic project dotfiles organizer",
+  "description": "Codemods for your project config files",
   "author": {
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
