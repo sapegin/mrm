@@ -29,7 +29,7 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 - [Usage via npx](#usage-via-npx)
 - [Configuration](#configuration)
 - [Tasks](#tasks)
-- [Writing custom tasks](#writing-custom-tasks)
+- [Writing your own tasks](#writing-your-own-tasks)
 - [Sharing tasks via npm](#sharing-tasks-via-npm)
 - [Custom presets](#custom-presets)
 - [Config resolution rules](#config-resolution-rules)
@@ -40,7 +40,6 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
   * [How to infer GitHub user name?](#how-to-infer-github-user-name)
 - [Change log](#change-log)
 - [Contributing](#contributing)
-- [Sponsors](#sponsors)
 - [Authors and license](#authors-and-license)
 
 <!-- tocstop -->
@@ -110,17 +109,16 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ```json5
 {
-  "name": "Gandalf the Grey",
-  "email": "gandalf@middleearth.com",
-  "url": "http://middleearth.com",
   "indent": "tab", // "tab" or number of spaces
   "readmeFile": "Readme.md", // Name of readme file
   "licenseFile": "License.md", // Name of license file
   "aliases": {  // Aliases to run multiple tasks at once
-    "node": ["license", "readme", "package", "editorconfig", "eslint", "gitignore"]
+    "node": ["license", "readme", "editorconfig", "gitignore"]
   }
 }
 ```
+
+See [tasks docs](https://github.com/sapegin/mrm-tasks) for available config options.
 
 *Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration.*
 
@@ -143,25 +141,31 @@ These tasks are included by default:
 * [travis](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-travis)
 * [typescript](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-typescript)
 
-## Writing custom tasks
+## Writing your own tasks
 
-Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override an internal one.
+Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override a default one.
+
+The simplest task could look like this:
 
 ```js
-const { /* ... */ } = require('mrm-core');
-const meta = require('user-meta');
-function task(config, argv) {
-  const { name, email } = config
-    .defaults({ name: meta.name }) // Set “dynamic” default values (this will affect require() method below)
-    .require('name', 'email') // Mark config values as required
-    .values(); // Returns object with all config options
-  // argv - command line arguments
-};
-task.description = 'Task description';
+// Mrm module to work with new line separated text files
+const { lines } = require('mrm-core');
+
+function task() {
+  // Read .gitignore if it exists
+  lines('.gitignore')
+    // Add lines that do not exist in a file yet,
+    // but keep all existing lines
+    .add(['node_modules/', '.DS_Store'])
+    // Update or create a file
+    .save();
+}
+
+task.description = 'Adds .gitignore';
 module.exports = task;
 ```
 
-If your custom tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
+If your tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
 
 ```bash
 cd ~/.mrm # or cd ~/dotfiles/mrm
@@ -171,7 +175,73 @@ npm install --save mrm-core
 
 [mrm-core](https://github.com/sapegin/mrm-core) is an utility library created to write Mrm tasks, it has function to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
-You can find [some examples here](https://github.com/sapegin/dotfiles/tree/master/mrm) or check [code of default tasks](https://github.com/sapegin/mrm-tasks/tree/master/packages).
+Let’s take a look at a more complicated task:
+
+```js
+const {
+  // JSON files
+  json,
+  // package.json
+  packageJson,
+  // New line separated text files
+  lines,
+  // Install npm packages
+  install
+} = require('mrm-core');
+
+function task(config) {
+  // Task options
+  // mrm eslint --config:eslintPreset airbnb
+  const { eslintPreset } = config
+    .defaults({
+      // Default values
+      eslintPreset: 'eslint:recommended'
+    })
+    .values();
+
+  // Use custom preset package from npm
+  const packages = ['eslint'];
+  if (eslintPreset !== 'eslint:recommended') {
+    packages.push(`eslint-config-${eslintPreset}`);
+  }
+
+  // Create or update .eslintignore
+  lines('.eslintignore')
+    .add(['node_modules/'])
+    .save();
+
+  // Read project’s package.json
+  const pkg = packageJson();
+
+  pkg
+    // Add lint script
+    .setScript('lint', 'eslint . --cache --fix')
+    // Add pretest script
+    .prependScript('pretest', 'npm run lint')
+    .save();
+
+  // Read .eslintrc if it exists
+  const eslintrc = json('.eslintrc');
+
+  // Use Babel parser if the project depends on Babel
+  if (pkg.get('devDependencies.babel-core')) {
+    const parser = 'babel-eslint';
+    packages.push(parser);
+    eslintrc.merge({ parser });
+  }
+
+  // Set preset
+  eslintrc.set('extends', eslintPreset).save();
+
+  // Install npm dependencies
+  install(packages);
+}
+
+task.description = 'Adds ESLint';
+module.exports = task;
+```
+
+There are more methods in `mrm-core` — check out [the docs](https://github.com/sapegin/mrm-core#api) and [the default tasks](https://github.com/sapegin/mrm-tasks).
 
 ## Sharing tasks via npm
 
@@ -293,8 +363,7 @@ mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
 
 * `<DIR>/config.json` if `--dir <DIR>` command line option was passed
 * `$HOME/dotfiles/mrm/config.json`
-* `$HOME/.mrm/mrm/config.json`
-* `mrm-preset-default/config.json`
+* `$HOME/.mrm/config.json`
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 
@@ -304,8 +373,9 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 
 * `<DIR>/<TASK>/index.js` if `--dir <DIR>` command line option was passed
 * `$HOME/dotfiles/mrm/<TASK>/index.js`
-* `$HOME/.mrm/mrm/<TASK>/index.js`
-* `mrm-preset-default/<TASK>/index.js`
+* `$HOME/.mrm/<TASK>/index.js`
+* `mrm-task-<TASK>/index.js`, where `mrm-task-<TASK>` is an npm package name
+* `<TASK>` in [mrm-preset-default](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-preset-default)
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 
