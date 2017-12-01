@@ -126,7 +126,10 @@ See [tasks docs](https://github.com/sapegin/mrm-tasks) for available config opti
 
 These tasks are included by default:
 
+<!-- textlint-disable terminology -->
+
 * [codecov](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-codecov)
+* [contributing](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-contributing)
 * [editorconfig](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-editorconfig)
 * [eslint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-eslint)
 * [gitignore](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-gitignore)
@@ -134,12 +137,15 @@ These tasks are included by default:
 * [license](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-license)
 * [lintstaged](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-lintstaged)
 * [package](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-package)
+* [prettier](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-prettier)
 * [readme](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-readme)
 * [semantic-release](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-semantic-release)
 * [styleguidist](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-styleguidist)
 * [stylelint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-stylelint)
 * [travis](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-travis)
 * [typescript](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-typescript)
+
+<!-- textlint-enable -->
 
 ## Writing your own tasks
 
@@ -191,12 +197,14 @@ const {
 
 function task(config) {
   // Task options
-  // mrm eslint --config:eslintPreset airbnb
-  const { eslintPreset } = config
+  // mrm eslint --config:name pizza
+  const { name, eslintPreset } = config
     .defaults({
-      // Default values
+      // Default value
       eslintPreset: 'eslint:recommended'
     })
+    // Required option
+    .require('name')
     .values();
 
   // Use custom preset package from npm
