@@ -48,6 +48,8 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 
 Most of the available tools are template based. Template approach works moderately well for new project generation but doesn’t work well for updating. Mrm’s approach is closer to [codemods](https://github.com/facebook/codemod) than templates.
 
+Read more in my article, [Automating open source project configuration with Mrm](http://blog.sapegin.me/all/mrm), or watch [my talk on Mrm](https://www.youtube.com/watch?v=5tHfAf4bRcM).
+
 ## Installation
 
 ```
