@@ -12,7 +12,7 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 * Minimal configuration: will try to infer configuration from the project itself or from the environment
 * Bunch of [customizable tasks](#tasks) included
 * Tools to work with JSON, YAML, INI, Markdown and new line separated text files
-* Easy to write [your own tasks](#custom-tasks)
+* Easy to write [your own tasks](#writing-your-own-tasks)
 * Share tasks via npm and group them into [presets](#custom-presets)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
