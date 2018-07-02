@@ -75,9 +75,7 @@ const options = getConfig(directories, 'config.json', argv);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
-	try {
-		run(tasks, directories, options, argv);
-	} catch (err) {
+	run(tasks, directories, options, argv).catch(function(err) {
 		if (err.constructor === MrmUnknownAlias) {
 			printError(err.message);
 		} else if (err.constructor === MrmUnknownTask) {
@@ -144,7 +142,7 @@ Note that when a preset is specified no default search locations are used.`
 		} else {
 			throw err;
 		}
-	}
+	});
 }
 
 function commandHelp() {

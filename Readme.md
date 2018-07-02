@@ -173,6 +173,19 @@ task.description = 'Adds .gitignore';
 module.exports = task;
 ```
 
+Tasks can also be async by adding the `async` keyword or returning a `Promise`.
+
+```js
+async function task () {
+}
+
+// or
+function task () {
+  return new Promise(() => {
+  })
+}
+```
+
 If your tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
 
 ```bash

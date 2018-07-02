@@ -48,18 +48,24 @@ function getAllAliases(options) {
  * @param {string[]} directories
  * @param {Object} options
  * @param {Object} argv
+ * @returns {Promise}
  */
 function run(name, directories, options, argv) {
 	if (Array.isArray(name)) {
-		name.forEach(n => run(n, directories, options, argv));
-		return;
+		return new Promise((resolve, reject) => {
+			name
+				.reduce((iterable, n) => {
+					return iterable.then(() => run(n, directories, options, argv));
+				}, Promise.resolve())
+				.then(() => resolve())
+				.catch(reject);
+		});
 	}
 
 	if (getAllAliases(options)[name]) {
-		runAlias(name, directories, options, argv);
-	} else {
-		runTask(name, directories, options, argv);
+		return runAlias(name, directories, options, argv);
 	}
+	return runTask(name, directories, options, argv);
 }
 
 /**
@@ -69,16 +75,25 @@ function run(name, directories, options, argv) {
  * @param {string[]} directories
  * @param {Object} options
  * @param {Object} [argv]
+ * @returns {Promise}
  */
 function runAlias(aliasName, directories, options, argv) {
-	const tasks = getAllAliases(options)[aliasName];
-	if (!tasks) {
-		throw new MrmUnknownAlias(`Alias “${aliasName}” not found.`);
-	}
+	return new Promise((resolve, reject) => {
+		const tasks = getAllAliases(options)[aliasName];
+		if (!tasks) {
+			reject(new MrmUnknownAlias(`Alias “${aliasName}” not found.`));
+			return;
+		}
 
-	console.log(chalk.yellow(`Running alias ${aliasName}...`));
+		console.log(chalk.yellow(`Running alias ${aliasName}...`));
 
-	tasks.forEach(name => runTask(name, directories, options, argv));
+		tasks
+			.reduce((iterable, name) => {
+				return iterable.then(() => runTask(name, directories, options, argv));
+			}, Promise.resolve())
+			.then(() => resolve())
+			.catch(reject);
+	});
 }
 
 /**
@@ -88,21 +103,30 @@ function runAlias(aliasName, directories, options, argv) {
  * @param {string[]} directories
  * @param {Object} options
  * @param {Object} [argv]
+ * @returns {Promise}
  */
 function runTask(taskName, directories, options, argv) {
-	const modulePath = tryResolve(
-		tryFile(directories, `${taskName}/index.js`),
-		`mrm-task-${taskName}`,
-		taskName
-	);
-	if (!modulePath) {
-		throw new MrmUnknownTask(`Task “${taskName}” not found.`, { taskName });
-	}
+	return new Promise((resolve, reject) => {
+		const modulePath = tryResolve(
+			tryFile(directories, `${taskName}/index.js`),
+			`mrm-task-${taskName}`,
+			taskName
+		);
 
-	console.log(chalk.cyan(`Running ${taskName}...`));
+		if (!modulePath) {
+			reject(new MrmUnknownTask(`Task “${taskName}” not found.`, { taskName }));
+			return;
+		}
 
-	const module = require(modulePath);
-	module(getConfigGetter(options), argv);
+		console.log(chalk.cyan(`Running ${taskName}...`));
+
+		const module = require(modulePath);
+		Promise.resolve(module(getConfigGetter(options), argv))
+			.then(() => {
+				resolve();
+			})
+			.catch(reject);
+	});
 }
 
 /**
