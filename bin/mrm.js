@@ -75,7 +75,7 @@ const options = getConfig(directories, 'config.json', argv);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
-	run(tasks, directories, options, argv).catch(function(err) {
+	run(tasks, directories, options, argv).catch(err => {
 		if (err.constructor === MrmUnknownAlias) {
 			printError(err.message);
 		} else if (err.constructor === MrmUnknownTask) {
