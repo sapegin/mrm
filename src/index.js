@@ -43,6 +43,21 @@ function getAllAliases(options) {
 }
 
 /**
+ * Runs an array of promises in series
+ *
+ * @method pSeries
+ *
+ * @param  {Array} items
+ * @param  {Function} iterator
+ * @return {Promise}
+ */
+function pSeries(items, iterator) {
+	return items.reduce((iterable, name) => {
+		return iterable.then(() => iterator(name));
+	}, Promise.resolve());
+}
+
+/**
  *
  * @param {string|string[]} name
  * @param {string[]} directories
@@ -53,10 +68,9 @@ function getAllAliases(options) {
 function run(name, directories, options, argv) {
 	if (Array.isArray(name)) {
 		return new Promise((resolve, reject) => {
-			name
-				.reduce((iterable, n) => {
-					return iterable.then(() => run(n, directories, options, argv));
-				}, Promise.resolve())
+			pSeries(name, n => {
+				return run(n, directories, options, argv);
+			})
 				.then(() => resolve())
 				.catch(reject);
 		});
@@ -87,10 +101,9 @@ function runAlias(aliasName, directories, options, argv) {
 
 		console.log(chalk.yellow(`Running alias ${aliasName}...`));
 
-		tasks
-			.reduce((iterable, name) => {
-				return iterable.then(() => runTask(name, directories, options, argv));
-			}, Promise.resolve())
+		pSeries(tasks, name => {
+			return runTask(name, directories, options, argv);
+		})
 			.then(() => resolve())
 			.catch(reject);
 	});
