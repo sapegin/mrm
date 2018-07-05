@@ -1,5 +1,4 @@
 // @ts-check
-'use strict';
 /* eslint-disable no-console */
 
 const path = require('path');

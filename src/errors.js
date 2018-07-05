@@ -1,5 +1,4 @@
 // @ts-check
-'use strict';
 
 class MrmUnknownTask extends Error {
 	constructor(message, extra) {

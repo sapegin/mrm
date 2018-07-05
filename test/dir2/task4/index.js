@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = jest.fn((options, params) => {
 	return new Promise(resolve => {
 		setTimeout(() => {
