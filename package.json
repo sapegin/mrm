@@ -51,14 +51,7 @@
     "husky": "^0.14.3",
     "jest": "^23.3.0",
     "lint-staged": "^7.2.0",
-    "prettier": "^1.13.7",
-    "semantic-release": "^6.3.6",
-    "semantic-release-tamia": "^1.1.1"
-  },
-  "release": {
-    "analyzeCommits": "semantic-release-tamia/analyzeCommits",
-    "generateNotes": "semantic-release-tamia/generateNotes",
-    "verifyRelease": "semantic-release-tamia/verifyRelease"
+    "prettier": "^1.13.7"
   },
   "keywords": [
     "boilerplate",
