@@ -20,6 +20,8 @@ const {
 const task1 = require('../../test/dir1/task1');
 const task2 = require('../../test/dir1/task2');
 const task3 = require('../../test/dir2/task3');
+const task4 = require('../../test/dir2/task4');
+const task5 = require('../../test/dir2/task5');
 
 const configFile = 'config.json';
 const directories = [
@@ -31,7 +33,8 @@ const options = {
 };
 const optionsWithAliases = {
 	aliases: {
-		alias1: ['task1', 'task3'],
+		alias1: ['task1', 'task3', 'task4'],
+		alias2: ['task4', 'task5'],
 	},
 };
 const argv = {
@@ -198,23 +201,52 @@ describe('getConfigGetter', () => {
 describe('runTask', () => {
 	beforeEach(() => {
 		task1.mockClear();
+		task4.mockClear();
 	});
 
 	it('should run a module', () => {
-		runTask('task1', directories, {}, {});
-		expect(task1).toHaveBeenCalledTimes(1);
+		return new Promise((resolve, reject) => {
+			runTask('task1', directories, {}, {})
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 
 	it('should pass a config function and a params object to a module', () => {
-		const params = { coffee: 'cappuccino' };
-		runTask('task1', directories, options, params);
-		expect(task1).toHaveBeenCalledWith(expect.any(Function), params);
-		expect(task1.mock.calls[0][0]('pizza')).toEqual('salami');
+		return new Promise((resolve, reject) => {
+			const params = { coffee: 'cappuccino' };
+
+			runTask('task1', directories, options, params)
+				.then(() => {
+					expect(task1).toHaveBeenCalledWith(expect.any(Function), params);
+					expect(task1.mock.calls[0][0]('pizza')).toEqual('salami');
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 
 	it('should throw when module not found', () => {
-		const fn = () => runTask('pizza', directories, {}, {});
-		expect(fn).toThrowError('not found');
+		const pizza = runTask('pizza', directories, {}, {});
+
+		// ideally we can use toThrowError but that works with >= jest@22
+		// https://github.com/facebook/jest/issues/5076
+		return expect(pizza).rejects.toHaveProperty('message', 'Task “pizza” not found.');
+	});
+
+	it('should run an async module', () => {
+		return new Promise((resolve, reject) => {
+			runTask('task4', directories, {}, { stack: [] })
+				.then(() => {
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task4.mock.calls[0][1].stack).toEqual(['Task 2.4']);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 });
 
@@ -223,18 +255,43 @@ describe('runAlias', () => {
 		task1.mockClear();
 		task2.mockClear();
 		task3.mockClear();
+		task4.mockClear();
+		task5.mockClear();
 	});
 
 	it('should run all tasks defined in an alias', () => {
-		runAlias('alias1', directories, optionsWithAliases, {});
-		expect(task1).toHaveBeenCalledTimes(1);
-		expect(task2).toHaveBeenCalledTimes(0);
-		expect(task3).toHaveBeenCalledTimes(1);
+		return new Promise((resolve, reject) => {
+			runAlias('alias1', directories, optionsWithAliases, { stack: [] })
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					expect(task2).toHaveBeenCalledTimes(0);
+					expect(task3).toHaveBeenCalledTimes(1);
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task4.mock.calls[0][1].stack).toEqual(['Task 2.4']);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 
 	it('should throw when alias not found', () => {
-		const fn = () => runAlias('pizza', directories, optionsWithAliases, {});
-		expect(fn).toThrowError('not found');
+		const pizza = runAlias('pizza', directories, optionsWithAliases, {});
+		return expect(pizza).rejects.toHaveProperty('message', 'Alias “pizza” not found.');
+	});
+
+	it('should run alias tasks in sequence', () => {
+		return new Promise((resolve, reject) => {
+			const stack = [];
+
+			runAlias(['alias2'], directories, optionsWithAliases, { stack })
+				.then(() => {
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task5).toHaveBeenCalledTimes(1);
+					expect(stack).toEqual(['Task 2.4', 'Task 2.5']);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 });
 
@@ -243,24 +300,62 @@ describe('run', () => {
 		task1.mockClear();
 		task2.mockClear();
 		task3.mockClear();
+		task4.mockClear();
+		task5.mockClear();
 	});
 
 	it('should run a task', () => {
-		run('task1', directories, optionsWithAliases, {});
-		expect(task1).toHaveBeenCalledTimes(1);
+		return new Promise((resolve, reject) => {
+			run('task1', directories, optionsWithAliases, {})
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 
 	it('should run all tasks defined in an alias', () => {
-		run('alias1', directories, optionsWithAliases, {});
-		expect(task1).toHaveBeenCalledTimes(1);
-		expect(task2).toHaveBeenCalledTimes(0);
-		expect(task3).toHaveBeenCalledTimes(1);
+		return new Promise((resolve, reject) => {
+			run('alias1', directories, optionsWithAliases, { stack: [] })
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					expect(task2).toHaveBeenCalledTimes(0);
+					expect(task3).toHaveBeenCalledTimes(1);
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task4.mock.calls[0][1].stack).toEqual(['Task 2.4']);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 
 	it('should run multiple tasks', () => {
-		run(['task1', 'task2'], directories, optionsWithAliases, {});
-		expect(task1).toHaveBeenCalledTimes(1);
-		expect(task2).toHaveBeenCalledTimes(1);
+		return new Promise((resolve, reject) => {
+			run(['task1', 'task2', 'task4'], directories, optionsWithAliases, { stack: [] })
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					expect(task2).toHaveBeenCalledTimes(1);
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task4.mock.calls[0][1].stack).toEqual(['Task 2.4']);
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
+
+	it('should run multiple tasks in sequence', () => {
+		return new Promise((resolve, reject) => {
+			const stack = [];
+			run(['task4', 'task5'], directories, optionsWithAliases, { stack })
+				.then(() => {
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task5).toHaveBeenCalledTimes(1);
+					expect(stack).toEqual(['Task 2.4', 'Task 2.5']);
+					resolve();
+				})
+				.catch(reject);
+		});
 	});
 });
 
@@ -268,7 +363,8 @@ describe('getAllAliases', () => {
 	it('should return all aliases', () => {
 		const result = getAllAliases(optionsWithAliases);
 		expect(result).toEqual({
-			alias1: ['task1', 'task3'],
+			alias1: ['task1', 'task3', 'task4'],
+			alias2: ['task4', 'task5'],
 		});
 	});
 
@@ -282,10 +378,13 @@ describe('getAllTasks', () => {
 	it('should return all available tasks', () => {
 		const result = getAllTasks(directories, optionsWithAliases);
 		expect(result).toEqual({
-			alias1: ['task1', 'task3'],
+			alias1: ['task1', 'task3', 'task4'],
+			alias2: ['task4', 'task5'],
 			task1: 'Taks 1.1',
 			task2: 'Taks 1.2',
 			task3: 'Taks 2.3',
+			task4: 'Taks 2.4',
+			task5: 'Taks 2.5',
 		});
 	});
 });
