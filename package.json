@@ -28,10 +28,10 @@
     "src"
   ],
   "dependencies": {
-    "chalk": "^2.4.1",
     "git-username": "^1.0.0",
     "glob": "^7.1.2",
     "is-directory": "^0.3.1",
+    "kleur": "^1.0.0",
     "listify": "^1.0.0",
     "lodash": "^4.17.10",
     "longest": "^2.0.1",

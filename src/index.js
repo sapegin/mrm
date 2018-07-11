@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const chalk = require('chalk');
+const kleur = require('kleur');
 const requireg = require('requireg');
 const { get, forEach } = require('lodash');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('./errors');
@@ -98,7 +98,7 @@ function runAlias(aliasName, directories, options, argv) {
 			return;
 		}
 
-		console.log(chalk.yellow(`Running alias ${aliasName}...`));
+		console.log(kleur.yellow(`Running alias ${aliasName}...`));
 
 		promiseSeries(tasks, name => {
 			return runTask(name, directories, options, argv);
@@ -130,7 +130,7 @@ function runTask(taskName, directories, options, argv) {
 			return;
 		}
 
-		console.log(chalk.cyan(`Running ${taskName}...`));
+		console.log(kleur.cyan(`Running ${taskName}...`));
 
 		const module = require(modulePath);
 		Promise.resolve(module(getConfigGetter(options), argv))
