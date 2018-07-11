@@ -3,7 +3,7 @@
 
 const path = require('path');
 const minimist = require('minimist');
-const chalk = require('chalk');
+const kleur = require('kleur');
 const longest = require('longest');
 const isDirectory = require('is-directory');
 const userHome = require('user-home');
@@ -147,9 +147,9 @@ Note that when a preset is specified no default search locations are used.`
 function commandHelp() {
 	console.log(
 		[
-			chalk.underline('Usage'),
+			kleur.underline('Usage'),
 			getUsage(),
-			chalk.underline('Available tasks'),
+			kleur.underline('Available tasks'),
 			getTasksList(options),
 		].join('\n\n')
 	);
@@ -161,9 +161,9 @@ function getUsage() {
 	return EXAMPLES.map(([command, options, description]) =>
 		[
 			'   ',
-			chalk.bold(binaryName),
-			chalk.cyan(command),
-			chalk.yellow(options),
+			kleur.bold(binaryName),
+			kleur.cyan(command),
+			kleur.yellow(options),
 			padEnd('', commandsWidth - (command + options).length),
 			description && `# ${description}`,
 		].join(' ')
@@ -178,13 +178,13 @@ function getTasksList() {
 	return names
 		.map(name => {
 			const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
-			return '    ' + chalk.cyan(padEnd(name, nameColWidth)) + '  ' + description;
+			return '    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description;
 		})
 		.join('\n');
 }
 
 function printError(message) {
 	console.log();
-	console.error(chalk.bold.red(message));
+	console.error(kleur.bold.red(message));
 	console.log();
 }
