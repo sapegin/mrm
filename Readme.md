@@ -120,9 +120,17 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 }
 ```
 
+Via [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) `.mrmrc.json`:
+
+```json5
+{
+  "preset": "@company/mrm-preset-default"
+}
+```
+
 See [tasks docs](https://github.com/sapegin/mrm-tasks) for available config options.
 
-*Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration.*
+*Config file isn’t required, you can also pass config options via command line or cosmiconfig. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration.*
 
 ## Tasks
 

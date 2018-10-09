@@ -8,6 +8,7 @@ const {
 	tryResolve,
 	getConfigFromFile,
 	getConfigFromCommandLine,
+	getConfigFromCosmiconfig,
 	getConfig,
 	getConfigGetter,
 	runTask,
@@ -42,6 +43,8 @@ const argv = {
 	'config:foo': 42,
 	'config:bar': 'coffee',
 };
+const cosmiconfigOptions = {stopDir: path.resolve(__dirname, '../..')};
+const cosmiconfigDirectory = path.resolve(__dirname, '../../test/cosmiconfig');
 
 const file = name => path.join(__dirname, '../../test', name);
 
@@ -117,6 +120,21 @@ describe('getConfigFromCommandLine', () => {
 			_: [],
 			div: '~/pizza',
 		});
+		expect(result).toEqual({});
+	});
+});
+
+describe('getConfigFromCosmiconfig', () => {
+	it('should return a config object', () => {
+		const result = getConfigFromCosmiconfig(cosmiconfigDirectory, cosmiconfigOptions);
+		expect(result).toEqual({
+			foo: 42,
+			bar: 'coffee',
+		});
+	});
+
+	it('should return an empty object when no config options found', () => {
+		const result = getConfigFromCosmiconfig(__dirname, cosmiconfigOptions);
 		expect(result).toEqual({});
 	});
 });

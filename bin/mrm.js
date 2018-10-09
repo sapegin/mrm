@@ -11,7 +11,7 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
+const { run, getConfig, getConfigFromCosmiconfig, getAllTasks, tryResolve } = require('../src/index');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
 
 let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
@@ -43,9 +43,13 @@ const tasks = argv._;
 const binaryPath = process.env._;
 const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
+const configFromCosmiconfig = getConfigFromCosmiconfig();
+
 // Custom config / tasks directory
-if (argv.dir) {
-	const dir = path.resolve(argv.dir);
+const customDirs = [configFromCosmiconfig, argv]
+	.filter(conf => conf.dir)
+	.map(conf => path.resolve(conf.dir));
+for (const dir of customDirs) {
 	if (!isDirectory.sync(dir)) {
 		printError(`Directory “${dir}” not found.`);
 		process.exit(1);
@@ -55,7 +59,7 @@ if (argv.dir) {
 }
 
 // Preset
-const preset = argv.preset || 'default';
+const preset = argv.preset || configFromCosmiconfig.preset || 'default';
 const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
@@ -70,7 +74,7 @@ We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally in
 	directories = [path.dirname(presetPath)];
 }
 
-const options = getConfig(directories, 'config.json', argv);
+const options = getConfig(directories, 'config.json', argv, configFromCosmiconfig);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
