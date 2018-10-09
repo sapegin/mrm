@@ -28,7 +28,7 @@ const EXAMPLES = [
 const pkg = require('../package.json');
 updateNotifier({ pkg }).notify();
 
-process.on('uncaughtException', err => {
+process.on('unhandledRejection', err => {
 	if (err.constructor.name === 'MrmError') {
 		printError(err.message);
 		process.exit(1);
