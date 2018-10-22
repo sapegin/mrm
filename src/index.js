@@ -210,14 +210,13 @@ function getConfigGetter(options) {
  * @param {string[]} directories
  * @param {string} filename
  * @param {Object} argv
- * @param {Object} [configFromCosmiconfig]
  * @return {Object}
  */
-function getConfig(directories, filename, argv, configFromCosmiconfig) {
+function getConfig(directories, filename, argv) {
 	return Object.assign(
 		{},
 		getConfigFromFile(directories, filename),
-		configFromCosmiconfig || {},
+		getConfigFromCosmiconfig(),
 		getConfigFromCommandLine(argv)
 	);
 }

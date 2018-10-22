@@ -14,7 +14,7 @@ const { random } = require('middleearth-names');
 const { run, getConfig, getConfigFromCosmiconfig, getAllTasks, tryResolve } = require('../src/index');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
 
-let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
+const directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
@@ -43,13 +43,11 @@ const tasks = argv._;
 const binaryPath = process.env._;
 const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
-const configFromCosmiconfig = getConfigFromCosmiconfig();
+let options = getConfig(directories, 'config.json', argv);
 
 // Custom config / tasks directory
-const customDirs = [configFromCosmiconfig, argv]
-	.filter(conf => conf.dir)
-	.map(conf => path.resolve(conf.dir));
-for (const dir of customDirs) {
+if (options.dir) {
+	const dir = path.resolve(options.dir);
 	if (!isDirectory.sync(dir)) {
 		printError(`Directory “${dir}” not found.`);
 		process.exit(1);
@@ -59,7 +57,7 @@ for (const dir of customDirs) {
 }
 
 // Preset
-const preset = argv.preset || configFromCosmiconfig.preset || 'default';
+const preset = options.preset || 'default';
 const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
@@ -71,10 +69,14 @@ if (isDefaultPreset) {
 We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
 		process.exit(1);
 	}
-	directories = [path.dirname(presetPath)];
+	const presetDir = path.dirname(presetPath);
+	const presetConfig = getConfigFromCosmiconfig(presetDir, {
+		searchPlaces: ['config.json']
+	});
+	directories.push(presetDir);
+	options = Object.assign({}, presetConfig, options);
 }
 
-const options = getConfig(directories, 'config.json', argv, configFromCosmiconfig);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
