@@ -11,10 +11,10 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getConfigFromCosmiconfig, getAllTasks, tryResolve } = require('../src/index');
+const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
 
-const directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
+let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
@@ -69,12 +69,8 @@ if (isDefaultPreset) {
 We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
 		process.exit(1);
 	}
-	const presetDir = path.dirname(presetPath);
-	const presetConfig = getConfigFromCosmiconfig(presetDir, {
-		searchPlaces: ['config.json']
-	});
-	directories.push(presetDir);
-	options = Object.assign({}, presetConfig, options);
+	directories = [path.dirname(presetPath)];
+	options = Object.assign({}, require(presetPath), options);
 }
 
 if (tasks.length === 0 || tasks[0] === 'help') {
