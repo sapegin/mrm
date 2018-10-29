@@ -107,7 +107,7 @@ npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middlee
 
 ## Configuration
 
-Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
+Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json` or [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) based `.mrmrc.json`:
 
 ```json5
 {
@@ -120,13 +120,15 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 }
 ```
 
-Via [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) `.mrmrc.json`:
+Use `preset` config key for custom default preset:
 
 ```json5
 {
   "preset": "@company/mrm-preset-default"
 }
 ```
+
+Preset config apply as defaults for user config. It's useful for shareable configs across teams.
 
 See [tasks docs](https://github.com/sapegin/mrm-tasks) for available config options.
 
@@ -390,15 +392,27 @@ mrm license --preset unicorn # mrm-preset-unicorn
 mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
 ```
 
+Use preset config `mrm-preset-<PRESET>/config.json` for shareable default options:
+
+```json5
+{
+  "aliases": {
+    "component": ["license", "readme", "editorconfig", "gitignore", "eslint"]
+  }
+}
+```
+
 ## Config resolution rules
 
 * `<DIR>/config.json` if `--dir <DIR>` command line option was passed
 * `$HOME/dotfiles/mrm/config.json`
 * `$HOME/.mrm/config.json`
 
-if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
+if you’re passing a `--preset <PRESET>` command line option or set `"preset": "<PRESET>"` [via config](#configuration), then the only task directory will be:
 
 * `mrm-preset-<PRESET>/config.json`
+
+and preset config used as default.
 
 ## Task resolution rules
 
