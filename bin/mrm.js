@@ -55,25 +55,42 @@ if (argv.dir) {
 }
 
 // Preset
-const preset = argv.preset || 'default';
-const isDefaultPreset = preset === 'default';
-if (isDefaultPreset) {
-	directories.push(path.dirname(require.resolve('mrm-preset-default')));
-} else {
-	const presetPath = tryResolve(`mrm-preset-${preset}`, preset);
-	if (!presetPath) {
-		printError(`Preset “${preset}” not found.
+const preset = checkPreset(argv.preset)
 
-We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
-		process.exit(1);
-	}
-	directories = [path.dirname(presetPath)];
+// Run
+const options = getConfig(directories, 'config.json', argv);
+runTasks(tasks, directories, options, argv, preset)
+
+
+function checkDefaultPreseet (preset) {
+	return preset === 'default';
 }
 
-const options = getConfig(directories, 'config.json', argv);
-if (tasks.length === 0 || tasks[0] === 'help') {
-	commandHelp();
-} else {
+function checkPreset (preset) {
+	preset = preset || 'default';
+	const isDefaultPreset = checkDefaultPreseet(preset)
+	if (isDefaultPreset) {
+		directories.push(path.dirname(require.resolve('mrm-preset-default')));
+	} else {
+		const presetPath = tryResolve(`mrm-preset-${preset}`, preset);
+		if (!presetPath) {
+			printError(`Preset “${preset}” not found.
+
+	We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
+			process.exit(1);
+		}
+		directories = [path.dirname(presetPath)];
+	}
+
+	return preset
+}
+
+function runTasks (tasks, directories, options, argv, preset) {
+	if (tasks.length === 0 || tasks[0] === 'help') {
+		commandHelp();
+		return
+	}
+	const isDefaultPreset = checkDefaultPreseet(preset)
 	run(tasks, directories, options, argv).catch(err => {
 		if (err.constructor === MrmUnknownAlias) {
 			printError(err.message);
