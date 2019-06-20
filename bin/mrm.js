@@ -9,12 +9,15 @@ const isDirectory = require('is-directory');
 const userHome = require('user-home');
 const listify = require('listify');
 const updateNotifier = require('update-notifier');
-const { padEnd, sortBy } = require('lodash');
+const { padEnd, sortBy, map } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
+const { run, getConfig, getAllTasks, tryResolve, getAllPersets } = require('../src/index');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
+const prompts = require('prompts');
 
 let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
+let options;
+let preset;
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
@@ -22,6 +25,7 @@ const EXAMPLES = [
 	['<task>', '--dir ~/unicorn', 'Custom config and tasks folder'],
 	['<task>', '--preset unicorn', 'Load config and tasks from a preset'],
 	['<task>', '--config:foo coffee --config:bar pizza', 'Override config options'],
+	['      ', '--prompt', 'Prompt mode'],
 ];
 
 // Update notifier
@@ -38,10 +42,50 @@ process.on('unhandledRejection', err => {
 });
 
 const argv = minimist(process.argv.slice(2));
-const tasks = argv._;
 
 const binaryPath = process.env._;
 const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
+
+
+if (argv.prompt) {
+	prompts([
+		{
+			type: 'select',
+			name: 'preset',
+			message: 'Select preset',
+			choices: [],
+			load: (answer, answers, question) => {
+				question.choices = getAllPersets()
+			},
+		},
+		{
+			type: 'multiselect',
+			name: 'tasks',
+			message: 'Select tasks or alias',
+			choices: [{title:'1', value:'1'}],
+			min: 1,
+			load (answer, answers, question) {
+				preset = checkPreset(answers.preset)
+				options = getConfig(directories, 'config.json', argv);
+
+				const tasks = getAllTasks(directories, options);
+				const names = sortBy(Object.keys(tasks));
+				const nameColWidth = longest(names).length;
+
+				question.choices = map(names, name => ({
+					title: formatDescriptionForName(name, tasks, nameColWidth),
+					value: name
+				}))
+				question.initial = 0
+			}
+		},
+	]).then(response => {
+		if (response.tasks) {
+			runTasks(response.tasks, directories, options, argv, preset)
+		}
+	})
+	return
+}
 
 // Custom config / tasks directory
 if (argv.dir) {
@@ -55,11 +99,11 @@ if (argv.dir) {
 }
 
 // Preset
-const preset = checkPreset(argv.preset)
+preset = checkPreset(argv.preset)
 
-// Run
-const options = getConfig(directories, 'config.json', argv);
-runTasks(tasks, directories, options, argv, preset)
+// runTasks
+options = getConfig(directories, 'config.json', argv);
+runTasks(argv._	, directories, options, argv, preset)
 
 
 function checkDefaultPreseet (preset) {
@@ -87,7 +131,7 @@ function checkPreset (preset) {
 
 function runTasks (tasks, directories, options, argv, preset) {
 	if (tasks.length === 0 || tasks[0] === 'help') {
-		commandHelp();
+		commandHelp(options);
 		return
 	}
 	const isDefaultPreset = checkDefaultPreseet(preset)
@@ -161,7 +205,7 @@ Note that when a preset is specified no default search locations are used.`
 	});
 }
 
-function commandHelp() {
+function commandHelp(options) {
 	console.log(
 		[
 			kleur.underline('Usage'),
@@ -187,17 +231,19 @@ function getUsage() {
 	).join('\n');
 }
 
-function getTasksList() {
+function getTasksList(options) {
 	const tasks = getAllTasks(directories, options);
 	const names = sortBy(Object.keys(tasks));
 	const nameColWidth = longest(names).length;
 
 	return names
-		.map(name => {
-			const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
-			return '    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description;
-		})
+		.map(name => formatDescriptionForName(name, tasks, nameColWidth))
 		.join('\n');
+}
+
+function formatDescriptionForName (name, tasks, nameColWidth) {
+	const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
+	return '    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description;
 }
 
 function printError(message) {

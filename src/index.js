@@ -5,8 +5,9 @@ const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
-const { get, forEach } = require('lodash');
+const { get, forEach, cloneDeep } = require('lodash');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('./errors');
+const requireGlobal = require('./require-global')
 
 /* eslint-disable no-console */
 
@@ -38,7 +39,7 @@ function getAllTasks(directories, options) {
  * @return {Object}
  */
 function getAllAliases(options) {
-	return get(options, 'aliases', {});
+	return cloneDeep(get(options, 'aliases', {}));
 }
 
 /**
@@ -296,6 +297,22 @@ function firstResult(items, fn) {
 	return undefined;
 }
 
+/**
+ * 获取所有 presets
+ *
+ * @return {Array}
+ */
+function getAllPersets () {
+  const packs = requireGlobal.modules
+  const presets = [{ title: 'default', value: '' }]
+  packs.forEach(pack => {
+    if (pack.match(/mrm-preset/)) {
+      presets.push({ title: pack, value: pack })
+    }
+  })
+  return presets
+}
+
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -309,4 +326,5 @@ module.exports = {
 	tryFile,
 	tryResolve,
 	firstResult,
+	getAllPersets,
 };

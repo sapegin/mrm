@@ -30,6 +30,7 @@
   "dependencies": {
     "git-username": "^1.0.0",
     "glob": "^7.1.2",
+    "global-dirs": "^1.0.0",
     "is-directory": "^0.3.1",
     "kleur": "^1.0.0",
     "listify": "^1.0.0",
@@ -39,6 +40,7 @@
     "minimist": "^1.2.0",
     "mrm-core": "^3.1.2",
     "mrm-preset-default": "^1.8.0",
+    "prompts": "^2.1.0",
     "requireg": "^0.1.8",
     "semver-utils": "^1.1.2",
     "update-notifier": "^2.5.0",
