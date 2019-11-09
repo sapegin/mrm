@@ -6,6 +6,7 @@ const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
 const { get, forEach } = require('lodash');
+const cosmiconfig = require('cosmiconfig');
 const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('./errors');
 
 /* eslint-disable no-console */
@@ -215,6 +216,7 @@ function getConfig(directories, filename, argv) {
 	return Object.assign(
 		{},
 		getConfigFromFile(directories, filename),
+		getConfigFromCosmiconfig(),
 		getConfigFromCommandLine(argv)
 	);
 }
@@ -249,6 +251,24 @@ function getConfigFromCommandLine(argv) {
 		}
 	});
 	return options;
+}
+
+/**
+ * Get config options from cosmiconfig.
+ *
+ * @param  {string} [searchFrom]
+ * @param  {Object} [cosmiconfigOptions]
+ * @return {Object}
+ */
+function getConfigFromCosmiconfig(searchFrom, cosmiconfigOptions) {
+	const explorer = cosmiconfig('mrm', cosmiconfigOptions);
+	const result = explorer.searchSync(searchFrom);
+
+	if (result) {
+		return result.config;
+	}
+
+	return {};
 }
 
 /**
@@ -306,6 +326,7 @@ module.exports = {
 	getConfig,
 	getConfigFromFile,
 	getConfigFromCommandLine,
+	getConfigFromCosmiconfig,
 	tryFile,
 	tryResolve,
 	firstResult,

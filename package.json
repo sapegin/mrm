@@ -28,6 +28,7 @@
     "src"
   ],
   "dependencies": {
+    "cosmiconfig": "^5.0.6",
     "git-username": "^1.0.0",
     "glob": "^7.1.2",
     "is-directory": "^0.3.1",

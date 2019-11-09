@@ -43,9 +43,11 @@ const tasks = argv._;
 const binaryPath = process.env._;
 const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
+let options = getConfig(directories, 'config.json', argv);
+
 // Custom config / tasks directory
-if (argv.dir) {
-	const dir = path.resolve(argv.dir);
+if (options.dir) {
+	const dir = path.resolve(options.dir);
 	if (!isDirectory.sync(dir)) {
 		printError(`Directory “${dir}” not found.`);
 		process.exit(1);
@@ -55,7 +57,7 @@ if (argv.dir) {
 }
 
 // Preset
-const preset = argv.preset || 'default';
+const preset = options.preset || 'default';
 const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
@@ -68,9 +70,9 @@ We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally in
 		process.exit(1);
 	}
 	directories = [path.dirname(presetPath)];
+	options = Object.assign({}, require(presetPath), options);
 }
 
-const options = getConfig(directories, 'config.json', argv);
 if (tasks.length === 0 || tasks[0] === 'help') {
 	commandHelp();
 } else {
