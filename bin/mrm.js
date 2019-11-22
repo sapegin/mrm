@@ -12,17 +12,17 @@ const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
-
-let directories = [
-	path.resolve(userHome, 'dotfiles/mrm'),
-	path.resolve(userHome, '.mrm'),
-];
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('../src/errors');
+
+let directories = [
+	path.resolve(userHome, 'dotfiles/mrm'),
+	path.resolve(userHome, '.mrm'),
+];
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],

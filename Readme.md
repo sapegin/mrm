@@ -1,19 +1,18 @@
 # Mrm
 
-[![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm)
-[![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
+[![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm) [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm)
 
 Command line tool to help you keep configuration (`package.json`, `.gitignore`, `.eslintrc`, etc.) of your open source projects in sync.
 
 ## Features
 
-* Will not overwrite your data if you don’t want it to
-* Minimal changes: will keep the original file formatting or read the style from EditorConfig
-* Minimal configuration: will try to infer configuration from the project itself or from the environment
-* Bunch of [customizable tasks](#tasks) included
-* Tools to work with JSON, YAML, INI, Markdown and new line separated text files
-* Easy to write [your own tasks](#writing-your-own-tasks)
-* Share tasks via npm and group them into [presets](#custom-presets)
+- Will not overwrite your data if you don’t want it to
+- Minimal changes: will keep the original file formatting or read the style from EditorConfig
+- Minimal configuration: will try to infer configuration from the project itself or from the environment
+- Bunch of [customizable tasks](#tasks) included
+- Tools to work with JSON, YAML, INI, Markdown and new line separated text files
+- Easy to write [your own tasks](#writing-your-own-tasks)
+- Share tasks via npm and group them into [presets](#custom-presets)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
 
@@ -35,9 +34,9 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 - [Config resolution rules](#config-resolution-rules)
 - [Task resolution rules](#task-resolution-rules)
 - [FAQ](#faq)
-  * [How to use Mrm with Lerna?](#how-to-use-mrm-with-lerna)
-  * [How to infer user metadata, like user name or email?](#how-to-infer-user-metadata-like-user-name-or-email)
-  * [How to infer GitHub user name?](#how-to-infer-github-user-name)
+  - [How to use Mrm with Lerna?](#how-to-use-mrm-with-lerna)
+  - [How to infer user metadata, like user name or email?](#how-to-infer-user-metadata-like-user-name-or-email)
+  - [How to infer GitHub user name?](#how-to-infer-github-user-name)
 - [Change log](#change-log)
 - [Contributing](#contributing)
 - [Authors and license](#authors-and-license)
@@ -111,18 +110,19 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ```json5
 {
-  "indent": "tab", // "tab" or number of spaces
-  "readmeFile": "Readme.md", // Name of readme file
-  "licenseFile": "License.md", // Name of license file
-  "aliases": {  // Aliases to run multiple tasks at once
-    "node": ["license", "readme", "editorconfig", "gitignore"]
+  indent: 'tab', // "tab" or number of spaces
+  readmeFile: 'Readme.md', // Name of readme file
+  licenseFile: 'License.md', // Name of license file
+  aliases: {
+    // Aliases to run multiple tasks at once
+    node: ['license', 'readme', 'editorconfig', 'gitignore']
   }
 }
 ```
 
 See [tasks docs](https://github.com/sapegin/mrm-tasks) for available config options.
 
-*Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration.*
+_Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration._
 
 ## Tasks
 
@@ -130,22 +130,22 @@ These tasks are included by default:
 
 <!-- textlint-disable terminology -->
 
-* [codecov](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-codecov)
-* [contributing](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-contributing)
-* [editorconfig](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-editorconfig)
-* [eslint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-eslint)
-* [gitignore](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-gitignore)
-* [jest](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-jest)
-* [license](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-license)
-* [lint-staged](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-lint-staged)
-* [package](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-package)
-* [prettier](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-prettier)
-* [readme](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-readme)
-* [semantic-release](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-semantic-release)
-* [styleguidist](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-styleguidist)
-* [stylelint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-stylelint)
-* [travis](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-travis)
-* [typescript](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-typescript)
+- [codecov](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-codecov)
+- [contributing](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-contributing)
+- [editorconfig](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-editorconfig)
+- [eslint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-eslint)
+- [gitignore](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-gitignore)
+- [jest](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-jest)
+- [license](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-license)
+- [lint-staged](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-lint-staged)
+- [package](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-package)
+- [prettier](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-prettier)
+- [readme](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-readme)
+- [semantic-release](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-semantic-release)
+- [styleguidist](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-styleguidist)
+- [stylelint](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-stylelint)
+- [travis](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-travis)
+- [typescript](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-task-typescript)
 
 <!-- textlint-enable -->
 
@@ -176,13 +176,11 @@ module.exports = task;
 Tasks can also be async by adding the `async` keyword or returning a `Promise`.
 
 ```js
-async function task () {
-}
+async function task() {}
 
 // or
-function task () {
-  return new Promise(() => {
-  })
+function task() {
+  return new Promise(() => {});
 }
 ```
 
@@ -287,21 +285,16 @@ The basic file structure of a shared task looks like this:
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-task-unicorn",
+  "homepage":
+    "https://github.com/sapegin/mrm-tasks/packages/mrm-task-unicorn",
   "repository": "sapegin/mrm-tasks",
   "license": "MIT",
   "engines": {
     "node": ">=4"
   },
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "unicorn"
-  ],
+  "files": ["index.js"],
+  "keywords": ["mrm", "mrm-task", "unicorn"],
   "dependencies": {
     "mrm-core": "^2.1.3"
   }
@@ -342,22 +335,16 @@ And the `package.json` would look like this:
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-preset-default",
+  "homepage":
+    "https://github.com/sapegin/mrm-tasks/packages/mrm-preset-default",
   "repository": "sapegin/mrm-tasks",
   "license": "MIT",
   "engines": {
     "node": ">=4"
   },
   "main": "config.json",
-  "files": [
-    "config.json",
-    "*/index.js"
-  ],
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "mrm-preset"
-  ],
+  "files": ["config.json", "*/index.js"],
+  "keywords": ["mrm", "mrm-task", "mrm-preset"],
   "dependencies": {
     "mrm-core": "^2.1.3",
     "mrm-task-gitignore": "^0.1.0"
@@ -384,25 +371,25 @@ mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
 
 ## Config resolution rules
 
-* `<DIR>/config.json` if `--dir <DIR>` command line option was passed
-* `$HOME/dotfiles/mrm/config.json`
-* `$HOME/.mrm/config.json`
+- `<DIR>/config.json` if `--dir <DIR>` command line option was passed
+- `$HOME/dotfiles/mrm/config.json`
+- `$HOME/.mrm/config.json`
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 
-* `mrm-preset-<PRESET>/config.json`
+- `mrm-preset-<PRESET>/config.json`
 
 ## Task resolution rules
 
-* `<DIR>/<TASK>/index.js` if `--dir <DIR>` command line option was passed
-* `$HOME/dotfiles/mrm/<TASK>/index.js`
-* `$HOME/.mrm/<TASK>/index.js`
-* `mrm-task-<TASK>/index.js`, where `mrm-task-<TASK>` is an npm package name
-* `<TASK>` in [mrm-preset-default](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-preset-default)
+- `<DIR>/<TASK>/index.js` if `--dir <DIR>` command line option was passed
+- `$HOME/dotfiles/mrm/<TASK>/index.js`
+- `$HOME/.mrm/<TASK>/index.js`
+- `mrm-task-<TASK>/index.js`, where `mrm-task-<TASK>` is an npm package name
+- `<TASK>` in [mrm-preset-default](https://github.com/sapegin/mrm-tasks/tree/master/packages/mrm-preset-default)
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 
-* `mrm-preset-<PRESET>/<TASK>/index.js`
+- `mrm-preset-<PRESET>/<TASK>/index.js`
 
 ## FAQ
 
@@ -421,12 +408,12 @@ Use the [user-meta](https://github.com/sapegin/user-meta) package to read user n
 ```js
 const meta = require('user-meta');
 module.exports = function task(config) {
-	const { name, email, url } = config
-		.defaults(meta)
-		.require('name', 'email', 'url')
-		.values();
+  const { name, email, url } = config
+    .defaults(meta)
+    .require('name', 'email', 'url')
+    .values();
   /* ... */
-}
+};
 ```
 
 ### How to infer GitHub user name?
@@ -436,14 +423,14 @@ Use the [git-username](https://github.com/jonschlinkert/git-username) package:
 ```js
 const gitUsername = require('git-username');
 module.exports = function task(config) {
-	const { github } = config
-		.defaults({
-			github: gitUsername(),
-		})
-		.require('github')
-		.values();
+  const { github } = config
+    .defaults({
+      github: gitUsername()
+    })
+    .require('github')
+    .values();
   /* ... */
-}
+};
 ```
 
 ## Change log
