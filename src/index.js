@@ -8,6 +8,7 @@ const requireg = require('requireg');
 const { get, forEach } = require('lodash');
 const {
 	MrmUnknownTask,
+	MrmInvalidTask,
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('./errors');
@@ -134,9 +135,14 @@ function runTask(taskName, directories, options, argv) {
 			return;
 		}
 
-		console.log(kleur.cyan(`Running ${taskName}...`));
-
 		const module = require(modulePath);
+		if (typeof module !== 'function') {
+			reject(
+				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
+			);
+		}
+
+		console.log(kleur.cyan(`Running ${taskName}...`));
 		Promise.resolve(module(getConfigGetter(options), argv))
 			.then(() => {
 				resolve();

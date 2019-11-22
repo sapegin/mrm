@@ -12,6 +12,15 @@ class MrmUnknownTask extends Error {
 	}
 }
 
+class MrmInvalidTask extends Error {
+	constructor(message) {
+		super(message);
+		Object.defineProperty(this, 'name', {
+			value: this.constructor.name,
+		});
+	}
+}
+
 class MrmUnknownAlias extends Error {
 	constructor(message) {
 		super(message);
@@ -35,6 +44,7 @@ class MrmUndefinedOption extends Error {
 
 module.exports = {
 	MrmUnknownTask,
+	MrmInvalidTask,
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 };

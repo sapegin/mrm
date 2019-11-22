@@ -14,6 +14,7 @@ const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
 const {
 	MrmUnknownTask,
+	MrmInvalidTask,
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('../src/errors');
@@ -112,6 +113,10 @@ We’ve tried these locations:
 
 Note that when a preset is specified no default search locations are used.`);
 			}
+		} else if (err.constructor === MrmInvalidTask) {
+			printError(`${err.message}
+
+Make sure your task module exports a function.`);
 		} else if (err.constructor === MrmUndefinedOption) {
 			const { unknown } = err.extra;
 			const values = unknown.map(name => [name, random()]);
