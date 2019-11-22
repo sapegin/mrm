@@ -6,7 +6,12 @@ const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
 const { get, forEach } = require('lodash');
-const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('./errors');
+const {
+	MrmUnknownTask,
+	MrmInvalidTask,
+	MrmUnknownAlias,
+	MrmUndefinedOption,
+} = require('./errors');
 
 /* eslint-disable no-console */
 
@@ -130,9 +135,14 @@ function runTask(taskName, directories, options, argv) {
 			return;
 		}
 
-		console.log(kleur.cyan(`Running ${taskName}...`));
-
 		const module = require(modulePath);
+		if (typeof module !== 'function') {
+			reject(
+				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
+			);
+		}
+
+		console.log(kleur.cyan(`Running ${taskName}...`));
 		Promise.resolve(module(getConfigGetter(options), argv))
 			.then(() => {
 				resolve();
@@ -180,9 +190,12 @@ function getConfigGetter(options) {
 	function require(...names) {
 		const unknown = names.filter(name => !options[name]);
 		if (unknown.length > 0) {
-			throw new MrmUndefinedOption(`Required config options are missed: ${unknown.join(', ')}.`, {
-				unknown,
-			});
+			throw new MrmUndefinedOption(
+				`Required config options are missed: ${unknown.join(', ')}.`,
+				{
+					unknown,
+				}
+			);
 		}
 		return config;
 	}
