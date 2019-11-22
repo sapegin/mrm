@@ -12,16 +12,27 @@ const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
 const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
-const { MrmUnknownTask, MrmUnknownAlias, MrmUndefinedOption } = require('../src/errors');
+const {
+	MrmUnknownTask,
+	MrmUnknownAlias,
+	MrmUndefinedOption,
+} = require('../src/errors');
 
-let directories = [path.resolve(userHome, 'dotfiles/mrm'), path.resolve(userHome, '.mrm')];
+let directories = [
+	path.resolve(userHome, 'dotfiles/mrm'),
+	path.resolve(userHome, '.mrm'),
+];
 
 const EXAMPLES = [
 	['', '', 'List of available tasks'],
 	['<task>', '', 'Run a task or an alias'],
 	['<task>', '--dir ~/unicorn', 'Custom config and tasks folder'],
 	['<task>', '--preset unicorn', 'Load config and tasks from a preset'],
-	['<task>', '--config:foo coffee --config:bar pizza', 'Override config options'],
+	[
+		'<task>',
+		'--config:foo coffee --config:bar pizza',
+		'Override config options',
+	],
 ];
 
 // Update notifier
@@ -41,7 +52,8 @@ const argv = minimist(process.argv.slice(2));
 const tasks = argv._;
 
 const binaryPath = process.env._;
-const binaryName = binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
+const binaryName =
+	binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
 // Custom config / tasks directory
 if (argv.dir) {
@@ -103,7 +115,9 @@ Note that when a preset is specified no default search locations are used.`);
 		} else if (err.constructor === MrmUndefinedOption) {
 			const { unknown } = err.extra;
 			const values = unknown.map(name => [name, random()]);
-			const heading = `Required config options are missed: ${listify(unknown)}.`;
+			const heading = `Required config options are missed: ${listify(
+				unknown
+			)}.`;
 			const cliHelp = `  ${binaryName} ${tasks.join(' ')} ${values
 				.map(([n, v]) => `--config:${n} "${v}"`)
 				.join(' ')}`;
@@ -177,8 +191,12 @@ function getTasksList() {
 
 	return names
 		.map(name => {
-			const description = Array.isArray(tasks[name]) ? `Runs ${listify(tasks[name])}` : tasks[name];
-			return '    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description;
+			const description = Array.isArray(tasks[name])
+				? `Runs ${listify(tasks[name])}`
+				: tasks[name];
+			return (
+				'    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description
+			);
 		})
 		.join('\n');
 }

@@ -14,11 +14,12 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "npm run test:jest",
+    "posttest": "npm run format",
     "test:jest": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --cache --fix",
-    "precommit": "lint-staged"
+    "format": "prettier --write \"**/*.{js,md}\""
   },
   "engines": {
     "node": ">=6"
@@ -48,9 +49,9 @@
   "devDependencies": {
     "eslint": "^5.0.1",
     "eslint-config-tamia": "^6.0.0",
-    "husky": "^0.14.3",
+    "husky": "^3.1.0",
     "jest": "^23.3.0",
-    "lint-staged": "^7.2.0",
+    "lint-staged": "^9.4.3",
     "prettier": "^1.13.7"
   },
   "keywords": [
@@ -74,6 +75,15 @@
     "*.js": [
       "eslint --fix",
       "git add"
+    ],
+    "*.{js,md}": [
+      "prettier --write",
+      "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

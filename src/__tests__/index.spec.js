@@ -47,7 +47,10 @@ const file = name => path.join(__dirname, '../../test', name);
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {
-		const result = firstResult([0, undefined, 'pizza', false, 'cappuccino'], a => a);
+		const result = firstResult(
+			[0, undefined, 'pizza', false, 'cappuccino'],
+			a => a
+		);
 		expect(result).toMatch('pizza');
 	});
 
@@ -59,8 +62,12 @@ describe('firstResult', () => {
 
 describe('tryFile', () => {
 	it('should return an absolute file path if the file exists', () => {
-		expect(tryFile(directories, 'task1/index.js')).toBe(file('dir1/task1/index.js'));
-		expect(tryFile(directories, 'task3/index.js')).toBe(file('dir2/task3/index.js'));
+		expect(tryFile(directories, 'task1/index.js')).toBe(
+			file('dir1/task1/index.js')
+		);
+		expect(tryFile(directories, 'task3/index.js')).toBe(
+			file('dir2/task3/index.js')
+		);
 	});
 
 	it('should return undefined if the file doesn’t exist', () => {
@@ -137,7 +144,9 @@ describe('getConfig', () => {
 	});
 
 	it('CLI options should override options from config file', () => {
-		const result = getConfig(directories, configFile, { 'config:pizza': 'quattro formaggi' });
+		const result = getConfig(directories, configFile, {
+			'config:pizza': 'quattro formaggi',
+		});
 		expect(result).toMatchObject({
 			pizza: 'quattro formaggi',
 		});
@@ -233,7 +242,10 @@ describe('runTask', () => {
 
 		// ideally we can use toThrowError but that works with >= jest@22
 		// https://github.com/facebook/jest/issues/5076
-		return expect(pizza).rejects.toHaveProperty('message', 'Task “pizza” not found.');
+		return expect(pizza).rejects.toHaveProperty(
+			'message',
+			'Task “pizza” not found.'
+		);
 	});
 
 	it('should run an async module', () => {
@@ -275,7 +287,10 @@ describe('runAlias', () => {
 
 	it('should throw when alias not found', () => {
 		const pizza = runAlias('pizza', directories, optionsWithAliases, {});
-		return expect(pizza).rejects.toHaveProperty('message', 'Alias “pizza” not found.');
+		return expect(pizza).rejects.toHaveProperty(
+			'message',
+			'Alias “pizza” not found.'
+		);
 	});
 
 	it('should run alias tasks in sequence', () => {
@@ -331,7 +346,9 @@ describe('run', () => {
 
 	it('should run multiple tasks', () => {
 		return new Promise((resolve, reject) => {
-			run(['task1', 'task2', 'task4'], directories, optionsWithAliases, { stack: [] })
+			run(['task1', 'task2', 'task4'], directories, optionsWithAliases, {
+				stack: [],
+			})
 				.then(() => {
 					expect(task1).toHaveBeenCalledTimes(1);
 					expect(task2).toHaveBeenCalledTimes(1);
