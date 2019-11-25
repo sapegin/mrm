@@ -190,15 +190,15 @@ function getUsage() {
 }
 
 function getTasksList() {
-	const tasks = getAllTasks(directories, options);
-	const names = sortBy(Object.keys(tasks));
+	const allTasks = getAllTasks(directories, options);
+	const names = sortBy(Object.keys(allTasks));
 	const nameColWidth = longest(names).length;
 
 	return names
 		.map(name => {
-			const description = Array.isArray(tasks[name])
-				? `Runs ${listify(tasks[name])}`
-				: tasks[name];
+			const description = Array.isArray(allTasks[name])
+				? `Runs ${listify(allTasks[name])}`
+				: allTasks[name];
 			return (
 				'    ' + kleur.cyan(padEnd(name, nameColWidth)) + '  ' + description
 			);
@@ -208,6 +208,6 @@ function getTasksList() {
 
 function printError(message) {
 	console.log();
-	console.error(kleur.bold.red(message));
+	console.error(kleur.bold().red(message));
 	console.log();
 }

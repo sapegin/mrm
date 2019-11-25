@@ -285,8 +285,7 @@ The basic file structure of a shared task looks like this:
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage":
-    "https://github.com/sapegin/mrm-tasks/packages/mrm-task-unicorn",
+  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-task-unicorn",
   "repository": "sapegin/mrm-tasks",
   "license": "MIT",
   "engines": {
@@ -335,8 +334,7 @@ And the `package.json` would look like this:
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage":
-    "https://github.com/sapegin/mrm-tasks/packages/mrm-preset-default",
+  "homepage": "https://github.com/sapegin/mrm-tasks/packages/mrm-preset-default",
   "repository": "sapegin/mrm-tasks",
   "license": "MIT",
   "engines": {

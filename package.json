@@ -22,7 +22,7 @@
     "format": "prettier --write \"**/*.{js,md}\""
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8.9"
   },
   "files": [
     "bin",
@@ -30,29 +30,29 @@
   ],
   "dependencies": {
     "git-username": "^1.0.0",
-    "glob": "^7.1.2",
+    "glob": "^7.1.6",
     "is-directory": "^0.3.1",
-    "kleur": "^1.0.0",
+    "kleur": "^3.0.3",
     "listify": "^1.0.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "longest": "^2.0.1",
     "middleearth-names": "^1.1.0",
     "minimist": "^1.2.0",
-    "mrm-core": "^3.1.2",
-    "mrm-preset-default": "^1.8.0",
-    "requireg": "^0.1.8",
-    "semver-utils": "^1.1.2",
-    "update-notifier": "^2.5.0",
+    "mrm-core": "^4.0.0",
+    "mrm-preset-default": "^2.0.0",
+    "requireg": "^0.2.2",
+    "semver-utils": "^1.1.4",
+    "update-notifier": "^3.0.1",
     "user-home": "^2.0.0",
     "user-meta": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.0.1",
-    "eslint-config-tamia": "^6.0.0",
+    "eslint": "^6.7.1",
+    "eslint-config-tamia": "^7.1.1",
     "husky": "^3.1.0",
-    "jest": "^23.3.0",
+    "jest": "^24.9.0",
     "lint-staged": "^9.4.3",
-    "prettier": "^1.13.7"
+    "prettier": "^1.19.1"
   },
   "keywords": [
     "boilerplate",
