@@ -1,13 +1,43 @@
 language: node_js
+
 node_js:
   - 8
   - 10
   - 12
+
 cache:
   directories:
     - node_modules
-after_success:
-  - npx semantic-release
+
+# Trigger a push build on master branches only + PRs build on every branches
+# Avoid double build on PRs (See https://github.com/travis-ci/travis-ci/issues/1147)
 branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
+  only:
+    - master
+
+before_script: npm run bootstrap
+
+script: npm run test
+
+stages:
+  - coverage
+  - name: release
+    if: type != pull_request AND branch = master
+
+jobs:
+  include:
+    - stage: coverage
+      script:
+        - npm run test:coverage
+        - 'bash <(curl -s https://codecov.io/bash)'
+
+    - stage: release
+      script:
+        - git config --global user.name "Mrm Bot"
+        - git config --global user.email "${BOT_EMAIL}"
+        - git remote set-url origin "https://${GH_TOKEN}@github.com/sapegin/mrm.git" > /dev/null 2>&1
+        - git checkout master
+        - git reset --hard
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        - npx lerna version --yes --create-release=github
+        - npx lerna publish from-git --yes

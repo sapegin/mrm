@@ -25,14 +25,22 @@ I love pull requests. And following this simple guidelines will make your pull r
 
 ## Building and running tests
 
-Install dependencies:
+_Run these commands in the root folder of the repository._
+
+Install dependencies and bootstrap [Lerna](https://github.com/lerna/lerna):
 
 ```bash
-npm install
+npm run bootstrap
 ```
 
-Run tests:
+Run tests for all packages:
 
 ```bash
 npm test
+```
+
+Or run a watch mode:
+
+```bash
+npm run test:watch
 ```

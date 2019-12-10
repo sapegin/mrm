@@ -1,17 +1,16 @@
 {
-  "name": "mrm",
-  "version": "0.0.0-development",
+  "name": "mrm-monorepo",
+  "private": true,
   "description": "Codemods for your project config files",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
+    "url": "https://sapegin.me"
   },
   "homepage": "https://github.com/sapegin/mrm",
   "repository": "sapegin/mrm",
   "license": "MIT",
-  "main": "src/index.js",
-  "bin": "bin/mrm.js",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "pretest": "npm run lint",
     "test": "npm run test:jest",
     "posttest": "npm run format",
@@ -24,33 +23,12 @@
   "engines": {
     "node": ">=8.9"
   },
-  "files": [
-    "bin",
-    "src"
-  ],
-  "dependencies": {
-    "git-username": "^1.0.0",
-    "glob": "^7.1.6",
-    "is-directory": "^0.3.1",
-    "kleur": "^3.0.3",
-    "listify": "^1.0.0",
-    "lodash": "^4.17.15",
-    "longest": "^2.0.1",
-    "middleearth-names": "^1.1.0",
-    "minimist": "^1.2.0",
-    "mrm-core": "^4.0.0",
-    "mrm-preset-default": "^2.0.0",
-    "requireg": "^0.2.2",
-    "semver-utils": "^1.1.4",
-    "update-notifier": "^3.0.1",
-    "user-home": "^2.0.0",
-    "user-meta": "^1.0.0"
-  },
   "devDependencies": {
     "eslint": "^6.7.1",
     "eslint-config-tamia": "^7.1.1",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
+    "lerna": "^3.19.0",
     "lint-staged": "^9.4.3",
     "prettier": "^1.19.1"
   },

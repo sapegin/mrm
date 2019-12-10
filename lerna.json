@@ -1,0 +1,22 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "independent",
+  "command": {
+    "version": {
+      "allowBranch": "master",
+      "message": "chore: publish [skip ci]"
+    },
+    "publish": {
+      "conventionalCommits": true,
+      "ignoreChanges": [
+        "package-lock.json",
+        "Readme.md",
+        "Changelog.md",
+        "*.spec.js",
+        "*.snap"
+      ]
+    }
+  }
+}
