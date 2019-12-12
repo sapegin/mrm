@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`save() should create file 1`] = `
+Object {
+  "/": null,
+  "/test.json": "{
+  \\"foo\\": 1
+}",
+}
+`;
+
+exports[`save() should keep comments 1`] = `
+"{
+  // pizza
+  \\"bar\\": 43
+  /* pasta */
+}"
+`;
+
+exports[`save() should keep indentation 1`] = `
+"{
+	\\"bar\\": 42,
+	\\"baz\\": {
+		\\"foo\\": 43
+	},
+	\\"foo\\": 1
+}"
+`;
+
+exports[`save() should update file 1`] = `
+Object {
+  "/": null,
+  "/test.json": "{
+  \\"bar\\": 42,
+  \\"baz\\": {
+    \\"foo\\": 43
+  },
+  \\"foo\\": 1
+}",
+}
+`;

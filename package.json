@@ -13,11 +13,12 @@
     "bootstrap": "lerna bootstrap",
     "pretest": "npm run lint",
     "test": "npm run test:jest",
-    "posttest": "npm run format",
+    "posttest": "npm run typecheck && npm run format",
     "test:jest": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --cache --fix",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,md}\""
   },
   "engines": {
@@ -30,7 +31,9 @@
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
     "lint-staged": "^9.4.3",
-    "prettier": "^1.19.1"
+    "memfs": "2.9.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.3"
   },
   "keywords": [
     "boilerplate",

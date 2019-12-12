@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`save() should save file with empty lines 1`] = `
+"one
+
+
+two
+foo
+bar
+"
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`save() should update file 1`] = `
+Object {
+  "/": null,
+  "/test.md": "
+# Foo
+
+[![Example](http://example.com/badge.svg)](http://example.com/)
+
+Hello.
+",
+}
+`;

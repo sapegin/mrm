@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`save() should change prettify format to remove spaces around = 1`] = `
+Object {
+  "/": null,
+  "/test.ini": "
+[foo]
+bar=xxx
+",
+}
+`;
+
+exports[`save() should create file 1`] = `
+Object {
+  "/": null,
+  "/test.ini": "
+[foo]
+bar = xxx
+",
+}
+`;
+
+exports[`save() should create file with a comment 1`] = `
+Object {
+  "/": null,
+  "/test.ini": "# comment
+
+[foo]
+bar = xxx
+",
+}
+`;
+
+exports[`save() should not add spaces to file if they did not exist before 1`] = `
+Object {
+  "/test.ini": "
+[foo]
+bar=42
+",
+}
+`;
+
+exports[`save() should not add spaces to file if they did not exist before, ignore comments 1`] = `
+Object {
+  "/": null,
+  "/test.ini": "
+[foo]
+bar=42
+",
+}
+`;
+
+exports[`save() should update file 1`] = `
+Object {
+  "/": null,
+  "/test.ini": "
+[foo]
+bar = xxx
+",
+}
+`;

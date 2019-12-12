@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`copyFiles() should copy a file 1`] = `
+Object {
+  "/": null,
+  "/a": "pizza",
+  "/tmpl/a": "pizza",
+}
+`;
+
+exports[`copyFiles() should copy multiple files 1`] = `
+Object {
+  "/": null,
+  "/a": "pizza",
+  "/b": "coffee",
+  "/tmpl/a": "pizza",
+  "/tmpl/b": "coffee",
+}
+`;
+
+exports[`copyFiles() should not try to copy a file if contents is the same 1`] = `
+Object {
+  "/": null,
+  "/a": "pizza",
+  "/b": "pizza",
+  "/tmpl/a": "pizza",
+  "/tmpl/b": "pizza",
+}
+`;
+
+exports[`deleteFiles() should delete a file 1`] = `
+Object {
+  "/b": "coffee",
+}
+`;
+
+exports[`deleteFiles() should delete multiple files 1`] = `
+Object {
+  "/c": "schawarma",
+}
+`;
+
+exports[`updateFile() should create a file 1`] = `
+Object {
+  "/": null,
+  "/a": "pizza",
+}
+`;
+
+exports[`updateFile() should create a folder 1`] = `
+Object {
+  "/a/b": "pizza",
+}
+`;
+
+exports[`updateFile() should update a file 1`] = `
+Object {
+  "/": null,
+  "/a": "pizza",
+}
+`;

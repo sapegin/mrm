@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`packageJson() should create package.json file 1`] = `
+Object {
+  "/": null,
+  "/package.json": "{}",
+}
+`;
