@@ -458,6 +458,7 @@ describe('getAllTasks', () => {
 			task3: 'Taks 2.3',
 			task4: 'Taks 2.4',
 			task5: 'Taks 2.5',
+			task6: 'Taks 3.6',
 		});
 	});
 });
