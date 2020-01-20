@@ -10,6 +10,7 @@ const {
 	getConfigFromCommandLine,
 	getConfig,
 	getConfigGetter,
+	getInteractiveConfig,
 	runTask,
 	runAlias,
 	run,
@@ -21,11 +22,14 @@ const task2 = require('../../test/dir1/task2');
 const task3 = require('../../test/dir2/task3');
 const task4 = require('../../test/dir2/task4');
 const task5 = require('../../test/dir2/task5');
+// interactive config tasks
+const task6 = require('../../test/dir3/task6');
 
 const configFile = 'config.json';
 const directories = [
 	path.resolve(__dirname, '../../test/dir1'),
 	path.resolve(__dirname, '../../test/dir2'),
+	path.resolve(__dirname, '../../test/dir3'),
 ];
 const options = {
 	pizza: 'salami',
@@ -44,6 +48,28 @@ const argv = {
 };
 
 const file = name => path.join(__dirname, '../../test', name);
+
+const mockEnquirer = jest.fn();
+
+const configureEnquirer = (answers = {}) => {
+	mockEnquirer.mockImplementationOnce(enquirer => {
+		enquirer.on('prompt', prompt => {
+			prompt.value = answers[prompt.name];
+			prompt.on('run', () => prompt.submit());
+		});
+	});
+};
+
+jest.mock('enquirer', () => {
+	const BaseEnquirer = jest.requireActual('enquirer');
+
+	return class Enquirer extends BaseEnquirer {
+		constructor(options = {}, answers = {}) {
+			super({ ...options, show: false }, answers);
+			mockEnquirer(this);
+		}
+	};
+});
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {
@@ -149,6 +175,23 @@ describe('getConfig', () => {
 		});
 		expect(result).toMatchObject({
 			pizza: 'quattro formaggi',
+		});
+	});
+});
+
+describe('getInteractiveConfig', () => {
+	it('should prompt interactive config when available', () => {
+		configureEnquirer({ 'some-config': 'value' });
+		return getInteractiveConfig(task6).then(answers => {
+			expect(answers).toEqual({ 'some-config': 'value' });
+		});
+	});
+
+	it('should use default config as initial interactive config', () => {
+		configureEnquirer();
+		const initials = { 'some-config': 'initial' };
+		return getInteractiveConfig(task6, initials).then(answers => {
+			expect(answers).toEqual({ 'some-config': 'initial' });
 		});
 	});
 });

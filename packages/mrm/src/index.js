@@ -6,6 +6,7 @@ const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
 const { get, forEach } = require('lodash');
+const Enquirer = require('enquirer');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
@@ -149,6 +150,27 @@ function runTask(taskName, directories, options, argv) {
 			})
 			.catch(reject);
 	});
+}
+
+/**
+ * Get task specific interactive config options.
+ *
+ * @param {Object} task
+ */
+function getInteractiveConfig(task, initials) {
+	if (!task.config) {
+		return {};
+	}
+
+	initials = initials || {};
+
+	const prompts = task.config.map(prompt =>
+		Object.assign({}, prompt, {
+			initial: initials[prompt.name] || prompt.initial,
+		})
+	);
+
+	return new Enquirer().prompt(prompts);
 }
 
 /**
@@ -319,6 +341,7 @@ module.exports = {
 	getConfig,
 	getConfigFromFile,
 	getConfigFromCommandLine,
+	getInteractiveConfig,
 	tryFile,
 	tryResolve,
 	firstResult,
