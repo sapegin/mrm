@@ -302,6 +302,20 @@ describe('runTask', () => {
 				.catch(reject);
 		});
 	});
+
+	it('should prompt interactive configs when mode is on', () => {
+		configureEnquirer({ 'some-config': 'value' });
+
+		return new Promise((resolve, reject) => {
+			runTask('task6', directories, {}, { interactive: true })
+				.then(() => {
+					expect(task6).toHaveBeenCalledTimes(1);
+					expect(task6.mock.calls[0][0]('some-config')).toEqual('value');
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
 });
 
 describe('runAlias', () => {

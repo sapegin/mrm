@@ -142,13 +142,18 @@ function runTask(taskName, directories, options, argv) {
 				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
 			);
 		}
+		const configPromise = argv.interactive
+			? getInteractiveConfig(module, options)
+			: options;
 
-		console.log(kleur.cyan(`Running ${taskName}...`));
-		Promise.resolve(module(getConfigGetter(options), argv))
-			.then(() => {
-				resolve();
+		Promise.resolve(configPromise)
+			.then(getConfigGetter)
+			.then(config => {
+				console.log(kleur.cyan(`Running ${taskName}...`));
+				return module(config, argv);
 			})
-			.catch(reject);
+			.catch(reject)
+			.then(resolve);
 	});
 }
 

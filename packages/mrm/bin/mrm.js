@@ -49,7 +49,7 @@ process.on('unhandledRejection', err => {
 	}
 });
 
-const argv = minimist(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2), { alias: { i: 'interactive' } });
 const tasks = argv._;
 
 const binaryPath = process.env._;
