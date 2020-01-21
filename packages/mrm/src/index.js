@@ -142,11 +142,12 @@ function runTask(taskName, directories, options, argv) {
 				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
 			);
 		}
+
 		const configPromise = argv.interactive
 			? getInteractiveConfig(module, options)
-			: options;
+			: Promise.resolve(options);
 
-		Promise.resolve(configPromise)
+		configPromise
 			.then(getConfigGetter)
 			.then(config => {
 				console.log(kleur.cyan(`Running ${taskName}...`));
@@ -162,18 +163,20 @@ function runTask(taskName, directories, options, argv) {
  *
  * @param {Object} task
  */
-function getInteractiveConfig(task, initials) {
-	if (!task.config) {
+function getInteractiveConfig(task, _initials) {
+	if (!task.parameters) {
 		return {};
 	}
 
-	initials = initials || {};
+	const initials = _initials || {};
+	const prompts = [];
 
-	const prompts = task.config.map(prompt =>
-		Object.assign({}, prompt, {
-			initial: initials[prompt.name] || prompt.initial,
-		})
-	);
+	for (const name of Object.keys(task.parameters)) {
+		const prompt = task.parameters[name];
+		const initial = initials[name] || prompt.initial;
+
+		prompts.push({ ...prompt, name, initial });
+	}
 
 	return new Enquirer().prompt(prompts);
 }
