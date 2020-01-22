@@ -168,7 +168,6 @@ function getInteractiveConfig(task, initials = {}) {
 		return {};
 	}
 
-	const initials = _initials || {};
 	const prompts = [];
 
 	for (const name of Object.keys(task.parameters)) {
