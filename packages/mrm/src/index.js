@@ -143,11 +143,11 @@ function runTask(taskName, directories, options, argv) {
 			);
 		}
 
-		const configPromise = argv.interactive
+		const resolvedConfig = argv.interactive
 			? getInteractiveConfig(module, options)
-			: Promise.resolve(options);
+			: options;
 
-		configPromise
+		Promise.resolve(resolvedConfig)
 			.then(getConfigGetter)
 			.then(config => {
 				console.log(kleur.cyan(`Running ${taskName}...`));
@@ -165,17 +165,14 @@ function runTask(taskName, directories, options, argv) {
  */
 function getInteractiveConfig(task, initials = {}) {
 	if (!task.parameters) {
-		return {};
+		return Promise.resolve({});
 	}
 
-	const prompts = [];
-
-	for (const name of Object.keys(task.parameters)) {
-		const prompt = task.parameters[name];
-		const initial = initials[name] || prompt.initial;
-
-		prompts.push({ ...prompt, name, initial });
-	}
+	const prompts = Object.entries(task.parameters).map(([name, prompt]) => ({
+		...prompt,
+		name,
+		initial: initials[name] || prompt.initial,
+	}));
 
 	return new Enquirer().prompt(prompts);
 }

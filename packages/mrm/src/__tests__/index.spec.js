@@ -316,6 +316,17 @@ describe('runTask', () => {
 				.catch(reject);
 		});
 	});
+
+	it('should run normally when interactive mode is on but task has no interactive parameters', () => {
+		return new Promise((resolve, reject) => {
+			runTask('task3', directories, {}, { interactive: true })
+				.then(() => {
+					expect(task3).toHaveBeenCalledTimes(1);
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
 });
 
 describe('runAlias', () => {
