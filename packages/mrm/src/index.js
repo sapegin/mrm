@@ -163,7 +163,7 @@ function runTask(taskName, directories, options, argv) {
  *
  * @param {Object} task
  */
-function getInteractiveConfig(task, _initials) {
+function getInteractiveConfig(task, initials = {}) {
 	if (!task.parameters) {
 		return {};
 	}
