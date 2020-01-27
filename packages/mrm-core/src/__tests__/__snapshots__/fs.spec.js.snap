@@ -2,7 +2,6 @@
 
 exports[`copyFiles() should copy a file 1`] = `
 Object {
-  "/": null,
   "/a": "pizza",
   "/tmpl/a": "pizza",
 }
@@ -10,7 +9,6 @@ Object {
 
 exports[`copyFiles() should copy multiple files 1`] = `
 Object {
-  "/": null,
   "/a": "pizza",
   "/b": "coffee",
   "/tmpl/a": "pizza",
@@ -20,7 +18,6 @@ Object {
 
 exports[`copyFiles() should not try to copy a file if contents is the same 1`] = `
 Object {
-  "/": null,
   "/a": "pizza",
   "/b": "pizza",
   "/tmpl/a": "pizza",
@@ -42,7 +39,6 @@ Object {
 
 exports[`updateFile() should create a file 1`] = `
 Object {
-  "/": null,
   "/a": "pizza",
 }
 `;
@@ -55,7 +51,6 @@ Object {
 
 exports[`updateFile() should update a file 1`] = `
 Object {
-  "/": null,
   "/a": "pizza",
 }
 `;

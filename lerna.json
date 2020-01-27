@@ -6,7 +6,7 @@
   "command": {
     "version": {
       "allowBranch": "master",
-      "message": "chore: publish [skip ci]"
+      "message": "chore: Publish :shipit: [skip ci]"
     },
     "publish": {
       "conventionalCommits": true,
@@ -14,6 +14,7 @@
         "package-lock.json",
         "Readme.md",
         "Changelog.md",
+        "CHANGELOG.md",
         "*.spec.js",
         "*.snap"
       ]

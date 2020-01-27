@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add ESLint 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": \\"eslint:recommended\\"
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\",
+    \\"lint\\": \\"eslint . --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should add a custom preset (array) 1`] = `
+"{
+  \\"extends\\": [
+    \\"airbnb\\",
+    \\"coffee\\",
+    \\"pizza\\"
+  ]
+}"
+`;
+
+exports[`should add custom rules 1`] = `
+"{
+  \\"extends\\": \\"eslint:recommended\\",
+  \\"rules\\": {
+    \\"no-undef\\": 0
+  }
+}"
+`;
+
+exports[`should add extra plugin, parser and extensions for a TypeScript project 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": \\"eslint:recommended\\",
+  \\"parser\\": \\"@typescript-eslint/parser\\",
+  \\"plugins\\": [
+    \\"@typescript-eslint/eslint-plugin\\"
+  ],
+  \\"parserOptions\\": {
+    \\"project\\": \\"./tsconfig.json\\"
+  },
+  \\"rules\\": {}
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts,.tsx\\",
+    \\"pretest\\": \\"npm run lint\\"
+  }
+}",
+}
+`;
+
+exports[`should keep custom extensions defined in a package.json script 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts\\",
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\"
+  }
+}"
+`;
+
+exports[`should migrate legacy config file 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"rules\\": {
+    \\"no-foo\\": 2
+  },
+  \\"extends\\": \\"eslint:recommended\\"
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\",
+    \\"lint\\": \\"eslint . --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should not add a custom preset if it’s already there (array) 1`] = `
+"{
+  \\"extends\\": [
+    \\"airbnb\\",
+    \\"pizza\\"
+  ]
+}"
+`;
+
+exports[`should not add a custom preset if it’s already there 1`] = `
+"{
+  \\"extends\\": \\"airbnb\\"
+}"
+`;
+
+exports[`should not add custom extensions when they were not specified 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix\\",
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\"
+  }
+}"
+`;
+
+exports[`should remove custom extension if it’s "js" (default value) 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix\\",
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\"
+  }
+}"
+`;
+
+exports[`should replace scripts.test.eslint with scripts.lint and scripts.pretest 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"npm run lint\\",
+    \\"test\\": \\"jest\\",
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts\\"
+  }
+}"
+`;
+
+exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": [
+    \\"eslint:recommended\\",
+    \\"prettier\\",
+    \\"prettier/@typescript-eslint\\"
+  ],
+  \\"parser\\": \\"@typescript-eslint/parser\\",
+  \\"plugins\\": [
+    \\"@typescript-eslint/eslint-plugin\\"
+  ],
+  \\"parserOptions\\": {
+    \\"project\\": \\"./tsconfig.json\\"
+  },
+  \\"rules\\": {}
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"*\\",
+    \\"prettier\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts,.tsx\\",
+    \\"pretest\\": \\"npm run lint\\"
+  }
+}",
+}
+`;
+
+exports[`should turn on JSX support in TypeScript parser if TypeScript and React are installed 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": \\"eslint:recommended\\",
+  \\"parser\\": \\"@typescript-eslint/parser\\",
+  \\"plugins\\": [
+    \\"@typescript-eslint/eslint-plugin\\"
+  ],
+  \\"parserOptions\\": {
+    \\"ecmaFeatures\\": {
+      \\"jsx\\": true
+    },
+    \\"project\\": \\"./tsconfig.json\\"
+  },
+  \\"rules\\": {}
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"dependencies\\": {
+    \\"react\\": \\"*\\"
+  },
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts,.tsx\\",
+    \\"pretest\\": \\"npm run lint\\"
+  }
+}",
+}
+`;
+
+exports[`should use a custom preset 1`] = `
+"{
+  \\"extends\\": \\"airbnb\\"
+}"
+`;

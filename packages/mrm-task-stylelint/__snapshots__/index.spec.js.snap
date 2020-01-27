@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add custom rules 1`] = `
+"{
+  \\"rules\\": {
+    \\"max-empty-lines\\": 2
+  }
+}"
+`;
+
+exports[`should add stylelint 1`] = `
+Object {
+  "/.stylelintrc": "{
+  \\"extends\\": \\"stylelint-config-standard\\"
+}",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"npm run lint:css\\",
+    \\"test\\": \\"jest\\",
+    \\"lint:css\\": \\"stylelint '**/*.css'\\"
+  }
+}",
+}
+`;
+
+exports[`should install a custom preset 1`] = `
+"{
+  \\"extends\\": \\"stylelint-config-pizza\\"
+}"
+`;
+
+exports[`should use custom extension 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"npm run lint:css\\",
+    \\"test\\": \\"jest\\",
+    \\"lint:css\\": \\"stylelint '**/*.sass'\\"
+  }
+}"
+`;

@@ -1,0 +1,29 @@
+{
+  "name": "mrm-task-semantic-release",
+  "version": "3.0.1",
+  "description": "Mrm task that adds semantic-release",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-semantic-release",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "semantic-release"
+  ],
+  "dependencies": {
+    "git-username": "^1.0.0",
+    "mrm-core": "^4.0.0"
+  }
+}

@@ -31,7 +31,7 @@
     "jest": "^24.9.0",
     "lerna": "^3.19.0",
     "lint-staged": "^9.4.3",
-    "memfs": "2.9.4",
+    "memfs": "3.0.4",
     "prettier": "^1.19.1",
     "typescript": "^3.7.3"
   },
@@ -52,6 +52,12 @@
     "tool",
     "yaml"
   ],
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/templates/"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",

@@ -1,0 +1,30 @@
+{
+  "name": "mrm-task-eslint",
+  "version": "2.0.1",
+  "description": "Mrm task that adds ESLint",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-eslint",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "eslint",
+    "lint",
+    "javascript"
+  ],
+  "dependencies": {
+    "mrm-core": "^4.0.0"
+  }
+}

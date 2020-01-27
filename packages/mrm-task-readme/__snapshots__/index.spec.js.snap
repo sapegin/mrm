@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add a readme 1`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Change log
+
+The change log can be found on the [Releases page](https://github.com/gendalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Gendalf](http://middleearth.com) and [contributors](https://github.com/gendalf/unicorn/graphs/contributors).
+
+MIT License, see the included [License.md](License.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\"
+}",
+}
+`;

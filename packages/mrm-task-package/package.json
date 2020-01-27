@@ -1,0 +1,32 @@
+{
+  "name": "mrm-task-package",
+  "version": "2.0.1",
+  "description": "Mrm task that adds package.json file",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-package",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "package",
+    "package.json",
+    "npm"
+  ],
+  "dependencies": {
+    "git-username": "^1.0.0",
+    "mrm-core": "^4.0.0",
+    "user-meta": "^1.0.0"
+  }
+}

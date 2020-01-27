@@ -1,5 +1,3 @@
-node_modules
-coverage/*
-src/tasks/jest/test.js
-src/tasks/styleguidist/templates/
 node_modules/
+coverage/*
+packages/*/templates/

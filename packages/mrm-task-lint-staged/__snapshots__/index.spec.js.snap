@@ -1,0 +1,303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add ESLint if project depends on it 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should add Prettier and ESLint 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {},
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"4.0.1\\",
+    \\"prettier\\": \\"1.9.2\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --cache --fix\\",
+    \\"*.{js,css,md}\\": \\"prettier --write\\"
+  }
+}",
+}
+`;
+
+exports[`should add Prettier if project depends on it 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,css,md}\\": \\"prettier --write\\"
+  }
+}",
+}
+`;
+
+exports[`should add a custom rule 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": [
+      \\"eslint --cache --fix\\",
+      \\"false\\"
+    ]
+  }
+}",
+}
+`;
+
+exports[`should add stylelint if project depends on it 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"stylelint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.css\\": \\"stylelint --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should infer ESLint extension for an npm script 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint --fix --ext .js,.jsx\\"
+  },
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,jsx}\\": \\"eslint --cache --fix\\"
+  }
+}"
+`;
+
+exports[`should infer Prettier extensions from an npm script 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --write '**/*.{js,jsx}'\\"
+  },
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"1.9.2\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,jsx}\\": \\"prettier --write\\"
+  }
+}"
+`;
+
+exports[`should merge rules with the same pattern 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\",
+    \\"prettier\\": \\"*\\"
+  },
+  \\"lint-staged\\": {
+    \\"*.md\\": \\"textlint --fix\\",
+    \\"*.js\\": [
+      \\"eslint --cache --fix\\",
+      \\"prettier --write\\"
+    ]
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  }
+}",
+}
+`;
+
+exports[`should remove husky 0.14 config from package.json 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {},
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should update an existing rule 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"lint-staged\\": {
+    \\"*.md\\": \\"textlint --fix\\",
+    \\"*.js\\": \\"eslint --cache --fix\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  }
+}",
+}
+`;
+
+exports[`should use a custom ESLint extension 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,jsx}\\": \\"eslint --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should use a custom stylelint extension 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"stylelint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.scss\\": \\"stylelint --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should use custom Prettier extensions 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"1.9.2\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,jsx,mjs}\\": \\"prettier --write\\"
+  }
+}",
+}
+`;
+
+exports[`should use default JS extension if eslint command has no --ext key 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint --fix\\"
+  },
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --cache --fix\\"
+  }
+}"
+`;
+
+exports[`shouldn’t add a default rule if it’s disabled in overrides 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\",
+    \\"prettier\\": \\"*\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  },
+  \\"lint-staged\\": {
+    \\"*.{js,css,md}\\": \\"prettier --write\\"
+  }
+}",
+}
+`;

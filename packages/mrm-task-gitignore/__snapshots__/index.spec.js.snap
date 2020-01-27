@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add .gitignore 1`] = `
+Object {
+  "/.gitignore": "node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.log",
+}
+`;
+
+exports[`should add package-lock.json, if yarn.lock exists 1`] = `
+Object {
+  "/.gitignore": "node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.log
+package-lock.json",
+  "/yarn.lock": "",
+}
+`;
+
+exports[`should add yarn.lock, if package-lock.json exists 1`] = `
+Object {
+  "/.gitignore": "node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.log
+yarn.lock",
+  "/package-lock.json": "",
+}
+`;

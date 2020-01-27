@@ -2,7 +2,6 @@
 
 exports[`save() save() should create file 1`] = `
 Object {
-  "/": null,
   "/test.yml": "foo: 1
 ",
 }
@@ -10,7 +9,6 @@ Object {
 
 exports[`save() save() should update file 1`] = `
 Object {
-  "/": null,
   "/test.yml": "bar: 42
 baz:
   foo: 43

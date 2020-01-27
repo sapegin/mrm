@@ -2,7 +2,6 @@
 
 exports[`save() should create file 1`] = `
 Object {
-  "/": null,
   "/text.txt": "Hello, Bar!",
   "/tmpl.txt": "Hello, \${foo}!",
 }
@@ -10,7 +9,6 @@ Object {
 
 exports[`save() should update file 1`] = `
 Object {
-  "/": null,
   "/text.txt": "Hello, Bar!",
   "/tmpl.txt": "Hello, \${foo}!",
 }

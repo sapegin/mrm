@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add TypeScript 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"pretest\\": \\"tsc --noEmit\\",
+    \\"test\\": \\"jest\\"
+  }
+}",
+  "/tsconfig.json": "{
+  \\"compilerOptions\\": {
+    \\"target\\": \\"es6\\",
+    \\"module\\": \\"commonjs\\",
+    \\"moduleResolution\\": \\"node\\",
+    \\"strict\\": true,
+    \\"experimentalDecorators\\": true,
+    \\"emitDecoratorMetadata\\": true,
+    \\"noUnusedLocals\\": true,
+    \\"pretty\\": true,
+    \\"lib\\": [
+      \\"esnext\\"
+    ]
+  }
+}",
+}
+`;

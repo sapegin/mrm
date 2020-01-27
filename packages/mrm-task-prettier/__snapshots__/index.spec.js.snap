@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add Prettier 1`] = `
+Object {
+  "/.prettierrc": "{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    }
+  ]
+}",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\",
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{js,css,md}\\\\\\"\\"
+  }
+}",
+}
+`;
+
+exports[`should infer options from EditorConfig 1`] = `
+"{
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    }
+  ]
+}"
+`;
+
+exports[`should keep a custom pattern defined in a package.json script 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{xxx,yyy}\\\\\\"\\",
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\"
+  }
+}"
+`;
+
+exports[`should use a custom indent 1`] = `
+"{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    }
+  ]
+}"
+`;
+
+exports[`should use a custom options 1`] = `
+"{
+  \\"printWidth\\": 333,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    }
+  ]
+}"
+`;
+
+exports[`should use custom overrides 1`] = `
+"{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.css\\",
+      \\"options\\": {
+        \\"printWidth\\": 42
+      }
+    }
+  ]
+}"
+`;

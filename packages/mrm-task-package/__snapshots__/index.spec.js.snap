@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add package.json 1`] = `
+"{
+  \\"name\\": \\"mrm-task-package\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"\\",
+  \\"author\\": {
+    \\"name\\": \\"Gendalf\\",
+    \\"url\\": \\"http://middleearth.com\\"
+  },
+  \\"homepage\\": \\"https://github.com/gendalf/mrm-task-package\\",
+  \\"repository\\": \\"gendalf/mrm-task-package\\",
+  \\"license\\": \\"MIT\\",
+  \\"engines\\": {
+    \\"node\\": \\">=6.9\\"
+  },
+  \\"main\\": \\"index.js\\",
+  \\"files\\": [
+    \\"index.js\\"
+  ],
+  \\"scripts\\": {},
+  \\"keywords\\": [],
+  \\"dependencies\\": {},
+  \\"devDependencies\\": {}
+}"
+`;
+
+exports[`should set custom Node.js version 1`] = `
+"{
+  \\"name\\": \\"\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"\\",
+  \\"author\\": {
+    \\"name\\": \\"Gendalf\\",
+    \\"url\\": \\"http://middleearth.com\\"
+  },
+  \\"homepage\\": \\"https://github.com/gendalf/\\",
+  \\"repository\\": \\"gendalf/\\",
+  \\"license\\": \\"MIT\\",
+  \\"engines\\": {
+    \\"node\\": \\">=9.1\\"
+  },
+  \\"main\\": \\"index.js\\",
+  \\"files\\": [
+    \\"index.js\\"
+  ],
+  \\"scripts\\": {},
+  \\"keywords\\": [],
+  \\"dependencies\\": {},
+  \\"devDependencies\\": {}
+}"
+`;
+
+exports[`should set custom license 1`] = `
+"{
+  \\"name\\": \\"\\",
+  \\"version\\": \\"1.0.0\\",
+  \\"description\\": \\"\\",
+  \\"author\\": {
+    \\"name\\": \\"Gendalf\\",
+    \\"url\\": \\"http://middleearth.com\\"
+  },
+  \\"homepage\\": \\"https://github.com/gendalf/\\",
+  \\"repository\\": \\"gendalf/\\",
+  \\"license\\": \\"BSD\\",
+  \\"engines\\": {
+    \\"node\\": \\">=6.9\\"
+  },
+  \\"main\\": \\"index.js\\",
+  \\"files\\": [
+    \\"index.js\\"
+  ],
+  \\"scripts\\": {},
+  \\"keywords\\": [],
+  \\"dependencies\\": {},
+  \\"devDependencies\\": {}
+}"
+`;

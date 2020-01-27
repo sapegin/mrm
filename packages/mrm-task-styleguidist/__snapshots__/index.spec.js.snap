@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add React Styleguidist 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"styleguide\\": \\"styleguidist server\\",
+    \\"styleguide:build\\": \\"styleguidist build\\",
+    \\"start\\": \\"styleguidist server\\"
+  }
+}",
+  "/styleguide.config.js": "module.exports = {
+	components: 'src/components/**/[A-Z]*.js',
+};
+",
+}
+`;
+
+exports[`should use a TypeScript template for a TypeScript project 1`] = `
+"module.exports = {
+	components: 'src/components/**/[A-Z]*.tsx',
+	propsParser: require('react-docgen-typescript').parse,
+};
+"
+`;

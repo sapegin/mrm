@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add custom arguments to semantic-release command 1`] = `
+"language: node_js
+node_js:
+  - 8
+after_success:
+  - npx semantic-release --arg val
+branches:
+  except:
+    - /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+$/
+"
+`;
+
+exports[`should add custom config to package.json 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {},
+  \\"release\\": {
+    \\"pizza\\": 42
+  }
+}"
+`;
+
+exports[`should add semantic-release 1`] = `
+Object {
+  "/.travis.yml": "language: node_js
+node_js:
+  - 8
+after_success:
+  - npx semantic-release
+branches:
+  except:
+    - /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+$/
+",
+  "/Readme.md": "# Unicorn
+
+[![npm](https://img.shields.io/npm/v/unicorn.svg)](https://www.npmjs.com/package/unicorn)",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {}
+}",
+}
+`;
+
+exports[`should crate semantic-release config and install extra dependencies when a preset is defined 1`] = `
+"language: node_js
+node_js:
+  - 8
+after_success:
+  - npm install --no-save conventional-changelog-pizza
+  - npx semantic-release
+branches:
+  except:
+    - /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+$/
+"
+`;
+
+exports[`should crate semantic-release config and install extra dependencies when a preset is defined 2`] = `
+"{
+  \\"plugins\\": [
+    [
+      \\"@semantic-release/commit-analyzer\\",
+      {
+        \\"preset\\": \\"pizza\\"
+      }
+    ],
+    [
+      \\"@semantic-release/release-notes-generator\\",
+      {
+        \\"preset\\": \\"pizza\\"
+      }
+    ],
+    \\"@semantic-release/npm\\",
+    \\"@semantic-release/github\\"
+  ]
+}"
+`;
+
+exports[`should install extra dependencies on CI 1`] = `
+"language: node_js
+node_js:
+  - 8
+after_success:
+  - npm install --no-save pizza
+  - npx semantic-release
+branches:
+  except:
+    - /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+$/
+"
+`;
+
+exports[`should remove custom config from package.json 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {}
+}"
+`;
+
+exports[`should remove the official semantic-release runner 1`] = `
+"language: node_js
+node_js:
+  - 8
+after_success:
+  - 'bash <(curl -s https://codecov.io/bash)'
+  - npx semantic-release
+branches:
+  except:
+    - /^v\\\\d+\\\\.\\\\d+\\\\.\\\\d+$/
+"
+`;

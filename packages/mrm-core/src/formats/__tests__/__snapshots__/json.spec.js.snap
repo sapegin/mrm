@@ -2,7 +2,6 @@
 
 exports[`save() should create file 1`] = `
 Object {
-  "/": null,
   "/test.json": "{
   \\"foo\\": 1
 }",
@@ -29,7 +28,6 @@ exports[`save() should keep indentation 1`] = `
 
 exports[`save() should update file 1`] = `
 Object {
-  "/": null,
   "/test.json": "{
   \\"bar\\": 42,
   \\"baz\\": {

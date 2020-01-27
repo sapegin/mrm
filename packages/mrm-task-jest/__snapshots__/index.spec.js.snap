@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add Babel specific configuration if projects depends on Babel 1`] = `
+Object {
+  "/.gitignore": "coverage/",
+  "/.npmignore": "__tests__/",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"babel-core\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  },
+  \\"jest\\": {
+    \\"testPathIgnorePatterns\\": [
+      \\"/node_modules/\\",
+      \\"<rootDir>/lib/\\"
+    ]
+  }
+}",
+}
+`;
+
+exports[`should add Jest 1`] = `
+Object {
+  "/.gitignore": "coverage/",
+  "/.npmignore": "__tests__/",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  }
+}",
+}
+`;
+
+exports[`should add React specific configuration if projects depends on React 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"dependencies\\": {
+    \\"react\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  },
+  \\"jest\\": {
+    \\"snapshotSerializers\\": [
+      \\"enzyme-to-json/serializer\\"
+    ],
+    \\"setupFiles\\": [
+      \\"./test/jestsetup.js\\"
+    ]
+  }
+}"
+`;
+
+exports[`should add React specific configuration if projects depends on React 2`] = `
+"import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+"
+`;
+
+exports[`should add TypeScript specific configuration if projects depends on TypeScript 1`] = `
+Object {
+  "/.gitignore": "coverage/",
+  "/.npmignore": "__tests__/",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  },
+  \\"jest\\": {
+    \\"testPathIgnorePatterns\\": [
+      \\"/node_modules/\\",
+      \\"<rootDir>/lib/\\"
+    ],
+    \\"transform\\": {
+      \\"^.+\\\\\\\\.tsx?$\\": \\"<rootDir>/node_modules/ts-jest/preprocessor.js\\"
+    },
+    \\"testRegex\\": \\"(/__tests__/.*|(\\\\\\\\.|/)(test|spec))\\\\\\\\.(jsx?|tsx?)$\\",
+    \\"moduleFileExtensions\\": [
+      \\"ts\\",
+      \\"tsx\\",
+      \\"js\\",
+      \\"jsx\\",
+      \\"json\\"
+    ]
+  }
+}",
+}
+`;
+
+exports[`should add a basic test case when index.js file is present 1`] = `
+"const uberUnicorn = require('./index');
+
+test('uberUnicorn', () => {
+	const result = uberUnicorn();
+	expect(result).toBeTruthy();
+});
+"
+`;
+
+exports[`should not overwrite Jest setup file 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"dependencies\\": {
+    \\"react\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  },
+  \\"jest\\": {
+    \\"snapshotSerializers\\": [
+      \\"enzyme-to-json/serializer\\"
+    ]
+  }
+}"
+`;
+
+exports[`should not overwrite test.js 1`] = `"still here"`;
+
+exports[`should update or create .eslintignore if projects depends on ESLint 1`] = `
+"coverage/*
+lib/*"
+`;

@@ -1,0 +1,45 @@
+{
+  "name": "mrm-preset-default",
+  "version": "2.0.1",
+  "description": "Common tasks for Mrm",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "http://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-preset-default",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "main": "config.json",
+  "files": [
+    "config.json",
+    "*/index.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "mrm-preset"
+  ],
+  "dependencies": {
+    "mrm-core": "^4.0.0",
+    "mrm-task-codecov": "^2.0.1",
+    "mrm-task-contributing": "^2.0.1",
+    "mrm-task-editorconfig": "^2.0.1",
+    "mrm-task-eslint": "^2.0.1",
+    "mrm-task-gitignore": "^2.0.1",
+    "mrm-task-jest": "^2.0.1",
+    "mrm-task-license": "^3.0.0",
+    "mrm-task-lint-staged": "^3.0.0",
+    "mrm-task-package": "^2.0.1",
+    "mrm-task-prettier": "^2.0.1",
+    "mrm-task-readme": "^2.0.1",
+    "mrm-task-semantic-release": "^3.0.1",
+    "mrm-task-styleguidist": "^2.0.1",
+    "mrm-task-stylelint": "^3.0.1",
+    "mrm-task-travis": "^2.0.1",
+    "mrm-task-typescript": "^2.0.1"
+  }
+}

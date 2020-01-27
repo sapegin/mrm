@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add CodeCov 1`] = `
+Object {
+  "/.travis.yml": "language: node_js
+node_js:
+  - 8
+script:
+  - npm run test -- --coverage
+after_success:
+  - 'bash <(curl -s https://codecov.io/bash)'
+",
+  "/Readme.md": "# Unicorn
+
+[![Codecov](https://codecov.io/gh/gh/unicorn/branch/master/graph/badge.svg)](https://codecov.io/gh/gh/unicorn)",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"test:coverage\\": \\"jest --coverage\\"
+  }
+}",
+}
+`;
