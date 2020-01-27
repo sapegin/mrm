@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-jest",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Mrm task that adds Jest",
   "author": {
     "name": "Artem Sapegin",

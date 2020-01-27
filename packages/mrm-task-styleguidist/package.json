@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-styleguidist",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Mrm task that adds React Styleguidist",
   "author": {
     "name": "Artem Sapegin",
