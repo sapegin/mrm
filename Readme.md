@@ -41,6 +41,7 @@ These tasks are included by default:
 - [editorconfig](packages/mrm-task-editorconfig)
 - [eslint](packages/mrm-task-eslint)
 - [gitignore](packages/mrm-task-gitignore)
+- [gitter](packages/mrm-task-gitter)
 - [jest](packages/mrm-task-jest)
 - [license](packages/mrm-task-license)
 - [lint-staged](packages/mrm-task-lint-staged)
