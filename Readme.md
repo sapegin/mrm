@@ -1,16 +1,4 @@
-# Moved to https://github.com/sapegin/mrm
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
+# Mrm
 
 [![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm) [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm) [![Codecov](https://codecov.io/gh/sapegin/mrm/branch/master/graph/badge.svg)](https://codecov.io/gh/sapegin/mrm)
 
