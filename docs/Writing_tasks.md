@@ -2,6 +2,8 @@
 
 Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override a default one.
 
+## Simple example
+
 The simplest task could look like this:
 
 ```js
@@ -33,6 +35,8 @@ function task() {
 }
 ```
 
+## With dependencies
+
 If your tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
 
 ```bash
@@ -43,9 +47,12 @@ npm install --save mrm-core
 
 [mrm-core](../packages/mrm-core) is an utility library created to write Mrm tasks, it has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
-Let’s take a look at a more complicated task:
+## With `mrm-core` and paramenters
+
+Let’s take a look at a more complex task.
 
 ```js
+// 1 - Import utility helpers (could use any NPM package here).
 const {
   // JSON files
   json,
@@ -57,58 +64,86 @@ const {
   install
 } = require('mrm-core');
 
-function task(config) {
-  // Task options
-  // mrm eslint --config:name pizza
-  const { name, eslintPreset } = config
-    .defaults({
-      // Default value
-      eslintPreset: 'eslint:recommended'
-    })
-    // Required option
-    .require('name')
-    .values();
+// 2 - Define task configuration.
+// Follows "enquirer" prompt definition.
+const parameters = {
+  eslintPreset: {
+    type: 'input',
+    message: 'ESLint preset to use as basis',
+    initial: 'eslint:recommended'
+  }
+};
 
-  // Use custom preset package from npm
+function task(config) {
+  // 3 - Load task configs (either from prompt or other methods).
+  const { eslintPreset } = config.values();
+
+  // 4 - Define packages to install.
   const packages = ['eslint'];
+
+  // 5 - Append custom eslint-config in case defined.
   if (eslintPreset !== 'eslint:recommended') {
     packages.push(`eslint-config-${eslintPreset}`);
   }
 
-  // Create or update .eslintignore
+  // 6 - Create or load .eslintignore, and set basic ignores.
   lines('.eslintignore')
     .add(['node_modules/'])
     .save();
 
-  // Read project’s package.json
+  // 7 - Create or load package.json.
   const pkg = packageJson();
 
   pkg
-    // Add lint script
+    // 8 - Set linting script.
     .setScript('lint', 'eslint . --cache --fix')
-    // Add pretest script
+    // 9 - Set pretest script.
     .prependScript('pretest', 'npm run lint')
+    // 10 - Save changes to package.json.
     .save();
 
-  // Read .eslintrc if it exists
+  // 11 - Create or load .eslintrc.
   const eslintrc = json('.eslintrc');
 
-  // Use Babel parser if the project depends on Babel
+  // 12 - Use Babel parser if the project depends on Babel.
   if (pkg.get('devDependencies.babel-core')) {
     const parser = 'babel-eslint';
     packages.push(parser);
     eslintrc.merge({ parser });
   }
 
-  // Set preset
-  eslintrc.set('extends', eslintPreset).save();
+  // 13 - Configure ESlint preset, if set (defaults to eslint:recommended).
+  if (eslintPreset) {
+    eslintrc.set('extends', eslintPreset);
+  }
 
-  // Install npm dependencies
+  // 14 - Save changes to .eslintrc.
+  eslintrc.save();
+
+  // 15 - Install new NPM dependencies.
   install(packages);
 }
 
+// 16 - Configure task static information (used by Mrm CLI).
+task.parameters = parameters;
 task.description = 'Adds ESLint';
+
 module.exports = task;
 ```
 
-There are more methods in `mrm-core` — check out [the docs](../packages/mrm-core#api) and [the default tasks](../Readme.md#tasks).
+> Have a look at [`mrm-core` docs](../packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for reference.
+
+### Configuration definition
+
+The example above showcases a simple configuration definition (`parameters`). More complex needs can be accomplished by defining configurations according to [enquirer docs](https://github.com/enquirer/enquirer). A simple required `name` configuration, for instance, could be defined as this:
+
+```js
+const parameters = {
+  name: {
+    type: 'input',
+    message: 'Project name',
+    validate: name =>
+      !name ? 'This configuration is required' : true
+  }
+};
+```
