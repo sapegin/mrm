@@ -119,11 +119,11 @@ function runAlias(aliasName, directories, options, argv) {
  *
  * @param {string} taskName
  * @param {string[]} directories
- * @param {Object} options
+ * @param {Object} defaults
  * @param {Object} [argv]
  * @returns {Promise}
  */
-function runTask(taskName, directories, options, argv) {
+function runTask(taskName, directories, defaults, argv) {
 	return new Promise((resolve, reject) => {
 		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
@@ -143,38 +143,52 @@ function runTask(taskName, directories, options, argv) {
 			);
 		}
 
-		const resolvedConfig = argv.interactive
-			? getInteractiveConfig(module, options)
-			: options;
+		const options = processTaskOptions(module, argv.interactive, defaults);
 
-		Promise.resolve(resolvedConfig)
+		console.log(kleur.cyan(`Running ${taskName}...`));
+
+		Promise.resolve(options)
 			.then(getConfigGetter)
-			.then(config => {
-				console.log(kleur.cyan(`Running ${taskName}...`));
-				return module(config, argv);
-			})
+			.then(config => module(config, argv))
 			.catch(reject)
 			.then(resolve);
 	});
 }
 
 /**
- * Get task specific interactive config options.
+ * Get task specific interactive config options (by using prompt or defaults).
  *
  * @param {Object} task
+ * @param {Object} interactive? Whether or not interactive mode is enabled.
+ * @param {Object} options? Default available options passed into the task.
  */
-function getInteractiveConfig(task, initials = {}) {
+function processTaskOptions(task, interactive = false, options = {}) {
+	// Avoid mutation, but keep code simplicity
+	const defaults = { ...options };
+
+	// If no parameters set, resolve to default options (from config file or command line).
 	if (!task.parameters) {
-		return Promise.resolve({});
+		return Promise.resolve(options);
 	}
 
-	const prompts = Object.entries(task.parameters).map(([name, prompt]) => ({
-		...prompt,
-		name,
-		initial: initials[name] || prompt.initial,
-	}));
+	const prompts = [];
+	const parameters = Object.entries(task.parameters);
 
-	return new Enquirer().prompt(prompts);
+	for (const [name, prompt] of parameters) {
+		const hasInitial = typeof prompt.initial !== 'undefined';
+		const hasDefault = typeof defaults[name] !== 'undefined';
+
+		// Ensure we merge available default options with parameter initial values.
+		if (hasInitial && !hasDefault) {
+			defaults[name] = prompt.initial;
+		}
+
+		prompts.push({ ...prompt, name, initial: defaults[name] });
+	}
+
+	return interactive
+		? new Enquirer().prompt(prompts)
+		: Promise.resolve(defaults);
 }
 
 /**
@@ -345,7 +359,7 @@ module.exports = {
 	getConfig,
 	getConfigFromFile,
 	getConfigFromCommandLine,
-	getInteractiveConfig,
+	processTaskOptions,
 	tryFile,
 	tryResolve,
 	firstResult,
