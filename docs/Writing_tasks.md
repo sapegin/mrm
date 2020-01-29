@@ -135,15 +135,4 @@ module.exports = task;
 
 ### Configuration prompts
 
-The example above showcases a simple configuration prompt (`parameters`). More complex needs can be accomplished by defining prompts according to [enquirer docs](https://github.com/enquirer/enquirer). A simple required `name` prompt, for instance, could be defined as this:
-
-```js
-const parameters = {
-  name: {
-    type: 'input',
-    message: 'Project name',
-    validate: name =>
-      !name ? 'This configuration is required' : true
-  }
-};
-```
+The example above shows a basic configuration prompt (`parameters`), but Mrm supports more complex prompts too. Have a look at [Enquirer docs](https://github.com/enquirer/enquirer).

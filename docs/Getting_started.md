@@ -57,7 +57,7 @@ npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middlee
 
 ## Configuration
 
-There are three ways for setting tasks configurations: **interactive mode**; **command line parameters**; **config files**.
+There are three ways for setting tasks configurations: **interactive mode**, **command line parameters**, and **config files**.
 
 > See [tasks docs](../Readme.md#tasks) for available config options on core tasks.
 
@@ -69,15 +69,15 @@ Use the `-i` argument to enable interactive/prompt mode:
 npx mrm eslint -i
 ```
 
-This will prompt for all [ESLint Mrm task configs](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint#options) prior to running the task. It will also use **command line parameters** and **config files** as defaults for each option.
+This will prompt for all [ESLint Mrm task options](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint#options) prior to running the task. It will also use **command line parameters** and **config files** as defaults for each option.
 
-**When to use:** use this configuration mode for one-time running mrm (typically with `npx`) when you don't know available options upfront and don't want to create files on your user's root dir.
+**When to use:** use this configuration mode for one-time running Mrm (typically with `npx`) when you don't know available options upfront and don't want to create a config file.
 
-> **:warning::** This configuration mode was introduced on version `2.1.0`, and requires tasks define compatibility with this feature. Core tasks are in the process of upgrading, and current status can be followed on [issue #55]()
+> **:warning::** Interactive mode was introduced in Mrm `2.1.0`, and requires tasks to provide options in a new format. Core tasks are in the process of upgrading, and current status can be followed on [issue #55](https://github.com/sapegin/mrm/issues/55). See [Writing tasks](./Writing_tasks.md) for more details.
 
-### Command line paramenters
+### Command line parameters
 
-You can pass any configuration as a command line parameter as follows, respecting the `--config:` prefix:
+You can pass any option as a command line parameters as follows:
 
 ```shell
 npx mrm license --config:name "Gandalf the Grey"
