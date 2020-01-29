@@ -10,7 +10,7 @@ const {
 	getConfigFromCommandLine,
 	getConfig,
 	getConfigGetter,
-	getInteractiveConfig,
+	processTaskOptions,
 	runTask,
 	runAlias,
 	run,
@@ -54,7 +54,9 @@ const mockEnquirer = jest.fn();
 const configureEnquirer = (answers = {}) => {
 	mockEnquirer.mockImplementationOnce(enquirer => {
 		enquirer.on('prompt', prompt => {
-			prompt.value = answers[prompt.name];
+			if (answers[prompt.name]) {
+				prompt.value = answers[prompt.name];
+			}
 			prompt.on('run', () => prompt.submit());
 		});
 	});
@@ -179,19 +181,51 @@ describe('getConfig', () => {
 	});
 });
 
-describe('getInteractiveConfig', () => {
-	it('should prompt interactive config when available', () => {
-		configureEnquirer({ 'some-config': 'value' });
-		return getInteractiveConfig(task6).then(answers => {
-			expect(answers).toEqual({ 'some-config': 'value' });
+describe('processTaskOptions', () => {
+	it('should NOT prompt when interactive mode is disabled', async () => {
+		const answers = await processTaskOptions(task6, false);
+
+		expect(answers).toEqual({
+			'some-config': undefined,
+			'other-config': 'default value',
 		});
 	});
 
-	it('should use default config as initial interactive config', () => {
+	it('should prompt when interactive mode is enabled', async () => {
+		configureEnquirer({
+			'some-config': 'value',
+			'other-config': 'other value',
+		});
+
+		const answers = await processTaskOptions(task6, true);
+
+		expect(answers).toEqual({
+			'some-config': 'value',
+			'other-config': 'other value',
+		});
+	});
+
+	it('should respect parameters initial values on interactive mode', async () => {
 		configureEnquirer();
-		const initials = { 'some-config': 'initial' };
-		return getInteractiveConfig(task6, initials).then(answers => {
-			expect(answers).toEqual({ 'some-config': 'initial' });
+
+		const answers = await processTaskOptions(task6, true);
+
+		expect(answers).toEqual({
+			'some-config': '',
+			'other-config': 'default value',
+		});
+	});
+
+	it('should be possible to override parameters initial values', async () => {
+		configureEnquirer();
+
+		const answers = await processTaskOptions(task6, true, {
+			'some-config': 'initial',
+		});
+
+		expect(answers).toEqual({
+			'some-config': 'initial',
+			'other-config': 'default value',
 		});
 	});
 });
@@ -253,6 +287,7 @@ describe('runTask', () => {
 	beforeEach(() => {
 		task1.mockClear();
 		task4.mockClear();
+		task6.mockClear();
 	});
 
 	it('should run a module', () => {
@@ -303,29 +338,42 @@ describe('runTask', () => {
 		});
 	});
 
-	it('should prompt interactive configs when mode is on', () => {
-		configureEnquirer({ 'some-config': 'value' });
-
-		return new Promise((resolve, reject) => {
-			runTask('task6', directories, {}, { interactive: true })
-				.then(() => {
-					expect(task6).toHaveBeenCalledTimes(1);
-					expect(task6.mock.calls[0][0]('some-config')).toEqual('value');
-					resolve();
-				})
-				.catch(reject);
+	it('should prompt interactive configs when mode is on', async () => {
+		configureEnquirer({
+			'some-config': 'value',
+			'other-config': 'other value',
 		});
+
+		await runTask('task6', directories, {}, { interactive: true });
+
+		expect(task6).toHaveBeenCalledTimes(1);
+
+		const getter = task6.mock.calls[0][0];
+		expect(getter('some-config')).toEqual('value');
+		expect(getter('other-config')).toEqual('other value');
 	});
 
-	it('should run normally when interactive mode is on but task has no interactive parameters', () => {
-		return new Promise((resolve, reject) => {
-			runTask('task3', directories, {}, { interactive: true })
-				.then(() => {
-					expect(task3).toHaveBeenCalledTimes(1);
-					resolve();
-				})
-				.catch(reject);
-		});
+	it('should respect config defaults from task parameters when interactive mode is on', async () => {
+		configureEnquirer({ 'some-config': 'value' });
+
+		await runTask('task6', directories, {}, { interactive: true });
+
+		expect(task6).toHaveBeenCalledTimes(1);
+		expect(task6.mock.calls[0][0]('some-config')).toEqual('value');
+		expect(task6.mock.calls[0][0]('other-config')).toEqual('default value');
+	});
+
+	it('should respect config defaults from task parameters when interactive mode is off', async () => {
+		await runTask('task6', directories, {}, { interactive: false });
+
+		expect(task6).toHaveBeenCalledTimes(1);
+		expect(task6.mock.calls[0][0]('some-config')).toBeUndefined();
+		expect(task6.mock.calls[0][0]('other-config')).toEqual('default value');
+	});
+
+	it('should run normally when interactive mode is on but task has no interactive parameters', async () => {
+		await runTask('task3', directories, {}, { interactive: true });
+		expect(task3).toHaveBeenCalledTimes(1);
 	});
 });
 
