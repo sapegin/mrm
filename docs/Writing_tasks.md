@@ -2,7 +2,7 @@
 
 Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override a default one.
 
-## Simple example
+## Basic example
 
 The simplest task could look like this:
 
@@ -47,7 +47,7 @@ npm install --save mrm-core
 
 [mrm-core](../packages/mrm-core) is an utility library created to write Mrm tasks, it has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
-## With `mrm-core` and paramenters
+## With `mrm-core` and parameters
 
 Let’s take a look at a more complex task.
 
@@ -120,11 +120,11 @@ function task(config) {
   // 14 - Save changes to .eslintrc.
   eslintrc.save();
 
-  // 15 - Install new NPM dependencies.
+  // 15 - Install new npm dependencies.
   install(packages);
 }
 
-// 16 - Configure task static information (used by Mrm CLI).
+// 16 - Configure task metadata (used by the `mrm` tool).
 task.parameters = parameters;
 task.description = 'Adds ESLint';
 
@@ -133,9 +133,9 @@ module.exports = task;
 
 > Have a look at [`mrm-core` docs](../packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for reference.
 
-### Configuration definition
+### Configuration prompts
 
-The example above showcases a simple configuration definition (`parameters`). More complex needs can be accomplished by defining configurations according to [enquirer docs](https://github.com/enquirer/enquirer). A simple required `name` configuration, for instance, could be defined as this:
+The example above showcases a simple configuration prompt (`parameters`). More complex needs can be accomplished by defining prompts according to [enquirer docs](https://github.com/enquirer/enquirer). A simple required `name` prompt, for instance, could be defined as this:
 
 ```js
 const parameters = {

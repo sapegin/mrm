@@ -63,7 +63,7 @@ There are three ways for setting tasks configurations: **interactive mode**; **c
 
 ### Interactive mode
 
-Use the `-i` argument to enable interactive (prompt) mode for configs:
+Use the `-i` argument to enable interactive/prompt mode:
 
 ```shell
 npx mrm eslint -i
