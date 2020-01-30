@@ -5,10 +5,7 @@ const uploadCommand = 'bash <(curl -s https://codecov.io/bash)';
 const coverageScript = 'test:coverage';
 
 function task(config) {
-	const { readmeFile, github } = config
-		.defaults({ readmeFile: 'Readme.md', github: gitUsername() })
-		.require('github')
-		.values();
+	const { readmeFile, github } = config.require('github').values();
 
 	const travisYml = yaml('.travis.yml');
 
@@ -51,6 +48,20 @@ function task(config) {
 			.save();
 	}
 }
+
+task.parameters = {
+	readmeFile: {
+		type: 'input',
+		message: 'Name of the Readme file',
+		initial: 'Readme.md',
+	},
+	github: {
+		type: 'input',
+		message: 'Your GitHub user name',
+		initial: () => gitUsername(),
+		validate: name => (name ? true : 'this field is required'),
+	},
+};
 
 task.description = 'Adds Codecov';
 module.exports = task;
