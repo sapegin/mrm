@@ -27,5 +27,8 @@
   "dependencies": {
     "git-username": "^1.0.0",
     "mrm-core": "^4.0.0"
+  },
+  "devDependencies": {
+    "mrm": "^2.0.2"
   }
 }
