@@ -162,13 +162,13 @@ function runTask(taskName, directories, defaults, argv) {
  * @param {Object} interactive? Whether or not interactive mode is enabled.
  * @param {Object} options? Default available options passed into the task.
  */
-function processTaskOptions(task, interactive = false, options = {}) {
+async function processTaskOptions(task, interactive = false, options = {}) {
 	// Avoid mutation, but keep code simplicity
 	const defaults = { ...options };
 
 	// If no parameters set, resolve to default options (from config file or command line).
 	if (!task.parameters) {
-		return Promise.resolve(options);
+		return options;
 	}
 
 	const prompts = [];
@@ -180,15 +180,16 @@ function processTaskOptions(task, interactive = false, options = {}) {
 
 		// Ensure we merge available default options with parameter initial values.
 		if (hasInitial && !hasDefault) {
-			defaults[name] = prompt.initial;
+			defaults[name] =
+				typeof prompt.initial === 'function'
+					? await prompt.initial()
+					: prompt.initial;
 		}
 
 		prompts.push({ ...prompt, name, initial: defaults[name] });
 	}
 
-	return interactive
-		? new Enquirer().prompt(prompts)
-		: Promise.resolve(defaults);
+	return interactive ? new Enquirer().prompt(prompts) : defaults;
 }
 
 /**
