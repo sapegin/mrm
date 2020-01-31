@@ -7,7 +7,7 @@ exports[`should add package.json 1`] = `
   \\"description\\": \\"\\",
   \\"author\\": {
     \\"name\\": \\"Gendalf\\",
-    \\"url\\": \\"http://middleearth.com\\"
+    \\"url\\": \\"https://middleearth.com\\"
   },
   \\"homepage\\": \\"https://github.com/gendalf/mrm-task-package\\",
   \\"repository\\": \\"gendalf/mrm-task-package\\",
@@ -33,7 +33,7 @@ exports[`should set custom Node.js version 1`] = `
   \\"description\\": \\"\\",
   \\"author\\": {
     \\"name\\": \\"Gendalf\\",
-    \\"url\\": \\"http://middleearth.com\\"
+    \\"url\\": \\"https://middleearth.com\\"
   },
   \\"homepage\\": \\"https://github.com/gendalf/\\",
   \\"repository\\": \\"gendalf/\\",
@@ -59,7 +59,7 @@ exports[`should set custom license 1`] = `
   \\"description\\": \\"\\",
   \\"author\\": {
     \\"name\\": \\"Gendalf\\",
-    \\"url\\": \\"http://middleearth.com\\"
+    \\"url\\": \\"https://middleearth.com\\"
   },
   \\"homepage\\": \\"https://github.com/gendalf/\\",
   \\"repository\\": \\"gendalf/\\",

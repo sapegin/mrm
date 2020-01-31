@@ -27,7 +27,7 @@ it('should add a readme', () => {
 	task(
 		getConfigGetter({
 			name: 'Gendalf',
-			url: 'http://middleearth.com',
+			url: 'https://middleearth.com',
 			github: 'gendalf',
 		})
 	);

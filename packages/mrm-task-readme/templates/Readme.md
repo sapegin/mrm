@@ -2,9 +2,9 @@
 
 ...
 
-## Change log
+## Changelog
 
-The change log can be found on the [Releases page](https://github.com/${github}/${package}/releases).
+The changelog can be found on the [Releases page](https://github.com/${github}/${package}/releases).
 
 ## Contributing
 

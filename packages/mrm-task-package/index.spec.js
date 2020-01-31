@@ -10,7 +10,7 @@ const task = require('./index');
 
 const options = {
 	name: 'Gendalf',
-	url: 'http://middleearth.com',
+	url: 'https://middleearth.com',
 	github: 'gendalf',
 };
 

@@ -9,7 +9,7 @@ _[Use GitHub interface](https://blog.sapegin.me/all/open-source-for-everyone/) f
 ## Prerequisites
 
 - If it’s your first pull request, watch [this amazing course](http://makeapullrequest.com/) by [Kent C. Dodds](https://twitter.com/kentcdodds).
-- Install [EditorConfig](http://editorconfig.org/) plugin for your code editor to make sure it uses correct settings.
+- Install [EditorConfig](https://editorconfig.org/) plugin for your code editor to make sure it uses correct settings.
 - Fork the repository and clone your fork.
 - Install dependencies: `npm install`.
 
@@ -27,12 +27,6 @@ Or run tests in watch mode:
 npm run test:watch
 ```
 
-To update Jest snapshots:
-
-```bash
-npm run test:jest -- -u
-```
-
 **Don’t forget to add tests and update documentation for your changes.**
 
 **Please update npm lock file (`package-lock.json`) if you add or update dependencies.**
@@ -42,7 +36,7 @@ npm run test:jest -- -u
 - If you have commit access to repository and want to make big change or not sure about something, make a new branch and open pull request.
 - We’re using [Prettier](https://github.com/prettier/prettier) to format code, so don’t worry much about code formatting.
 - Don’t commit generated files, like minified JavaScript.
-- Don’t change version number and change log.
+- Don’t change version number and changelog.
 
 ## Need help?
 

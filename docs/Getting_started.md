@@ -30,7 +30,7 @@ mrm gitignore license
 Override config options (or run without a config file):
 
 ```shell
-mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
+mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "https://middleearth.com"
 ```
 
 Custom config and tasks folder:
@@ -52,7 +52,7 @@ If you have npm 5.3 or newer you can use mrm without installation:
 ```shell
 npx mrm
 npx mrm gitignore
-npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "http://middleearth.com"
+npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "https://middleearth.com"
 ```
 
 ## Configuration

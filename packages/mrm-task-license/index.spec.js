@@ -17,7 +17,7 @@ const stringify = o => JSON.stringify(o, null, '  ');
 const config = {
 	name: 'Gendalf',
 	email: 'gendalf@middleearth.com',
-	url: 'http://middleearth.com',
+	url: 'https://middleearth.com',
 };
 
 beforeEach(() => {
@@ -62,7 +62,7 @@ it('should skip when template not found', () => {
 		getConfigGetter({
 			name: 'Gendalf',
 			email: 'gendalf@middleearth.com',
-			url: 'http://middleearth.com',
+			url: 'https://middleearth.com',
 		})
 	);
 
