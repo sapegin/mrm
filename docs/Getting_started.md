@@ -57,6 +57,38 @@ npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middlee
 
 ## Configuration
 
+There are three ways for setting tasks configurations: **interactive mode**, **command line parameters**, and **config files**.
+
+> See [tasks docs](../Readme.md#tasks) for available config options on core tasks.
+
+### Interactive mode
+
+Use the `-i` argument to enable interactive/prompt mode:
+
+```shell
+npx mrm eslint -i
+```
+
+This will prompt for all [ESLint Mrm task options](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint#options) prior to running the task. It will also use **command line parameters** and **config files** as defaults for each option.
+
+**When to use:** use this configuration mode for one-time running Mrm (typically with `npx`) when you don't know available options upfront and don't want to create a config file.
+
+> **:warning::** Interactive mode was introduced in Mrm `2.1.0`, and requires tasks to provide options in a new format. Core tasks are in the process of upgrading, and current status can be followed on [issue #55](https://github.com/sapegin/mrm/issues/55). See [Writing tasks](./Writing_tasks.md) for more details.
+
+### Command line parameters
+
+You can pass any option as a command line parameters as follows:
+
+```shell
+npx mrm license --config:name "Gandalf the Grey"
+```
+
+This will ultimately set the `name` config for this single task execution.
+
+**When to use:** when you know upfront all the configuration names and expected values; when you are running `mrm` on CI.
+
+### Config files
+
 Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 
 ```json5
@@ -71,6 +103,4 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
 }
 ```
 
-See [tasks docs](../Readme.md#tasks) for available config options.
-
-_Config file isn’t required, you can also pass config options via command line. Default tasks will try to [read data](https://github.com/sapegin/user-meta) fom your npm and Git configuration._
+**When to use:** when you often use the same configuration (usually when you scaffold new projects frequently); when you want to define sets of default task aliases.

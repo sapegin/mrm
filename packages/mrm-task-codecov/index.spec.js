@@ -9,7 +9,7 @@ const task = require('./index');
 
 const stringify = o => JSON.stringify(o, null, '  ');
 
-const config = getConfigGetter({ github: 'gh' });
+const config = getConfigGetter({ github: 'gh', readmeFile: 'Readme.md' });
 
 const travisYml = `language: node_js
 node_js:
