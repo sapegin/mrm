@@ -17,6 +17,7 @@ const {
 	getAllAliases,
 	getAllTasks,
 } = require('../index');
+const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
 const task2 = require('../../test/dir1/task2');
 const task3 = require('../../test/dir2/task3');
@@ -48,30 +49,6 @@ const argv = {
 };
 
 const file = name => path.join(__dirname, '../../test', name);
-
-const mockEnquirer = jest.fn();
-
-const configureEnquirer = (answers = {}) => {
-	mockEnquirer.mockImplementationOnce(enquirer => {
-		enquirer.on('prompt', prompt => {
-			if (answers[prompt.name]) {
-				prompt.value = answers[prompt.name];
-			}
-			prompt.on('run', () => prompt.submit());
-		});
-	});
-};
-
-jest.mock('enquirer', () => {
-	const BaseEnquirer = jest.requireActual('enquirer');
-
-	return class Enquirer extends BaseEnquirer {
-		constructor(options = {}, answers = {}) {
-			super({ ...options, show: false }, answers);
-			mockEnquirer(this);
-		}
-	};
-});
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {
@@ -192,7 +169,7 @@ describe('processTaskOptions', () => {
 	});
 
 	it('should prompt when interactive mode is enabled', async () => {
-		configureEnquirer({
+		configureInquirer({
 			'some-config': 'value',
 			'other-config': 'other value',
 		});
@@ -206,7 +183,7 @@ describe('processTaskOptions', () => {
 	});
 
 	it('should respect parameters initial values on interactive mode', async () => {
-		configureEnquirer();
+		configureInquirer({});
 
 		const answers = await processTaskOptions(task6, true);
 
@@ -217,7 +194,7 @@ describe('processTaskOptions', () => {
 	});
 
 	it('should be possible to override parameters initial values', async () => {
-		configureEnquirer();
+		configureInquirer({});
 
 		const answers = await processTaskOptions(task6, true, {
 			'some-config': 'initial',
@@ -339,7 +316,7 @@ describe('runTask', () => {
 	});
 
 	it('should prompt interactive configs when mode is on', async () => {
-		configureEnquirer({
+		configureInquirer({
 			'some-config': 'value',
 			'other-config': 'other value',
 		});
@@ -354,7 +331,7 @@ describe('runTask', () => {
 	});
 
 	it('should respect config defaults from task parameters when interactive mode is on', async () => {
-		configureEnquirer({ 'some-config': 'value' });
+		configureInquirer({ 'some-config': 'value' });
 
 		await runTask('task6', directories, {}, { interactive: true });
 

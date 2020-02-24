@@ -19,9 +19,9 @@
     "src"
   ],
   "dependencies": {
-    "enquirer": "^2.3.4",
     "git-username": "^1.0.0",
     "glob": "^7.1.6",
+    "inquirer": "^7.0.4",
     "is-directory": "^0.3.1",
     "kleur": "^3.0.3",
     "listify": "^1.0.0",
