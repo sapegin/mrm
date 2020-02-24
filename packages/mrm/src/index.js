@@ -6,7 +6,7 @@ const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
 const { get, forEach } = require('lodash');
-const Enquirer = require('enquirer');
+const inquirer = require('inquirer');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
@@ -175,25 +175,28 @@ async function processTaskOptions(task, interactive = false, options = {}) {
 	const parameters = Object.entries(task.parameters);
 
 	for (const [name, prompt] of parameters) {
-		const hasInitial = typeof prompt.initial !== 'undefined';
-		const hasDefault = typeof defaults[name] !== 'undefined';
+		const hasPromptDefault = typeof prompt.default !== 'undefined';
+		const hasCliDefault = typeof defaults[name] !== 'undefined';
 
 		// Ensure we merge available default options with parameter initial values.
-		if (!interactive && hasInitial && !hasDefault) {
+		if (!interactive && hasPromptDefault && !hasCliDefault) {
 			defaults[name] =
-				typeof prompt.initial === 'function'
-					? await prompt.initial()
-					: prompt.initial;
+				typeof prompt.default === 'function'
+					? await prompt.default()
+					: prompt.default;
 		}
 
-		prompts.push({
-			...prompt,
-			name,
-			initial: !hasInitial && hasDefault ? defaults[name] : prompt.initial,
-		});
+		if (interactive) {
+			prompts.push({
+				...prompt,
+				name,
+				// consume cli default in case no prompt default available.
+				default: hasCliDefault ? defaults[name] : prompt.default,
+			});
+		}
 	}
 
-	return interactive ? new Enquirer().prompt(prompts) : defaults;
+	return interactive ? inquirer.prompt(prompts) : defaults;
 }
 
 /**

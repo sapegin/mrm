@@ -8,6 +8,6 @@ module.exports.parameters = {
 	'other-config': {
 		type: 'input',
 		message: 'Please, fulfil this second interactive input',
-		initial: 'default value',
+		default: 'default value',
 	},
 };
