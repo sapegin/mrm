@@ -179,14 +179,18 @@ async function processTaskOptions(task, interactive = false, options = {}) {
 		const hasDefault = typeof defaults[name] !== 'undefined';
 
 		// Ensure we merge available default options with parameter initial values.
-		if (hasInitial && !hasDefault) {
+		if (!interactive && hasInitial && !hasDefault) {
 			defaults[name] =
 				typeof prompt.initial === 'function'
 					? await prompt.initial()
 					: prompt.initial;
 		}
 
-		prompts.push({ ...prompt, name, initial: defaults[name] });
+		prompts.push({
+			...prompt,
+			name,
+			initial: !hasInitial && hasDefault ? defaults[name] : prompt.initial,
+		});
 	}
 
 	return interactive ? new Enquirer().prompt(prompts) : defaults;

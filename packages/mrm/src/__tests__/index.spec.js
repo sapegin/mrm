@@ -186,8 +186,8 @@ describe('processTaskOptions', () => {
 		const answers = await processTaskOptions(task6, false);
 
 		expect(answers).toEqual({
-			'some-config': undefined,
 			'other-config': 'default value',
+			'some-config': undefined,
 		});
 	});
 
