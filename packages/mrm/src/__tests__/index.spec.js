@@ -25,12 +25,14 @@ const task4 = require('../../test/dir2/task4');
 const task5 = require('../../test/dir2/task5');
 // interactive config tasks
 const task6 = require('../../test/dir3/task6');
+// const task7 = require('../../test/dir4/task7');
 
 const configFile = 'config.json';
 const directories = [
 	path.resolve(__dirname, '../../test/dir1'),
 	path.resolve(__dirname, '../../test/dir2'),
 	path.resolve(__dirname, '../../test/dir3'),
+	path.resolve(__dirname, '../../test/dir4'),
 ];
 const options = {
 	pizza: 'salami',
@@ -303,6 +305,17 @@ describe('runTask', () => {
 		);
 	});
 
+	it('should throw when task module is invalid', () => {
+		const result = runTask('task7', directories, {}, {});
+
+		// ideally we can use toThrowError but that works with >= jest@22
+		// https://github.com/facebook/jest/issues/5076
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			'Cannot call task “task7”.'
+		);
+	});
+
 	it('should run an async module', () => {
 		return new Promise((resolve, reject) => {
 			runTask('task4', directories, {}, { stack: [] })
@@ -495,6 +508,7 @@ describe('getAllTasks', () => {
 			task4: 'Taks 2.4',
 			task5: 'Taks 2.5',
 			task6: 'Taks 3.6',
+			task7: '',
 		});
 	});
 });

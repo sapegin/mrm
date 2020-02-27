@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable no-await-in-loop */
 const inquirer = require('inquirer');
 
