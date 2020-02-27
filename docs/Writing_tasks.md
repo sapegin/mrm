@@ -65,7 +65,7 @@ const {
 } = require('mrm-core');
 
 // 2 - Define task configuration.
-// Follows "enquirer" prompt definition.
+// Follows "inquirer" prompt definition.
 const parameters = {
   eslintPreset: {
     type: 'input',
@@ -135,4 +135,4 @@ module.exports = task;
 
 ### Configuration prompts
 
-The example above shows a basic configuration prompt (`parameters`), but Mrm supports more complex prompts too. Have a look at [Enquirer docs](https://github.com/enquirer/enquirer).
+The example above shows a basic configuration prompt (`parameters`), but Mrm supports more complex prompts too. Have a look at [Inquirer docs](https://github.com/SBoudrias/Inquirer.js#documentation).
