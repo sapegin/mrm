@@ -141,6 +141,7 @@ function runTask(taskName, directories, defaults, argv) {
 			reject(
 				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
 			);
+			return;
 		}
 
 		const options = processTaskOptions(module, argv.interactive, defaults);

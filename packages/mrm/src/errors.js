@@ -13,10 +13,13 @@ class MrmUnknownTask extends Error {
 }
 
 class MrmInvalidTask extends Error {
-	constructor(message) {
+	constructor(message, extra) {
 		super(message);
 		Object.defineProperty(this, 'name', {
 			value: this.constructor.name,
+		});
+		Object.defineProperty(this, 'extra', {
+			value: extra,
 		});
 	}
 }
