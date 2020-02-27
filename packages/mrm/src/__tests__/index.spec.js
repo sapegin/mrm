@@ -161,26 +161,39 @@ describe('getConfig', () => {
 });
 
 describe('processTaskOptions', () => {
+	const third = task6.parameters['third-config'];
+
+	beforeEach(() => third.default.mockClear());
+
 	it('should NOT prompt when interactive mode is disabled', async () => {
 		const answers = await processTaskOptions(task6, false);
 
+		expect(third.default).toHaveBeenCalledTimes(1);
+		expect(third.default).toHaveBeenCalledWith({
+			'first-config': undefined,
+			'second-config': 'default value',
+		});
+
 		expect(answers).toEqual({
-			'other-config': 'default value',
-			'some-config': undefined,
+			'first-config': undefined,
+			'second-config': 'default value',
+			'third-config': 'default value',
 		});
 	});
 
 	it('should prompt when interactive mode is enabled', async () => {
 		configureInquirer({
-			'some-config': 'value',
-			'other-config': 'other value',
+			'first-config': 'first value',
+			'second-config': 'second value',
+			// 'third-config': keep default
 		});
 
 		const answers = await processTaskOptions(task6, true);
 
 		expect(answers).toEqual({
-			'some-config': 'value',
-			'other-config': 'other value',
+			'first-config': 'first value',
+			'second-config': 'second value',
+			'third-config': 'default value',
 		});
 	});
 
@@ -190,8 +203,9 @@ describe('processTaskOptions', () => {
 		const answers = await processTaskOptions(task6, true);
 
 		expect(answers).toEqual({
-			'some-config': '',
-			'other-config': 'default value',
+			'first-config': '',
+			'second-config': 'default value',
+			'third-config': 'default value',
 		});
 	});
 
@@ -199,12 +213,13 @@ describe('processTaskOptions', () => {
 		configureInquirer({});
 
 		const answers = await processTaskOptions(task6, true, {
-			'some-config': 'initial',
+			'first-config': 'initial',
 		});
 
 		expect(answers).toEqual({
-			'some-config': 'initial',
-			'other-config': 'default value',
+			'first-config': 'initial',
+			'second-config': 'default value',
+			'third-config': 'default value',
 		});
 	});
 });
@@ -330,8 +345,8 @@ describe('runTask', () => {
 
 	it('should prompt interactive configs when mode is on', async () => {
 		configureInquirer({
-			'some-config': 'value',
-			'other-config': 'other value',
+			'first-config': 'value',
+			'second-config': 'other value',
 		});
 
 		await runTask('task6', directories, {}, { interactive: true });
@@ -339,26 +354,26 @@ describe('runTask', () => {
 		expect(task6).toHaveBeenCalledTimes(1);
 
 		const getter = task6.mock.calls[0][0];
-		expect(getter('some-config')).toEqual('value');
-		expect(getter('other-config')).toEqual('other value');
+		expect(getter('first-config')).toEqual('value');
+		expect(getter('second-config')).toEqual('other value');
 	});
 
 	it('should respect config defaults from task parameters when interactive mode is on', async () => {
-		configureInquirer({ 'some-config': 'value' });
+		configureInquirer({ 'first-config': 'value' });
 
 		await runTask('task6', directories, {}, { interactive: true });
 
 		expect(task6).toHaveBeenCalledTimes(1);
-		expect(task6.mock.calls[0][0]('some-config')).toEqual('value');
-		expect(task6.mock.calls[0][0]('other-config')).toEqual('default value');
+		expect(task6.mock.calls[0][0]('first-config')).toEqual('value');
+		expect(task6.mock.calls[0][0]('second-config')).toEqual('default value');
 	});
 
 	it('should respect config defaults from task parameters when interactive mode is off', async () => {
 		await runTask('task6', directories, {}, { interactive: false });
 
 		expect(task6).toHaveBeenCalledTimes(1);
-		expect(task6.mock.calls[0][0]('some-config')).toBeUndefined();
-		expect(task6.mock.calls[0][0]('other-config')).toEqual('default value');
+		expect(task6.mock.calls[0][0]('first-config')).toBeUndefined();
+		expect(task6.mock.calls[0][0]('second-config')).toEqual('default value');
 	});
 
 	it('should run normally when interactive mode is on but task has no interactive parameters', async () => {

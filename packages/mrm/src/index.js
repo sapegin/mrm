@@ -183,7 +183,7 @@ async function processTaskOptions(task, interactive = false, options = {}) {
 		if (!interactive && hasPromptDefault && !hasCliDefault) {
 			defaults[name] =
 				typeof prompt.default === 'function'
-					? await prompt.default()
+					? await prompt.default({ ...defaults })
 					: prompt.default;
 		}
 
