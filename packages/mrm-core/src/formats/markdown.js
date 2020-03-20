@@ -1,7 +1,11 @@
+// @ts-check
 const addBadge = require('readme-badger').addBadge;
 const MrmError = require('../error');
 const base = require('./file');
 
+/**
+ * @param {string} filename
+ */
 module.exports = function(filename) {
 	const file = base(filename);
 
@@ -18,7 +22,12 @@ module.exports = function(filename) {
 			return content;
 		},
 
-		/** Add a badge */
+		/**
+		 * Add a badge
+		 * @param {string} imageUrl
+		 * @param {string} linkUrl
+		 * @param {string} altText
+		 */
 		addBadge(imageUrl, linkUrl, altText) {
 			if (!content) {
 				throw new MrmError(`Can’t add badge: file "${filename}" not found.`);

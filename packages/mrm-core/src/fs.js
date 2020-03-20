@@ -1,3 +1,4 @@
+// @ts-check
 const path = require('path');
 const fs = require('fs-extra');
 const stripBom = require('strip-bom');
@@ -10,19 +11,31 @@ const MrmError = require('./error');
  */
 const read = file => (fs.existsSync(file) ? readFile(file).trim() : '');
 
-/** Read a text file as UTF-8 */
+/**
+ * Read a text file as UTF-8
+ * @param {string} filename
+ */
 function readFile(filename) {
 	return stripBom(fs.readFileSync(filename, 'utf8'));
 }
 
-/** Write a file if the content was changed and print a message. */
+/**
+ * Write a file if the content was changed and print a message.
+ * @param {string} filename
+ * @param {string} content
+ * @param {boolean} exists
+ */
 function updateFile(filename, content, exists) {
 	fs.mkdirpSync(path.dirname(filename));
 	fs.writeFileSync(filename, content);
 	log.added(`${exists ? 'Update' : 'Create'} ${filename}`);
 }
 
-/** Copy files from a given directory to the current working directory */
+/**
+ * Copy files from a given directory to the current working directory
+ * @param {string} sourceDir
+ * @param {string|string[]} files
+ */
 function copyFiles(sourceDir, files, options = {}) {
 	const { overwrite = true, errorOnExist } = options;
 
@@ -51,7 +64,10 @@ function copyFiles(sourceDir, files, options = {}) {
 	});
 }
 
-/** Delete files or folders */
+/**
+ * Delete files or folders
+ * @param {string|string[]} files
+ */
 function deleteFiles(files) {
 	_.castArray(files).forEach(file => {
 		if (!fs.existsSync(file)) {
@@ -63,7 +79,10 @@ function deleteFiles(files) {
 	});
 }
 
-/** Create directories if they don’t exist */
+/**
+ * Create directories if they don’t exist
+ * @param {string|string[]} dirs
+ */
 function makeDirs(dirs) {
 	_.castArray(dirs).forEach(dir => {
 		if (fs.existsSync(dir)) {

@@ -1,3 +1,4 @@
+// @ts-check
 const fs = require('fs-extra');
 const _ = require('lodash');
 const semver = require('semver');
@@ -8,24 +9,50 @@ const json = require('./formats/json');
 const packageJson = require('./files/packageJson');
 const MrmError = require('./error');
 
-/** Install or update given npm packages if needed */
-function install(deps, options, exec) {
-	options = options || {};
+/**
+ * @typedef Options
+ * @property {boolean} [dev]
+ * @property {boolean} [yarn]
+ * @property {Record<string, string>} [versions]
+ */
+
+/**
+ * @typedef RunOptions
+ * @property {boolean} [dev]
+ * @property {boolean} [remove]
+ * @property {boolean} [stdio]
+ * @property {string} [cwd]
+ */
+
+/**
+ * Install or update given npm packages if needed
+ * @param {Record<string, string> | string[] | string} deps
+ * @param {Options} [options]
+ * @param {Function} exec
+ */
+function install(deps, options = {}, exec) {
 	const dev = options.dev !== false;
 	const run = options.yarn || isUsingYarn() ? runYarn : runNpm;
 
 	// options.versions is a min versions mapping,
 	// the list of packages to install will be taken from deps
 	let versions = options.versions || {};
-	if (_.isPlainObject(deps)) {
+
+	/** @type string[] */
+	let dependencies = [];
+
+	if (typeof deps === 'string') {
+		dependencies = [deps];
+	} else if (Array.isArray(deps)) {
+		dependencies = deps;
+	} else if (typeof deps === 'object' && deps !== null) {
 		// deps is an object with required versions
+		// prettier-ignore
 		versions = deps;
-		deps = Object.keys(deps);
+		dependencies = Object.keys(deps);
 	}
 
-	deps = _.castArray(deps);
-
-	const newDeps = getUnsatisfiedDeps(deps, versions, { dev });
+	const newDeps = getUnsatisfiedDeps(dependencies, versions, { dev });
 	if (newDeps.length === 0) {
 		return;
 	}
@@ -37,9 +64,13 @@ function install(deps, options, exec) {
 	return run(versionedDeps, { dev }, exec);
 }
 
-/* Uninstall given npm packages */
-function uninstall(deps, options, exec) {
-	options = options || {};
+/**
+ * Uninstall given npm packages
+ * @param {string[] | string} deps
+ * @param {Options} [options]
+ * @param {Function} exec
+ */
+function uninstall(deps, options = {}, exec) {
 	deps = _.castArray(deps);
 	const dev = options.dev !== false;
 	const run = options.yarn || isUsingYarn() ? runYarn : runNpm;
@@ -61,16 +92,11 @@ function uninstall(deps, options, exec) {
 /**
  * Install given npm packages
  *
- * @param {Array|string} deps
- * @param {Object} [options]
- * @param {boolean} [options.dev=true] --save-dev (--save by default)
- * @param {boolean} [options.remove=false] uninstall package (install by default)
+ * @param {string[]} deps
+ * @param {RunOptions} [options]
  * @param {Function} [exec]
- * @return {Object}
  */
-function runNpm(deps, options, exec) {
-	options = options || {};
-
+function runNpm(deps, options = {}, exec) {
 	const args = [
 		options.remove ? 'uninstall' : 'install',
 		options.dev ? '--save-dev' : '--save',
@@ -85,16 +111,11 @@ function runNpm(deps, options, exec) {
 /**
  * Install given Yarn packages
  *
- * @param {Array|string} deps
- * @param {Object} [options]
- * @param {boolean} [options.dev=true] --dev (production by default)
- * @param {boolean} [options.remove=false] uninstall package (install by default)
+ * @param {string[]} deps
+ * @param {RunOptions} [options]
  * @param {Function} [exec]
- * @return {Object}
  */
-function runYarn(deps, options, exec) {
-	options = options || {};
-
+function runYarn(deps, options = {}, exec) {
 	const add = options.dev ? ['add', '--dev'] : ['add'];
 	const remove = ['remove'];
 	const args = (options.remove ? remove : add).concat(deps);
@@ -108,7 +129,7 @@ function runYarn(deps, options, exec) {
 /**
  * Add version or latest to package name
  * @param {string} dep
- * @param {string[]} versions
+ * @param {Record<string, string>} versions
  */
 function getVersionedDep(dep, versions) {
 	const version = versions[dep] || 'latest';
@@ -117,8 +138,8 @@ function getVersionedDep(dep, versions) {
 
 /**
  *
- * @param {Object} options
- * @param {boolean} [options.dev=true] --dev (production by default)
+ * @param {Options} options
+ * @return {Record<string, string>}
  */
 function getOwnDependencies(options) {
 	const pkg = packageJson({
@@ -144,7 +165,8 @@ function getInstalledVersion(name) {
  * version doesn't satisfy range.
  *
  * @param {string[]} deps
- * @param {object} [versions]
+ * @param {Record<string, string>} versions
+ * @param {Options} options
  * @return {string[]}
  */
 function getUnsatisfiedDeps(deps, versions, options) {
@@ -184,8 +206,6 @@ function getUnsatisfiedDeps(deps, versions, options) {
 
 /*
  * Is project using Yarn?
- *
- * @return {boolean}
  */
 function isUsingYarn() {
 	return fs.existsSync('yarn.lock');

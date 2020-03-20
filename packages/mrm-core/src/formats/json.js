@@ -1,8 +1,13 @@
+// @ts-check
 const _ = require('lodash');
 const commentsJson = require('comment-json');
 const merge = require('../util/merge');
 const base = require('./file');
 
+/**
+ * @param {string} filename
+ * @param {{}} [defaultValues]
+ */
 module.exports = function(filename, defaultValues) {
 	const file = base(filename);
 	let json = file.get() ? commentsJson.parse(file.get()) : defaultValues || {};
@@ -13,7 +18,11 @@ module.exports = function(filename, defaultValues) {
 			return file.exists();
 		},
 
-		/** Get a value at a given address */
+		/**
+		 * Get a value at a given address
+		 * @param {string | string[]} address
+		 * @param {{}} [defaultValue]
+		 */
 		get(address, defaultValue) {
 			if (!address) {
 				return json;
@@ -22,7 +31,11 @@ module.exports = function(filename, defaultValues) {
 			return _.get(json, address, defaultValue);
 		},
 
-		/** Set a value at a given address */
+		/**
+		 * Set a value at a given address
+		 * @param {string | string[]} address
+		 * @param {any} value
+		 */
 		set(address, value) {
 			if (value === undefined) {
 				json = address;
@@ -32,13 +45,19 @@ module.exports = function(filename, defaultValues) {
 			return this;
 		},
 
-		/** Remove a section with a given address */
+		/**
+		 * Remove a section with a given address
+		 * @param {string | string[]} address
+		 */
 		unset(address) {
 			_.unset(json, address);
 			return this;
 		},
 
-		/** Merge a given value with the current value */
+		/**
+		 * Merge a given value with the current value
+		 * @param {any} value
+		 */
 		merge(value) {
 			json = merge(json, value);
 			return this;

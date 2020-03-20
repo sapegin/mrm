@@ -1,7 +1,8 @@
+// @ts-check
 const os = require('os');
 
 /**
- * Define if we are running in a win32 environement.
+ * Rerturn true when we are in a win32 environement
  */
 function isWindows() {
 	return os.platform() === 'win32';

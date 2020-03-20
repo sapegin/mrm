@@ -1,7 +1,11 @@
+// @ts-check
 const { readFile, updateFile, deleteFiles } = require('../fs');
 const editorconfig = require('../editorconfig');
 
-/** Base file reader / writer */
+/**
+ * Base file reader / writer
+ * @param {string} filename
+ */
 module.exports = function(filename) {
 	let exists = true;
 	let originalContent = '';
@@ -40,7 +44,10 @@ module.exports = function(filename) {
 			return editorconfig.getIndent(this.getStyle());
 		},
 
-		/** Save file */
+		/**
+		 * Save file
+		 * @param {string} content
+		 */
 		save(content) {
 			if (content.trim() !== originalContent.trim()) {
 				content = editorconfig.format(content, this.getStyle());

@@ -1,3 +1,4 @@
+// @ts-check
 const path = require('path');
 const editorconfig = require('editorconfig');
 const findUp = require('find-up');
@@ -96,7 +97,8 @@ function hasTrailingNewLine(string) {
 }
 
 /**
- * Get indentation string (e.g. '  ' or '\t') for a given EditorConfig style, default is two spaces.
+ * Get indentation string (e.g. '  ' or '\t') for a given EditorConfig style,
+ * default is two spaces.
  *
  * @param {EditorConfigStyle} style
  */

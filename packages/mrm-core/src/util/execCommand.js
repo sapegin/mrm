@@ -1,3 +1,4 @@
+// @ts-check
 const { spawnSync } = require('child_process');
 const isWindows = require('./isWindows');
 const escapeArguments = require('./escapeArguments');

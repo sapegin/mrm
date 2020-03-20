@@ -1,3 +1,4 @@
+// @ts-check
 const propIni = require('prop-ini');
 const base = require('./file');
 
@@ -27,6 +28,10 @@ function detectWithSpaces(content) {
 	return !(matchResult && matchResult[1] === '=');
 }
 
+/**
+ * @param {string} filename
+ * @param {string} [comment]
+ */
 module.exports = function(filename, comment) {
 	const file = base(filename);
 
@@ -43,7 +48,10 @@ module.exports = function(filename, comment) {
 			return file.exists();
 		},
 
-		/** Get a value of a given section */
+		/**
+		 * Get a value of a given section
+		 * @param {string} section
+		 */
 		get(section) {
 			if (!section) {
 				return ini.getSections();
@@ -52,19 +60,29 @@ module.exports = function(filename, comment) {
 			return ini.getData(section);
 		},
 
-		/** Set a value of a given section */
+		/**
+		 * Set a value of a given section
+		 * @param {string} section
+		 * @param {any} value
+		 */
 		set(section, value) {
 			ini.addData(value, section);
 			return this;
 		},
 
-		/** Remove a given section */
+		/**
+		 * Remove a given section
+		 * @param {string} section
+		 */
 		unset(section) {
 			ini.removeData(section);
 			return this;
 		},
 
-		/** Save file */
+		/**
+		 * Save file
+		 * @param {{withSpaces: boolean}} options
+		 */
 		save({ withSpaces } = { withSpaces: originalWithSpaces }) {
 			const encoded = prettify(ini.encode(), withSpaces);
 			const content = comment ? `# ${comment}\n${encoded}` : encoded;

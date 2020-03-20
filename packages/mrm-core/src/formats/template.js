@@ -1,6 +1,11 @@
+// @ts-check
 const { templateFromFile } = require('smpltmpl');
 const base = require('./file');
 
+/**
+ * @param {string} filename
+ * @param {string} templateFile
+ */
 module.exports = function(filename, templateFile) {
 	const file = base(filename);
 
@@ -18,10 +23,13 @@ module.exports = function(filename, templateFile) {
 			return content;
 		},
 
-		/** Expand a template with given objects as a context */
+		/**
+		 * Expand a template with given objects as a context
+		 * @param {...any} contexts
+		 */
 		apply(...contexts) {
 			applied = true;
-			const context = Object.assign(...[{}].concat(contexts));
+			const context = Object.assign({}, ...contexts);
 			content = templateFromFile(templateFile, context);
 			return this;
 		},

@@ -1,8 +1,7 @@
 {
-  "compilerOptions": {
-    "lib": ["esnext"]
-  },
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"strict": true,
+		"lib": ["esnext"]
+	},
+	"exclude": ["node_modules"]
 }

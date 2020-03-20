@@ -1,4 +1,10 @@
+// @ts-check
+
 class MrmError extends Error {
+	/**
+	 * @param {string} message
+	 * @param {any} [extra]
+	 */
 	constructor(message, extra) {
 		super(message);
 		Error.captureStackTrace(this, this.constructor);
