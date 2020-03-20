@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-editorconfig",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Mrm task that adds EditorConfig",
   "author": {
     "name": "Artem Sapegin",
@@ -23,6 +23,6 @@
     "editorconfig"
   ],
   "dependencies": {
-    "mrm-core": "^4.0.0"
+    "mrm-core": "^4.0.3"
   }
 }

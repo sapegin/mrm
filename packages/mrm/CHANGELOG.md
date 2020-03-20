@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/sapegin/mrm/compare/mrm@2.1.0...mrm@2.1.1) (2020-03-20)
+
+**Note:** Version bump only for package mrm
+
+
+
+
+
 # [2.1.0](https://github.com/sapegin/mrm/compare/mrm@2.0.4...mrm@2.1.0) (2020-02-27)
 
 
