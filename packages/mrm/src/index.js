@@ -1,11 +1,10 @@
 // @ts-check
-
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
-const { get, forEach } = require('lodash');
+const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
 const {
 	MrmUnknownTask,
@@ -119,11 +118,11 @@ function runAlias(aliasName, directories, options, argv) {
  *
  * @param {string} taskName
  * @param {string[]} directories
- * @param {Object} defaults
+ * @param {Object} options
  * @param {Object} [argv]
  * @returns {Promise}
  */
-function runTask(taskName, directories, defaults, argv) {
+function runTask(taskName, directories, options, argv) {
 	return new Promise((resolve, reject) => {
 		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
@@ -144,60 +143,76 @@ function runTask(taskName, directories, defaults, argv) {
 			return;
 		}
 
-		const options = processTaskOptions(module, argv.interactive, defaults);
-
 		console.log(kleur.cyan(`Running ${taskName}...`));
 
-		Promise.resolve(options)
+		Promise.resolve(getTaskOptions(module, argv.interactive, options))
 			.then(getConfigGetter)
 			.then(config => module(config, argv))
-			.catch(reject)
-			.then(resolve);
+			.then(resolve)
+			.catch(reject);
 	});
 }
 
 /**
- * Get task specific interactive config options (by using prompt or defaults).
+ * Get task specific options, either by running Inquirer.js in interactive mode,
+ * or using defaults.
  *
- * @param {Object} task
- * @param {Object} interactive? Whether or not interactive mode is enabled.
- * @param {Object} options? Default available options passed into the task.
+ * @param {Function} task
+ * @param {boolean} interactive? Whether or not interactive mode is enabled.
+ * @param {Record<string, any>} options? Default available options passed into the task.
  */
-async function processTaskOptions(task, interactive = false, options = {}) {
-	// Avoid mutation, but keep code simplicity
-	const defaults = { ...options };
-
+async function getTaskOptions(task, interactive = false, options = {}) {
 	// If no parameters set, resolve to default options (from config file or command line).
 	if (!task.parameters) {
 		return options;
 	}
 
-	const prompts = [];
 	const parameters = Object.entries(task.parameters);
 
-	for (const [name, prompt] of parameters) {
-		const hasPromptDefault = typeof prompt.default !== 'undefined';
-		const hasCliDefault = typeof defaults[name] !== 'undefined';
+	const allOptions = await Promise.all(
+		parameters.map(async ([name, param]) => ({
+			...param,
+			name,
+			default:
+				// Merge available default options with parameter initial values
+				typeof options[name] !== 'undefined'
+					? options[name]
+					: typeof param.default === 'function'
+					? await param.default(options)
+					: param.default,
+		}))
+	);
 
-		// Ensure we merge available default options with parameter initial values.
-		if (!interactive && hasPromptDefault && !hasCliDefault) {
-			defaults[name] =
-				typeof prompt.default === 'function'
-					? await prompt.default({ ...defaults })
-					: prompt.default;
-		}
+	// Split interactive and static options
+	const [prompts, statics] = partition(
+		allOptions,
+		option => interactive && option.type !== 'config'
+	);
 
-		if (interactive) {
-			prompts.push({
-				...prompt,
-				name,
-				// consume cli default in case no prompt default available.
-				default: hasCliDefault ? defaults[name] : prompt.default,
-			});
-		}
+	// Validate static options
+	const invalid = statics.filter(param =>
+		param.validate ? param.validate(param.default) !== true : false
+	);
+	if (invalid.length > 0) {
+		const names = invalid.map(({ name }) => name);
+		throw new MrmUndefinedOption(
+			`Missing required config options: ${names.join(', ')}.`,
+			{
+				unknown: invalid,
+			}
+		);
 	}
 
-	return interactive ? inquirer.prompt(prompts) : defaults;
+	// Run Inquirer.js with interactive options
+	const answers = prompts.length > 0 ? await inquirer.prompt(prompts) : {};
+
+	// Merge answers with static defaults
+	const values = { ...answers };
+	for (const param of statics) {
+		values[param.name] = param.default;
+	}
+
+	return values;
 }
 
 /**
@@ -207,19 +222,7 @@ async function processTaskOptions(task, interactive = false, options = {}) {
  * @return {any}
  */
 function getConfigGetter(options) {
-	/**
-	 * Return a config value.
-	 *
-	 * @param {string} prop
-	 * @param {any} [defaultValue]
-	 * @return {any}
-	 */
-	function config(prop, defaultValue) {
-		console.warn(
-			'Warning: calling config as a function is deprecated. Use config.values() instead'
-		);
-		return get(options, prop, defaultValue);
-	}
+	const config = { ...options };
 
 	/**
 	 * Return an object with all config values.
@@ -227,6 +230,9 @@ function getConfigGetter(options) {
 	 * @return {Object}
 	 */
 	function values() {
+		console.warn(
+			'Warning: calling config.values() is deprecated. Access values directly instead'
+		);
 		return options;
 	}
 
@@ -237,6 +243,9 @@ function getConfigGetter(options) {
 	 * @return {Object} this
 	 */
 	function require(...names) {
+		console.warn(
+			'Warning: calling config.require() is deprecated. Use the validate() method instead'
+		);
 		const unknown = names.filter(name => !options[name]);
 		if (unknown.length > 0) {
 			throw new MrmUndefinedOption(
@@ -256,6 +265,9 @@ function getConfigGetter(options) {
 	 * @return {any}
 	 */
 	function defaults(defaultOptions) {
+		console.warn(
+			'Warning: calling config.defaults() is deprecated. Use the default property instead'
+		);
 		options = Object.assign({}, defaultOptions, options);
 		return config;
 	}
@@ -368,7 +380,7 @@ module.exports = {
 	getConfig,
 	getConfigFromFile,
 	getConfigFromCommandLine,
-	processTaskOptions,
+	getTaskOptions,
 	tryFile,
 	tryResolve,
 	firstResult,
