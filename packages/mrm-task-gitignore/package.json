@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-gitignore",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Mrm task that adds .gitignore",
   "author": {
     "name": "Artem Sapegin",
@@ -24,6 +24,6 @@
     "gitignore"
   ],
   "dependencies": {
-    "mrm-core": "^4.0.3"
+    "mrm-core": "^4.1.0"
   }
 }

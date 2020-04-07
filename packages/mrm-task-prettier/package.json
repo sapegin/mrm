@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-prettier",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Mrm task that adds Prettier",
   "author": {
     "name": "Artem Sapegin",
@@ -29,6 +29,6 @@
   ],
   "dependencies": {
     "editorconfig-to-prettier": "0.1.1",
-    "mrm-core": "^4.0.3"
+    "mrm-core": "^4.1.0"
   }
 }
