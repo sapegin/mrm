@@ -23,7 +23,7 @@ npm run format
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](https://github.com/sapegin/mrm#documentation) for more details.
 
 ### `indent` (default: `tab`)
 
@@ -37,9 +37,9 @@ Prettier options, by default will try to infer options from EditorConfig.
 
 [Prettier overrides](https://prettier.io/docs/en/configuration.html#configuration-overrides), by default will use overrides for Markdown to improve documentation readability.
 
-### `prettierPattern` (default: `**/*.{js,css,md}`)
+### `prettierPattern` (default: auto based on your dependencies)
 
-Glob pattern to match file that should be formatted.
+Glob pattern to match file that should be formatted, for example `**/*.{ts,tsx}`.
 
 ## Changelog
 

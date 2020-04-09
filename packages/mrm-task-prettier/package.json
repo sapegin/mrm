@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "editorconfig-to-prettier": "0.1.1",
+    "lodash": "^4.17.15",
     "mrm-core": "^4.1.0"
   }
 }

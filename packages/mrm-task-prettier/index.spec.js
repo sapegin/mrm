@@ -7,7 +7,7 @@ jest.mock('mrm-core/src/npm', () => ({
 }));
 
 const { install } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -25,44 +25,58 @@ afterEach(() => {
 	install.mockClear();
 });
 
-it('should add Prettier', () => {
+it('should add Prettier', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith(['prettier']);
+	expect(install).toBeCalledWith({ prettier: '>=2' });
 });
 
-it('should use a custom indent', () => {
+it('should use a custom indent', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ indent: 'tab' }));
+	task(await getTaskOptions(task, false, { indent: 'tab' }));
 
 	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
 });
 
-it('should use a custom options', () => {
-	vol.fromJSON({
-		'/package.json': packageJson,
-	});
-
-	task(getConfigGetter({ prettierOptions: { printWidth: 333 } }));
-
-	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
-});
-
-it('should use custom overrides', () => {
+it('should use a custom options', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, { prettierOptions: { printWidth: 333 } })
+	);
+
+	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
+});
+
+it('should use a custom pattern', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+	});
+
+	task(
+		await getTaskOptions(task, false, { prettierPattern: '**/*.{xxx,yyy}' })
+	);
+
+	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
+});
+
+it('should use custom overrides', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+	});
+
+	task(
+		await getTaskOptions(task, false, {
 			prettierOverrides: [
 				{
 					files: '*.css',
@@ -77,18 +91,18 @@ it('should use custom overrides', () => {
 	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
 });
 
-it('should infer options from EditorConfig', () => {
+it('should infer options from EditorConfig', async () => {
 	vol.fromJSON({
 		'/.editorconfig': '[*]\nindent_style = space\nindent_size = 2',
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter());
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
 });
 
-it('should keep a custom pattern defined in a package.json script', () => {
+it('should extend a custom pattern defined in a package.json script', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -99,7 +113,7 @@ it('should keep a custom pattern defined in a package.json script', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });

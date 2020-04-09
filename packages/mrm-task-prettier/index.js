@@ -1,9 +1,18 @@
+// @ts-check
 const path = require('path');
+const { uniq, flatten } = require('lodash');
 const editorConfigToPrettier = require('editorconfig-to-prettier');
-const { json, packageJson, install } = require('mrm-core');
-const { getStyleForFile, getExtsFromCommand } = require('mrm-core');
+const {
+	json,
+	packageJson,
+	install,
+	getStyleForFile,
+	getExtsFromCommand,
+} = require('mrm-core');
 
-const defaultPattern = '**/*.{js,css,md}';
+const packages = {
+	prettier: '>=2',
+};
 const defaultOverrides = [
 	{
 		files: '*.md',
@@ -11,6 +20,7 @@ const defaultOverrides = [
 			printWidth: 70,
 			useTabs: false,
 			trailingComma: 'none',
+			arrowParens: 'avoid',
 			proseWrap: 'never',
 		},
 	},
@@ -21,21 +31,39 @@ const defaultPrettierOptions = {
 	useTabs: false,
 	semi: true,
 	singleQuote: false,
-	trailingComma: 'none',
+	quoteProps: 'as-needed',
+	jsxSingleQuote: false,
+	trailingComma: 'es5',
 	bracketSpacing: true,
 	jsxBracketSameLine: false,
+	arrowParens: 'always',
 };
 
-function task(config) {
-	const packages = ['prettier'];
+function getPattern(pkg) {
+	// We want to keep any extra extensions
+	const prettierExts = getExtsFromCommand(pkg.getScript('format'));
 
-	const { indent, prettierPattern, prettierOptions, prettierOverrides } = config
-		.defaults({
-			indent: 'tab',
-			prettierPattern: defaultPattern,
-		})
-		.values();
+	// ESLint extensions > TypeScript (.ts,.tsx) > .js
+	const eslintExts = getExtsFromCommand(pkg.getScript('lint'), 'ext');
+	const typeScriptExts = pkg.get('devDependencies.typescript') && ['ts', 'tsx'];
+	const scriptExts = eslintExts || typeScriptExts || ['js'];
 
+	// Stylelint extensions > .css
+	const stylelintExts = getExtsFromCommand(pkg.getScript('lint:css'));
+	const styleExts = stylelintExts || ['css'];
+
+	const exts = uniq(
+		flatten([prettierExts, scriptExts, styleExts, ['md']]).filter(Boolean)
+	);
+	return `**/*.{${exts.join(',')}}`;
+}
+
+module.exports = function task({
+	indent,
+	prettierPattern,
+	prettierOptions,
+	prettierOverrides,
+}) {
 	// Try to read options from EditorConfig
 	const testJsFile = path.join(process.cwd(), 'test.js');
 	const editorconfigOptions = editorConfigToPrettier(
@@ -69,15 +97,8 @@ function task(config) {
 		.merge(options)
 		.save();
 
-	// Keep custom pattern
-	let pattern = prettierPattern;
-	const formatScript = pkg.getScript('format');
-	if (formatScript) {
-		const exts = getExtsFromCommand(formatScript);
-		if (exts) {
-			pattern = `**/*.{${exts}}`;
-		}
-	}
+	const pattern =
+		prettierPattern === 'auto' ? getPattern(pkg) : prettierPattern;
 
 	pkg
 		// Add format script
@@ -90,7 +111,25 @@ function task(config) {
 
 	// Dependencies
 	install(packages);
-}
+};
 
-task.description = 'Adds Prettier';
-module.exports = task;
+module.exports.description = 'Adds Prettier';
+module.exports.parameters = {
+	indent: {
+		type: 'input',
+		message: 'Choose indentation style (tabs or number of spaces)',
+		default: 'tab',
+		choices: ['tab', 2, 4, 8],
+	},
+	prettierPattern: {
+		type: 'input',
+		message: 'Enter Prettier file glob pattern',
+		default: 'auto',
+	},
+	prettierOptions: {
+		type: 'config',
+	},
+	prettierOverrides: {
+		type: 'config',
+	},
+};
