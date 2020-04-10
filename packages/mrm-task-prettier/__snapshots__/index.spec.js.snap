@@ -11,6 +11,7 @@ Object {
         \\"printWidth\\": 70,
         \\"useTabs\\": false,
         \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
     }
@@ -27,6 +28,17 @@ Object {
 }
 `;
 
+exports[`should extend a custom pattern defined in a package.json script 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{xxx,yyy,js,css,md}\\\\\\"\\",
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\"
+  }
+}"
+`;
+
 exports[`should infer options from EditorConfig 1`] = `
 "{
   \\"overrides\\": [
@@ -36,21 +48,11 @@ exports[`should infer options from EditorConfig 1`] = `
         \\"printWidth\\": 70,
         \\"useTabs\\": false,
         \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
     }
   ]
-}"
-`;
-
-exports[`should keep a custom pattern defined in a package.json script 1`] = `
-"{
-  \\"name\\": \\"unicorn\\",
-  \\"scripts\\": {
-    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{xxx,yyy}\\\\\\"\\",
-    \\"test\\": \\"jest\\",
-    \\"posttest\\": \\"npm run format\\"
-  }
 }"
 `;
 
@@ -64,6 +66,7 @@ exports[`should use a custom indent 1`] = `
         \\"printWidth\\": 70,
         \\"useTabs\\": false,
         \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
     }
@@ -81,10 +84,22 @@ exports[`should use a custom options 1`] = `
         \\"printWidth\\": 70,
         \\"useTabs\\": false,
         \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
     }
   ]
+}"
+`;
+
+exports[`should use a custom pattern 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\",
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{xxx,yyy}\\\\\\"\\"
+  }
 }"
 `;
 
