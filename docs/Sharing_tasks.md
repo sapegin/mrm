@@ -8,7 +8,7 @@ The basic file structure of a shared task looks like this:
 ├── package.json
 ```
 
-`index.js` is the same as described [in the previous section](#writing-custom-tasks). And the `package.json` would look like this:
+`index.js` is the same as described in [writing custom tasks](./Writing_tasks.md). And the `package.json` would look like this:
 
 ```json
 {
