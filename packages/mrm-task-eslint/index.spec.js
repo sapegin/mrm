@@ -240,6 +240,21 @@ it('should turn off TypeScript-specific eslint rules that conflict with Prettier
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
+it('should turn on Prettier-specific eslint rules when prettier is installed', () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				prettier: '*',
+			},
+		}),
+	});
+
+	task(getConfigGetter({}));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+});
+
 it('should migrate legacy config file', () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
