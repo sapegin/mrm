@@ -16,6 +16,7 @@ const {
 	run,
 	getAllAliases,
 	getAllTasks,
+	getResolvableName,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -102,6 +103,25 @@ describe('tryResolve', () => {
 	it('should not throw when undefined was passed instead of a module name', () => {
 		const fn = () => tryResolve(undefined);
 		expect(fn).not.toThrowError();
+	});
+});
+
+describe('getResolvableName', () => {
+	it('should resolve non-scoped task names', () => {
+		const result = getResolvableName('task', 'pizza');
+		expect(result).toEqual('mrm-task-pizza');
+	});
+	it('should resolve non-scoped preset names', () => {
+		const result = getResolvableName('preset', 'default');
+		expect(result).toEqual('mrm-preset-default');
+	});
+	it('should resolve scoped task names', () => {
+		const result = getResolvableName('task', '@myorg/pizza');
+		expect(result).toEqual('@myorg/mrm-task-pizza');
+	});
+	it('should resolve scoped preset names', () => {
+		const result = getResolvableName('preset', '@myorg/default');
+		expect(result).toEqual('@myorg/mrm-preset-default');
 	});
 });
 
