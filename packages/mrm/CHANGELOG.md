@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/sapegin/mrm/compare/mrm@2.2.1...mrm@2.3.0) (2020-04-29)
+
+
+### Features
+
+* Support scoped presets and tasks ([#76](https://github.com/sapegin/mrm/issues/76)) ([281c800](https://github.com/sapegin/mrm/commit/281c800308bffa6784e31a8ab82e2205eb8ff4b8)), closes [#75](https://github.com/sapegin/mrm/issues/75)
+
+
+
+
+
 ## [2.2.1](https://github.com/sapegin/mrm/compare/mrm@2.2.0...mrm@2.2.1) (2020-04-10)
 
 **Note:** Version bump only for package mrm
