@@ -79,12 +79,12 @@ const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
 } else {
-	const resolvablePreset = getPackageName('preset', preset);
-	const presetPath = tryResolve(resolvablePreset, preset);
+	const presetPackageName = getPackageName('preset', preset);
+	const presetPath = tryResolve(presetPackageName, preset);
 	if (!presetPath) {
 		printError(`Preset “${preset}” not found.
 
-We’ve tried to load “${resolvablePreset}” and “${preset}” globally installed npm packages.`);
+We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
 		process.exit(1);
 	}
 	directories = [path.dirname(presetPath)];

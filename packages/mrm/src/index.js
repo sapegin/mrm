@@ -138,10 +138,10 @@ function getPackageName(type, packageName) {
  */
 function runTask(taskName, directories, options, argv) {
 	return new Promise((resolve, reject) => {
-		const resolvableTaskName = getPackageName('task', taskName);
+		const taskPackageName = getPackageName('task', taskName);
 		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
-			resolvableTaskName,
+			taskPackageName,
 			taskName
 		);
 
