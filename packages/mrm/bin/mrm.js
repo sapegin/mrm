@@ -11,7 +11,13 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks, tryResolve } = require('../src/index');
+const {
+	run,
+	getConfig,
+	getAllTasks,
+	tryResolve,
+	getPackageName,
+} = require('../src/index');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
@@ -73,11 +79,12 @@ const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
 } else {
-	const presetPath = tryResolve(`mrm-preset-${preset}`, preset);
+	const presetPackageName = getPackageName('preset', preset);
+	const presetPath = tryResolve(presetPackageName, preset);
 	if (!presetPath) {
 		printError(`Preset “${preset}” not found.
 
-We’ve tried to load “mrm-preset-${preset}” and “${preset}” globally installed npm packages.`);
+We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
 		process.exit(1);
 	}
 	directories = [path.dirname(presetPath)];

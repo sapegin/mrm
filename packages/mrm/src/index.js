@@ -114,6 +114,20 @@ function runAlias(aliasName, directories, options, argv) {
 }
 
 /**
+ * Returns the correct `mrm-` prefixed package name
+ *
+ * @param {"task" | "preset"} type
+ * @param {string} packageName
+ * @returns {string}
+ */
+function getPackageName(type, packageName) {
+	const [scopeOrTask, scopedTaskName] = packageName.split('/');
+	return scopedTaskName
+		? `${scopeOrTask}/mrm-${type}-${scopedTaskName}`
+		: `mrm-${type}-${scopeOrTask}`;
+}
+
+/**
  * Run a task.
  *
  * @param {string} taskName
@@ -124,14 +138,19 @@ function runAlias(aliasName, directories, options, argv) {
  */
 function runTask(taskName, directories, options, argv) {
 	return new Promise((resolve, reject) => {
+		const taskPackageName = getPackageName('task', taskName);
 		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
-			`mrm-task-${taskName}`,
+			taskPackageName,
 			taskName
 		);
 
 		if (!modulePath) {
-			reject(new MrmUnknownTask(`Task “${taskName}” not found.`, { taskName }));
+			reject(
+				new MrmUnknownTask(`Task “${taskName}” not found.`, {
+					taskName,
+				})
+			);
 			return;
 		}
 
@@ -383,5 +402,6 @@ module.exports = {
 	getTaskOptions,
 	tryFile,
 	tryResolve,
+	getPackageName,
 	firstResult,
 };
