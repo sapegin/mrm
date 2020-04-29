@@ -16,7 +16,7 @@ const {
 	run,
 	getAllAliases,
 	getAllTasks,
-	getResolvableName,
+	getPackageName,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -106,21 +106,21 @@ describe('tryResolve', () => {
 	});
 });
 
-describe('getResolvableName', () => {
+describe('getPackageName', () => {
 	it('should resolve non-scoped task names', () => {
-		const result = getResolvableName('task', 'pizza');
+		const result = getPackageName('task', 'pizza');
 		expect(result).toEqual('mrm-task-pizza');
 	});
 	it('should resolve non-scoped preset names', () => {
-		const result = getResolvableName('preset', 'default');
+		const result = getPackageName('preset', 'default');
 		expect(result).toEqual('mrm-preset-default');
 	});
 	it('should resolve scoped task names', () => {
-		const result = getResolvableName('task', '@myorg/pizza');
+		const result = getPackageName('task', '@myorg/pizza');
 		expect(result).toEqual('@myorg/mrm-task-pizza');
 	});
 	it('should resolve scoped preset names', () => {
-		const result = getResolvableName('preset', '@myorg/default');
+		const result = getPackageName('preset', '@myorg/default');
 		expect(result).toEqual('@myorg/mrm-preset-default');
 	});
 });

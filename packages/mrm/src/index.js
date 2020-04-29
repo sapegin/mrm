@@ -120,7 +120,7 @@ function runAlias(aliasName, directories, options, argv) {
  * @param {string} packageName
  * @returns {string}
  */
-function getResolvableName(type, packageName) {
+function getPackageName(type, packageName) {
 	const [scopeOrTask, scopedTaskName] = packageName.split('/');
 	return scopedTaskName
 		? `${scopeOrTask}/mrm-${type}-${scopedTaskName}`
@@ -138,7 +138,7 @@ function getResolvableName(type, packageName) {
  */
 function runTask(taskName, directories, options, argv) {
 	return new Promise((resolve, reject) => {
-		const resolvableTaskName = getResolvableName('task', taskName);
+		const resolvableTaskName = getPackageName('task', taskName);
 		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
 			resolvableTaskName,
@@ -402,6 +402,6 @@ module.exports = {
 	getTaskOptions,
 	tryFile,
 	tryResolve,
-	getResolvableName,
+	getPackageName,
 	firstResult,
 };

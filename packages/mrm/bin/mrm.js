@@ -16,7 +16,7 @@ const {
 	getConfig,
 	getAllTasks,
 	tryResolve,
-	getResolvableName,
+	getPackageName,
 } = require('../src/index');
 const {
 	MrmUnknownTask,
@@ -79,7 +79,7 @@ const isDefaultPreset = preset === 'default';
 if (isDefaultPreset) {
 	directories.push(path.dirname(require.resolve('mrm-preset-default')));
 } else {
-	const resolvablePreset = getResolvableName('preset', preset);
+	const resolvablePreset = getPackageName('preset', preset);
 	const presetPath = tryResolve(resolvablePreset, preset);
 	if (!presetPath) {
 		printError(`Preset “${preset}” not found.
