@@ -1,3 +1,5 @@
+<!-- ESLint -->
+
 # mrm-task-eslint
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [ESLint](https://eslint.org/).
@@ -19,7 +21,7 @@ mrm eslint
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `eslintPreset` (default: `eslint:recommended`)
 

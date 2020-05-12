@@ -1,4 +1,6 @@
-# Writing your own tasks
+<!-- Making tasks -->
+
+# Making your own tasks
 
 Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override a default one.
 
@@ -45,7 +47,7 @@ npm init -y
 npm install --save mrm-core
 ```
 
-[mrm-core](../packages/mrm-core) is an utility library for writing Mrm tasks, it has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
+[mrm-core](https://github.com/sapegin/mrm/tree/master/packages/mrm-core) is an utility library for writing Mrm tasks, it has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
 ## With `mrm-core` and parameters
 
@@ -129,7 +131,7 @@ module.exports.parameters = {
 module.exports.description = 'Adds ESLint';
 ```
 
-Have a look at [mrm-core docs](../packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for reference.
+Have a look at [mrm-core docs](https://github.com/sapegin/mrm/tree/master/packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for reference.
 
 ### Configuration prompts
 

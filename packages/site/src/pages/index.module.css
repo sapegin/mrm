@@ -1,0 +1,19 @@
+.heroBanner {
+	--ifm-heading-line-height: 1;
+	padding: 3rem 0;
+	text-align: center;
+}
+
+@media screen and (max-width: 966px) {
+	.heroBanner {
+		padding: 2rem;
+	}
+}
+
+.main {
+	padding: 3rem 0;
+}
+
+.section + .section {
+	margin-top: 2rem;
+}

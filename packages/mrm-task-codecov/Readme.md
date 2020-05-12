@@ -1,6 +1,8 @@
+<!-- Codecov -->
+
 # mrm-task-codecov
 
-[Mrm](https://github.com/sapegin/mrm) task that adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](../travis) task) and a Readme badge.
+[Mrm](https://github.com/sapegin/mrm) task that adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](https://github.com/sapegin/mrm/tree/master/packages/travis) task) and a Readme badge.
 
 ## Usage
 
@@ -11,7 +13,7 @@ mrm codecov
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `readmeFile` (default: `Readme.md`)
 

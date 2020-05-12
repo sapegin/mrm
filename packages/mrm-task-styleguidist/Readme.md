@@ -1,3 +1,5 @@
+<!-- React Styleguidist -->
+
 # mrm-task-styleguidist
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [React Styleguidist](https://react-styleguidist.js.org/).

@@ -1,4 +1,6 @@
-# Custom presets
+<!-- Making presets -->
+
+# Making your own presets
 
 Preset is an npm package (or a directory) that contains a config and tasks.
 
@@ -41,7 +43,7 @@ And the `package.json` would look like this:
 }
 ```
 
-See the [Writing custom tasks](./Writing_tasks.md) to learn how to write Mrm tasks. To add a task to a preset put it into a `<TASK>/index.js` file in your preset package folder.
+See [Making tasks](./Making_tasks.md) to learn how to create Mrm tasks. To add a task to a preset put it into a `<TASK>/index.js` file in your preset package folder.
 
 If you want to use a task from npm (or any default task), you should include it as a dependency. That way you can be sure that you’ll always have a task version that works for your project.
 

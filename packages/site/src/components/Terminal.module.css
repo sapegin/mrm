@@ -1,0 +1,49 @@
+.terminal {
+	position: relative;
+	padding: 3rem 1rem 1rem;
+	color: #c4a48a;
+	background-color: #2f251d;
+	border-radius: calc(var(--ifm-global-radius) * 1.5)
+		calc(var(--ifm-global-radius) * 1.5) var(--ifm-global-radius)
+		var(--ifm-global-radius);
+	font-weight: bold;
+	font-family: var(--ifm-font-family-monospace);
+	line-height: var(--ifm-pre-line-height);
+	font-size: 1.1rem;
+	white-space: pre;
+}
+
+.terminal::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 2rem;
+	background-color: #d2d2d2;
+	border-radius: var(--ifm-global-radius) var(--ifm-global-radius) 0 0;
+}
+
+.terminal::after {
+	content: '';
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	width: 1rem;
+	height: 1rem;
+	background-color: #f95955;
+	border-radius: 99999rem;
+	box-shadow: 1.6rem 0 0 #fcbe40, 3.2rem 0 0 #44cc4b;
+}
+
+.text__white {
+	color: #f3ebd4;
+}
+
+.text__cyan {
+	color: #3ab9c2;
+}
+
+.text__green {
+	color: #36a822;
+}

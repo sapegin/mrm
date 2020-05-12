@@ -1,3 +1,5 @@
+<!-- package.json -->
+
 # mrm-task-package
 
 [Mrm](https://github.com/sapegin/mrm) task that adds `package.json`.
@@ -15,7 +17,7 @@ mrm package
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `github` (default: extracted from `.git/config` file)
 

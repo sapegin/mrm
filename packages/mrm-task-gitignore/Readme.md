@@ -1,3 +1,5 @@
+<!-- Git ignore -->
+
 # mrm-task-gitignore
 
 [Mrm](https://github.com/sapegin/mrm) task that adds a `.gitignore` file.

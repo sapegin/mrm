@@ -1,3 +1,5 @@
+<!-- EditorConfig -->
+
 # mrm-task-editorconfig
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [EditorConfig](http://editorconfig.org/).
@@ -15,7 +17,7 @@ mrm editorconfig
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `indent` (default: `tab`)
 

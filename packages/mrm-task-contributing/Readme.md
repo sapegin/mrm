@@ -1,3 +1,5 @@
+<!-- Contributing guidelines -->
+
 # mrm-task-contributing
 
 [Mrm](https://github.com/sapegin/mrm) task that adds contributing guidelines.
@@ -15,7 +17,7 @@ mrm contributing
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `github` (default: extracted from `.git/config` file)
 

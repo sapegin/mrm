@@ -1,3 +1,5 @@
+<!-- Getting started -->
+
 # Getting started with Mrm
 
 ## Installation
@@ -39,7 +41,7 @@ Custom config and tasks folder:
 mrm license --dir ~/unicorn
 ```
 
-Run a task from a preset (globally installed `mrm-preset-unicorn` npm package, read more [about preset](#custom-presets)):
+Run a task from a preset (globally installed `mrm-preset-unicorn` npm package, read more [about presets](./Making_presets.md)):
 
 ```shell
 mrm license --preset unicorn
@@ -72,8 +74,6 @@ npx mrm eslint -i
 This will prompt for all [ESLint Mrm task options](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint#options) prior to running the task. It will also use **command line parameters** and **config files** as defaults for each option.
 
 **When to use:** use this configuration mode for one-time running Mrm (typically with `npx`) when you don't know available options upfront and don't want to create a config file.
-
-> **:warning::** Interactive mode was introduced in Mrm `2.1.0`, and requires tasks to provide options in a new format. Core tasks are in the process of upgrading, and current status can be followed on [issue #55](https://github.com/sapegin/mrm/issues/55). See [Writing tasks](./Writing_tasks.md) for more details.
 
 ### Command line parameters
 

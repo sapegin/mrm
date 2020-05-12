@@ -1,3 +1,5 @@
+<!-- Prettier -->
+
 # mrm-task-prettier
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Prettier](https://prettier.io/).
@@ -23,7 +25,7 @@ npm run format
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#documentation) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `indent` (default: `tab`)
 

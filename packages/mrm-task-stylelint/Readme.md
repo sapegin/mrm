@@ -1,3 +1,5 @@
+<!-- stylelint -->
+
 # mrm-task-stylelint
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [stylelint](https://stylelint.io/).
@@ -17,7 +19,7 @@ mrm stylelint
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) and [stylelint docs](https://stylelint.io/user-guide/configuration/) for more details.
+See [Mrm docs](../../docs/Getting_started.md) and [stylelint docs](https://stylelint.io/user-guide/configuration/) for more details.
 
 ### `stylelintPreset` (default: `stylelint-config-standard`)
 

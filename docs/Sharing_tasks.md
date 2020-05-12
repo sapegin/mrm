@@ -1,3 +1,5 @@
+<!-- Sharing tasks -->
+
 # Sharing tasks via npm
 
 The basic file structure of a shared task looks like this:
@@ -8,7 +10,7 @@ The basic file structure of a shared task looks like this:
 ├── package.json
 ```
 
-`index.js` is the same as described in [writing custom tasks](./Writing_tasks.md). And the `package.json` would look like this:
+`index.js` is the same as described in [Making tasks](./Making_tasks.md). And the `package.json` would look like this:
 
 ```json
 {
@@ -36,7 +38,7 @@ The basic file structure of a shared task looks like this:
 
 The package name should should follow this pattern: `mrm-task-<TASK>`, otherwise you’ll have to type full package name when you run a task:
 
-```
+```bash
 mrm unicorn # mrm-task-unicorn
 mrm @mycompany/unicorn-task # @mycompany/unicorn-task
 ```

@@ -1,3 +1,5 @@
+<!-- Jest -->
+
 # mrm-task-jest
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Jest](https://facebook.github.io/jest/).

@@ -11,7 +11,7 @@ mrm gitter
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `packageName` (default: `name` field in `package.json`)
 

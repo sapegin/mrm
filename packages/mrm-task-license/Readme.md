@@ -1,3 +1,5 @@
+<!-- License file -->
+
 # mrm-task-license
 
 [Mrm](https://github.com/sapegin/mrm) task that adds license file based on `license` field in `package.json`.
@@ -15,11 +17,11 @@ mrm license
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `license` (default: taken from `package.json`, if not found `MIT` is used)
 
-License name (like `MIT`, `Unlicense`). For full list of supported values see: [`/templates`](./templates/).
+License name (like `MIT`, `Unlicense`). For full list of supported values see: [`/templates`](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-license/templates).
 
 ### `licenseFile` (default: `License.md`)
 

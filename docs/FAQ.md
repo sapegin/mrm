@@ -56,7 +56,7 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 - `$HOME/dotfiles/mrm/<TASK>/index.js`
 - `$HOME/.mrm/<TASK>/index.js`
 - `mrm-task-<TASK>/index.js`, where `mrm-task-<TASK>` is an npm package name
-- `<TASK>` in [mrm-preset-default](../packages/mrm-preset-default)
+- `<TASK>` in [mrm-preset-default](https://github.com/sapegin/mrm/tree/master/packages/mrm-preset-default)
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 

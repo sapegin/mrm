@@ -1,36 +1,10 @@
-# Mrm core utils
+<!-- Core utils -->
+
+# mrm-core
 
 [![npm](https://img.shields.io/npm/v/mrm-core.svg)](https://www.npmjs.com/package/mrm-core)
 
 Utilities to write codemods for config files (JSON, YAML, INI, Markdown, etc.). Can be used to make tasks for [Mrm](https://github.com/sapegin/mrm).
-
-## Table of contents
-
-<!-- To update run: npx markdown-toc --maxdepth 4 -i Readme.md -->
-
-<!-- toc -->
-
-- [Example](#example)
-- [Installation](#installation)
-- [API](#api)
-  - [Work with files](#work-with-files)
-    - [JSON](#json)
-    - [YAML](#yaml)
-    - [INI](#ini)
-    - [New line separated text files](#new-line-separated-text-files)
-    - [Markdown](#markdown)
-    - [Plain text templates](#plain-text-templates)
-  - [Special files](#special-files)
-    - [package.json](#packagejson)
-  - [File system helpers](#file-system-helpers)
-  - [Install and uninstall npm or Yarn packages](#install-and-uninstall-npm-or-yarn-packages)
-  - [Utilities](#utilities)
-  - [Custom error class: `MrmError`](#custom-error-class-mrmerror)
-- [Change log](#change-log)
-- [Contributing](#contributing)
-- [Authors and license](#authors-and-license)
-
-<!-- tocstop -->
 
 ## Example
 
@@ -66,9 +40,9 @@ module.exports = function(config) {
 module.exports.description = 'Adds ESLint with a custom preset';
 ```
 
-Read more in [mrm’s docs](https://github.com/sapegin/mrm), and this task is already included by default.
+Read more in [the docs](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint), and this task is already included by default.
 
-You can find [more examples here](https://github.com/sapegin/dotfiles/tree/master/mrm).
+You can find more examples [in my dotfiles repository](https://github.com/sapegin/dotfiles/tree/master/mrm).
 
 You don’t have to use mrm-core with mrm, you can run this tasks from your own code:
 

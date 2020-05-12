@@ -1,3 +1,5 @@
+<!-- Travis CI -->
+
 # mrm-task-travis
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Travis CI](https://travis-ci.org/).
@@ -16,7 +18,7 @@ mrm travis
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `github` (default: extracted from `.git/config` file)
 

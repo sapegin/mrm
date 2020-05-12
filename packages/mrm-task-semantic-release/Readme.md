@@ -1,3 +1,5 @@
+<!-- semantic-release -->
+
 # mrm-task-semantic-release
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [semantic-release](https://github.com/semantic-release/semantic-release).
@@ -17,7 +19,7 @@ mrm semantic-release
 
 ## Options
 
-See [Mrm docs](https://github.com/sapegin/mrm#usage) for more details.
+See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `semanticConfig` (object, optional)
 

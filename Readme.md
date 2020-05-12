@@ -10,7 +10,7 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 - Minimal changes: keeps the original file formatting or read the style from EditorConfig
 - Minimal configuration: tries to infer configuration from the project itself or from the environment
 - [Customizable tasks](#tasks) for popular tools like ESLint, Prettier, lint-staged, etc. included
-- [Custom tasks](docs/Writing_tasks.md) and [tools](packages/mrm-core/Readme.md) to work with JSON, YAML, INI, Markdown and new line separated text files
+- [Custom tasks](docs/Making_tasks.md) and [tools](packages/mrm-core/Readme.md) to work with JSON, YAML, INI, Markdown and new line separated text files
 - Sharing tasks via npm and grouping them into [presets](#custom-presets)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
@@ -24,9 +24,9 @@ Read more in my article, [Automating open source project configuration with Mrm]
 ## Documentation
 
 - [Getting started](docs/Getting_started.md)
-- [Writing your own tasks](docs/Writing_tasks.md)
+- [Making your own tasks](docs/Making_tasks.md)
 - [Sharing tasks via npm](docs/Sharing_tasks.md)
-- [Custom presets](docs/Custom_presets.md)
+- [Making presets](docs/Making_presets.md)
 - [FAQ](docs/FAQ.md)
 - [Utilities to write codemods](packages/mrm-core/Readme.md)
 
