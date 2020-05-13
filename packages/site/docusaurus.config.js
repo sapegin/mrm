@@ -1,7 +1,7 @@
 module.exports = {
 	title: 'Mrm',
 	tagline: 'Codemods for your project config files',
-	url: 'https://github.com/sapegin/mrm',
+	url: 'https://mrmjs.netlify.app',
 	baseUrl: '/',
 	favicon: 'img/favicon.png',
 	organizationName: 'sapegin',
