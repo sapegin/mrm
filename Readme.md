@@ -10,8 +10,8 @@ Command line tool to help you keep configuration (`package.json`, `.gitignore`, 
 - Minimal changes: keeps the original file formatting or read the style from EditorConfig
 - Minimal configuration: tries to infer configuration from the project itself or from the environment
 - [Customizable tasks](#tasks) for popular tools like ESLint, Prettier, lint-staged, etc. included
-- [Custom tasks](docs/Making_tasks.md) and [tools](packages/mrm-core/Readme.md) to work with JSON, YAML, INI, Markdown and new line separated text files
-- Sharing tasks via npm and grouping them into [presets](#custom-presets)
+- [Custom tasks](https://mrm.js.org/docs/making-tasks) and [tools](https://mrm.js.org/docs/mrm-core) to work with JSON, YAML, INI, Markdown and new line separated text files
+- Sharing tasks via npm and grouping them into [presets](https://mrm.js.org/docs/making-presets)
 
 ![](https://d3vv6lp55qjaqc.cloudfront.net/items/1g0e2M3m2Y3j0m3B3n1t/Image%202017-06-20%20at%209.00.39%20PM.png)
 
@@ -23,35 +23,35 @@ Read more in my article, [Automating open source project configuration with Mrm]
 
 ## Documentation
 
-- [Getting started](docs/Getting_started.md)
-- [Making your own tasks](docs/Making_tasks.md)
-- [Sharing tasks via npm](docs/Sharing_tasks.md)
-- [Making presets](docs/Making_presets.md)
-- [FAQ](docs/FAQ.md)
-- [Utilities to write codemods](packages/mrm-core/Readme.md)
+- [Getting started](https://mrm.js.org/docs/getting-started)
+- [Making your own tasks](https://mrm.js.org/docs/making-tasks)
+- [Sharing tasks via npm](https://mrm.js.org/docs/sharing-tasks)
+- [Making your own presets](https://mrm.js.org/docs/making-presets)
+- [FAQ](https://mrm.js.org/docs/faq)
+- [Utilities to write codemods](https://mrm.js.org/docs/mrm-core)
 
 ## Tasks
 
-These tasks are included by default:
+These tasks are [included by default](https://mrm.js.org/docs/mrm-preset-default):
 
 <!-- textlint-disable terminology -->
 
-- [codecov](packages/mrm-task-codecov)
-- [contributing](packages/mrm-task-contributing)
-- [editorconfig](packages/mrm-task-editorconfig)
-- [eslint](packages/mrm-task-eslint)
-- [gitignore](packages/mrm-task-gitignore)
-- [jest](packages/mrm-task-jest)
-- [license](packages/mrm-task-license)
-- [lint-staged](packages/mrm-task-lint-staged)
-- [package](packages/mrm-task-package)
-- [prettier](packages/mrm-task-prettier)
-- [readme](packages/mrm-task-readme)
-- [semantic-release](packages/mrm-task-semantic-release)
-- [styleguidist](packages/mrm-task-styleguidist)
-- [stylelint](packages/mrm-task-stylelint)
-- [travis](packages/mrm-task-travis)
-- [typescript](packages/mrm-task-typescript)
+- [codecov](https://mrm.js.org/docs/mrm-task-codecov)
+- [contributing](https://mrm.js.org/docs/mrm-task-contributing)
+- [editorconfig](https://mrm.js.org/docs/mrm-task-editorconfig)
+- [eslint](https://mrm.js.org/docs/mrm-task-eslint)
+- [gitignore](https://mrm.js.org/docs/mrm-task-gitignore)
+- [jest](https://mrm.js.org/docs/mrm-task-jest)
+- [license](https://mrm.js.org/docs/mrm-task-license)
+- [lint-staged](https://mrm.js.org/docs/mrm-task-lint-staged)
+- [package](https://mrm.js.org/docs/mrm-task-package)
+- [prettier](https://mrm.js.org/docs/mrm-task-prettier)
+- [readme](https://mrm.js.org/docs/mrm-task-readme)
+- [semantic-release](https://mrm.js.org/docs/mrm-task-semantic-release)
+- [styleguidist](https://mrm.js.org/docs/mrm-task-styleguidist)
+- [stylelint](https://mrm.js.org/docs/mrm-task-stylelint)
+- [travis](https://mrm.js.org/docs/mrm-task-travis)
+- [typescript](https://mrm.js.org/docs/mrm-task-typescript)
 
 <!-- textlint-enable -->
 
