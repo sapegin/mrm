@@ -34,6 +34,7 @@ console.log('Syncing docs...');
 
 const docs = glob.sync('../docs/*.md');
 docs.forEach(filepath => {
+	console.log(`👉 ${filepath}`);
 	const contents = read(filepath);
 	const [, title] = getTitle(contents);
 	const [, sidebarLabel = title] = getSidebarTitle(contents);
@@ -50,10 +51,11 @@ docs.forEach(filepath => {
 	);
 });
 
-console.log('Syncing packages...');
+console.log('\nSyncing packages...');
 
 const packages = glob.sync('../packages/*/Readme.md');
 packages.forEach(filepath => {
+	console.log(`👉 ${filepath}`);
 	const contents = read(filepath);
 	const [, package] = getTitle(contents);
 	const title = package.replace('mrm-taks-', '').replace('mrm-preset-', '');

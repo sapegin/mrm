@@ -10,14 +10,14 @@
     "sync": "node scripts/sync.js"
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-alpha.54",
-    "@docusaurus/preset-classic": "^2.0.0-alpha.54",
+    "@docusaurus/core": "^2.0.0-alpha.55",
+    "@docusaurus/preset-classic": "^2.0.0-alpha.55",
     "classnames": "^2.2.6",
     "fs-extra": "^9.0.0",
     "glob": "^7.1.6",
     "lodash": "^4.17.15",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "unist-util-visit": "^2.0.2"
   },
   "browserslist": {
