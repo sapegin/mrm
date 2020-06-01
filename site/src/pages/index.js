@@ -130,7 +130,7 @@ function Home() {
 					</section>
 					<section className={styles.section}>
 						<VisuallyHidden as="h2">Mrm use cases</VisuallyHidden>
-						<h3>What to hack quickly on some idea?</h3>
+						<h3>Want to hack quickly on some idea?</h3>
 						<p>
 							Install everything you need for a basic JavaScript project with a
 							single command, and start working in less than a minute:
@@ -145,7 +145,7 @@ function Home() {
 						<CodeBlock language="bash">{`npx mrm license readme contributing`}</CodeBlock>
 					</section>
 					<section className={styles.section}>
-						<h3>What to work on a very old project?</h3>
+						<h3>Want to work on a very old project?</h3>
 						<p>
 							Run the same commands again to upgrade and migrate all the
 							configs.
