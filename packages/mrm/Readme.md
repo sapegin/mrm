@@ -4,7 +4,7 @@
 
 Command line tool to help you keep configuration (`package.json`, `.gitignore`, `.eslintrc`, etc.) of your open source projects in sync.
 
-See [https://mrm.js.org/docs/getting-started](documentation).
+See [documentation](https://mrm.js.org/docs/getting-started).
 
 ## Changelog
 
