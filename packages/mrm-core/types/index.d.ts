@@ -22,6 +22,7 @@ interface Json {
 	get(): any
 	get(address: string | string[], defaultValue?: any): any;
 	set(address: string | string[], value: any): this;
+	set(value: any): this;
 	unset(address: string | string[]): this;
 	merge(value: object): this;
 	save(): this;
