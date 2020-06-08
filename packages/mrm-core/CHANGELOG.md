@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.1](https://github.com/sapegin/mrm/compare/mrm-core@4.1.0...mrm-core@4.1.1) (2020-06-08)
+
+
+### Bug Fixes
+
+* TypeScript types: add missing set() function signature for json ([#80](https://github.com/sapegin/mrm/issues/80)) ([6c22a8d](https://github.com/sapegin/mrm/commit/6c22a8ded59d3396375ce3e3def532df066540b4))
+
+
+
+
+
 # [4.1.0](https://github.com/sapegin/mrm/compare/mrm-core@4.0.3...mrm-core@4.1.0) (2020-04-07)
 
 

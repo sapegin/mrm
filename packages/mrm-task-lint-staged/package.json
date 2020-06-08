@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-lint-staged",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Mrm task that adds lint-staged",
   "author": {
     "name": "Artem Sapegin",
@@ -25,6 +25,6 @@
   ],
   "dependencies": {
     "lodash": "^4.17.15",
-    "mrm-core": "^4.1.0"
+    "mrm-core": "^4.1.1"
   }
 }

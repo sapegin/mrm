@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/sapegin/mrm/compare/mrm@2.3.0...mrm@2.3.1) (2020-06-08)
+
+
+### Bug Fixes
+
+* **mrm:** Fix link in readme ([3558b83](https://github.com/sapegin/mrm/commit/3558b837ca3d2c6a31daa000877f157b2c39ab7f)), closes [#78](https://github.com/sapegin/mrm/issues/78)
+* **mrm:** Fix links in readme ([e837d45](https://github.com/sapegin/mrm/commit/e837d4557765e5e08947bb8e7f03718e0ce14bf3)), closes [#78](https://github.com/sapegin/mrm/issues/78)
+
+
+
+
+
 # [2.3.0](https://github.com/sapegin/mrm/compare/mrm@2.2.1...mrm@2.3.0) (2020-04-29)
 
 
