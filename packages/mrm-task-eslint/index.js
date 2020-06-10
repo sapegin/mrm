@@ -74,7 +74,8 @@ function task(config) {
 	// }
 
 	// TypeScript
-	if (pkg.get('devDependencies.typescript')) {
+	const hasTypescript = pkg.get('devDependencies.typescript');
+	if (hasTypescript) {
 		const parser = '@typescript-eslint/parser';
 		const plugin = '@typescript-eslint/eslint-plugin';
 		packages.push(parser, plugin);
@@ -93,18 +94,19 @@ function task(config) {
 			rules: eslintRules || {},
 		});
 		exts = ' --ext .ts,.tsx';
+	}
 
-		if (pkg.get('devDependencies.prettier')) {
-			packages.push('eslint-config-prettier');
-			const extensions = eslintrc.get('extends', []);
-			eslintrc.merge({
-				extends: [
-					...(Array.isArray(extensions) ? extensions : [extensions]),
-					'prettier',
-					'prettier/@typescript-eslint',
-				],
-			});
-		}
+	// Prettier
+	if (pkg.get('devDependencies.prettier')) {
+		packages.push('eslint-config-prettier');
+		const extensions = eslintrc.get('extends', []);
+		eslintrc.merge({
+			extends: [
+				...(Array.isArray(extensions) ? extensions : [extensions]),
+				'prettier',
+				...(hasTypescript ? ['prettier/@typescript-eslint'] : []),
+			],
+		});
 	}
 
 	eslintrc.save();

@@ -212,6 +212,29 @@ Object {
 }
 `;
 
+exports[`should turn on Prettier-specific eslint rules when prettier is installed 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": [
+    \\"eslint:recommended\\",
+    \\"prettier\\"
+  ]
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"prettier\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix\\",
+    \\"pretest\\": \\"npm run lint\\"
+  }
+}",
+}
+`;
+
 exports[`should use a custom preset 1`] = `
 "{
   \\"extends\\": \\"airbnb\\"
