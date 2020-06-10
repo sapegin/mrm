@@ -25,13 +25,13 @@ const features = [
 		tools like ESLint, Prettier, lint-staged, etc. included
 	</>,
 	<>
-		<Link to="/docs/writing-tasks">Custom tasks</Link> and{' '}
+		<Link to="/docs/making-tasks">Custom tasks</Link> and{' '}
 		<Link to="/docs/mrm-core">tools</Link> to work with JSON, YAML, INI,
 		Markdown and new line separated text files
 	</>,
 	<>
 		Sharing tasks via npm and grouping them into{' '}
-		<Link to="/docs/writing-presets">presets</Link>
+		<Link to="/docs/making-presets">presets</Link>
 	</>,
 ];
 
