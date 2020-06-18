@@ -56,6 +56,26 @@ exports[`should infer options from EditorConfig 1`] = `
 }"
 `;
 
+exports[`should replace existing overrides for the same pattern 1`] = `
+"{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.js\\",
+      \\"options\\": {
+        \\"useTabs\\": false
+      }
+    },
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 42
+      }
+    }
+  ]
+}"
+`;
+
 exports[`should use a custom indent 1`] = `
 "{
   \\"useTabs\\": true,

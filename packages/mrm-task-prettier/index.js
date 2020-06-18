@@ -59,6 +59,17 @@ function getPattern(pkg) {
 	return `**/*.{${exts.join(',')}}`;
 }
 
+// Remove options that have the same values as Prettier defaults
+function removeDefaultOptions(options) {
+	const newOptions = { ...options };
+	for (const option in newOptions) {
+		if (newOptions[option] === defaultPrettierOptions[option]) {
+			delete newOptions[option];
+		}
+	}
+	return newOptions;
+}
+
 module.exports = function task({
 	indent,
 	prettierPattern,
@@ -74,28 +85,37 @@ module.exports = function task({
 	const pkg = packageJson();
 
 	const overrides = prettierOverrides || defaultOverrides;
-	const options = Object.assign(
-		{},
-		prettierOptions
-			? {}
-			: {
-					useTabs: indent === 'tab',
-			  },
-		editorconfigOptions,
-		prettierOptions,
-		overrides && { overrides }
+	const options = removeDefaultOptions(
+		Object.assign(
+			{},
+			prettierOptions
+				? {}
+				: {
+						useTabs: indent === 'tab',
+				  },
+			editorconfigOptions,
+			prettierOptions
+		)
 	);
 
-	// Remove options that have the same values as Prettier defaults
-	for (const option in options) {
-		if (options[option] === defaultPrettierOptions[option]) {
-			delete options[option];
-		}
-	}
-
 	// .prettierrc
-	json('.prettierrc')
+	const prettierrc = json('.prettierrc');
+
+	// Get existing overrides and remove the ones we're going to add
+	const overridePatterns = overrides.map(override => override.files);
+	const oldOverrides = prettierrc
+		.get('overrides', [])
+		.filter(override => !overridePatterns.includes(override.files));
+
+	// Merge existing overrides with new ones
+	const newOverrides = [...oldOverrides, ...overrides];
+
+	// Update options and save
+	prettierrc
 		.merge(options)
+		// unset/set to make sure overrides are always placed after options
+		.unset('overrides')
+		.set('overrides', newOverrides)
 		.save();
 
 	const pattern =

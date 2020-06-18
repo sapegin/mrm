@@ -91,6 +91,44 @@ it('should use custom overrides', async () => {
 	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
 });
 
+it('should replace existing overrides for the same pattern', async () => {
+	vol.fromJSON({
+		'/.prettierrc': stringify({
+			overrides: [
+				{
+					files: '*.js',
+					options: {
+						useTabs: false,
+					},
+				},
+				{
+					files: '*.md',
+					options: {
+						useTabs: false,
+						printWidth: 30,
+					},
+				},
+			],
+		}),
+		'/package.json': packageJson,
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			prettierOverrides: [
+				{
+					files: '*.md',
+					options: {
+						printWidth: 42,
+					},
+				},
+			],
+		})
+	);
+
+	expect(vol.toJSON()['/.prettierrc']).toMatchSnapshot();
+});
+
 it('should infer options from EditorConfig', async () => {
 	vol.fromJSON({
 		'/.editorconfig': '[*]\nindent_style = space\nindent_size = 2',
