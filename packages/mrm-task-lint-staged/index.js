@@ -1,3 +1,4 @@
+// @ts-check
 const { packageJson, install, getExtsFromCommand } = require('mrm-core');
 const { castArray } = require('lodash');
 
@@ -108,9 +109,7 @@ function isCommandBelongsToRule(ruleCommands, command) {
 	return castArray(ruleCommands).some(x => regExp.test(x));
 }
 
-function task(config) {
-	const { lintStagedRules } = config.defaults({ lintStagedRules: {} }).values();
-
+module.exports = function task({ lintStagedRules }) {
 	const pkg = packageJson();
 	const allRules = mergeRules(defaultRules, lintStagedRules);
 	const existingRules = Object.entries(pkg.get('lint-staged', {}));
@@ -186,7 +185,12 @@ function task(config) {
 
 	// Install dependencies
 	install(packages);
-}
+};
 
-task.description = 'Adds lint-staged';
-module.exports = task;
+module.exports.description = 'Adds lint-staged';
+module.exports.parameters = {
+	lintStagedRules: {
+		type: 'config',
+		default: {},
+	},
+};

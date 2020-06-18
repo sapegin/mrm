@@ -9,24 +9,14 @@ const {
 	uninstall,
 } = require('mrm-core');
 
-function task(config) {
-	const {
-		github,
-		readmeFile,
-		semanticConfig,
-		semanticArgs,
-		semanticPeerDependencies,
-		semanticPreset,
-	} = config
-		.defaults({
-			github: gitUsername(),
-			readmeFile: 'Readme.md',
-			semanticArgs: '',
-			semanticPeerDependencies: [],
-			semanticPreset: null,
-		})
-		.values();
-
+module.exports = function task({
+	github,
+	readmeFile,
+	semanticConfig,
+	semanticArgs,
+	semanticPeerDependencies,
+	semanticPreset,
+}) {
 	// Require .travis.yml
 	if (!fs.existsSync('.travis.yml')) {
 		throw new MrmError(
@@ -156,7 +146,36 @@ function task(config) {
    More info: https://semantic-release.gitbook.io/semantic-release/usage/ci-configuration
 `
 	);
-}
+};
 
-task.description = 'Adds semantic-release';
-module.exports = task;
+module.exports.description = 'Adds semantic-release';
+module.exports.parameters = {
+	github: {
+		type: 'input',
+		message: 'Enter your GitHub username',
+		default: gitUsername(),
+		validate(value) {
+			return value ? true : 'GitHub username is required';
+		},
+	},
+	readmeFile: {
+		type: 'input',
+		message: 'Enter filename for readme',
+		default: 'Readme.md',
+	},
+	semanticArgs: {
+		type: 'input',
+		message: 'Enter arguments for semantic-release command line tool',
+		default: '',
+	},
+	semanticConfig: {
+		type: 'config',
+	},
+	semanticPeerDependencies: {
+		type: 'config',
+		default: [],
+	},
+	semanticPreset: {
+		type: 'config',
+	},
+};

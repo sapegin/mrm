@@ -1,4 +1,5 @@
 jest.mock('fs');
+jest.mock('git-username');
 jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
@@ -6,7 +7,7 @@ jest.mock('mrm-core/src/util/log', () => ({
 const fs = require.requireActual('fs');
 const path = require('path');
 const { omitBy } = require('lodash');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -14,7 +15,7 @@ const stringify = o => JSON.stringify(o, null, '  ');
 
 afterEach(() => vol.reset());
 
-it('should add a Contributing.md file', () => {
+it('should add a Contributing.md file', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/Contributing.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Contributing.md'))
@@ -25,7 +26,7 @@ it('should add a Contributing.md file', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			github: 'gendalf',
 		})
 	);

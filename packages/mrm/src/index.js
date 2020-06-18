@@ -217,7 +217,7 @@ async function getTaskOptions(task, interactive = false, options = {}) {
 		throw new MrmUndefinedOption(
 			`Missing required config options: ${names.join(', ')}.`,
 			{
-				unknown: invalid,
+				unknown: names,
 			}
 		);
 	}

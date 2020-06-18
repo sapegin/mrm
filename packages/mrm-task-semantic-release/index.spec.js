@@ -1,4 +1,5 @@
 jest.mock('fs');
+jest.mock('git-username');
 jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
@@ -7,7 +8,7 @@ jest.mock('mrm-core/src/npm', () => ({
 }));
 
 const { uninstall } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -37,26 +38,26 @@ afterEach(() => {
 	console.log = console$log;
 });
 
-it('should add semantic-release', () => {
+it('should add semantic-release', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 		'/Readme.md': readmeMd,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add custom config to package.json', () => {
+it('should add custom config to package.json', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			semanticConfig: { pizza: 42 },
 		})
 	);
@@ -64,7 +65,7 @@ it('should add custom config to package.json', () => {
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should remove custom config from package.json', () => {
+it('should remove custom config from package.json', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': stringify({
@@ -78,19 +79,19 @@ it('should remove custom config from package.json', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should add custom arguments to semantic-release command', () => {
+it('should add custom arguments to semantic-release command', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			semanticArgs: '--arg val',
 		})
 	);
@@ -98,14 +99,14 @@ it('should add custom arguments to semantic-release command', () => {
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 });
 
-it('should install extra dependencies on CI', () => {
+it('should install extra dependencies on CI', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			semanticPeerDependencies: ['pizza'],
 		})
 	);
@@ -113,14 +114,14 @@ it('should install extra dependencies on CI', () => {
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 });
 
-it('should crate semantic-release config and install extra dependencies when a preset is defined', () => {
+it('should crate semantic-release config and install extra dependencies when a preset is defined', async () => {
 	vol.fromJSON({
 		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			semanticPreset: 'pizza',
 		})
 	);
@@ -129,7 +130,7 @@ it('should crate semantic-release config and install extra dependencies when a p
 	expect(vol.toJSON()['/.releaserc.json']).toMatchSnapshot();
 });
 
-it('should remove the official semantic-release runner', () => {
+it('should remove the official semantic-release runner', async () => {
 	vol.fromJSON({
 		'/.travis.yml': `language: node_js
 node_js:
@@ -141,18 +142,20 @@ after_success:
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 	expect(uninstall).toBeCalledWith(['semantic-release', 'travis-deploy-once']);
 });
 
-it('should throw when .travis.yml not found', () => {
+it('should throw when .travis.yml not found', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	const fn = () => task(getConfigGetter({}));
+	const options = await getTaskOptions(task, false, {});
+
+	const fn = () => task(options);
 
 	expect(fn).toThrowError('Run travis task');
 });

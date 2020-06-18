@@ -3,36 +3,36 @@ jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
 
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
 afterEach(() => vol.reset());
 
-it('should add .gitignore', () => {
+it('should add .gitignore', async () => {
 	vol.fromJSON();
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add package-lock.json, if yarn.lock exists', () => {
+it('should add package-lock.json, if yarn.lock exists', async () => {
 	vol.fromJSON({
 		'/yarn.lock': '',
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add yarn.lock, if package-lock.json exists', () => {
+it('should add yarn.lock, if package-lock.json exists', async () => {
 	vol.fromJSON({
 		'/package-lock.json': '',
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });

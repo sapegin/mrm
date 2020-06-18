@@ -3,35 +3,35 @@ jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
 
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
 afterEach(() => vol.reset());
 
-it('should add EditorConfig', () => {
+it('should add EditorConfig', async () => {
 	vol.fromJSON();
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add a single section when indent=2', () => {
+it('should add a single section when indent=2', async () => {
 	vol.fromJSON();
 
-	task(getConfigGetter({ indent: 2 }));
+	task(await getTaskOptions(task, false, { indent: 2 }));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should update JSON section', () => {
+it('should update JSON section', async () => {
 	vol.fromJSON({
 		'/.editorconfig': `[*.{json,yml}]
 indent_style = tab`,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });

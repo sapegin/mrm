@@ -6,9 +6,7 @@ const jsonRules = {
 };
 const jsonExtensions = ['json', 'yml', 'md', 'babelrc', 'remarkrc'];
 
-function task(config) {
-	const { indent } = config.defaults({ indent: 'tab' }).values();
-
+module.exports = function task({ indent }) {
 	const generalRules = Object.assign(
 		indent === 'tab'
 			? {
@@ -41,7 +39,14 @@ function task(config) {
 	}
 
 	editorconfig.save();
-}
+};
 
-task.description = 'Adds EditorConfig';
-module.exports = task;
+module.exports.description = 'Adds EditorConfig';
+module.exports.parameters = {
+	indent: {
+		type: 'input',
+		message: 'Choose indentation style (tabs or number of spaces)',
+		default: 'tab',
+		choices: ['tab', 2, 4, 8],
+	},
+};

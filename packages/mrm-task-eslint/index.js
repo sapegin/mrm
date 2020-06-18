@@ -8,7 +8,12 @@ const {
 	getExtsFromCommand,
 } = require('mrm-core');
 
-function task(config) {
+module.exports = function task({
+	eslintPreset,
+	eslintPeerDependencies,
+	eslintObsoleteDependencies,
+	eslintRules,
+}) {
 	let exts = '';
 	const legacyConfigFile = '.eslintrc';
 	const configFile = '.eslintrc.json';
@@ -17,18 +22,6 @@ function task(config) {
 	const gitIgnores = ['.eslintcache'];
 	const packages = ['eslint'];
 	const packagesToRemove = ['jslint', 'jshint'];
-	const {
-		eslintPreset,
-		eslintPeerDependencies,
-		eslintObsoleteDependencies,
-		eslintRules,
-	} = config
-		.defaults({
-			eslintPreset: 'eslint:recommended',
-			eslintPeerDependencies: [],
-			eslintObsoleteDependencies: [],
-		})
-		.values();
 
 	// Preset
 	if (eslintPreset !== 'eslint:recommended') {
@@ -145,7 +138,24 @@ function task(config) {
 	// Dependencies
 	uninstall([...packagesToRemove, ...eslintObsoleteDependencies]);
 	install(packages);
-}
+};
 
-task.description = 'Adds ESLint';
-module.exports = task;
+module.exports.description = 'Adds ESLint';
+module.exports.parameters = {
+	eslintPreset: {
+		type: 'input',
+		message: 'Enter ESLint preset name',
+		default: 'eslint:recommended',
+	},
+	eslintPeerDependencies: {
+		type: 'config',
+		default: [],
+	},
+	eslintObsoleteDependencies: {
+		type: 'config',
+		default: [],
+	},
+	eslintRules: {
+		type: 'config',
+	},
+};

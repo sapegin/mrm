@@ -9,7 +9,7 @@ jest.mock('mrm-core/src/npm', () => ({
 }));
 
 const { install, uninstall } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -30,85 +30,89 @@ afterEach(() => {
 	uninstall.mockClear();
 });
 
-it('should add ESLint', () => {
+it('should add ESLint', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith(['eslint']);
 });
 
-it('should use a custom preset', () => {
+it('should use a custom preset', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ eslintPreset: 'airbnb' }));
+	task(await getTaskOptions(task, false, { eslintPreset: 'airbnb' }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
 	expect(install).toBeCalledWith(['eslint', 'eslint-config-airbnb']);
 });
 
-it('should not add a custom preset if it’s already there', () => {
+it('should not add a custom preset if it’s already there', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 		[configFile]: stringify({ extends: 'airbnb' }),
 	});
 
-	task(getConfigGetter({ eslintPreset: 'airbnb' }));
+	task(await getTaskOptions(task, false, { eslintPreset: 'airbnb' }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
 	expect(install).toBeCalledWith(['eslint', 'eslint-config-airbnb']);
 });
 
-it('should add a custom preset (array)', () => {
+it('should add a custom preset (array)', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 		[configFile]: stringify({ extends: ['coffee', 'pizza'] }),
 	});
 
-	task(getConfigGetter({ eslintPreset: 'airbnb' }));
+	task(await getTaskOptions(task, false, { eslintPreset: 'airbnb' }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
 	expect(install).toBeCalledWith(['eslint', 'eslint-config-airbnb']);
 });
 
-it('should not add a custom preset if it’s already there (array)', () => {
+it('should not add a custom preset if it’s already there (array)', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 		[configFile]: stringify({ extends: ['airbnb', 'pizza'] }),
 	});
 
-	task(getConfigGetter({ eslintPreset: 'airbnb' }));
+	task(await getTaskOptions(task, false, { eslintPreset: 'airbnb' }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
 	expect(install).toBeCalledWith(['eslint', 'eslint-config-airbnb']);
 });
 
-it('should add custom rules', () => {
+it('should add custom rules', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ eslintRules: { 'no-undef': 0 } }));
+	task(await getTaskOptions(task, false, { eslintRules: { 'no-undef': 0 } }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
 });
 
-it('should install extra dependencies', () => {
+it('should install extra dependencies', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ eslintPeerDependencies: ['eslint-plugin-react'] }));
+	task(
+		await getTaskOptions(task, false, {
+			eslintPeerDependencies: ['eslint-plugin-react'],
+		})
+	);
 
 	expect(install).toBeCalledWith(['eslint', 'eslint-plugin-react']);
 });
 
-it('should remove obsolete dependencies', () => {
+it('should remove obsolete dependencies', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -118,12 +122,16 @@ it('should remove obsolete dependencies', () => {
 		}),
 	});
 
-	task(getConfigGetter({ eslintObsoleteDependencies: ['prettier'] }));
+	task(
+		await getTaskOptions(task, false, {
+			eslintObsoleteDependencies: ['prettier'],
+		})
+	);
 
 	expect(uninstall).toBeCalledWith(['jslint', 'jshint', 'prettier']);
 });
 
-it('should keep custom extensions defined in a package.json script', () => {
+it('should keep custom extensions defined in a package.json script', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -134,12 +142,12 @@ it('should keep custom extensions defined in a package.json script', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should not add custom extensions when they were not specified', () => {
+it('should not add custom extensions when they were not specified', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -150,12 +158,12 @@ it('should not add custom extensions when they were not specified', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should replace scripts.test.eslint with scripts.lint and scripts.pretest', () => {
+it('should replace scripts.test.eslint with scripts.lint and scripts.pretest', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -165,12 +173,12 @@ it('should replace scripts.test.eslint with scripts.lint and scripts.pretest', (
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should remove custom extension if it’s "js" (default value)', () => {
+it('should remove custom extension if it’s "js" (default value)', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -181,12 +189,12 @@ it('should remove custom extension if it’s "js" (default value)', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should add extra plugin, parser and extensions for a TypeScript project', () => {
+it('should add extra plugin, parser and extensions for a TypeScript project', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -196,7 +204,7 @@ it('should add extra plugin, parser and extensions for a TypeScript project', ()
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith([
@@ -206,7 +214,7 @@ it('should add extra plugin, parser and extensions for a TypeScript project', ()
 	]);
 });
 
-it('should turn on JSX support in TypeScript parser if TypeScript and React are installed', () => {
+it('should turn on JSX support in TypeScript parser if TypeScript and React are installed', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -219,12 +227,12 @@ it('should turn on JSX support in TypeScript parser if TypeScript and React are 
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed', () => {
+it('should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -235,18 +243,18 @@ it('should turn off TypeScript-specific eslint rules that conflict with Prettier
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should migrate legacy config file', () => {
+it('should migrate legacy config file', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 		[legacyConfigFile]: stringify({ rules: { 'no-foo': 2 } }),
 	});
 
-	task(getConfigGetter());
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { lines } = require('mrm-core');
 
-function task() {
+module.exports = function task() {
 	const remove = ['node_modules'];
 	const add = [
 		'node_modules/',
@@ -31,7 +31,6 @@ function task() {
 		.remove(remove)
 		.add(add)
 		.save();
-}
+};
 
-task.description = 'Adds .gitignore';
-module.exports = task;
+module.exports.description = 'Adds .gitignore';

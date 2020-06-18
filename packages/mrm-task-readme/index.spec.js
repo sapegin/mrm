@@ -1,4 +1,5 @@
 jest.mock('fs');
+jest.mock('git-username');
 jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));

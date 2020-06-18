@@ -4,7 +4,7 @@ jest.mock('mrm-core/src/npm', () => ({
 }));
 
 const { install } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -29,12 +29,12 @@ afterEach(() => {
 	console.log = console$log;
 });
 
-it('should not do anything if not supported tools are found', () => {
+it('should not do anything if not supported tools are found', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(Object.keys(vol.toJSON())).toEqual(['/package.json']);
 	expect(vol.toJSON()['/package.json']).toEqual(packageJson);
@@ -43,7 +43,7 @@ it('should not do anything if not supported tools are found', () => {
 	);
 });
 
-it('should add Prettier if project depends on it', () => {
+it('should add Prettier if project depends on it', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -53,13 +53,13 @@ it('should add Prettier if project depends on it', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should add Prettier and ESLint', () => {
+it('should add Prettier and ESLint', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -71,12 +71,12 @@ it('should add Prettier and ESLint', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should infer Prettier extensions from an npm script', () => {
+it('should infer Prettier extensions from an npm script', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -89,12 +89,12 @@ it('should infer Prettier extensions from an npm script', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should not do anything if project is using Prettier via ESLint plugin', () => {
+it('should not do anything if project is using Prettier via ESLint plugin', async () => {
 	const pkg = stringify({
 		name: 'unicorn',
 		devDependencies: {
@@ -106,7 +106,7 @@ it('should not do anything if project is using Prettier via ESLint plugin', () =
 		'/package.json': pkg,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(Object.keys(vol.toJSON())).toEqual(['/package.json']);
 	expect(vol.toJSON()['/package.json']).toEqual(pkg);
@@ -115,7 +115,7 @@ it('should not do anything if project is using Prettier via ESLint plugin', () =
 	);
 });
 
-it('should add ESLint if project depends on it', () => {
+it('should add ESLint if project depends on it', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -125,13 +125,13 @@ it('should add ESLint if project depends on it', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should use default JS extension if eslint command has no --ext key', () => {
+it('should use default JS extension if eslint command has no --ext key', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -144,12 +144,12 @@ it('should use default JS extension if eslint command has no --ext key', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should infer ESLint extension for an npm script', () => {
+it('should infer ESLint extension for an npm script', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -162,12 +162,12 @@ it('should infer ESLint extension for an npm script', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should use custom Prettier extensions', () => {
+it('should use custom Prettier extensions', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -178,7 +178,7 @@ it('should use custom Prettier extensions', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			lintStagedRules: { prettier: { extensions: ['js', 'jsx', 'mjs'] } },
 		})
 	);
@@ -186,7 +186,7 @@ it('should use custom Prettier extensions', () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should use a custom ESLint extension', () => {
+it('should use a custom ESLint extension', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -197,7 +197,7 @@ it('should use a custom ESLint extension', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			lintStagedRules: { eslint: { extensions: ['js', 'jsx'] } },
 		})
 	);
@@ -205,7 +205,7 @@ it('should use a custom ESLint extension', () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('shouldn’t add a default rule if it’s disabled in overrides', () => {
+it('shouldn’t add a default rule if it’s disabled in overrides', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -216,12 +216,16 @@ it('shouldn’t add a default rule if it’s disabled in overrides', () => {
 		}),
 	});
 
-	task(getConfigGetter({ lintStagedRules: { eslint: { enabled: false } } }));
+	task(
+		await getTaskOptions(task, false, {
+			lintStagedRules: { eslint: { enabled: false } },
+		})
+	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add stylelint if project depends on it', () => {
+it('should add stylelint if project depends on it', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -231,13 +235,13 @@ it('should add stylelint if project depends on it', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should use a custom stylelint extension', () => {
+it('should use a custom stylelint extension', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -248,7 +252,7 @@ it('should use a custom stylelint extension', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			lintStagedRules: { stylelint: { extensions: ['scss'] } },
 		})
 	);
@@ -256,7 +260,7 @@ it('should use a custom stylelint extension', () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add a custom rule', () => {
+it('should add a custom rule', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -267,7 +271,7 @@ it('should add a custom rule', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			lintStagedRules: { false: { extensions: ['js'], command: 'false' } },
 		})
 	);
@@ -276,7 +280,7 @@ it('should add a custom rule', () => {
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should update an existing rule', () => {
+it('should update an existing rule', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -290,13 +294,13 @@ it('should update an existing rule', () => {
 		}),
 	});
 
-	task(getConfigGetter());
+	task(await getTaskOptions(task, false));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should merge rules with the same pattern', () => {
+it('should merge rules with the same pattern', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -312,7 +316,7 @@ it('should merge rules with the same pattern', () => {
 	});
 
 	task(
-		getConfigGetter({
+		await getTaskOptions(task, false, {
 			lintStagedRules: {
 				eslint: { extensions: ['js'] },
 				prettier: { extensions: ['js'] },
@@ -324,7 +328,7 @@ it('should merge rules with the same pattern', () => {
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
 });
 
-it('should remove husky 0.14 config from package.json', () => {
+it('should remove husky 0.14 config from package.json', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -337,7 +341,7 @@ it('should remove husky 0.14 config from package.json', () => {
 		}),
 	});
 
-	task(getConfigGetter());
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
