@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.1...mrm-task-prettier@3.0.2) (2020-06-18)
+
+
+### Bug Fixes
+
+* **prettier:** Add default value for endOfLine option ([2ccf4d1](https://github.com/sapegin/mrm/commit/2ccf4d1131ccbf7e81b3c57d12f67a02dfea7832))
+
+
+
+
+
 ## [3.0.1](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.0...mrm-task-prettier@3.0.1) (2020-06-08)
 
 **Note:** Version bump only for package mrm-task-prettier
