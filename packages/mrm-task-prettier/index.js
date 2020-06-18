@@ -37,6 +37,7 @@ const defaultPrettierOptions = {
 	bracketSpacing: true,
 	jsxBracketSameLine: false,
 	arrowParens: 'always',
+	endOfLine: 'lf',
 };
 
 function getPattern(pkg) {
