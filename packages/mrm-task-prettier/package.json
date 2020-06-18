@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-prettier",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Mrm task that adds Prettier",
   "author": {
     "name": "Artem Sapegin",

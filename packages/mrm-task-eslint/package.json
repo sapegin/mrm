@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-eslint",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Mrm task that adds ESLint",
   "author": {
     "name": "Artem Sapegin",

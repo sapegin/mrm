@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.7](https://github.com/sapegin/mrm/compare/mrm-task-contributing@2.0.6...mrm-task-contributing@2.0.7) (2020-06-18)
+
+
+### Bug Fixes
+
+* Migrate to the new parameters API ([fcc2d61](https://github.com/sapegin/mrm/commit/fcc2d61be7ec720b0cd4c45e3cb65c6f543a45fb))
+
+
+
+
+
 ## [2.0.6](https://github.com/sapegin/mrm/compare/mrm-task-contributing@2.0.5...mrm-task-contributing@2.0.6) (2020-06-08)
 
 **Note:** Version bump only for package mrm-task-contributing
