@@ -6,13 +6,6 @@ module.exports = {
 	favicon: 'img/favicon.png',
 	organizationName: 'sapegin',
 	projectName: 'mrm',
-	scripts: [
-		{
-			src: 'https://gc.zgo.at/count.js',
-			async: true,
-			'data-goatcounter': 'https://mrm.goatcounter.com/count',
-		},
-	],
 	themeConfig: {
 		disableDarkMode: true,
 		prism: {
@@ -90,6 +83,7 @@ module.exports = {
 			copyright: `Made with coffee in Berlin by <a href="https://sapegin.me/" class="footer__link-item" target="_blank" rel="noopener noreferrer">Artem Sapegin</a> and <a href="https://github.com/sapegin/mrm/graphs/contributors" class="footer__link-item" target="_blank" rel="noopener noreferrer">contributors</a>`,
 		},
 	},
+	plugins: [require.resolve('./src/plugins/goatcounter-plugin.js')],
 	presets: [
 		[
 			'@docusaurus/preset-classic',
