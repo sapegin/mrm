@@ -5,12 +5,21 @@ module.exports = function() {
 			return {
 				headTags: [
 					`<script>
-window.goatcounter = { no_onload: true };
-window.addEventListener('hashchange', function() {
-	window.goatcounter.count({
-		path: location.pathname + location.search + location.hash,
-	})
-})
+if ('history' in window) {
+	function trackView() {
+		window.goatcounter.count({
+			path: location.pathname + location.search,
+		});
+	}
+
+	// Monkey patch browser pushState
+	const pushState = history.pushState;
+	history.pushState = function() {
+		const returnValue = pushState.apply(history, arguments);
+		trackView();
+ 		return returnValue;
+	}
+}
 					</script>`,
 					{
 						tagName: 'script',
