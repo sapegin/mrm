@@ -320,6 +320,7 @@ install({ lodash: '^4.17.3' }); // Install particular version
 install(['lodash'], {
   versions: { lodash: '^4.17.3', other: '1.0.0' }
 }); // Install particular version
+install(['github/repo']); // Install non-registry package without version
 ```
 
 **Note:** Works with all [semver](https://semver.org/) ranges, like `1.2.3`, `^1.2.0` or `>=2`.

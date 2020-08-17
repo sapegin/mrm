@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 const _ = require('lodash');
 const semver = require('semver');
 const listify = require('listify');
+const validateNpmPackageName = require('validate-npm-package-name');
 const log = require('./util/log');
 const execCommand = require('./util/execCommand');
 const json = require('./formats/json');
@@ -132,6 +133,16 @@ function runYarn(deps, options = {}, exec) {
  * @param {Record<string, string>} versions
  */
 function getVersionedDep(dep, versions) {
+	// Handle non-registry packages (Github, bitbucket, etc.)
+	if (!validateNpmPackageName(dep).validForNewPackages) {
+		// If we were explicitly passed a version, attempt to
+		// load it via the `#semver:<semver>` syntax.
+		if (versions[dep]) {
+			return `${dep}#semver:${versions[dep]}`;
+		} else {
+			return dep;
+		}
+	}
 	const version = versions[dep] || 'latest';
 	return `${dep}@${version}`;
 }
@@ -174,6 +185,13 @@ function getUnsatisfiedDeps(deps, versions, options) {
 
 	return deps.filter(dep => {
 		const required = versions[dep];
+
+		// Handle non-registry packages (github, bitbucket, etc.)
+		// Because these packages can shift contents without updating version
+		// numbers, always attempt an install
+		if (!validateNpmPackageName(dep).validForNewPackages) {
+			return true;
+		}
 
 		if (required && !semver.validRange(required)) {
 			throw new MrmError(

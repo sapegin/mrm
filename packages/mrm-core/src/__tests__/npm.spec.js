@@ -231,6 +231,43 @@ describe('install()', () => {
 		expect(fn).not.toThrow('Invalid npm version');
 	});
 
+	it('should not automatically add version data to non-registry installs', () => {
+		[
+			'github/package',
+			'https://github.com/user/package/tarball/v0.0.1',
+			'github:mygithubuser/myproject',
+			'gist:101a11beef',
+			'bitbucket:mybitbucketuser/myproject',
+		].forEach(resource => {
+			const spawn = jest.fn();
+			install([resource], undefined, spawn);
+			expect(spawn).toBeCalledWith(
+				expect.stringMatching(/npm(\.cmd)?/),
+				['install', '--save-dev', resource],
+				options
+			);
+		});
+	});
+
+	it('should add semver tags to non-registry installs if provided', () => {
+		[
+			['github/package', '1.0.0'],
+			['https://github.com/user/package/tarball/v0.0.1', '>=2.0.0'],
+			['github:mygithubuser/myproject', '>3.0.0'],
+			['gist:101a11beef', '4.0.0'],
+			['bitbucket:mybitbucketuser/myproject', '5.0.0'],
+		].forEach(([resource, version]) => {
+			const spawn = jest.fn();
+			const matcher = new RegExp(`^${resource}#semver:${version}$`);
+			install({ [resource]: version }, undefined, spawn);
+			expect(spawn).toBeCalledWith(
+				expect.stringMatching(/npm(\.cmd)?/),
+				['install', '--save-dev', expect.stringMatching(matcher)],
+				options
+			);
+		});
+	});
+
 	it('should not throw when package.json not found', () => {
 		const spawn = jest.fn();
 		const fn = () => install(modules, undefined, spawn);
