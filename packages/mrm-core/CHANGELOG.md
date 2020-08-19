@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.2](https://github.com/sapegin/mrm/compare/mrm-core@4.1.1...mrm-core@4.1.2) (2020-08-19)
+
+
+### Bug Fixes
+
+* Handle non-registry installs ([#90](https://github.com/sapegin/mrm/issues/90)) ([2b29a76](https://github.com/sapegin/mrm/commit/2b29a765fe8e4c81a4c968e281e3000d78da500b)), closes [#89](https://github.com/sapegin/mrm/issues/89)
+
+
+
+
+
 ## [4.1.1](https://github.com/sapegin/mrm/compare/mrm-core@4.1.0...mrm-core@4.1.1) (2020-06-08)
 
 
