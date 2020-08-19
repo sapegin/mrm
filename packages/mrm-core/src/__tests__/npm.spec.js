@@ -230,6 +230,47 @@ describe('install()', () => {
 		const fn = () => install({ eslint: '~4.2.0' }, undefined, spawn);
 		expect(fn).not.toThrow('Invalid npm version');
 	});
+	it.each([
+		['github', 'github/package'],
+		['github https', 'https://github.com/user/package/tarball/v0.0.1'],
+		['github protocol', 'github:mygithubuser/myproject'],
+		['gist', 'gist:101a11beef'],
+		['bitbucket protocol', 'bitbucket:mybitbucketuser/myproject'],
+	])(
+		'should not automatically add version data to non-registry installs: %s',
+		(name, resource) => {
+			const spawn = jest.fn();
+			install([resource], undefined, spawn);
+			expect(spawn).toBeCalledWith(
+				expect.stringMatching(/npm(\.cmd)?/),
+				['install', '--save-dev', resource],
+				options
+			);
+		}
+	);
+	it.each([
+		['github', 'github/package', '1.0.0'],
+		[
+			'github https',
+			'https://github.com/user/package/tarball/v0.0.1',
+			'>=2.0.0',
+		],
+		['github protocol', 'github:mygithubuser/myproject', '>3.0.0'],
+		['gist', 'gist:101a11beef', '4.0.0'],
+		['bitbucket protocol', 'bitbucket:mybitbucketuser/myproject', '5.0.0'],
+	])(
+		'should not automatically add version data to non-registry installs: %s',
+		(name, resource, version) => {
+			const spawn = jest.fn();
+			const matcher = new RegExp(`^${resource}#semver:${version}$`);
+			install({ [resource]: version }, undefined, spawn);
+			expect(spawn).toBeCalledWith(
+				expect.stringMatching(/npm(\.cmd)?/),
+				['install', '--save-dev', expect.stringMatching(matcher)],
+				options
+			);
+		}
+	);
 
 	it('should not throw when package.json not found', () => {
 		const spawn = jest.fn();
