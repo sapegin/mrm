@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/sapegin/mrm/compare/mrm-task-package@2.0.6...mrm-task-package@2.1.0) (2020-09-02)
+
+
+### Features
+
+* **package:** Minimum default Node.js version is 10 ([497807e](https://github.com/sapegin/mrm/commit/497807e557288da245840da5184ccef6bca6e41a))
+
+
+
+
+
 ## [2.0.6](https://github.com/sapegin/mrm/compare/mrm-task-package@2.0.5...mrm-task-package@2.0.6) (2020-08-19)
 
 

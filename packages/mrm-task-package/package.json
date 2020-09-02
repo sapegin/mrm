@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-package",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "Mrm task that adds package.json file",
   "author": {
     "name": "Artem Sapegin",
