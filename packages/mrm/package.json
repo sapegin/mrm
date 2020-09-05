@@ -1,6 +1,6 @@
 {
   "name": "mrm",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Codemods for your project config files",
   "author": {
     "name": "Artem Sapegin",
@@ -30,7 +30,7 @@
     "middleearth-names": "^1.1.0",
     "minimist": "^1.2.0",
     "mrm-core": "^4.1.2",
-    "mrm-preset-default": "^2.1.0",
+    "mrm-preset-default": "^2.2.0",
     "requireg": "^0.2.2",
     "semver-utils": "^1.1.4",
     "update-notifier": "^4.1.0",

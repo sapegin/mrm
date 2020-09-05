@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/sapegin/mrm/compare/mrm@2.4.0...mrm@2.4.1) (2020-09-05)
+
+
+### Bug Fixes
+
+* Add dependabot task to dependencies ([0f698f4](https://github.com/sapegin/mrm/commit/0f698f461793678fda5678ce995360b9877378aa))
+
+
+
+
+
 # [2.4.0](https://github.com/sapegin/mrm/compare/mrm@2.3.6...mrm@2.4.0) (2020-09-05)
 
 

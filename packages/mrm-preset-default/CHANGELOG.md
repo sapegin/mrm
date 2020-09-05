@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.0.12...mrm-preset-default@2.2.0) (2020-09-05)
+
+
+### Features
+
+* Add dependabot task to dependencies ([88c3505](https://github.com/sapegin/mrm/commit/88c3505a83479f39b6f494fea1752045b69c42df))
+
+
+
+
+
 ## [2.0.12](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.1.0...mrm-preset-default@2.0.12) (2020-09-05)
 
 
