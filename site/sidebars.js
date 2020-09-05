@@ -12,6 +12,7 @@ module.exports = {
 		Tasks: [
 			'mrm-task-codecov',
 			'mrm-task-contributing',
+			'mrm-task-dependabot',
 			'mrm-task-editorconfig',
 			'mrm-task-eslint',
 			'mrm-task-gitignore',
