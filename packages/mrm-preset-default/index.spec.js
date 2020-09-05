@@ -10,6 +10,12 @@ it('should have contributing task', () => {
 	expect(task.description).toMatch('contributing');
 });
 
+it('should have dependabot task', () => {
+	const task = require('./dependabot/index.js');
+	expect(task).toEqual(expect.any(Function));
+	expect(task.description).toMatch('Dependabot');
+});
+
 it('should have editorconfig task', () => {
 	const task = require('./editorconfig/index.js');
 	expect(task).toEqual(expect.any(Function));

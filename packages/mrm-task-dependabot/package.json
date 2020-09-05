@@ -1,0 +1,28 @@
+{
+  "name": "mrm-task-dependabot",
+  "version": "1.0.0",
+  "description": "Mrm task that adds GitHub Actions workflow to automerge Dependabot pull requests",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "https://sapegin.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-dependabot",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.9"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "dependabot"
+  ],
+  "dependencies": {
+    "mrm-core": "^4.1.2"
+  }
+}

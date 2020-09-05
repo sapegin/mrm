@@ -12,6 +12,7 @@ See [Mrm docs](https://mrm.js.org/docs/getting-started) for more details.
 
 - [codecov](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-codecov)
 - [contributing](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-contributing)
+- [dependabot](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-dependabot)
 - [editorconfig](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-editorconfig)
 - [eslint](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint)
 - [gitignore](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-gitignore)
