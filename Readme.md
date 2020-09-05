@@ -38,6 +38,7 @@ These tasks are [included by default](https://mrm.js.org/docs/mrm-preset-default
 
 - [codecov](https://mrm.js.org/docs/mrm-task-codecov)
 - [contributing](https://mrm.js.org/docs/mrm-task-contributing)
+- [dependabot](https://mrm.js.org/docs/mrm-task-dependabot)
 - [editorconfig](https://mrm.js.org/docs/mrm-task-editorconfig)
 - [eslint](https://mrm.js.org/docs/mrm-task-eslint)
 - [gitignore](https://mrm.js.org/docs/mrm-task-gitignore)
