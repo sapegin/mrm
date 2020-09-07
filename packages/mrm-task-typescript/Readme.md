@@ -2,7 +2,7 @@
 
 # mrm-task-typescript
 
-[Mrm](https://github.com/sapegin/mrm) task that adds [TypeScript](https://stylelint.io/).
+[Mrm](https://github.com/sapegin/mrm) task that adds [TypeScript](https://www.typescriptlang.org/).
 
 ## What it does
 
