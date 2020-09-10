@@ -397,7 +397,13 @@ async function tryResolve(...names) {
 			{
 				name: 'pkgName',
 				message: `Which package would you like to install globally?`,
-				choices: choices.map(({ name }) => name),
+				// @ts-ignore
+				choices: choices
+					.map(({ name }) => ({ name, value: name }))
+					.concat({
+						name: 'I do not want to install any these packages',
+						value: false,
+					}),
 				type: 'list',
 			},
 		];
