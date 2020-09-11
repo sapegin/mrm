@@ -186,13 +186,13 @@ Note that when a preset is specified no default search locations are used.`
 	function getUsage() {
 		const commands = EXAMPLES.map(x => x[0] + x[1]);
 		const commandsWidth = longest(commands).length;
-		return EXAMPLES.map(([command, options, description]) =>
+		return EXAMPLES.map(([command, opts, description]) =>
 			[
 				'   ',
 				kleur.bold(binaryName),
 				kleur.cyan(command),
-				kleur.yellow(options),
-				padEnd('', commandsWidth - (command + options).length),
+				kleur.yellow(opts),
+				padEnd('', commandsWidth - (command + opts).length),
 				description && `# ${description}`,
 			].join(' ')
 		).join('\n');

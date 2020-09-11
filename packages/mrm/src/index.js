@@ -381,37 +381,22 @@ async function tryResolve(...names) {
 	// @ts-ignore
 	const choices = possibleGlobals.filter(Boolean);
 
-	let questions;
-	if (choices.length === 1) {
-		// @ts-ignore
-		const pkgName = choices[0].name;
-		questions = [
-			{
-				name: 'pkgName',
-				message: `Found a package named ${pkgName} on NPM would you like to install it globally?`,
-				type: 'confirm',
-			},
-		];
-	} else {
-		questions = [
-			{
-				name: 'pkgName',
-				message: `Which package would you like to install globally?`,
-				// @ts-ignore
-				choices: choices
-					.map(({ name }) => ({ name, value: name }))
-					.concat({
-						name: 'I do not want to install any these packages',
-						value: false,
-					}),
-				type: 'list',
-			},
-		];
-	}
-	let { pkgName } = await inquirer.prompt(questions);
-	if (pkgName === true) {
-		pkgName = choices[0].name;
-	} else if (pkgName === false) {
+	const { pkgName } = await inquirer.prompt([
+		{
+			name: 'pkgName',
+			type: 'list',
+			message:
+				"A task or preset you're trying to run isn't installed. Would you like to globally install it from npm?",
+			// @ts-ignore
+			choices: choices
+				.map(({ name }) => ({ name, value: name }))
+				.concat({
+					name: "Don't install any packages",
+					value: false,
+				}),
+		},
+	]);
+	if (pkgName === false) {
 		return undefined;
 	}
 

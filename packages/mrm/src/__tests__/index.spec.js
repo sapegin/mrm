@@ -85,18 +85,19 @@ describe('tryFile', () => {
 });
 
 describe('tryResolve', () => {
-	it('should resolve an npm module if it’s installed', () => {
-		const result = tryResolve('listify');
+	it('should resolve an npm module if it’s installed', async () => {
+		const result = await tryResolve('listify');
 		expect(result).toMatch('node_modules/listify/index.js');
 	});
 
-	it('should resolve the first installed npm module', () => {
-		const result = tryResolve('pizza', 'listify');
+	it('should resolve the first installed npm module', async () => {
+		const result = await tryResolve('pizza', 'listify');
 		expect(result).toMatch('node_modules/listify/index.js');
 	});
 
-	it('should return undefined if none of the npm mudules are installed', () => {
-		const result = tryResolve('pizza', 'cappuccino');
+	it('should return undefined if none of the npm modules are installed', async () => {
+		configureInquirer({ pkgName: false });
+		const result = await tryResolve('pizza', 'cappuccino');
 		expect(result).toBeFalsy();
 	});
 
@@ -369,17 +370,6 @@ describe('runTask', () => {
 				})
 				.catch(reject);
 		});
-	});
-
-	it('should throw when module not found', () => {
-		const pizza = runTask('pizza', directories, {}, {});
-
-		// ideally we can use toThrowError but that works with >= jest@22
-		// https://github.com/facebook/jest/issues/5076
-		return expect(pizza).rejects.toHaveProperty(
-			'message',
-			'Task “pizza” not found.'
-		);
 	});
 
 	it('should throw when task module is invalid', () => {
