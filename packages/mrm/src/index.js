@@ -373,12 +373,12 @@ async function tryResolve(...names) {
 	}
 
 	const possibleGlobals = await Promise.all(
-		names.map(name => packageJson(name).catch(() => {}))
+		names.map(name => packageJson(name).catch(() => null))
 	);
+
 	/**
 	 * @type packageJson.AbbreviatedMetadata[]
 	 */
-	// @ts-ignore
 	const choices = possibleGlobals.filter(Boolean);
 
 	const { pkgName } = await inquirer.prompt([
@@ -386,17 +386,17 @@ async function tryResolve(...names) {
 			name: 'pkgName',
 			type: 'list',
 			message:
-				"A task or preset you're trying to run isn't installed. Would you like to globally install it from npm?",
-			// @ts-ignore
+				'A task or preset you’re trying to run isn’t installed. Would you like to globally install it from npm?',
 			choices: choices
 				.map(({ name }) => ({ name, value: name }))
 				.concat({
-					name: "Don't install any packages",
-					value: false,
+					name: 'Don’t install any packages',
+					value: '',
 				}),
 		},
 	]);
-	if (pkgName === false) {
+
+	if (pkgName === '') {
 		return undefined;
 	}
 
