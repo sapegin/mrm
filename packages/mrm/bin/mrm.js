@@ -17,6 +17,8 @@ const {
 	getAllTasks,
 	tryResolve,
 	getPackageName,
+	getGlobalPackageName,
+	installGlobalPackage,
 } = require('../src/index');
 const {
 	MrmUnknownTask,
@@ -25,7 +27,7 @@ const {
 	MrmUndefinedOption,
 } = require('../src/errors');
 
-let directories = [
+const defaultDirectories = [
 	path.resolve(userHome, 'dotfiles/mrm'),
 	path.resolve(userHome, '.mrm'),
 ];
@@ -63,35 +65,10 @@ async function main() {
 	const binaryName =
 		binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
-	// Custom config / tasks directory
-	if (argv.dir) {
-		const dir = path.resolve(argv.dir);
-		if (!isDirectory.sync(dir)) {
-			printError(`Directory “${dir}” not found.`);
-			process.exit(1);
-		}
-
-		directories.unshift(dir);
-	}
-
 	// Preset
 	const preset = argv.preset || 'default';
 	const isDefaultPreset = preset === 'default';
-	if (isDefaultPreset) {
-		directories.push(path.dirname(require.resolve('mrm-preset-default')));
-	} else {
-		const presetPackageName = getPackageName('preset', preset);
-		const presetPath = await tryResolve(presetPackageName, preset);
-		if (!presetPath) {
-			printError(`Preset “${preset}” not found.
-
-We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
-			process.exit(1);
-		}
-		// eslint-disable-next-line require-atomic-updates
-		directories = [path.dirname(presetPath)];
-	}
-
+	const directories = await resolveDirectories(defaultDirectories);
 	const options = getConfig(directories, 'config.json', argv);
 	if (tasks.length === 0 || tasks[0] === 'help') {
 		commandHelp();
@@ -170,6 +147,45 @@ Note that when a preset is specified no default search locations are used.`
 				throw err;
 			}
 		});
+	}
+
+	async function resolveDirectories(paths) {
+		// Custom config / tasks directory
+		if (argv.dir) {
+			const dir = path.resolve(argv.dir);
+			if (!isDirectory.sync(dir)) {
+				printError(`Directory “${dir}” not found.`);
+				process.exit(1);
+			}
+
+			paths.unshift(dir);
+		}
+
+		if (isDefaultPreset) {
+			return paths.concat(path.dirname(require.resolve('mrm-preset-default')));
+		}
+
+		const presetPackageName = getPackageName('preset', preset);
+		const presetPath = tryResolve(presetPackageName, preset);
+		if (presetPath) {
+			return [path.dirname(presetPath)];
+		}
+
+		const globalPackageToInstall = await getGlobalPackageName(
+			preset,
+			presetPackageName
+		);
+		if (!globalPackageToInstall) {
+			printError(`Preset “${preset}” not found.
+
+We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
+			process.exit(1);
+		}
+
+		console.log(kleur.green(`Installing ${globalPackageToInstall}...`));
+		await installGlobalPackage(globalPackageToInstall);
+
+		return resolveDirectories(paths);
 	}
 
 	function commandHelp() {

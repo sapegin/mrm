@@ -17,6 +17,7 @@ const {
 	getAllAliases,
 	getAllTasks,
 	getPackageName,
+	getGlobalPackageName,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -85,25 +86,42 @@ describe('tryFile', () => {
 });
 
 describe('tryResolve', () => {
-	it('should resolve an npm module if it’s installed', async () => {
-		const result = await tryResolve('listify');
+	it('should resolve an npm module if it’s installed', () => {
+		const result = tryResolve('listify');
 		expect(result).toMatch('node_modules/listify/index.js');
 	});
 
-	it('should resolve the first installed npm module', async () => {
-		const result = await tryResolve('pizza', 'listify');
+	it('should resolve the first installed npm module', () => {
+		const result = tryResolve('pizza', 'listify');
 		expect(result).toMatch('node_modules/listify/index.js');
-	});
-
-	it('should return undefined if none of the npm modules are installed', async () => {
-		configureInquirer({ pkgName: false });
-		const result = await tryResolve('pizza', 'cappuccino');
-		expect(result).toBeFalsy();
 	});
 
 	it('should not throw when undefined was passed instead of a module name', () => {
 		const fn = () => tryResolve(undefined);
 		expect(fn).not.toThrowError();
+	});
+});
+
+describe('getGlobalPackageName', () => {
+	it('should resolve to the package name if selected by the user and it can be installed', async () => {
+		configureInquirer({ pkgName: 'mrm-preset-default' });
+		const result = await getGlobalPackageName(
+			'mrm-preset-default',
+			'pizza',
+			''
+		);
+		expect(result).toMatch('mrm-preset-default');
+	});
+
+	it('should resolve to undefined if none of the packages are selected', async () => {
+		configureInquirer({ pkgName: '' });
+		const result = await getGlobalPackageName('pizza', 'cappuccino');
+		expect(result).toBeFalsy();
+	});
+
+	it('should resolve to undefined if none of the npm modules exist', async () => {
+		const result = await getGlobalPackageName('');
+		expect(result).toBeFalsy();
 	});
 });
 

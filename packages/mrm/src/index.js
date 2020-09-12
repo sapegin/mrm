@@ -141,36 +141,35 @@ function getPackageName(type, packageName) {
 function runTask(taskName, directories, options, argv) {
 	return new Promise((resolve, reject) => {
 		const taskPackageName = getPackageName('task', taskName);
-		return tryResolve(
+		const modulePath = tryResolve(
 			tryFile(directories, `${taskName}/index.js`),
 			taskPackageName,
 			taskName
-		).then(modulePath => {
-			if (!modulePath) {
-				reject(
-					new MrmUnknownTask(`Task “${taskName}” not found.`, {
-						taskName,
-					})
-				);
-				return;
-			}
+		);
+		if (!modulePath) {
+			reject(
+				new MrmUnknownTask(`Task “${taskName}” not found.`, {
+					taskName,
+				})
+			);
+			return;
+		}
 
-			const module = require(modulePath);
-			if (typeof module !== 'function') {
-				reject(
-					new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
-				);
-				return;
-			}
+		const module = require(modulePath);
+		if (typeof module !== 'function') {
+			reject(
+				new MrmInvalidTask(`Cannot call task “${taskName}”.`, { taskName })
+			);
+			return;
+		}
 
-			console.log(kleur.cyan(`Running ${taskName}...`));
+		console.log(kleur.cyan(`Running ${taskName}...`));
 
-			Promise.resolve(getTaskOptions(module, argv.interactive, options))
-				.then(getConfigGetter)
-				.then(config => module(config, argv))
-				.then(resolve)
-				.catch(reject);
-		});
+		Promise.resolve(getTaskOptions(module, argv.interactive, options))
+			.then(getConfigGetter)
+			.then(config => module(config, argv))
+			.then(resolve)
+			.catch(reject);
 	});
 }
 
@@ -260,7 +259,7 @@ function getConfigGetter(options) {
 	/**
 	 * Mark config options as required.
 	 *
-	 * @param {string[]} names...
+	 * @param {...string} names
 	 * @return {Object} this
 	 */
 	function require(...names) {
@@ -363,23 +362,29 @@ function tryFile(directories, filename) {
 /**
  * Try to resolve any of the given npm modules. Works with local files, local and global npm modules.
  *
- * @param {string[]} names...
- * @return {Promise<any>}
+ * @param {...string} names
+ * @return {string?} resolved package path
  */
-async function tryResolve(...names) {
-	const result = firstResult(names, requireg.resolve);
-	if (result) {
-		return result;
-	}
+function tryResolve(...names) {
+	return firstResult(names, requireg.resolve);
+}
 
+/**
+ * Try to resolve any of the given npm module names, prompting the user for which package they want to use.
+ * @param  {...string} packageNames
+ * @return {Promise<string?>} package name
+ */
+async function getGlobalPackageName(...packageNames) {
 	const possibleGlobals = await Promise.all(
-		names.map(name => packageJson(name).catch(() => null))
+		packageNames.map(name => packageJson(name).catch(() => null))
 	);
 
-	/**
-	 * @type packageJson.AbbreviatedMetadata[]
-	 */
 	const choices = possibleGlobals.filter(Boolean);
+
+	if (choices.length === 0) {
+		// No packages found on NPM
+		return undefined;
+	}
 
 	const { pkgName } = await inquirer.prompt([
 		{
@@ -396,21 +401,14 @@ async function tryResolve(...names) {
 		},
 	]);
 
-	if (pkgName === '') {
-		return undefined;
-	}
-
-	console.log(kleur.green(`Installing ${pkgName}...`));
-
-	await installPackage(pkgName);
-	return tryResolve(...names);
+	return pkgName || undefined;
 }
 
 /**
  * Install an npm module globally
  * @param {String} pkgName The package to install globally
  */
-function installPackage(pkgName) {
+function installGlobalPackage(pkgName) {
 	return new Promise((resolve, reject) =>
 		spawn('npm', ['install', '--global', pkgName], { stdio: 'inherit' })
 			.on('error', err => {
@@ -456,7 +454,8 @@ module.exports = {
 	getTaskOptions,
 	tryFile,
 	tryResolve,
+	getGlobalPackageName,
 	getPackageName,
 	firstResult,
-	installPackage,
+	installGlobalPackage,
 };
