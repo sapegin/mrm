@@ -382,7 +382,7 @@ async function getGlobalPackageName(...packageNames) {
 	const choices = possibleGlobals.filter(Boolean);
 
 	if (choices.length === 0) {
-		// No packages found on NPM
+		// No packages found on npm
 		return undefined;
 	}
 

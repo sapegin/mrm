@@ -48,16 +48,16 @@ const EXAMPLES = [
 const pkg = require('../package.json');
 updateNotifier({ pkg }).notify();
 
-async function main() {
-	process.on('unhandledRejection', err => {
-		if (err.constructor.name === 'MrmError') {
-			printError(err.message);
-			process.exit(1);
-		} else {
-			throw err;
-		}
-	});
+process.on('unhandledRejection', err => {
+	if (err.constructor.name === 'MrmError') {
+		printError(err.message);
+		process.exit(1);
+	} else {
+		throw err;
+	}
+});
 
+async function main() {
 	const argv = minimist(process.argv.slice(2), { alias: { i: 'interactive' } });
 	const tasks = argv._;
 
@@ -162,7 +162,7 @@ Note that when a preset is specified no default search locations are used.`
 		}
 
 		if (isDefaultPreset) {
-			return paths.concat(path.dirname(require.resolve('mrm-preset-default')));
+			return [...paths, path.dirname(require.resolve('mrm-preset-default'))];
 		}
 
 		const presetPackageName = getPackageName('preset', preset);
@@ -230,12 +230,12 @@ We’ve tried to load “${presetPackageName}” and “${preset}” globally in
 			})
 			.join('\n');
 	}
+}
 
-	function printError(message) {
-		console.log();
-		console.error(kleur.bold().red(message));
-		console.log();
-	}
+function printError(message) {
+	console.log();
+	console.error(kleur.bold().red(message));
+	console.log();
 }
 
 main();
