@@ -126,35 +126,28 @@ describe('tryResolve', () => {
 describe('installGlobalPackage', () => {
 	it('should resolve to true if able to install the package', async () => {
 		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
-		const pkgName = String(Date.now());
+		const pkgName = 'mrm-preset-default';
 		const result = await installGlobalPackage(pkgName);
 		expect(spawn).toBeCalledWith('npm', ['install', '--global', pkgName], {
 			stdio: 'inherit',
 		});
-		expect(spawnOnErrorMock.mock.calls[0][0]).toBe('error');
-		expect(spawnOnErrorMock.mock.calls[0][1]).toBeInstanceOf(Function);
-		expect(spawnOnCloseMock.mock.calls[0][0]).toBe('close');
-		expect(spawnOnCloseMock.mock.calls[0][1]).toBeInstanceOf(Function);
 		expect(result).toBeTruthy();
 	});
 
-	it('should reject if unable able to install the package', async () => {
+	it('should reject if unable able to install the package', () => {
 		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
-		const error = Date.now();
+		const error = new Error('failed install');
 		spawnOnErrorMock.mockImplementation((_, cb) => {
 			cb(error);
 		});
 		spawnOnCloseMock.mockImplementation(() => {});
-		const pkgName = String(Date.now());
 
-		try {
-			await installGlobalPackage(pkgName);
-			throw new Error('Should have thrown');
-		} catch (err) {
-			expect(err).toBe(error);
-		}
+		return expect(installGlobalPackage('mrm-preset-default')).rejects.toThrow(
+			error
+		);
 	});
 });
+
 describe('getGlobalPackageName', () => {
 	it('should resolve to the package name if selected by the user and it can be installed', async () => {
 		configureInquirer({ pkgName: 'mrm-preset-default' });
