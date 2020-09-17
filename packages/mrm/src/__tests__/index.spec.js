@@ -1,7 +1,9 @@
 // @ts-check
 /* eslint-disable no-console */
+jest.mock('cross-spawn');
 
 const path = require('path');
+const spawn = require('cross-spawn');
 const {
 	firstResult,
 	tryFile,
@@ -18,6 +20,7 @@ const {
 	getAllTasks,
 	getPackageName,
 	getGlobalPackageName,
+	installGlobalPackage,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -28,6 +31,13 @@ const task5 = require('../../test/dir2/task5');
 // interactive config tasks
 const task6 = require('../../test/dir3/task6');
 const task8 = require('../../test/dir5/task8');
+
+const spawnOnErrorMock = jest.fn();
+const spawnOnCloseMock = jest.fn();
+spawnOnErrorMock.mockReturnValue({ on: spawnOnCloseMock });
+spawnOnCloseMock.mockImplementation((_, cb) => {
+	cb();
+});
 
 const configFile = 'config.json';
 const directories = [
@@ -53,6 +63,12 @@ const argv = {
 };
 
 const file = name => path.join(__dirname, '../../test', name);
+
+afterEach(() => {
+	spawn.mockClear();
+	spawnOnErrorMock.mockClear();
+	spawnOnCloseMock.mockClear();
+});
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {
@@ -102,6 +118,38 @@ describe('tryResolve', () => {
 	});
 });
 
+describe('installGlobalPackage', () => {
+	it('should resolve to true if able to install the package', async () => {
+		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
+		const pkgName = String(Date.now());
+		const result = await installGlobalPackage(pkgName);
+		expect(spawn).toBeCalledWith('npm', ['install', '--global', pkgName], {
+			stdio: 'inherit',
+		});
+		expect(spawnOnErrorMock.mock.calls[0][0]).toBe('error');
+		expect(spawnOnErrorMock.mock.calls[0][1]).toBeInstanceOf(Function);
+		expect(spawnOnCloseMock.mock.calls[0][0]).toBe('close');
+		expect(spawnOnCloseMock.mock.calls[0][1]).toBeInstanceOf(Function);
+		expect(result).toBeTruthy();
+	});
+
+	it('should reject if unable able to install the package', async () => {
+		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
+		const error = Date.now();
+		spawnOnErrorMock.mockImplementation((_, cb) => {
+			cb(error);
+		});
+		spawnOnCloseMock.mockImplementation(() => {});
+		const pkgName = String(Date.now());
+
+		try {
+			await installGlobalPackage(pkgName);
+			throw new Error('Should have thrown');
+		} catch (err) {
+			expect(err).toBe(error);
+		}
+	});
+});
 describe('getGlobalPackageName', () => {
 	it('should resolve to the package name if selected by the user and it can be installed', async () => {
 		configureInquirer({ pkgName: 'mrm-preset-default' });
