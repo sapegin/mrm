@@ -112,6 +112,11 @@ describe('tryResolve', () => {
 		expect(result).toMatch('node_modules/listify/index.js');
 	});
 
+	it('should return undefined if none of the npm mudules are installed', () => {
+		const result = tryResolve('pizza', 'cappuccino');
+		expect(result).toBeFalsy();
+	});
+
 	it('should not throw when undefined was passed instead of a module name', () => {
 		const fn = () => tryResolve(undefined);
 		expect(fn).not.toThrowError();
@@ -375,10 +380,10 @@ describe('getConfigGetter (deprecated)', () => {
 	});
 
 	it('values function should return options object', () => {
-		const options = { coffee: 'americano' };
-		const config = getConfigGetter(options);
+		const opts = { coffee: 'americano' };
+		const config = getConfigGetter(opts);
 		const result = config.values();
-		expect(result).toEqual(options);
+		expect(result).toEqual(opts);
 	});
 
 	it('require function should not throw if all config options are defined', () => {
@@ -436,6 +441,17 @@ describe('runTask', () => {
 				})
 				.catch(reject);
 		});
+	});
+
+	it('should throw when module not found', () => {
+		const pizza = runTask('pizza', directories, {}, {});
+
+		// ideally we can use toThrowError but that works with >= jest@22
+		// https://github.com/facebook/jest/issues/5076
+		return expect(pizza).rejects.toHaveProperty(
+			'message',
+			'Task “pizza” not found.'
+		);
 	});
 
 	it('should throw when task module is invalid', () => {
