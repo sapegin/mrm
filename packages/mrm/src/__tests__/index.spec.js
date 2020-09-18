@@ -1,7 +1,9 @@
 // @ts-check
 /* eslint-disable no-console */
+jest.mock('cross-spawn');
 
 const path = require('path');
+const spawn = require('cross-spawn');
 const {
 	firstResult,
 	tryFile,
@@ -17,6 +19,8 @@ const {
 	getAllAliases,
 	getAllTasks,
 	getPackageName,
+	getGlobalPackageName,
+	installGlobalPackage,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -27,6 +31,13 @@ const task5 = require('../../test/dir2/task5');
 // interactive config tasks
 const task6 = require('../../test/dir3/task6');
 const task8 = require('../../test/dir5/task8');
+
+const spawnOnErrorMock = jest.fn();
+const spawnOnCloseMock = jest.fn();
+spawnOnErrorMock.mockReturnValue({ on: spawnOnCloseMock });
+spawnOnCloseMock.mockImplementation((_, cb) => {
+	cb();
+});
 
 const configFile = 'config.json';
 const directories = [
@@ -52,6 +63,12 @@ const argv = {
 };
 
 const file = name => path.join(__dirname, '../../test', name);
+
+afterEach(() => {
+	spawn.mockClear();
+	spawnOnErrorMock.mockClear();
+	spawnOnCloseMock.mockClear();
+});
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {
@@ -103,6 +120,54 @@ describe('tryResolve', () => {
 	it('should not throw when undefined was passed instead of a module name', () => {
 		const fn = () => tryResolve(undefined);
 		expect(fn).not.toThrowError();
+	});
+});
+
+describe('installGlobalPackage', () => {
+	it('should resolve to true if able to install the package', async () => {
+		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
+		const pkgName = 'mrm-preset-default';
+		const result = await installGlobalPackage(pkgName);
+		expect(spawn).toBeCalledWith('npm', ['install', '--global', pkgName], {
+			stdio: 'inherit',
+		});
+		expect(result).toBeTruthy();
+	});
+
+	it('should reject if unable able to install the package', () => {
+		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
+		const error = new Error('failed install');
+		spawnOnErrorMock.mockImplementation((_, cb) => {
+			cb(error);
+		});
+		spawnOnCloseMock.mockImplementation(() => {});
+
+		return expect(installGlobalPackage('mrm-preset-default')).rejects.toThrow(
+			error
+		);
+	});
+});
+
+describe('getGlobalPackageName', () => {
+	it('should resolve to the package name if selected by the user and it can be installed', async () => {
+		configureInquirer({ pkgName: 'mrm-preset-default' });
+		const result = await getGlobalPackageName(
+			'mrm-preset-default',
+			'pizza',
+			''
+		);
+		expect(result).toMatch('mrm-preset-default');
+	});
+
+	it('should resolve to undefined if none of the packages are selected', async () => {
+		configureInquirer({ pkgName: '' });
+		const result = await getGlobalPackageName('pizza', 'cappuccino');
+		expect(result).toBeFalsy();
+	});
+
+	it('should resolve to undefined if none of the npm modules exist', async () => {
+		const result = await getGlobalPackageName('');
+		expect(result).toBeFalsy();
 	});
 });
 
@@ -308,10 +373,10 @@ describe('getConfigGetter (deprecated)', () => {
 	});
 
 	it('values function should return options object', () => {
-		const options = { coffee: 'americano' };
-		const config = getConfigGetter(options);
+		const opts = { coffee: 'americano' };
+		const config = getConfigGetter(opts);
 		const result = config.values();
-		expect(result).toEqual(options);
+		expect(result).toEqual(opts);
 	});
 
 	it('require function should not throw if all config options are defined', () => {
