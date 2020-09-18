@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/sapegin/mrm/compare/mrm@2.4.2...mrm@2.5.0) (2020-09-18)
+
+
+### Features
+
+* Automatic global npm install for tasks and presets ([#92](https://github.com/sapegin/mrm/issues/92)) ([87dc649](https://github.com/sapegin/mrm/commit/87dc64960fdeced19783b77360229bc6c54e08e4)), closes [#59](https://github.com/sapegin/mrm/issues/59)
+
+
+
+
+
 ## [2.4.2](https://github.com/sapegin/mrm/compare/mrm@2.4.1...mrm@2.4.2) (2020-09-05)
 
 **Note:** Version bump only for package mrm
