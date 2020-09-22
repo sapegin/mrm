@@ -7,18 +7,32 @@ const defaultLicense = 'MIT';
 
 const ANONYMOUS_LICENSES = ['Unlicense'];
 
-const isAnonymouseLicense = name => ANONYMOUS_LICENSES.indexOf(name) > -1;
+const isAnonymousLicense = name => ANONYMOUS_LICENSES.includes(name);
+
+function getAuthorName() {
+	const pkg = packageJson();
+	const authorRegExp = /\(.*\)|<.*>/g;
+
+	if (typeof pkg.get('author') === 'string') {
+		return pkg
+			.get('author')
+			.replace(authorRegExp, '')
+			.trim();
+	}
+
+	return pkg.get('author.name');
+}
 
 function task(config) {
 	const pkg = packageJson();
 	config
 		.defaults({ licenseFile: 'License.md' })
-		.defaults({ name: pkg.get('author.name') })
+		.defaults({ name: getAuthorName() })
 		.defaults(meta);
 
 	const configLicense = config.values().license;
 
-	if (!isAnonymouseLicense(configLicense)) {
+	if (!isAnonymousLicense(configLicense)) {
 		config.require('name', 'email');
 	}
 
@@ -54,3 +68,4 @@ function task(config) {
 task.description = 'Adds license file';
 
 module.exports = task;
+module.exports.getAuthorName = getAuthorName;

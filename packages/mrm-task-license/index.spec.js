@@ -8,6 +8,7 @@ const path = require('path');
 const { getConfigGetter } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
+const getAuthorName = require('./index').getAuthorName;
 const { json } = require('mrm-core');
 
 const console$log = console.log;
@@ -95,4 +96,22 @@ it('adds license to package.json if not set', () => {
 	task(getConfigGetter(config));
 
 	expect(json('/package.json').get('license')).toBe('MIT');
+});
+
+it.each([
+	['Barney Rubble <example@name.com> (http://example.com/)', 'Barney Rubble'],
+	['Barney Rubble (http://example.com/)', 'Barney Rubble'],
+	['Barney Rubble <example@name.com>', 'Barney Rubble'],
+	['Barney Rubble ', 'Barney Rubble'],
+	[{ name: 'Barney Rubble' }, 'Barney Rubble'],
+])('Should get author name form package.json', (field, expected) => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			author: field,
+		}),
+	});
+
+	const authorName = getAuthorName();
+
+	expect(authorName).toBe(expected);
 });
