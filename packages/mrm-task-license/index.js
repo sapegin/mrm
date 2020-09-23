@@ -9,8 +9,7 @@ const ANONYMOUS_LICENSES = ['Unlicense'];
 
 const isAnonymousLicense = name => ANONYMOUS_LICENSES.includes(name);
 
-function getAuthorName() {
-	const pkg = packageJson();
+function getAuthorName(pkg) {
 	const authorRegExp = /\(.*\)|<.*>/g;
 
 	if (typeof pkg.get('author') === 'string') {
@@ -27,7 +26,7 @@ function task(config) {
 	const pkg = packageJson();
 	config
 		.defaults({ licenseFile: 'License.md' })
-		.defaults({ name: getAuthorName() })
+		.defaults({ name: getAuthorName(pkg) })
 		.defaults(meta);
 
 	const configLicense = config.values().license;

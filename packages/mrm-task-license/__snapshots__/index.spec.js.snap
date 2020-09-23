@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 "
 `;
 
-exports[`should read lincese name from package.json 1`] = `
+exports[`should read license name from package.json 1`] = `
 "# Apache License, Version 2.0 (Apache-2.0)
 
 Copyright 2020 Gendalf, contributors

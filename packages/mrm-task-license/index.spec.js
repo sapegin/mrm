@@ -42,7 +42,7 @@ it('should add EditorConfig', () => {
 	expect(vol.toJSON()['/License.md']).toMatchSnapshot();
 });
 
-it('should read lincese name from package.json', () => {
+it('should read license name from package.json', () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/Apache-2.0.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
@@ -99,19 +99,22 @@ it('adds license to package.json if not set', () => {
 });
 
 it.each([
-	['Barney Rubble <example@name.com> (http://example.com/)', 'Barney Rubble'],
-	['Barney Rubble (http://example.com/)', 'Barney Rubble'],
-	['Barney Rubble <example@name.com>', 'Barney Rubble'],
-	['Barney Rubble ', 'Barney Rubble'],
-	[{ name: 'Barney Rubble' }, 'Barney Rubble'],
+	[
+		{ author: 'Barney Rubble <example@name.com> (http://example.com/)' },
+		'Barney Rubble',
+	],
+	[{ author: 'Barney Rubble (http://example.com/)' }, 'Barney Rubble'],
+	[{ author: 'Barney Rubble <example@name.com>' }, 'Barney Rubble'],
+	[{ author: 'Barney Rubble ' }, 'Barney Rubble'],
+	[{ author: { name: 'Barney Rubble' } }, 'Barney Rubble'],
+	[{ author: undefined }, undefined],
+	[undefined, undefined],
 ])('Should get author name form package.json', (field, expected) => {
 	vol.fromJSON({
-		'/package.json': stringify({
-			author: field,
-		}),
+		'/package.json': stringify(Object.assign({}, field)),
 	});
 
-	const authorName = getAuthorName();
+	const authorName = getAuthorName(json('/package.json'));
 
 	expect(authorName).toBe(expected);
 });
