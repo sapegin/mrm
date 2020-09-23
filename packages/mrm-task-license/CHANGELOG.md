@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.5...mrm-task-license@3.0.6) (2020-09-23)
+
+
+### Bug Fixes
+
+* **license:** Support package.json author fields as an object ([#94](https://github.com/sapegin/mrm/issues/94)) ([6a6ff30](https://github.com/sapegin/mrm/commit/6a6ff30f503e6429b30a559ec644e8c7e6d9a95c))
+
+
+
+
+
 ## [3.0.5](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.4...mrm-task-license@3.0.5) (2020-08-19)
 
 
