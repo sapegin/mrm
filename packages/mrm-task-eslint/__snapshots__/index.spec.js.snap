@@ -212,8 +212,68 @@ Object {
 }
 `;
 
-exports[`should use a custom preset 1`] = `
+exports[`should use custom preset \`@scoped/custom-config-name/variant\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/custom-config-name/variant\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped/custom-config-name\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/custom-config-name\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped/eslint-config/variant\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/eslint-config/variant\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped/eslint-config\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/eslint-config\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped/eslint-config-alt/variant\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/eslint-config-alt/variant\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped/eslint-config-alt\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped/eslint-config-alt\\"
+}"
+`;
+
+exports[`should use custom preset \`@scoped\` 1`] = `
+"{
+  \\"extends\\": \\"@scoped\\"
+}"
+`;
+
+exports[`should use custom preset \`airbnb/whitespace\` 1`] = `
+"{
+  \\"extends\\": \\"airbnb/whitespace\\"
+}"
+`;
+
+exports[`should use custom preset \`airbnb\` 1`] = `
 "{
   \\"extends\\": \\"airbnb\\"
+}"
+`;
+
+exports[`should use custom preset \`eslint-config-airbnb/whitespace\` 1`] = `
+"{
+  \\"extends\\": \\"eslint-config-airbnb/whitespace\\"
+}"
+`;
+
+exports[`should use custom preset \`eslint-config-airbnb\` 1`] = `
+"{
+  \\"extends\\": \\"eslint-config-airbnb\\"
 }"
 `;

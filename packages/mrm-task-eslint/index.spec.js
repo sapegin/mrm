@@ -41,15 +41,27 @@ it('should add ESLint', async () => {
 	expect(install).toBeCalledWith(['eslint']);
 });
 
-it('should use a custom preset', async () => {
+it.each([
+	['airbnb', 'eslint-config-airbnb'],
+	['airbnb/whitespace', 'eslint-config-airbnb'],
+	['eslint-config-airbnb', 'eslint-config-airbnb'],
+	['eslint-config-airbnb/whitespace', 'eslint-config-airbnb'],
+	['@scoped', '@scoped/eslint-config'],
+	['@scoped/eslint-config', '@scoped/eslint-config'],
+	['@scoped/eslint-config/variant', '@scoped/eslint-config'],
+	['@scoped/custom-config-name', '@scoped/custom-config-name'],
+	['@scoped/eslint-config-alt', '@scoped/eslint-config-alt'],
+	['@scoped/eslint-config-alt/variant', '@scoped/eslint-config-alt'],
+	['@scoped/custom-config-name/variant', '@scoped/custom-config-name'],
+])('should use custom preset `%s`', async (presetName, packageName) => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(await getTaskOptions(task, false, { eslintPreset: 'airbnb' }));
+	task(await getTaskOptions(task, false, { eslintPreset: presetName }));
 
 	expect(vol.toJSON()[configFile]).toMatchSnapshot();
-	expect(install).toBeCalledWith(['eslint', 'eslint-config-airbnb']);
+	expect(install).toBeCalledWith(['eslint', packageName]);
 });
 
 it('should not add a custom preset if it’s already there', async () => {
