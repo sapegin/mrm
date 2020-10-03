@@ -64,6 +64,13 @@ it.each([
 	expect(install).toBeCalledWith(['eslint', packageName]);
 });
 
+it('should throw when given a file path for the preset name', async () => {
+	const options = await getTaskOptions(task, false, {
+		eslintPreset: './path/to/config',
+	});
+	expect(() => task(options)).toThrow();
+});
+
 it('should not add a custom preset if it’s already there', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
