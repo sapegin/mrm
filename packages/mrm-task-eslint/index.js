@@ -8,6 +8,29 @@ const {
 	getExtsFromCommand,
 } = require('mrm-core');
 
+const normalizePresetPackageName = presetName => {
+	const prefix = 'eslint-config';
+	const presetNameRegex = /^(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
+	const match = presetName.match(presetNameRegex);
+
+	if (!match) {
+		throw new Error('Invalid preset name');
+	}
+
+	const scope = match[1] || '';
+	let configName = match[2];
+
+	if (!scope && !configName.startsWith(prefix)) {
+		configName = `${prefix}-${configName}`;
+	} else if (scope && !configName) {
+		configName = prefix;
+	}
+
+	const packageName = `${scope ? `${scope}/` : ''}${configName}`;
+
+	return packageName;
+};
+
 module.exports = function task({
 	eslintPreset,
 	eslintPeerDependencies,
@@ -25,7 +48,8 @@ module.exports = function task({
 
 	// Preset
 	if (eslintPreset !== 'eslint:recommended') {
-		packages.push(`eslint-config-${eslintPreset}`);
+		const presetPackage = normalizePresetPackageName(eslintPreset);
+		packages.push(presetPackage);
 	}
 
 	// Peer dependencies
