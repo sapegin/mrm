@@ -54,8 +54,7 @@ module.exports = function task({
 
 	// Preset
 	if (eslintPreset !== 'eslint:recommended') {
-		const presetPackage = normalizePresetPackageName(eslintPreset);
-		packages.push(presetPackage);
+		packages.push(normalizePresetPackageName(eslintPreset));
 	}
 
 	// Peer dependencies
