@@ -8,6 +8,16 @@ const {
 	getExtsFromCommand,
 } = require('mrm-core');
 
+const getConfigName = (configName, scope, prefix) => {
+	if (!scope && !configName.startsWith(prefix)) {
+		return `${prefix}-${configName}`;
+	} else if (scope && !configName) {
+		return prefix;
+	} else {
+		return configName;
+	}
+};
+
 const normalizePresetPackageName = presetName => {
 	const prefix = 'eslint-config';
 	const presetNameRegex = /^(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
@@ -19,14 +29,8 @@ const normalizePresetPackageName = presetName => {
 		);
 	}
 
-	const scope = match[1] || '';
-	let configName = match[2];
-
-	if (!scope && !configName.startsWith(prefix)) {
-		configName = `${prefix}-${configName}`;
-	} else if (scope && !configName) {
-		configName = prefix;
-	}
+	const [, scope = '', configNameRaw] = match;
+	const configName = getConfigName(configNameRaw, scope, prefix);
 
 	const packageName = `${scope ? `${scope}/` : ''}${configName}`;
 
