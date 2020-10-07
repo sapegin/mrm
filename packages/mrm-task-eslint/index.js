@@ -14,7 +14,9 @@ const normalizePresetPackageName = presetName => {
 	const match = presetName.match(presetNameRegex);
 
 	if (!match) {
-		throw new Error('Invalid preset name');
+		throw new Error(
+			`Invalid preset name is passed to the eslint task: ${presetName}`
+		);
 	}
 
 	const scope = match[1] || '';
