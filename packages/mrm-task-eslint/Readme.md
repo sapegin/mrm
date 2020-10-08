@@ -25,7 +25,7 @@ See [Mrm docs](../../docs/Getting_started.md) for more details.
 
 ### `eslintPreset` (default: `eslint:recommended`)
 
-ESLint preset name (not npm package name, e.g. `airbnb`).
+ESLint preset name (e.g. `airbnb` or `eslint-config-airbnb`).
 
 ### `eslintPeerDependencies` (optional)
 
