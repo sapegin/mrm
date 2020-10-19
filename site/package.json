@@ -10,7 +10,6 @@
     "sync": "node scripts/sync.js"
   },
   "dependencies": {
-    "@charlietango/use-script": "^2.1.1",
     "@docusaurus/core": "2.0.0-alpha.65",
     "@docusaurus/preset-classic": "2.0.0-alpha.65",
     "clsx": "^1.1.1",

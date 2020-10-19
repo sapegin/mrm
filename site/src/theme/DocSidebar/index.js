@@ -1,29 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useScript from '@charlietango/use-script';
 import DocSidebarBase from '@theme-original/DocSidebar';
+import { CarbonAds } from '../../components/CarbonAds';
 import styles from './styles.module.css';
 
 function Extra() {
-	useScript('https://app.codefund.io/properties/816/funder.js');
-	return <div id="codefund" className={styles.extra}></div>;
+	return (
+		<div className={styles.extra}>
+			<CarbonAds />
+		</div>
+	);
 }
 
 function DocSidebar({ showExtra, ...props }) {
 	return (
 		<div className={styles.sidebar}>
 			<DocSidebarBase {...props} />
-			{showExtra && <Extra />}
+			{showExtra && <Extra key={props.path} />}
 		</div>
 	);
 }
 
 DocSidebar.propTypes = {
+	path: PropTypes.string.isRequired,
 	showExtra: PropTypes.bool,
 };
 
 DocSidebar.defaultProps = {
-	showExtra: false,
+	showExtra: true,
 };
 
 export default DocSidebar;

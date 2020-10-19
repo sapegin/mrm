@@ -3,6 +3,18 @@
 	 the original sidebar (with styles on the root element removed) and CodeFund
 	 container */
 
+.extra {
+	padding: 1rem 1.5rem;
+}
+
+/* HACK: Horizontal Carbon Ads layout */
+@media (max-width: 996px) {
+	[class*='docSidebarContainer'] {
+		--ifm-toc-border-color: transparent;
+		width: auto !important;
+	}
+}
+
 @media (min-width: 997px) {
 	.sidebar {
 		height: 100vh;
