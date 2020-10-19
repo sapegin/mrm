@@ -21,6 +21,11 @@
 	--ifm-footer-background-color: #2f430a;
 }
 
+a:focus {
+	outline: solid 2px;
+	outline-offset: 2px;
+}
+
 .docusaurus-highlight-code-line {
 	background-color: rgb(72, 77, 91);
 	display: block;

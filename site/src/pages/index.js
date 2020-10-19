@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import PropTypes from 'prop-types';
 import CodeBlock from '@theme/CodeBlock';
@@ -69,7 +69,7 @@ function Home() {
 			title="Mrm: codemods for your project config files"
 			description={siteConfig.tagline}
 		>
-			<header className={classnames('hero hero--primary', styles.heroBanner)}>
+			<header className={clsx('hero hero--primary', styles.heroBanner)}>
 				<div className="container">
 					<h1 className="hero__title">{siteConfig.title}</h1>
 					<p className="hero__subtitle">{siteConfig.tagline}</p>

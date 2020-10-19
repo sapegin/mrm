@@ -7,14 +7,16 @@ module.exports = {
 	organizationName: 'sapegin',
 	projectName: 'mrm',
 	themeConfig: {
-		disableDarkMode: true,
+		colorMode: {
+			disableSwitch: true,
+		},
 		prism: {
 			theme: require('prism-react-renderer/themes/nightOwlLight'),
 		},
 		navbar: {
 			hideOnScroll: false,
 			title: 'Mrm',
-			links: [
+			items: [
 				{
 					to: 'docs/getting-started',
 					activeBasePath: 'docs',
@@ -88,7 +90,9 @@ module.exports = {
 		[
 			'@docusaurus/preset-classic',
 			{
+				debug: false,
 				docs: {
+					includeCurrentVersion: true,
 					sidebarPath: require.resolve('./sidebars.js'),
 					remarkPlugins: require('./remark'),
 				},
