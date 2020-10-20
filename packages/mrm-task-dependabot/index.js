@@ -11,7 +11,7 @@ module.exports = function task({ workflowFile }) {
 				jobs: {
 					worker: {
 						'runs-on': 'ubuntu-latest',
-						if: 'github.actor == "dependabot[bot]"',
+						if: `github.actor == 'dependabot[bot]'`,
 						steps: [
 							{
 								uses: 'actions/github-script@v3',
