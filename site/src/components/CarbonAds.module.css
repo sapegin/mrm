@@ -3,7 +3,7 @@
 	max-width: 40rem;
 	margin: 0 auto;
 	padding: 0.25rem;
-	outline: 1px solid var(--ifm-hr-border-color);
+	outline: 1px solid var(--ifm-color-emphasis-300);
 }
 
 :global #carbonads:focus-within {
