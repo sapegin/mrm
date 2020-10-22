@@ -117,7 +117,9 @@ function runNpm(deps, options = {}, exec) {
  * @param {Function} [exec]
  */
 function runYarn(deps, options = {}, exec) {
-	const add = options.dev ? ['add', '--dev'] : ['add'];
+	const add = options.dev
+		? ['add', '--dev', '--ignore-workspace-root-check']
+		: ['add', '--ignore-workspace-root-check'];
 	const remove = ['remove'];
 	const args = (options.remove ? remove : add).concat(deps);
 
