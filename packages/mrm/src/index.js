@@ -4,8 +4,6 @@ const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
 const requireg = require('requireg');
-const spawn = require('cross-spawn');
-const packageJson = require('package-json');
 const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
 const {
@@ -14,6 +12,7 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('./errors');
+const requirex = require('./requirex');
 
 /* eslint-disable no-console */
 
@@ -138,14 +137,17 @@ function getPackageName(type, packageName) {
  * @param {Object} [argv]
  * @returns {Promise}
  */
-function runTask(taskName, directories, options, argv) {
+async function runTask(taskName, directories, options, argv) {
+	const taskPackageName = getPackageName('task', taskName);
+	const resolveList = [tryFile(directories, `${taskName}/index.js`)];
+	try {
+		const taskPath = await requirex.resolve(taskPackageName);
+		resolveList.push(taskPath);
+	} catch {
+		// do nothing
+	}
 	return new Promise((resolve, reject) => {
-		const taskPackageName = getPackageName('task', taskName);
-		const modulePath = tryResolve(
-			tryFile(directories, `${taskName}/index.js`),
-			taskPackageName,
-			taskName
-		);
+		const modulePath = tryResolve(...resolveList);
 		if (!modulePath) {
 			reject(
 				new MrmUnknownTask(`Task “${taskName}” not found.`, {
@@ -370,57 +372,6 @@ function tryResolve(...names) {
 }
 
 /**
- * Try to resolve any of the given npm module names, prompting the user for which package they want to use.
- * @param  {...string} packageNames
- * @return {Promise<string?>} package name
- */
-async function getGlobalPackageName(...packageNames) {
-	const possibleGlobals = await Promise.all(
-		packageNames.map(name => packageJson(name).catch(() => null))
-	);
-
-	const choices = possibleGlobals.filter(Boolean);
-
-	if (choices.length === 0) {
-		// No packages found on npm
-		return undefined;
-	}
-
-	const { pkgName } = await inquirer.prompt([
-		{
-			name: 'pkgName',
-			type: 'list',
-			message:
-				'A task or preset you’re trying to run isn’t installed. Would you like to globally install it from npm?',
-			choices: choices
-				.map(({ name }) => ({ name, value: name }))
-				.concat({
-					name: 'Don’t install any packages',
-					value: '',
-				}),
-		},
-	]);
-
-	return pkgName || undefined;
-}
-
-/**
- * Install an npm module globally
- * @param {String} pkgName The package to install globally
- */
-function installGlobalPackage(pkgName) {
-	return new Promise((resolve, reject) =>
-		spawn('npm', ['install', '--global', pkgName], { stdio: 'inherit' })
-			.on('error', err => {
-				reject(err);
-			})
-			.on('close', () => {
-				resolve(true);
-			})
-	);
-}
-
-/**
  * Return the first truthy result of a callback.
  *
  * @param {any[]} items
@@ -454,8 +405,6 @@ module.exports = {
 	getTaskOptions,
 	tryFile,
 	tryResolve,
-	getGlobalPackageName,
 	getPackageName,
 	firstResult,
-	installGlobalPackage,
 };

@@ -11,21 +11,14 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const {
-	run,
-	getConfig,
-	getAllTasks,
-	tryResolve,
-	getPackageName,
-	getGlobalPackageName,
-	installGlobalPackage,
-} = require('../src/index');
+const { run, getConfig, getAllTasks, getPackageName } = require('../src/index');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('../src/errors');
+const requirex = require('../src/requirex');
 
 const defaultDirectories = [
 	path.resolve(userHome, 'dotfiles/mrm'),
@@ -163,29 +156,11 @@ Note that when a preset is specified no default search locations are used.`
 
 		if (isDefaultPreset) {
 			return [...paths, path.dirname(require.resolve('mrm-preset-default'))];
+		} else {
+			const presetPackageName = getPackageName('preset', preset);
+			const presetPath = await requirex.resolve(presetPackageName);
+			return [...paths, path.dirname(presetPath)];
 		}
-
-		const presetPackageName = getPackageName('preset', preset);
-		const presetPath = tryResolve(presetPackageName, preset);
-		if (presetPath) {
-			return [path.dirname(presetPath)];
-		}
-
-		const globalPackageToInstall = await getGlobalPackageName(
-			preset,
-			presetPackageName
-		);
-		if (!globalPackageToInstall) {
-			printError(`Preset “${preset}” not found.
-
-We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
-			process.exit(1);
-		}
-
-		console.log(kleur.green(`Installing ${globalPackageToInstall}...`));
-		await installGlobalPackage(globalPackageToInstall);
-
-		return resolveDirectories(paths);
 	}
 
 	function commandHelp() {
