@@ -4,7 +4,8 @@ const path = require('path');
 const NPM_PATH = path.join(path.dirname(process.execPath), 'npm');
 
 async function resolveUsingNpx(packageName) {
-	const results = await npx._ensurePackages(packageName, { npm: NPM_PATH });
+	const opts = { npm: NPM_PATH, q: true };
+	const results = await npx._ensurePackages(packageName, opts);
 	const packagePath = path.join(
 		results.prefix,
 		'lib',
