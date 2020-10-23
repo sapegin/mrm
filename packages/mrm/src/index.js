@@ -146,6 +146,12 @@ async function runTask(taskName, directories, options, argv) {
 	} catch {
 		// do nothing
 	}
+	try {
+		const taskPath = await requireUsingNpx.resolve(taskName);
+		resolveList.push(taskPath);
+	} catch {
+		// do nothing
+	}
 	return new Promise((resolve, reject) => {
 		const modulePath = tryResolve(...resolveList);
 		if (!modulePath) {
