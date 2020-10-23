@@ -44,6 +44,7 @@ const directories = [
 	path.resolve(__dirname, '../../test/dir3'),
 	path.resolve(__dirname, '../../test/dir4'),
 ];
+const presetDir = [path.resolve(__dirname, '../../test/dir6')];
 const options = {
 	pizza: 'salami',
 };
@@ -579,6 +580,17 @@ describe('run', () => {
 					expect(task4).toHaveBeenCalledTimes(1);
 					expect(task5).toHaveBeenCalledTimes(1);
 					expect(stack).toEqual(['Task 2.4', 'Task 2.5']);
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
+
+	it('should run a task in a custom preset', () => {
+		return new Promise((resolve, reject) => {
+			run('task1', presetDir, optionsWithAliases, {})
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
 					resolve();
 				})
 				.catch(reject);
