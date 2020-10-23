@@ -77,8 +77,8 @@ async function main() {
 						.map(d => `${d}/${taskName}/index.js`)
 						.concat([
 							`“${taskName}” in the default mrm tasks`,
-							`npm install -g mrm-task-${taskName}`,
-							`npm install -g ${taskName}`,
+							`npm install mrm-task-${taskName}`,
+							`npm install ${taskName}`,
 						]);
 					printError(
 						`${err.message}
