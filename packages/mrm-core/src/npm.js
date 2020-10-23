@@ -112,6 +112,12 @@ function runNpm(deps, options = {}, exec) {
 /**
  * Install given Yarn packages
  *
+ * This will use yarn's `--ignore-workspace-root-check` to allow additions of packages
+ * inside a repository that is using yarn's workspaces feature. If the current
+ * repository is _not_ using workspaces, then that flag is simply ignored.
+ *
+ * @see https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-ignore-workspace-root-check-w
+ *
  * @param {string[]} deps
  * @param {RunOptions} [options]
  * @param {Function} [exec]
