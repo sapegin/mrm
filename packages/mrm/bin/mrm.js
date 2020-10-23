@@ -18,7 +18,7 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('../src/errors');
-const requirex = require('../src/requirex');
+const requireUsingNpx = require('../src/requireUsingNpx');
 
 const defaultDirectories = [
 	path.resolve(userHome, 'dotfiles/mrm'),
@@ -158,7 +158,7 @@ Note that when a preset is specified no default search locations are used.`
 			return [...paths, path.dirname(require.resolve('mrm-preset-default'))];
 		} else {
 			const presetPackageName = getPackageName('preset', preset);
-			const presetPath = await requirex.resolve(presetPackageName);
+			const presetPath = await requireUsingNpx.resolve(presetPackageName);
 			return [...paths, path.dirname(presetPath)];
 		}
 	}

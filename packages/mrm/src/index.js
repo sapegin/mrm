@@ -12,7 +12,7 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('./errors');
-const requirex = require('./requirex');
+const requireUsingNpx = require('./requireUsingNpx');
 
 /* eslint-disable no-console */
 
@@ -141,7 +141,7 @@ async function runTask(taskName, directories, options, argv) {
 	const taskPackageName = getPackageName('task', taskName);
 	const resolveList = [tryFile(directories, `${taskName}/index.js`)];
 	try {
-		const taskPath = await requirex.resolve(taskPackageName);
+		const taskPath = await requireUsingNpx.resolve(taskPackageName);
 		resolveList.push(taskPath);
 	} catch {
 		// do nothing
