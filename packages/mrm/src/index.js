@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
-const requireg = require('requireg');
 const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
 const {
@@ -390,16 +389,6 @@ function tryFile(directories, filename) {
 }
 
 /**
- * Try to resolve any of the given npm modules. Works with local files, local and global npm modules.
- *
- * @param {...string} names
- * @return {string?} resolved package path
- */
-function tryResolve(...names) {
-	return firstResult(names, requireg.resolve);
-}
-
-/**
  * Return the first truthy result of a callback.
  *
  * @param {any[]} items
@@ -432,7 +421,7 @@ module.exports = {
 	getConfigFromCommandLine,
 	getTaskOptions,
 	tryFile,
-	tryResolve,
 	getPackageName,
 	firstResult,
+	promiseFirst,
 };

@@ -7,7 +7,6 @@ const spawn = require('cross-spawn');
 const {
 	firstResult,
 	tryFile,
-	tryResolve,
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
@@ -97,28 +96,6 @@ describe('tryFile', () => {
 	it('should return undefined if the file doesn’t exist', () => {
 		const result = tryFile([], 'pizza');
 		expect(result).toBeFalsy();
-	});
-});
-
-describe('tryResolve', () => {
-	it('should resolve an npm module if it’s installed', () => {
-		const result = tryResolve('listify');
-		expect(result).toMatch('node_modules/listify/index.js');
-	});
-
-	it('should resolve the first installed npm module', () => {
-		const result = tryResolve('pizza', 'listify');
-		expect(result).toMatch('node_modules/listify/index.js');
-	});
-
-	it('should return undefined if none of the npm mudules are installed', () => {
-		const result = tryResolve('pizza', 'cappuccino');
-		expect(result).toBeFalsy();
-	});
-
-	it('should not throw when undefined was passed instead of a module name', () => {
-		const fn = () => tryResolve(undefined);
-		expect(fn).not.toThrowError();
 	});
 });
 
