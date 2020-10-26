@@ -310,7 +310,7 @@ function getConfigGetter(options) {
  */
 async function getConfig(directories, filename, argv) {
 	const configFromFile = await getConfigFromFile(directories, filename);
-	return Object.assign({}, configFromFile, getConfigFromCommandLine(argv));
+	return {...configFromFile, ...getConfigFromCommandLine(argv)};
 }
 
 /**
