@@ -310,7 +310,7 @@ function getConfigGetter(options) {
  */
 async function getConfig(directories, filename, argv) {
 	const configFromFile = await getConfigFromFile(directories, filename);
-	return {...configFromFile, ...getConfigFromCommandLine(argv)};
+	return { ...configFromFile, ...getConfigFromCommandLine(argv) };
 }
 
 /**
@@ -321,12 +321,11 @@ async function getConfig(directories, filename, argv) {
  * @return {Object}
  */
 async function getConfigFromFile(directories, filename) {
-	try {
-		const filepath = await tryFile(directories, filename);
-		return require(filepath);
-	} catch {
+	const filepath = await tryFile(directories, filename).catch(() => null);
+	if (!filepath) {
 		return {};
 	}
+	return require(filepath);
 }
 
 /**
