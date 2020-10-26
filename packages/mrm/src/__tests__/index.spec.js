@@ -373,7 +373,7 @@ describe('runTask', () => {
 			'message',
 			'Task “pizza” not found.'
 		);
-	});
+	}, 20000);
 
 	it('should throw when task module is invalid', () => {
 		const result = runTask('task7', directories, {}, {});
