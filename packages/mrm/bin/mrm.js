@@ -15,9 +15,9 @@ const {
 	run,
 	getConfig,
 	getAllTasks,
+	resolveUsingNpx,
 	getPackageName,
 	promiseFirst,
-	resolveUsingNpx,
 } = require('../src/index');
 const {
 	MrmUnknownTask,

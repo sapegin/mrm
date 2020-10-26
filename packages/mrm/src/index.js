@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
+const npx = require('libnpx');
 const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
 const {
@@ -11,7 +12,6 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('./errors');
-const npx = require('libnpx');
 
 /* eslint-disable no-console */
 
@@ -364,6 +364,21 @@ function tryFile(directories, filename) {
 }
 
 /**
+ * Resolve a module on-the-fly using npx under the hood
+ *
+ * @method resolveUsingNpx
+ *
+ * @param  {String} packageName
+ * @return {Promise}
+ */
+async function resolveUsingNpx(packageName) {
+	const npm = path.join(path.dirname(process.execPath), 'npm');
+	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
+	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
+	return packagePath;
+}
+
+/**
  * Executes promise-returning thunks in series until one is resolved
  *
  * @method promiseFirst
@@ -386,21 +401,6 @@ ${errors.join('\n')}`);
 	}
 }
 
-/**
- * Resolve a module on-the-fly using npx under the hood
- *
- * @method resolveUsingNpx
- *
- * @param  {String} packageName
- * @return {Promise}
- */
-async function resolveUsingNpx(packageName) {
-	const npm = path.join(path.dirname(process.execPath), 'npm');
-	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
-	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
-	return packagePath;
-}
-
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -413,7 +413,7 @@ module.exports = {
 	getConfigFromCommandLine,
 	getTaskOptions,
 	tryFile,
+	resolveUsingNpx,
 	getPackageName,
 	promiseFirst,
-	resolveUsingNpx,
 };

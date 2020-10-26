@@ -3,7 +3,9 @@
 
 const path = require('path');
 const {
+	promiseFirst,
 	tryFile,
+	resolveUsingNpx,
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
@@ -52,6 +54,31 @@ const argv = {
 
 const file = name => path.join(__dirname, '../../test', name);
 
+describe('promiseFirst', () => {
+	it('should return the first resolving function', async () => {
+		const result = await promiseFirst([
+			() => Promise.reject(),
+			() => Promise.reject(),
+			() => Promise.resolve('pizza'),
+			() => Promise.reject(),
+			() => Promise.reject('cappuccino'),
+		]);
+		expect(result).toMatch('pizza');
+	});
+
+	it('should return reject if no resolving function is found', () => {
+		const result = promiseFirst([
+			() => Promise.reject(),
+			() => Promise.reject(),
+			() => Promise.reject(),
+		]);
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			'None of the 3 thunks resolved.\n\n\n\n'
+		);
+	});
+});
+
 describe('tryFile', () => {
 	it('should return an absolute file path if the file exists', async () => {
 		let result;
@@ -69,6 +96,21 @@ describe('tryFile', () => {
 		return expect(result).rejects.toHaveProperty(
 			'message',
 			'File “pizza” not found.'
+		);
+	});
+});
+
+describe('resolveUsingNpx', () => {
+	it('should install an npm module transparently', async () => {
+		const result = await resolveUsingNpx('yarnhook');
+		expect(result).toMatch(/\.npm\/_npx\/\d*\/lib\/node_modules\/yarnhook$/);
+	});
+
+	it('should throw if npm module is not found on the registry', () => {
+		const result = resolveUsingNpx('this-package-is-not-on-npm');
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			`Install for this-package-is-not-on-npm failed with code 1`
 		);
 	});
 });
