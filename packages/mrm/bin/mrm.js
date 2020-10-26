@@ -11,7 +11,13 @@ const listify = require('listify');
 const updateNotifier = require('update-notifier');
 const { padEnd, sortBy } = require('lodash');
 const { random } = require('middleearth-names');
-const { run, getConfig, getAllTasks, getPackageName } = require('../src/index');
+const {
+	run,
+	getConfig,
+	getAllTasks,
+	getPackageName,
+	promiseFirst,
+} = require('../src/index');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
@@ -159,7 +165,10 @@ Note that when a preset is specified no default search locations are used.`
 		} else {
 			const presetPackageName = getPackageName('preset', preset);
 			try {
-				const presetPath = await requireUsingNpx.resolve(presetPackageName);
+				const presetPath = await promiseFirst([
+					() => requireUsingNpx.resolve(presetPackageName),
+					() => requireUsingNpx.resolve(preset),
+				]);
 				return [...paths, path.dirname(presetPath)];
 			} catch {
 				return paths;
