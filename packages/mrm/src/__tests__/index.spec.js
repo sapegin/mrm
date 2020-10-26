@@ -1,9 +1,7 @@
 // @ts-check
 /* eslint-disable no-console */
-jest.mock('cross-spawn');
 
 const path = require('path');
-const spawn = require('cross-spawn');
 const {
 	firstResult,
 	tryFile,
@@ -28,13 +26,6 @@ const task5 = require('../../test/dir2/task5');
 // interactive config tasks
 const task6 = require('../../test/dir3/task6');
 const task8 = require('../../test/dir5/task8');
-
-const spawnOnErrorMock = jest.fn();
-const spawnOnCloseMock = jest.fn();
-spawnOnErrorMock.mockReturnValue({ on: spawnOnCloseMock });
-spawnOnCloseMock.mockImplementation((_, cb) => {
-	cb();
-});
 
 const configFile = 'config.json';
 const directories = [
@@ -61,12 +52,6 @@ const argv = {
 };
 
 const file = name => path.join(__dirname, '../../test', name);
-
-afterEach(() => {
-	spawn.mockClear();
-	spawnOnErrorMock.mockClear();
-	spawnOnCloseMock.mockClear();
-});
 
 describe('firstResult', () => {
 	it('should return the first truthy result', () => {

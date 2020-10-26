@@ -19,7 +19,6 @@
     "src"
   ],
   "dependencies": {
-    "cross-spawn": "7.0.3",
     "git-username": "^1.0.0",
     "glob": "^7.1.6",
     "inquirer": "^7.0.4",
@@ -33,7 +32,6 @@
     "minimist": "^1.2.0",
     "mrm-core": "^4.1.2",
     "mrm-preset-default": "^2.2.4",
-    "package-json": "6.5.0",
     "semver-utils": "^1.1.4",
     "update-notifier": "^4.1.0",
     "user-home": "^2.0.0",
