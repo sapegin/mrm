@@ -167,6 +167,8 @@ Note that when a preset is specified no default search locations are used.`
 		const presetPackageName = getPackageName('preset', preset);
 		try {
 			const presetPath = await promiseFirst([
+				() => require.resolve(presetPackageName),
+				() => require.resolve(preset),
 				() => resolveUsingNpx(presetPackageName),
 				() => resolveUsingNpx(preset),
 			]);

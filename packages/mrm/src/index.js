@@ -142,6 +142,8 @@ async function runTask(taskName, directories, options, argv) {
 	try {
 		modulePath = await promiseFirst([
 			() => tryFile(directories, `${taskName}/index.js`),
+			() => require.resolve(taskPackageName),
+			() => require.resolve(taskName),
 			() => resolveUsingNpx(taskPackageName),
 			() => resolveUsingNpx(taskName),
 		]);
