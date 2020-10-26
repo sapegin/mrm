@@ -162,17 +162,21 @@ Note that when a preset is specified no default search locations are used.`
 
 		if (isDefaultPreset) {
 			return [...paths, path.dirname(require.resolve('mrm-preset-default'))];
-		} else {
-			const presetPackageName = getPackageName('preset', preset);
-			try {
-				const presetPath = await promiseFirst([
-					() => requireUsingNpx.resolve(presetPackageName),
-					() => requireUsingNpx.resolve(preset),
-				]);
-				return [...paths, path.dirname(presetPath)];
-			} catch {
-				return paths;
-			}
+		}
+
+		const presetPackageName = getPackageName('preset', preset);
+		try {
+			const presetPath = await promiseFirst([
+				() => requireUsingNpx.resolve(presetPackageName),
+				() => requireUsingNpx.resolve(preset),
+			]);
+			return [...paths, path.dirname(presetPath)];
+		} catch {
+			printError(`Preset “${preset}” not found.
+
+We’ve tried to load “${presetPackageName}” and “${preset}” npm packages.`);
+			process.exit(1);
+			return undefined;
 		}
 	}
 
