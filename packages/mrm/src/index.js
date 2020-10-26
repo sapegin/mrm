@@ -11,7 +11,7 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('./errors');
-const requireUsingNpx = require('./requireUsingNpx');
+const npx = require('libnpx');
 
 /* eslint-disable no-console */
 
@@ -59,27 +59,6 @@ function promiseSeries(items, iterator) {
 	return items.reduce((iterable, name) => {
 		return iterable.then(() => iterator(name));
 	}, Promise.resolve());
-}
-
-/**
- * Executes promise-returning thunks in series until one is resolved
- *
- * @method promiseFirst
- *
- * @param  {Array} thunks
- * @return {Promise}
- */
-async function promiseFirst(thunks, errors = []) {
-	if (thunks.length === 0) {
-		throw new Error(`None of the ${errors.length} thunks resolved.`, errors);
-	} else {
-		const [thunk, ...rest] = thunks;
-		try {
-			return await thunk();
-		} catch (error) {
-			return promiseFirst(rest, [...errors, error]);
-		}
-	}
 }
 
 /**
@@ -168,8 +147,8 @@ async function runTask(taskName, directories, options, argv) {
 					? Promise.resolve(file)
 					: Promise.reject(`${file} not found.`);
 			},
-			() => requireUsingNpx.resolve(taskPackageName),
-			() => requireUsingNpx.resolve(taskName),
+			() => resolveUsingNpx(taskPackageName),
+			() => resolveUsingNpx(taskName),
 		]);
 	} catch {
 		modulePath = null;
@@ -409,6 +388,44 @@ function firstResult(items, fn) {
 	return undefined;
 }
 
+/**
+ * Executes promise-returning thunks in series until one is resolved
+ *
+ * @method promiseFirst
+ *
+ * @param  {Array} thunks
+ * @return {Promise}
+ */
+async function promiseFirst(thunks, errors = []) {
+	if (thunks.length === 0) {
+		throw new Error(`None of the ${errors.length} thunks resolved.
+
+${errors.join('\n')}`);
+	} else {
+		const [thunk, ...rest] = thunks;
+		try {
+			return await thunk();
+		} catch (error) {
+			return promiseFirst(rest, [...errors, error]);
+		}
+	}
+}
+
+/**
+ * Resolve a module on-the-fly using npx under the hood
+ *
+ * @method resolveUsingNpx
+ *
+ * @param  {String} packageName
+ * @return {Promise}
+ */
+async function resolveUsingNpx(packageName) {
+	const npm = path.join(path.dirname(process.execPath), 'npm');
+	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
+	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
+	return packagePath;
+}
+
 module.exports = {
 	getAllAliases,
 	getAllTasks,
@@ -424,4 +441,5 @@ module.exports = {
 	getPackageName,
 	firstResult,
 	promiseFirst,
+	resolveUsingNpx,
 };

@@ -17,6 +17,7 @@ const {
 	getAllTasks,
 	getPackageName,
 	promiseFirst,
+	resolveUsingNpx,
 } = require('../src/index');
 const {
 	MrmUnknownTask,
@@ -24,7 +25,6 @@ const {
 	MrmUnknownAlias,
 	MrmUndefinedOption,
 } = require('../src/errors');
-const requireUsingNpx = require('../src/requireUsingNpx');
 
 const defaultDirectories = [
 	path.resolve(userHome, 'dotfiles/mrm'),
@@ -167,16 +167,15 @@ Note that when a preset is specified no default search locations are used.`
 		const presetPackageName = getPackageName('preset', preset);
 		try {
 			const presetPath = await promiseFirst([
-				() => requireUsingNpx.resolve(presetPackageName),
-				() => requireUsingNpx.resolve(preset),
+				() => resolveUsingNpx(presetPackageName),
+				() => resolveUsingNpx(preset),
 			]);
 			return [...paths, path.dirname(presetPath)];
 		} catch {
 			printError(`Preset “${preset}” not found.
 
 We’ve tried to load “${presetPackageName}” and “${preset}” npm packages.`);
-			process.exit(1);
-			return undefined;
+			return process.exit(1);
 		}
 	}
 
