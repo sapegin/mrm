@@ -59,7 +59,13 @@ describe('install()', () => {
 		install(modules, { yarn: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/yarn(\.cmd)?/),
-			['add', '--dev', 'eslint@latest', 'babel-core@latest'],
+			[
+				'add',
+				'--dev',
+				'--ignore-workspace-root-check',
+				'eslint@latest',
+				'babel-core@latest',
+			],
 			options
 		);
 	});
@@ -81,7 +87,12 @@ describe('install()', () => {
 		install(modules, { dev: false, yarn: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/yarn(\.cmd)?/),
-			['add', 'eslint@latest', 'babel-core@latest'],
+			[
+				'add',
+				'--ignore-workspace-root-check',
+				'eslint@latest',
+				'babel-core@latest',
+			],
 			options
 		);
 	});
@@ -93,7 +104,13 @@ describe('install()', () => {
 		install(modules, undefined, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/yarn(\.cmd)?/),
-			['add', '--dev', 'eslint@latest', 'babel-core@latest'],
+			[
+				'add',
+				'--dev',
+				'--ignore-workspace-root-check',
+				'eslint@latest',
+				'babel-core@latest',
+			],
 			{
 				cwd: undefined,
 				stdio: 'inherit',
