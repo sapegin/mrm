@@ -63,6 +63,27 @@ function promiseSeries(items, iterator) {
 }
 
 /**
+ * Executes promise-returning thunks in series until one is resolved
+ *
+ * @method promiseFirst
+ *
+ * @param  {Array} thunks
+ * @return {Promise}
+ */
+async function promiseFirst(thunks, errors = []) {
+	if (thunks.length === 0) {
+		throw new Error(`None of the ${errors.length} thunks resolved.`, errors);
+	} else {
+		const [thunk, ...rest] = thunks;
+		try {
+			return await thunk();
+		} catch (error) {
+			return promiseFirst(rest, [...errors, error]);
+		}
+	}
+}
+
+/**
  *
  * @param {string|string[]} name
  * @param {string[]} directories
@@ -139,21 +160,22 @@ function getPackageName(type, packageName) {
  */
 async function runTask(taskName, directories, options, argv) {
 	const taskPackageName = getPackageName('task', taskName);
-	const resolveList = [tryFile(directories, `${taskName}/index.js`)];
+	let modulePath;
 	try {
-		const taskPath = await requireUsingNpx.resolve(taskPackageName);
-		resolveList.push(taskPath);
+		modulePath = await promiseFirst([
+			() => {
+				const file = tryFile(directories, `${taskName}/index.js`);
+				return file
+					? Promise.resolve(file)
+					: Promise.reject(`${file} not found.`);
+			},
+			() => requireUsingNpx.resolve(taskPackageName),
+			() => requireUsingNpx.resolve(taskName),
+		]);
 	} catch {
-		// do nothing
-	}
-	try {
-		const taskPath = await requireUsingNpx.resolve(taskName);
-		resolveList.push(taskPath);
-	} catch {
-		// do nothing
+		modulePath = null;
 	}
 	return new Promise((resolve, reject) => {
-		const modulePath = tryResolve(...resolveList);
 		if (!modulePath) {
 			reject(
 				new MrmUnknownTask(`Task “${taskName}” not found.`, {
