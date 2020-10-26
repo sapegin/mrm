@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.3](https://github.com/sapegin/mrm/compare/mrm-core@4.1.2...mrm-core@4.1.3) (2020-10-26)
+
+
+### Bug Fixes
+
+* **mrm-core:** Fix adding packages to Yarn workspaces ([#100](https://github.com/sapegin/mrm/issues/100)) ([4c23e05](https://github.com/sapegin/mrm/commit/4c23e05087470b3f773c965420bdddc28bf2a5bd))
+
+
+
+
+
 ## [4.1.2](https://github.com/sapegin/mrm/compare/mrm-core@4.1.1...mrm-core@4.1.2) (2020-08-19)
 
 
