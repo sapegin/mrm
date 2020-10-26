@@ -3,7 +3,6 @@
 
 const path = require('path');
 const {
-	firstResult,
 	tryFile,
 	getConfigFromFile,
 	getConfigFromCommandLine,
@@ -53,34 +52,24 @@ const argv = {
 
 const file = name => path.join(__dirname, '../../test', name);
 
-describe('firstResult', () => {
-	it('should return the first truthy result', () => {
-		const result = firstResult(
-			[0, undefined, 'pizza', false, 'cappuccino'],
-			a => a
-		);
-		expect(result).toMatch('pizza');
-	});
-
-	it('should return undefined if no truthy results found', () => {
-		const result = firstResult([0, undefined, false, ''], a => a);
-		expect(result).toBeFalsy();
-	});
-});
-
 describe('tryFile', () => {
-	it('should return an absolute file path if the file exists', () => {
-		expect(tryFile(directories, 'task1/index.js')).toBe(
-			file('dir1/task1/index.js')
-		);
-		expect(tryFile(directories, 'task3/index.js')).toBe(
-			file('dir2/task3/index.js')
-		);
+	it('should return an absolute file path if the file exists', async () => {
+		let result;
+		result = await tryFile(directories, 'task1/index.js');
+		expect(result).toBe(file('dir1/task1/index.js'));
+		result = await tryFile(directories, 'task3/index.js');
+		expect(result).toBe(file('dir2/task3/index.js'));
 	});
 
 	it('should return undefined if the file doesn’t exist', () => {
 		const result = tryFile([], 'pizza');
-		expect(result).toBeFalsy();
+
+		// ideally we can use toThrowError but that works with >= jest@22
+		// https://github.com/facebook/jest/issues/5076
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			'File “pizza” not found.'
+		);
 	});
 });
 
@@ -104,13 +93,13 @@ describe('getPackageName', () => {
 });
 
 describe('getConfigFromFile', () => {
-	it('should return a config object', () => {
-		const result = getConfigFromFile(directories, configFile);
+	it('should return a config object', async () => {
+		const result = await getConfigFromFile(directories, configFile);
 		expect(result).toMatchObject(options);
 	});
 
-	it('should return an empty object when file not found', () => {
-		const result = getConfigFromFile(directories, 'pizza');
+	it('should return an empty object when file not found', async () => {
+		const result = await getConfigFromFile(directories, 'pizza');
 		expect(result).toEqual({});
 	});
 });
@@ -134,8 +123,8 @@ describe('getConfigFromCommandLine', () => {
 });
 
 describe('getConfig', () => {
-	it('should return a config object', () => {
-		const result = getConfig(directories, configFile, argv);
+	it('should return a config object', async () => {
+		const result = await getConfig(directories, configFile, argv);
 		expect(result).toMatchObject({
 			pizza: 'salami',
 			foo: 42,
@@ -143,13 +132,13 @@ describe('getConfig', () => {
 		});
 	});
 
-	it('should return an empty object when file not found and no CLI options provided', () => {
-		const result = getConfig(directories, 'pizza', {});
+	it('should return an empty object when file not found and no CLI options provided', async () => {
+		const result = await getConfig(directories, 'pizza', {});
 		expect(result).toEqual({});
 	});
 
-	it('CLI options should override options from config file', () => {
-		const result = getConfig(directories, configFile, {
+	it('CLI options should override options from config file', async () => {
+		const result = await getConfig(directories, configFile, {
 			'config:pizza': 'quattro formaggi',
 		});
 		expect(result).toMatchObject({

@@ -141,12 +141,7 @@ async function runTask(taskName, directories, options, argv) {
 	let modulePath;
 	try {
 		modulePath = await promiseFirst([
-			() => {
-				const file = tryFile(directories, `${taskName}/index.js`);
-				return file
-					? Promise.resolve(file)
-					: Promise.reject(`${file} not found.`);
-			},
+			() => tryFile(directories, `${taskName}/index.js`),
 			() => resolveUsingNpx(taskPackageName),
 			() => resolveUsingNpx(taskName),
 		]);
@@ -313,12 +308,9 @@ function getConfigGetter(options) {
  * @param {Object} argv
  * @return {Object}
  */
-function getConfig(directories, filename, argv) {
-	return Object.assign(
-		{},
-		getConfigFromFile(directories, filename),
-		getConfigFromCommandLine(argv)
-	);
+async function getConfig(directories, filename, argv) {
+	const configFromFile = await getConfigFromFile(directories, filename);
+	return Object.assign({}, configFromFile, getConfigFromCommandLine(argv));
 }
 
 /**
@@ -328,13 +320,13 @@ function getConfig(directories, filename, argv) {
  * @param {string} filename
  * @return {Object}
  */
-function getConfigFromFile(directories, filename) {
-	const filepath = tryFile(directories, filename);
-	if (!filepath) {
+async function getConfigFromFile(directories, filename) {
+	try {
+		const filepath = await tryFile(directories, filename);
+		return require(filepath);
+	} catch {
 		return {};
 	}
-
-	return require(filepath);
 }
 
 /**
@@ -361,31 +353,14 @@ function getConfigFromCommandLine(argv) {
  * @return {string|undefined} Absolute path or undefined
  */
 function tryFile(directories, filename) {
-	return firstResult(directories, dir => {
-		const filepath = path.resolve(dir, filename);
-		return fs.existsSync(filepath) ? filepath : undefined;
+	return promiseFirst(
+		directories.map(dir => {
+			const filepath = path.resolve(dir, filename);
+			return () => fs.promises.access(filepath).then(() => filepath);
+		})
+	).catch(() => {
+		throw new Error(`File “${filename}” not found.`);
 	});
-}
-
-/**
- * Return the first truthy result of a callback.
- *
- * @param {any[]} items
- * @param {Function} fn
- * @return {any}
- */
-function firstResult(items, fn) {
-	for (const item of items) {
-		if (!item) {
-			continue;
-		}
-
-		const result = fn(item);
-		if (result) {
-			return result;
-		}
-	}
-	return undefined;
 }
 
 /**
@@ -439,7 +414,6 @@ module.exports = {
 	getTaskOptions,
 	tryFile,
 	getPackageName,
-	firstResult,
 	promiseFirst,
 	resolveUsingNpx,
 };

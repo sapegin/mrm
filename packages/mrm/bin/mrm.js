@@ -68,7 +68,7 @@ async function main() {
 	const preset = argv.preset || 'default';
 	const isDefaultPreset = preset === 'default';
 	const directories = await resolveDirectories(defaultDirectories);
-	const options = getConfig(directories, 'config.json', argv);
+	const options = await getConfig(directories, 'config.json', argv);
 	if (tasks.length === 0 || tasks[0] === 'help') {
 		commandHelp();
 	} else {
