@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.10](https://github.com/sapegin/mrm/compare/mrm-task-eslint@2.0.9...mrm-task-eslint@2.0.10) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-eslint
+
+
+
+
+
 ## [2.0.9](https://github.com/sapegin/mrm/compare/mrm-task-eslint@2.0.8...mrm-task-eslint@2.0.9) (2020-10-26)
 
 **Note:** Version bump only for package mrm-task-eslint
