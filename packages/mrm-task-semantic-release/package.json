@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-semantic-release",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Mrm task that adds semantic-release",
   "author": {
     "name": "Artem Sapegin",
@@ -24,6 +24,6 @@
   ],
   "dependencies": {
     "git-username": "^1.0.0",
-    "mrm-core": "^4.2.1"
+    "mrm-core": "^4.2.2"
   }
 }
