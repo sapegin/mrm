@@ -6,7 +6,7 @@ jest.mock('mrm-core/src/npm', () => ({
 	install: jest.fn(),
 }));
 
-const fs = require.requireActual('fs');
+const fs = jest.requireActual('fs');
 const path = require('path');
 const { install } = require('mrm-core');
 const { omitBy } = require('lodash');

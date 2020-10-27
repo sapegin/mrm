@@ -26,7 +26,7 @@ function readFile(filename) {
  * @param {boolean} exists
  */
 function updateFile(filename, content, exists) {
-	fs.mkdirpSync(path.dirname(filename));
+	fs.ensureDirSync(path.dirname(filename));
 	fs.writeFileSync(filename, content);
 	log.added(`${exists ? 'Update' : 'Create'} ${filename}`);
 }
