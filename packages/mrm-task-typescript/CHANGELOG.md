@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.9](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.0.8...mrm-task-typescript@2.0.9) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-typescript
+
+
+
+
+
 ## [2.0.8](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.0.7...mrm-task-typescript@2.0.8) (2020-10-27)
 
 **Note:** Version bump only for package mrm-task-typescript

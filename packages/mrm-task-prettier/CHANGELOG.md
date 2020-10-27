@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.7](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.6...mrm-task-prettier@3.0.7) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-prettier
+
+
+
+
+
 ## [3.0.6](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.5...mrm-task-prettier@3.0.6) (2020-10-27)
 
 **Note:** Version bump only for package mrm-task-prettier
