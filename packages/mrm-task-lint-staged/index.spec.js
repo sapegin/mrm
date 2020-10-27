@@ -30,12 +30,9 @@ afterEach(() => {
 });
 
 it('should not do anything if not supported tools are found', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': packageJson,
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': packageJson,
+	});
 
 	task(await getTaskOptions(task));
 
@@ -47,17 +44,14 @@ it('should not do anything if not supported tools are found', async () => {
 });
 
 it('should add Prettier if project depends on it', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					prettier: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				prettier: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -66,19 +60,16 @@ it('should add Prettier if project depends on it', async () => {
 });
 
 it('should add Prettier and ESLint', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				scripts: {},
-				devDependencies: {
-					eslint: '4.0.1',
-					prettier: '1.9.2',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {},
+			devDependencies: {
+				eslint: '4.0.1',
+				prettier: '1.9.2',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -86,20 +77,17 @@ it('should add Prettier and ESLint', async () => {
 });
 
 it('should infer Prettier extensions from an npm script', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				scripts: {
-					format: "prettier --write '**/*.{js,jsx}'",
-				},
-				devDependencies: {
-					prettier: '1.9.2',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				format: "prettier --write '**/*.{js,jsx}'",
+			},
+			devDependencies: {
+				prettier: '1.9.2',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -114,12 +102,9 @@ it('should not do anything if project is using Prettier via ESLint plugin', asyn
 			'eslint-plugin-prettier': '*',
 		},
 	});
-	vol.fromJSON(
-		{
-			'/package.json': pkg,
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': pkg,
+	});
 
 	task(await getTaskOptions(task));
 
@@ -131,17 +116,14 @@ it('should not do anything if project is using Prettier via ESLint plugin', asyn
 });
 
 it('should add ESLint if project depends on it', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -150,20 +132,17 @@ it('should add ESLint if project depends on it', async () => {
 });
 
 it('should use default JS extension if eslint command has no --ext key', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				scripts: {
-					lint: 'eslint --fix',
-				},
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				lint: 'eslint --fix',
+			},
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -171,20 +150,17 @@ it('should use default JS extension if eslint command has no --ext key', async (
 });
 
 it('should infer ESLint extension for an npm script', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				scripts: {
-					lint: 'eslint --fix --ext .js,.jsx',
-				},
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				lint: 'eslint --fix --ext .js,.jsx',
+			},
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -192,17 +168,14 @@ it('should infer ESLint extension for an npm script', async () => {
 });
 
 it('should use custom Prettier extensions', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					prettier: '1.9.2',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				prettier: '1.9.2',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -214,17 +187,14 @@ it('should use custom Prettier extensions', async () => {
 });
 
 it('should use a custom ESLint extension', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -236,18 +206,15 @@ it('should use a custom ESLint extension', async () => {
 });
 
 it('shouldn’t add a default rule if it’s disabled in overrides', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-					prettier: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+				prettier: '*',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -259,17 +226,14 @@ it('shouldn’t add a default rule if it’s disabled in overrides', async () =>
 });
 
 it('should add stylelint if project depends on it', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					stylelint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				stylelint: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
@@ -278,17 +242,14 @@ it('should add stylelint if project depends on it', async () => {
 });
 
 it('should use a custom stylelint extension', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					stylelint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				stylelint: '*',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -300,17 +261,14 @@ it('should use a custom stylelint extension', async () => {
 });
 
 it('should add a custom rule', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -323,21 +281,18 @@ it('should add a custom rule', async () => {
 });
 
 it('should update an existing rule', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-				},
-				'lint-staged': {
-					'*.md': 'textlint --fix',
-					'*.js': 'eslint --fix',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+			},
+			'lint-staged': {
+				'*.md': 'textlint --fix',
+				'*.js': 'eslint --fix',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task, false));
 
@@ -346,22 +301,19 @@ it('should update an existing rule', async () => {
 });
 
 it('should merge rules with the same pattern', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				devDependencies: {
-					eslint: '*',
-					prettier: '*',
-				},
-				'lint-staged': {
-					'*.md': 'textlint --fix',
-					'*.js': 'eslint --fix',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+				prettier: '*',
+			},
+			'lint-staged': {
+				'*.md': 'textlint --fix',
+				'*.js': 'eslint --fix',
+			},
+		}),
+	});
 
 	task(
 		await getTaskOptions(task, false, {
@@ -377,20 +329,17 @@ it('should merge rules with the same pattern', async () => {
 });
 
 it('should remove husky 0.14 config from package.json', async () => {
-	vol.fromJSON(
-		{
-			'/package.json': stringify({
-				name: 'unicorn',
-				scripts: {
-					precommit: 'lint-staged',
-				},
-				devDependencies: {
-					eslint: '*',
-				},
-			}),
-		},
-		'/'
-	);
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				precommit: 'lint-staged',
+			},
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
 
 	task(await getTaskOptions(task));
 
