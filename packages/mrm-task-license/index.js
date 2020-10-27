@@ -3,12 +3,6 @@ const path = require('path');
 const meta = require('user-meta');
 const { template, packageJson } = require('mrm-core');
 
-const defaultLicense = 'MIT';
-
-const ANONYMOUS_LICENSES = ['Unlicense'];
-
-const isAnonymousLicense = name => ANONYMOUS_LICENSES.includes(name);
-
 function getAuthorName(pkg) {
 	const authorRegExp = /\(.*\)|<.*>/g;
 
@@ -22,38 +16,12 @@ function getAuthorName(pkg) {
 	return pkg.get('author.name');
 }
 
-function task(config) {
-	const pkg = packageJson();
-	config
-		.defaults({ licenseFile: 'License.md' })
-		.defaults({ name: getAuthorName(pkg) })
-		.defaults(meta);
-
-	const configLicense = config.values().license;
-
-	if (!isAnonymousLicense(configLicense)) {
-		config.require('name', 'email');
-	}
-
-	const { name, email, licenseFile } = config.values();
-
-	let license = configLicense;
-	let shouldUpdatePkgLicense = false;
-	if (!license) {
-		license = pkg.get('license', defaultLicense);
-		shouldUpdatePkgLicense = true;
-	}
-
+function task({ license, name, email, licenseFile }) {
 	const templateFile = path.join(__dirname, `templates/${license}.md`);
 
 	if (!fs.existsSync(templateFile)) {
-		console.log(`No template for the "${license}" license found, skipping`);
+		console.log(`No template for the “${license}” license found, skipping`);
 		return;
-	}
-
-	if (shouldUpdatePkgLicense) {
-		pkg.set('license', license);
-		pkg.save();
 	}
 
 	template(licenseFile, templateFile)
@@ -63,8 +31,42 @@ function task(config) {
 			year: new Date().getFullYear(),
 		})
 		.save();
+
+	packageJson()
+		.set('license', license)
+		.save();
 }
-task.description = 'Adds license file';
 
 module.exports = task;
+module.exports.description = 'Adds license file';
 module.exports.getAuthorName = getAuthorName;
+
+module.exports.parameters = {
+	license: {
+		type: 'input',
+		message: 'Choose a license',
+		default: () => packageJson().get('license', 'MIT'),
+		choices: ['Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'MIT', 'Unlicense'],
+	},
+	name: {
+		type: 'input',
+		message: 'Enter author name',
+		default: () => getAuthorName(packageJson()) || meta.name,
+		validate(value) {
+			return value ? true : 'Author name is required';
+		},
+	},
+	email: {
+		type: 'input',
+		message: 'Enter author email',
+		default: meta.email,
+		validate(value) {
+			return value ? true : 'Email is required';
+		},
+	},
+	licenseFile: {
+		type: 'input',
+		message: 'Enter filename for the license',
+		default: 'License.md',
+	},
+};
