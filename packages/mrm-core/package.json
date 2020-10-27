@@ -25,7 +25,6 @@
     "editorconfig": "^0.15.3",
     "find-up": "^4.1.0",
     "fs-extra": "^8.1.0",
-    "js-yaml": "^3.13.1",
     "kleur": "^3.0.3",
     "listify": "^1.0.0",
     "lodash": "^4.17.15",
@@ -37,7 +36,8 @@
     "split-lines": "^2.0.0",
     "strip-bom": "^4.0.0",
     "validate-npm-package-name": "^3.0.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "yaml": "^2.0.0-1"
   },
   "keywords": [
     "mrm",

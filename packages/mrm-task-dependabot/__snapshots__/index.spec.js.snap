@@ -3,11 +3,11 @@
 exports[`should add a workflow file 1`] = `
 Object {
   "/.github/workflows/dependabot.yml": "name: Dependabot Automerge
-'on': pull_request
+on: pull_request
 jobs:
   worker:
     runs-on: ubuntu-latest
-    if: 'github.actor == ''dependabot[bot]'''
+    if: github.actor == 'dependabot[bot]'
     steps:
       - uses: actions/github-script@v3
         with:

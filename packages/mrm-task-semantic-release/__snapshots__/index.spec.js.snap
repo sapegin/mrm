@@ -102,7 +102,7 @@ exports[`should remove the official semantic-release runner 1`] = `
 node_js:
   - 8
 after_success:
-  - 'bash <(curl -s https://codecov.io/bash)'
+  - bash <(curl -s https://codecov.io/bash)
   - npx semantic-release
 branches:
   except:
