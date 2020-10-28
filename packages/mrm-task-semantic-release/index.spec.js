@@ -16,10 +16,6 @@ const console$log = console.log;
 
 const stringify = o => JSON.stringify(o, null, '  ');
 
-const travisYml = `language: node_js
-node_js:
-  - 8
-`;
 const packageJson = stringify({
 	name: 'unicorn',
 	scripts: {
@@ -40,7 +36,6 @@ afterEach(() => {
 
 it('should add semantic-release', async () => {
 	vol.fromJSON({
-		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 		'/Readme.md': readmeMd,
 	});
@@ -50,24 +45,8 @@ it('should add semantic-release', async () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add custom config to package.json', async () => {
-	vol.fromJSON({
-		'/.travis.yml': travisYml,
-		'/package.json': packageJson,
-	});
-
-	task(
-		await getTaskOptions(task, false, {
-			semanticConfig: { pizza: 42 },
-		})
-	);
-
-	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
-});
-
 it('should remove custom config from package.json', async () => {
 	vol.fromJSON({
-		'/.travis.yml': travisYml,
 		'/package.json': stringify({
 			name: 'unicorn',
 			scripts: {
@@ -84,53 +63,7 @@ it('should remove custom config from package.json', async () => {
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
 
-it('should add custom arguments to semantic-release command', async () => {
-	vol.fromJSON({
-		'/.travis.yml': travisYml,
-		'/package.json': packageJson,
-	});
-
-	task(
-		await getTaskOptions(task, false, {
-			semanticArgs: '--arg val',
-		})
-	);
-
-	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
-});
-
-it('should install extra dependencies on CI', async () => {
-	vol.fromJSON({
-		'/.travis.yml': travisYml,
-		'/package.json': packageJson,
-	});
-
-	task(
-		await getTaskOptions(task, false, {
-			semanticPeerDependencies: ['pizza'],
-		})
-	);
-
-	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
-});
-
-it('should crate semantic-release config and install extra dependencies when a preset is defined', async () => {
-	vol.fromJSON({
-		'/.travis.yml': travisYml,
-		'/package.json': packageJson,
-	});
-
-	task(
-		await getTaskOptions(task, false, {
-			semanticPreset: 'pizza',
-		})
-	);
-
-	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
-	expect(vol.toJSON()['/.releaserc.json']).toMatchSnapshot();
-});
-
-it('should remove the official semantic-release runner', async () => {
+it('should remove semantic-release runner from Travis CI config', async () => {
 	vol.fromJSON({
 		'/.travis.yml': `language: node_js
 node_js:
@@ -138,6 +71,7 @@ node_js:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - npm run semantic-release
+  - npx semantic-release
 `,
 		'/package.json': packageJson,
 	});
@@ -146,16 +80,4 @@ after_success:
 
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 	expect(uninstall).toBeCalledWith(['semantic-release', 'travis-deploy-once']);
-});
-
-it('should throw when .travis.yml not found', async () => {
-	vol.fromJSON({
-		'/package.json': packageJson,
-	});
-
-	const options = await getTaskOptions(task, false, {});
-
-	const fn = () => task(options);
-
-	expect(fn).toThrowError('Run travis task');
 });

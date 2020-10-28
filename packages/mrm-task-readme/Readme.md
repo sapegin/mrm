@@ -19,11 +19,11 @@ mrm readme
 
 See [Mrm docs](../../docs/Getting_started.md) for more details.
 
-### `github` (default: extracted from `.git/config` file)
+### `packageName` (default: `name` field in `package.json`)
 
-Your GitHub user name.
+Package name.
 
-### `name` (default: will try to read from your npm or Git config)
+### `name` (default: will try to read from your `package.json`, npm or Git config)
 
 Your name.
 
@@ -38,10 +38,6 @@ Name of the Readme file.
 ### `licenseFile` (default: `License.md`)
 
 Name of the license file.
-
-### `packageName` (default: `name` field in `package.json`)
-
-Package name.
 
 ## Changelog
 

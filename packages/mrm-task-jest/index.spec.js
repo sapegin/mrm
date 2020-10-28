@@ -7,7 +7,7 @@ jest.mock('mrm-core/src/npm', () => ({
 	uninstall: jest.fn(),
 }));
 
-const fs = require.requireActual('fs');
+const fs = jest.requireActual('fs');
 const path = require('path');
 const { install, uninstall } = require('mrm-core');
 const { getConfigGetter } = require('mrm');

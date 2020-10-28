@@ -1,20 +1,15 @@
 const path = require('path');
 const meta = require('user-meta');
-const gitUsername = require('git-username');
+const parseAuthor = require('parse-author');
+const packageRepoUrl = require('package-repo-url');
 const { template, packageJson } = require('mrm-core');
 
-function task(config) {
-	const { name, url, github, readmeFile, licenseFile, packageName } = config
-		.defaults({
-			github: gitUsername(),
-			readmeFile: 'Readme.md',
-			licenseFile: 'License.md',
-			packageName: packageJson().get('name'),
-		})
-		.defaults(meta)
-		.require('name', 'url', 'github', 'packageName')
-		.values();
+function getAuthorName(pkg) {
+	const rawName = pkg.get('author.name') || pkg.get('author') || '';
+	return parseAuthor(rawName).name;
+}
 
+function task({ packageName, name, url, readmeFile, licenseFile }) {
 	// Create Readme.md (no update)
 	const readme = template(
 		readmeFile,
@@ -25,7 +20,7 @@ function task(config) {
 			.apply({
 				name,
 				url,
-				github,
+				github: packageRepoUrl(),
 				license: licenseFile,
 				package: packageName,
 			})
@@ -33,5 +28,42 @@ function task(config) {
 	}
 }
 
-task.description = 'Adds readme file';
 module.exports = task;
+module.exports.description = 'Adds readme file';
+
+module.exports.parameters = {
+	packageName: {
+		type: 'input',
+		message: 'Enter package name',
+		default: () => packageJson().get('name'),
+		validate(value) {
+			return value ? true : 'Package name is required';
+		},
+	},
+	name: {
+		type: 'input',
+		message: 'Enter author name',
+		default: () => getAuthorName(packageJson()) || meta.name,
+		validate(value) {
+			return value ? true : 'Author name is required';
+		},
+	},
+	url: {
+		type: 'input',
+		message: 'Enter author site URL',
+		default: meta.url,
+		validate(value) {
+			return value ? true : 'Site URL is required';
+		},
+	},
+	readmeFile: {
+		type: 'input',
+		message: 'Enter filename for the readme',
+		default: 'Readme.md',
+	},
+	licenseFile: {
+		type: 'input',
+		message: 'Enter filename for the license',
+		default: 'License.md',
+	},
+};

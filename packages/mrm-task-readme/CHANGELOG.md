@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.10...mrm-task-readme@2.1.0) (2020-10-28)
+
+
+### Features
+
+* **readme:** Remove deprecated APIs ([2a3c920](https://github.com/sapegin/mrm/commit/2a3c9204c176fab80695abc64bca40a1a2cebb06))
+
+
+
+
+
+## [2.0.10](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.9...mrm-task-readme@2.0.10) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-readme
+
+
+
+
+
+## [2.0.9](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.8...mrm-task-readme@2.0.9) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-readme
+
+
+
+
+
+## [2.0.8](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.7...mrm-task-readme@2.0.8) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-readme
+
+
+
+
+
 ## [2.0.7](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.6...mrm-task-readme@2.0.7) (2020-10-26)
 
 **Note:** Version bump only for package mrm-task-readme

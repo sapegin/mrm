@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/sapegin/mrm/compare/mrm-task-license@3.1.0...mrm-task-license@3.1.1) (2020-10-28)
+
+
+### Bug Fixes
+
+* **license:** More robust author name parsing in package.json ([ad3d743](https://github.com/sapegin/mrm/commit/ad3d743a2797451b2f8c5d414e3b02ba794faf59))
+
+
+
+
+
+# [3.1.0](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.9...mrm-task-license@3.1.0) (2020-10-27)
+
+
+### Features
+
+* Remove deprecated API ([a2a94fa](https://github.com/sapegin/mrm/commit/a2a94fa72dcb6ece1d8a223b8ff743ec2562518a))
+
+
+
+
+
+## [3.0.9](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.8...mrm-task-license@3.0.9) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-license
+
+
+
+
+
+## [3.0.8](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.7...mrm-task-license@3.0.8) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-license
+
+
+
+
+
 ## [3.0.7](https://github.com/sapegin/mrm/compare/mrm-task-license@3.0.6...mrm-task-license@3.0.7) (2020-10-26)
 
 **Note:** Version bump only for package mrm-task-license

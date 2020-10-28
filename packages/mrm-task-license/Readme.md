@@ -35,10 +35,6 @@ Your name.
 
 Your email.
 
-### `url` (default: will try to read from your npm or Git config)
-
-Your site URL.
-
 ## Changelog
 
 The changelog can be found in [CHANGELOG.md](CHANGELOG.md).

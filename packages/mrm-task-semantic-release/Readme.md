@@ -6,9 +6,8 @@
 
 ## What it does
 
-- Runs semantic-release on Travis CI
+- Runs semantic-release using GitHub Action
 - Adds an npm version badge to the Readme
-- Adds `.releaserc.json` file with a custom preset if needed
 
 ## Usage
 
@@ -21,21 +20,9 @@ mrm semantic-release
 
 See [Mrm docs](../../docs/Getting_started.md) for more details.
 
-### `semanticConfig` (object, optional)
+### `workflowFile` (default: `.github/workflows/release.yml`)
 
-A semantic-release [config object](https://semantic-release.gitbooks.io/semantic-release/content/docs/usage/plugins.html#configuration), will be added to `package.json` as a `release` key.
-
-### `semanticArgs` (string, optional)
-
-Extra arguments for `semantic-release` command. For example `--analyze-commits semantic-release-tamia/analyzeCommits`.
-
-### `semanticPeerDependencies` (array, optional)
-
-Additional dependencies to install.
-
-## `semanticPreset` (default: `null`)
-
-Name of the semantic-release preset, like `eslint`.
+Name of the GitHub Actions workflow file.
 
 ### `readmeFile` (default: `Readme.md`)
 

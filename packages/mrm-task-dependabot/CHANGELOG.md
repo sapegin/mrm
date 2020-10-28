@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.2.1...mrm-task-dependabot@1.2.2) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-dependabot
+
+
+
+
+
+## [1.2.1](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.2.0...mrm-task-dependabot@1.2.1) (2020-10-27)
+
+**Note:** Version bump only for package mrm-task-dependabot
+
+
+
+
+
+# [1.2.0](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.1.3...mrm-task-dependabot@1.2.0) (2020-10-27)
+
+
+### Features
+
+* **mrm-core:** Replace js-yaml with yaml ([ca72d6b](https://github.com/sapegin/mrm/commit/ca72d6b8fa94a627285db2454287e550985d1fc7))
+
+
+
+
+
 ## [1.1.3](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.1.2...mrm-task-dependabot@1.1.3) (2020-10-26)
 
 **Note:** Version bump only for package mrm-task-dependabot

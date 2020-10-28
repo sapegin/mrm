@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.8](https://github.com/sapegin/mrm/compare/mrm@2.5.7...mrm@2.5.8) (2020-10-28)
+
+**Note:** Version bump only for package mrm
+
+
+
+
+
+## [2.5.7](https://github.com/sapegin/mrm/compare/mrm@2.5.6...mrm@2.5.7) (2020-10-27)
+
+**Note:** Version bump only for package mrm
+
+
+
+
+
+## [2.5.6](https://github.com/sapegin/mrm/compare/mrm@2.5.5...mrm@2.5.6) (2020-10-27)
+
+**Note:** Version bump only for package mrm
+
+
+
+
+
+## [2.5.5](https://github.com/sapegin/mrm/compare/mrm@2.5.4...mrm@2.5.5) (2020-10-27)
+
+**Note:** Version bump only for package mrm
+
+
+
+
+
 ## [2.5.4](https://github.com/sapegin/mrm/compare/mrm@2.5.3...mrm@2.5.4) (2020-10-26)
 
 **Note:** Version bump only for package mrm

@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-gitter",
-  "version": "2.0.7",
+  "version": "2.0.10",
   "description": "Mrm task that adds Gitter badge to the readme",
   "author": {
     "name": "Artem Sapegin",
@@ -25,6 +25,6 @@
     "badge"
   ],
   "dependencies": {
-    "mrm-core": "^4.1.3"
+    "mrm-core": "^4.2.2"
   }
 }

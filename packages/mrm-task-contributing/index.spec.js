@@ -4,7 +4,7 @@ jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
 
-const fs = require.requireActual('fs');
+const fs = jest.requireActual('fs');
 const path = require('path');
 const { omitBy } = require('lodash');
 const { getTaskOptions } = require('mrm');
