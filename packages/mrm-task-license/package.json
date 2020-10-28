@@ -4,7 +4,7 @@
   "description": "Mrm task that adds a license file",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
+    "url": "https://sapegin.me"
   },
   "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-license",
   "repository": "sapegin/mrm",
@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "mrm-core": "^4.2.2",
+    "parse-author": "^2.0.0",
     "user-meta": "^1.0.0"
   }
 }

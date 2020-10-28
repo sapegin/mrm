@@ -1,19 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const meta = require('user-meta');
+const parseAuthor = require('parse-author');
 const { template, packageJson } = require('mrm-core');
 
 function getAuthorName(pkg) {
-	const authorRegExp = /\(.*\)|<.*>/g;
-
-	if (typeof pkg.get('author') === 'string') {
-		return pkg
-			.get('author')
-			.replace(authorRegExp, '')
-			.trim();
-	}
-
-	return pkg.get('author.name');
+	const rawName = pkg.get('author.name') || pkg.get('author') || '';
+	return parseAuthor(rawName).name;
 }
 
 function task({ license, name, email, licenseFile }) {
