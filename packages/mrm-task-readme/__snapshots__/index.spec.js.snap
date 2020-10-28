@@ -8,7 +8,7 @@ Object {
 
 ## Changelog
 
-The changelog can be found on the [Releases page](https://github.com/gendalf/unicorn/releases).
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
 
 ## Contributing
 
@@ -16,12 +16,13 @@ Everyone is welcome to contribute. Please take a moment to review the [contribut
 
 ## Authors and license
 
-[Gendalf](https://middleearth.com) and [contributors](https://github.com/gendalf/unicorn/graphs/contributors).
+[Gandalf](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
 
 MIT License, see the included [License.md](License.md) file.
 ",
   "/package.json": "{
-  \\"name\\": \\"unicorn\\"
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
 }",
 }
 `;
