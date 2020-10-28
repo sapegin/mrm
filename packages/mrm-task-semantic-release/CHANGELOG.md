@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@3.1.2...mrm-task-semantic-release@4.0.0) (2020-10-28)
+
+
+### Features
+
+* **semantic-release:** Use GitHub Actions instead of Travis CI ([e11643c](https://github.com/sapegin/mrm/commit/e11643c7ea0bac0d696084b615131e31a84b1284))
+
+
+### BREAKING CHANGES
+
+* **semantic-release:** - The task now creates a GitHub Actions workflow instead of Travis CI.
+- Custom semantic-release configurations aren't supported.
+
+
+
+
+
 ## [3.1.2](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@3.1.1...mrm-task-semantic-release@3.1.2) (2020-10-27)
 
 **Note:** Version bump only for package mrm-task-semantic-release
