@@ -4,7 +4,7 @@
   "description": "Mrm task that adds semantic-release",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
+    "url": "https://sapegin.me"
   },
   "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-semantic-release",
   "repository": "sapegin/mrm",
@@ -23,7 +23,7 @@
     "semantic-release"
   ],
   "dependencies": {
-    "git-username": "^1.0.0",
-    "mrm-core": "^4.2.2"
+    "mrm-core": "^4.2.2",
+    "package-repo-url": "^1.0.3"
   }
 }
