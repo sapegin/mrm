@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add GitHub Action workflow 1`] = `
+Object {
+  "/.github/workflows/node.js.yml": "name: Node.js CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 4.x
+          - 6.x
+          - 8.x
+          - 10.x
+          - 12.x
+          - 14.x
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js \${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: \${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"engines\\": {
+    \\"node\\": 4
+  },
+  \\"scripts\\": {
+    \\"test\\": \\"jest\\"
+  }
+}",
+}
+`;
+
+exports[`should add a badge to the Readme 1`] = `
+"# Unicorn
+
+[![Node.js CI status](https://github.com/mrm/unicorn/workflows/Node.js%20CI/badge.svg)](https://github.com/mrm/unicorn/actions)"
+`;
+
+exports[`should add latest Node version if engines field is not defined 1`] = `
+"name: Node.js CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 14.x
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js \${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: \${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+"
+`;

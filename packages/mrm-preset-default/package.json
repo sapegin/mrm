@@ -4,7 +4,7 @@
   "description": "Common tasks for Mrm",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
+    "url": "https://sapegin.me"
   },
   "homepage": "https://github.com/sapegin/mrm/packages/mrm-preset-default",
   "repository": "sapegin/mrm",
@@ -25,6 +25,7 @@
   ],
   "dependencies": {
     "mrm-core": "^4.2.2",
+    "mrm-task-ci": "^0.0.0",
     "mrm-task-codecov": "^2.1.2",
     "mrm-task-contributing": "^2.0.12",
     "mrm-task-dependabot": "^1.2.2",
