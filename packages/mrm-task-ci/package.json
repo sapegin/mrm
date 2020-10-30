@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-ci",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Mrm task that adds GitHub Actions workflow that runs Node.js tests",
   "author": {
     "name": "Artem Sapegin",
