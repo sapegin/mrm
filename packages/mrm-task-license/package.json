@@ -21,9 +21,7 @@
   "keywords": [
     "mrm",
     "mrm-task",
-    "license",
-    "readme",
-    "badge"
+    "license"
   ],
   "dependencies": {
     "mrm-core": "^4.2.2",
