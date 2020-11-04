@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@4.0.0...mrm-task-semantic-release@4.0.1) (2020-11-04)
+
+**Note:** Version bump only for package mrm-task-semantic-release
+
+
+
+
+
 # [4.0.0](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@3.1.2...mrm-task-semantic-release@4.0.0) (2020-10-28)
 
 

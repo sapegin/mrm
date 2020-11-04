@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-ci",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mrm task that adds GitHub Actions workflow that runs Node.js tests",
   "author": {
     "name": "Artem Sapegin",
@@ -29,7 +29,7 @@
   "dependencies": {
     "got": "^11.8.0",
     "lodash": "^4.17.20",
-    "mrm-core": "^4.2.2",
+    "mrm-core": "^4.3.0",
     "package-repo-url": "^1.0.3",
     "semver-utils": "^1.1.4"
   }

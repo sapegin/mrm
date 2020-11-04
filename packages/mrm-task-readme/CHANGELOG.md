@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.1.0...mrm-task-readme@2.1.1) (2020-11-04)
+
+**Note:** Version bump only for package mrm-task-readme
+
+
+
+
+
 # [2.1.0](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.0.10...mrm-task-readme@2.1.0) (2020-10-28)
 
 

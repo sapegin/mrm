@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/sapegin/mrm/compare/mrm-task-license@3.1.1...mrm-task-license@3.1.2) (2020-11-04)
+
+
+### Bug Fixes
+
+* **license:** Remove unrelated npm keywords ([019def6](https://github.com/sapegin/mrm/commit/019def602d2f3a4e0325d6cb3d1cf301b9b24d0e))
+
+
+
+
+
 ## [3.1.1](https://github.com/sapegin/mrm/compare/mrm-task-license@3.1.0...mrm-task-license@3.1.1) (2020-10-28)
 
 
