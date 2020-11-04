@@ -3,6 +3,9 @@ const addBadge = require('readme-badger').addBadge;
 const MrmError = require('../error');
 const base = require('./file');
 
+// [![altText](imageUrl)](linkUrl)
+const BADGE_REGEXP = /\s?\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)/g;
+
 /**
  * @param {string} filename
  */
@@ -30,7 +33,7 @@ module.exports = function(filename) {
 		 */
 		addBadge(imageUrl, linkUrl, altText) {
 			if (!content) {
-				throw new MrmError(`Can’t add badge: file "${filename}" not found.`);
+				throw new MrmError(`Can’t add badge: file “${filename}” not found.`);
 			}
 
 			if (content.includes(linkUrl)) {
@@ -38,6 +41,19 @@ module.exports = function(filename) {
 			}
 
 			content = addBadge(content, 'md', imageUrl, linkUrl, altText);
+			return this;
+		},
+
+		/**
+		 * Remove a badge
+		 * @param {predicate} Function
+		 */
+		removeBadge(predicate) {
+			content = content.replace(
+				BADGE_REGEXP,
+				(match, altText, imageUrl, linkUrl) =>
+					predicate({ altText, imageUrl, linkUrl }) ? '' : match
+			);
 			return this;
 		},
 

@@ -206,7 +206,12 @@ const { markdown } = require('mrm-core');
 const file = markdown('file name');
 file.exists(); // File exists?
 file.get(); // Return file content
-file.addBadge('image URL', 'link URL', 'alt text'); // Add a badge at the beginning of the file (below header)
+// Add a badge at the beginning of the file (below header)
+file.addBadge('image URL', 'link URL', 'alt text');
+// Remove a badge when the predicate function returns true
+file.removeBadge(({ imageUrl, linkUrl, altText }) =>
+  imageUrl.startsWith('https://travis-ci.org')
+);
 file.save(); // Save file
 file.delete(); // Delete file
 ```
