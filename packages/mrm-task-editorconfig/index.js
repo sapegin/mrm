@@ -4,7 +4,14 @@ const jsonRules = {
 	indent_style: 'space',
 	indent_size: 2,
 };
-const jsonExtensions = ['json', 'yml', 'md', 'babelrc', 'remarkrc'];
+const jsonExtensions = [
+	'json',
+	'yml',
+	'md',
+	'babelrc',
+	'remarkrc',
+	'prettierrc',
+];
 
 module.exports = function task({ indent }) {
 	const generalRules = Object.assign(

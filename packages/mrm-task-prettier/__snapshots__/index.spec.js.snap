@@ -16,7 +16,7 @@ Object {
       }
     },
     {
-      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc}\\",
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
       \\"options\\": {
         \\"useTabs\\": false
       }
@@ -59,7 +59,7 @@ exports[`should infer options from EditorConfig 1`] = `
       }
     },
     {
-      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc}\\",
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
       \\"options\\": {
         \\"useTabs\\": false
       }
@@ -103,7 +103,7 @@ exports[`should use a custom indent 1`] = `
       }
     },
     {
-      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc}\\",
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
       \\"options\\": {
         \\"useTabs\\": false
       }
@@ -127,7 +127,7 @@ exports[`should use a custom options 1`] = `
       }
     },
     {
-      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc}\\",
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
       \\"options\\": {
         \\"useTabs\\": false
       }

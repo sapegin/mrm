@@ -25,7 +25,7 @@ const defaultOverrides = [
 		},
 	},
 	{
-		files: '*.{json,babelrc,eslintrc,remarkrc}',
+		files: '*.{json,babelrc,eslintrc,remarkrc,prettierrc}',
 		options: {
 			useTabs: false,
 		},
