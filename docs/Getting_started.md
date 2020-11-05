@@ -10,7 +10,7 @@ npm install -g mrm
 
 ## Usage
 
-Print a list available of tasks:
+Print a list available of tasks and aliases:
 
 ```shell
 mrm
@@ -57,11 +57,21 @@ npx mrm gitignore
 npx mrm license --config:name "Gandalf the Grey" --config:email "gandalf@middleearth.com" --config:url "https://middleearth.com"
 ```
 
+## Tasks, aliases, and presets
+
+**Task** does a single useful thing. For example, adds ESLint to a project. See [all official tasks](../Readme.md#tasks).
+
+To run a task, type:
+
+**Alias** runs multiple tasks at the same time, one after another. You can [add aliases via the config file](#config-files).
+
+**Preset** is a shared configuration published as an npm package, read more [about presets](./Making_presets.md)).
+
 ## Configuration
 
 There are three ways for setting tasks configurations: **interactive mode**, **command line parameters**, and **config files**.
 
-> See [tasks docs](../Readme.md#tasks) for available config options on core tasks.
+> See [tasks docs](../Readme.md#tasks) for available config options on official tasks.
 
 ### Interactive mode
 
