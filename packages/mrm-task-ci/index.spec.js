@@ -10,6 +10,7 @@ jest.mock('got', () => () => ({
 }));
 jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
+	removed: jest.fn(),
 }));
 
 const { getTaskOptions } = require('mrm');
@@ -73,4 +74,50 @@ it('should add a badge to the Readme', async () => {
 	await task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/Readme.md']).toMatchSnapshot();
+});
+
+it('should remove Travis badge from the Readme', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+		'/Readme.md': `# Unicorn
+
+[![Build Status](https://travis-ci.org/gh/unicorn.svg)](https://travis-ci.org/gh/unicorn)`,
+	});
+
+	await task(await getTaskOptions(task));
+
+	expect(vol.toJSON()['/Readme.md']).toMatchSnapshot();
+});
+
+it('should remove basic Travis config', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+		'/.travis.yml': `language: node_js
+cache:
+  directories:
+    - node_modules
+node_js:
+  - 12`,
+	});
+
+	await task(await getTaskOptions(task));
+
+	expect(vol.toJSON()['/.travis.yml']).toBeUndefined();
+});
+
+it('should not remove complex Travis config', async () => {
+	const travisYml = `language: node_js
+script:
+  - npm run something
+node_js:
+  - 12`;
+
+	vol.fromJSON({
+		'/package.json': packageJson,
+		'/.travis.yml': travisYml,
+	});
+
+	await task(await getTaskOptions(task));
+
+	expect(vol.toJSON()['/.travis.yml']).toBe(travisYml);
 });

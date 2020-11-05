@@ -77,3 +77,9 @@ jobs:
       - run: npm test
 "
 `;
+
+exports[`should remove Travis badge from the Readme 1`] = `
+"# Unicorn
+
+[![Node.js CI status](https://github.com/mrm/unicorn/workflows/Node.js%20CI/badge.svg)](https://github.com/mrm/unicorn/actions)"
+`;

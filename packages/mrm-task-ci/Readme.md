@@ -9,6 +9,8 @@
 - Creates GitHub Action workflow file
 - Sets up tests for currently supported [Node.js LTS versions](https://nodejs.org/en/about/releases/)
 - Adds a satus badge to the Readme
+- Removes Travis CI badge from the Readme
+- Removes Travis CI config if it only runs Node.js tests without custom scripts
 
 ## Usage
 

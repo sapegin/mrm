@@ -69,17 +69,33 @@ module.exports = async function task({ workflowFile, readmeFile }) {
 		})
 		.save();
 
-	// Add status badge to Readme
 	const readme = markdown(readmeFile);
 	if (readme.exists()) {
 		const github = packageRepoUrl();
 		readme
+			// Remove Travis CI status badge from Readme
+			.removeBadge(({ imageUrl }) =>
+				imageUrl.startsWith('https://travis-ci.org/')
+			)
+			// Add status badge to Readme
 			.addBadge(
 				`${github}/workflows/Node.js%20CI/badge.svg`,
 				`${github}/actions`,
 				'Node.js CI status'
 			)
 			.save();
+	}
+
+	// Remove Travis CI config if it only has Node.js tests without custom scripts
+	const travisYml = yaml('.travis.yml');
+	if (
+		travisYml.get('language') === 'node_js' &&
+		!travisYml.get('script') &&
+		!travisYml.get('before_script') &&
+		!travisYml.get('after_script') &&
+		!travisYml.get('stages')
+	) {
+		travisYml.delete();
 	}
 };
 
