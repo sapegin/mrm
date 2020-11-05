@@ -24,6 +24,12 @@ const defaultOverrides = [
 			proseWrap: 'never',
 		},
 	},
+	{
+		files: '*.{json,babelrc,eslintrc,remarkrc}',
+		options: {
+			useTabs: false,
+		},
+	},
 ];
 const defaultPrettierOptions = {
 	printWidth: 80,
