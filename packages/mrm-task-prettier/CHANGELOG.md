@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.9...mrm-task-prettier@3.1.0) (2020-11-05)
+
+
+### Bug Fixes
+
+* Treat .prettierrc files as JSON, with two spaces indentation ([8c4e4d1](https://github.com/sapegin/mrm/commit/8c4e4d1fed91e78f65f1b3efec84fee4fd913e1b))
+
+
+### Features
+
+* **prettier:** Add overrides for various JSON files that should use spaces ([6453fbc](https://github.com/sapegin/mrm/commit/6453fbcba3dc82d6a56c4a65c8250de0b2f4f28a))
+
+
+
+
+
 ## [3.0.9](https://github.com/sapegin/mrm/compare/mrm-task-prettier@3.0.8...mrm-task-prettier@3.0.9) (2020-11-04)
 
 **Note:** Version bump only for package mrm-task-prettier
