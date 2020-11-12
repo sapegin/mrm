@@ -30,6 +30,14 @@ const packageJson = stringify({
 		test: 'jest',
 	},
 });
+const gitConfig = `
+[remote "origin"]
+	url = git@github.com:sapegin/antbear.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+`;
 
 beforeEach(() => {
 	console.log = jest.fn();
@@ -42,16 +50,20 @@ afterEach(() => {
 
 it('should add GitHub Action workflow', async () => {
 	vol.fromJSON({
+		'/.git/config': gitConfig,
 		'/package.json': packageJson,
 	});
 
 	await task(await getTaskOptions(task));
 
-	expect(vol.toJSON()).toMatchSnapshot();
+	expect(vol.toJSON()['/.git/config']).toBe(gitConfig);
+	expect(vol.toJSON()['/package.json']).toBe(packageJson);
+	expect(vol.toJSON()['/.github/workflows/node.js.yml']).toMatchSnapshot();
 });
 
 it('should add latest Node version if engines field is not defined', async () => {
 	vol.fromJSON({
+		'/.git/config': gitConfig,
 		'/package.json': stringify({
 			name: 'unicorn',
 			scripts: {

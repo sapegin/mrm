@@ -27,6 +27,7 @@
     "test"
   ],
   "dependencies": {
+    "git-default-branch": "^1.0.0",
     "got": "^11.8.0",
     "lodash": "^4.17.20",
     "mrm-core": "^4.3.0",

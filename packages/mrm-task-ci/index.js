@@ -1,6 +1,7 @@
 const { range } = require('lodash');
 const got = require('got');
 const packageRepoUrl = require('package-repo-url');
+const gitDefaultBranch = require('git-default-branch');
 const semverUtils = require('semver-utils');
 const { yaml, packageJson, markdown } = require('mrm-core');
 
@@ -26,14 +27,15 @@ async function getNodeVersionsRange(pkg) {
 
 module.exports = async function task({ workflowFile, readmeFile }) {
 	const nodeVersions = await getNodeVersionsRange(packageJson());
+	const defaultBranch = gitDefaultBranch();
 
 	// Workflow file
 	yaml(workflowFile)
 		.set({
 			name: 'Node.js CI',
 			on: {
-				push: { branches: ['master'] },
-				pull_request: { branches: ['master'] },
+				push: { branches: [defaultBranch] },
+				pull_request: { branches: [defaultBranch] },
 			},
 			jobs: {
 				build: {
