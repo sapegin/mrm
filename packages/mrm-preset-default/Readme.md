@@ -10,6 +10,7 @@ See [Mrm docs](https://mrm.js.org/docs/getting-started) for more details.
 
 <!-- textlint-disable terminology -->
 
+- [ci](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-ci)
 - [codecov](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-codecov)
 - [contributing](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-contributing)
 - [dependabot](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-dependabot)

@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-license",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Mrm task that adds a license file",
   "author": {
     "name": "Artem Sapegin",
@@ -21,12 +21,10 @@
   "keywords": [
     "mrm",
     "mrm-task",
-    "license",
-    "readme",
-    "badge"
+    "license"
   ],
   "dependencies": {
-    "mrm-core": "^4.2.2",
+    "mrm-core": "^4.3.0",
     "parse-author": "^2.0.0",
     "user-meta": "^1.0.0"
   }

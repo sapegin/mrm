@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.13](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.12...mrm-task-editorconfig@2.0.13) (2020-11-05)
+
+
+### Bug Fixes
+
+* Treat .prettierrc files as JSON, with two spaces indentation ([8c4e4d1](https://github.com/sapegin/mrm/commit/8c4e4d1fed91e78f65f1b3efec84fee4fd913e1b))
+
+
+
+
+
+## [2.0.12](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.11...mrm-task-editorconfig@2.0.12) (2020-11-04)
+
+**Note:** Version bump only for package mrm-task-editorconfig
+
+
+
+
+
 ## [2.0.11](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.10...mrm-task-editorconfig@2.0.11) (2020-10-27)
 
 **Note:** Version bump only for package mrm-task-editorconfig

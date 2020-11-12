@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-prettier",
-  "version": "3.0.8",
+  "version": "3.1.0",
   "description": "Mrm task that adds Prettier",
   "author": {
     "name": "Artem Sapegin",
@@ -30,6 +30,6 @@
   "dependencies": {
     "editorconfig-to-prettier": "0.1.1",
     "lodash": "^4.17.15",
-    "mrm-core": "^4.2.2"
+    "mrm-core": "^4.3.0"
   }
 }

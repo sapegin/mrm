@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.2.2...mrm-task-dependabot@1.2.3) (2020-11-04)
+
+**Note:** Version bump only for package mrm-task-dependabot
+
+
+
+
+
 ## [1.2.2](https://github.com/sapegin/mrm/compare/mrm-task-dependabot@1.2.1...mrm-task-dependabot@1.2.2) (2020-10-27)
 
 **Note:** Version bump only for package mrm-task-dependabot

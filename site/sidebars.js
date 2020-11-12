@@ -10,6 +10,7 @@ module.exports = {
 		],
 		Presets: ['mrm-preset-default'],
 		Tasks: [
+			'mrm-task-ci',
 			'mrm-task-codecov',
 			'mrm-task-contributing',
 			'mrm-task-dependabot',

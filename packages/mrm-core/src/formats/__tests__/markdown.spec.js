@@ -8,6 +8,8 @@ const vol = require('memfs').vol;
 const log = require('../../util/log');
 const markdown = require('../markdown');
 
+const normalizeNewLines = s => s.replace(/\n{1,}/g, '\n');
+
 const md = `
 # Foo
 
@@ -31,6 +33,7 @@ const addBadge = file =>
 
 const filename = '/test.md';
 const json = { '/test.md': md };
+const jsonWithBadge = { '/test.md': mdWithBadge };
 
 afterEach(() => {
 	vol.reset();
@@ -125,6 +128,23 @@ describe('addBadge()', () => {
 		const file = markdown(filename);
 		const fn = () => addBadge(file);
 		expect(fn).toThrowError('Can’t add badge');
+	});
+});
+
+describe('removeBadge()', () => {
+	it('should remove a badge', () => {
+		vol.fromJSON(jsonWithBadge);
+		const file = markdown(filename);
+		file.removeBadge(({ imageUrl }) =>
+			imageUrl.startsWith('http://example.com')
+		);
+		expect(normalizeNewLines(file.get())).toBe(normalizeNewLines(md));
+	});
+
+	it('should not do anything if file not found', () => {
+		const file = markdown(filename);
+		const fn = () => file.removeBadge(() => true);
+		expect(fn).not.toThrowError();
 	});
 });
 

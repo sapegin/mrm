@@ -2,7 +2,7 @@
 
 # Making your own presets
 
-Preset is an npm package (or a directory) that contains a config and tasks.
+Preset is an npm package (or a directory) that contains a shared config and tasks.
 
 The file structure looks like this:
 

@@ -1,3 +1,9 @@
+it('should have ci task', () => {
+	const task = require('./ci/index.js');
+	expect(task).toEqual(expect.any(Function));
+	expect(task.description).toMatch('Node');
+});
+
 it('should have codecov task', () => {
 	const task = require('./codecov/index.js');
 	expect(task).toEqual(expect.any(Function));

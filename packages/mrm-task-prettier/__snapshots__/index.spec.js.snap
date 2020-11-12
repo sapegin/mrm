@@ -14,6 +14,12 @@ Object {
         \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
+      }
     }
   ]
 }",
@@ -50,6 +56,12 @@ exports[`should infer options from EditorConfig 1`] = `
         \\"trailingComma\\": \\"none\\",
         \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
+      }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
       }
     }
   ]
@@ -89,6 +101,12 @@ exports[`should use a custom indent 1`] = `
         \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
       }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
+      }
     }
   ]
 }"
@@ -106,6 +124,12 @@ exports[`should use a custom options 1`] = `
         \\"trailingComma\\": \\"none\\",
         \\"arrowParens\\": \\"avoid\\",
         \\"proseWrap\\": \\"never\\"
+      }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
       }
     }
   ]
