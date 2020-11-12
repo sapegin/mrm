@@ -83,7 +83,7 @@ async function main() {
 						.map(d => `${d}/${taskName}/index.js`)
 						.concat([
 							`“${taskName}” in the default mrm tasks`,
-							`npm install mrm-task-${taskName}`,
+							`mrm-task-${taskName} package on the npm registry`,
 							`npm install ${taskName}`,
 						]);
 					printError(
