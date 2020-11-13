@@ -108,7 +108,9 @@ Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
   licenseFile: 'License.md', // Name of license file
   aliases: {
     // Aliases to run multiple tasks at once
-    node: ['license', 'readme', 'editorconfig', 'gitignore']
+    node: ['license', 'readme', 'editorconfig', 'gitignore'],
+    // You can reference another alias has been defined.
+    frontend: ['node', 'eslint', 'typescript']
   }
 }
 ```
