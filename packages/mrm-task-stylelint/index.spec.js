@@ -7,7 +7,7 @@ jest.mock('mrm-core/src/npm', () => ({
 }));
 
 const { install } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -25,36 +25,40 @@ afterEach(() => {
 	install.mockClear();
 });
 
-it('should add stylelint', () => {
+it('should add stylelint', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith(['stylelint', 'stylelint-config-standard']);
 });
 
-it('should install a custom preset', () => {
-	vol.fromJSON({
-		'/package.json': packageJson,
-	});
-
-	task(getConfigGetter({ stylelintPreset: 'stylelint-config-pizza' }));
-
-	expect(vol.toJSON()['/.stylelintrc']).toMatchSnapshot();
-	expect(install).toBeCalledWith(['stylelint', 'stylelint-config-pizza']);
-});
-
-it('should add custom rules', () => {
+it('should install a custom preset', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
 	task(
-		getConfigGetter({
-			stylelintPreset: undefined,
+		await getTaskOptions(task, false, {
+			stylelintPreset: 'stylelint-config-pizza',
+		})
+	);
+
+	expect(vol.toJSON()['/.stylelintrc']).toMatchSnapshot();
+	expect(install).toBeCalledWith(['stylelint', 'stylelint-config-pizza']);
+});
+
+it('should add custom rules', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			stylelintPreset: '',
 			stylelintRules: { 'max-empty-lines': 2 },
 		})
 	);
@@ -62,12 +66,12 @@ it('should add custom rules', () => {
 	expect(vol.toJSON()['/.stylelintrc']).toMatchSnapshot();
 });
 
-it('should use custom extension', () => {
+it('should use custom extension', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ stylelintExtensions: '.sass' }));
+	task(await getTaskOptions(task, false, { stylelintExtensions: '.sass' }));
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 });
