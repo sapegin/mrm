@@ -1,26 +1,10 @@
-const gitUsername = require('git-username');
+const packageRepoUrl = require('package-repo-url');
+const gitDefaultBranch = require('git-default-branch');
 const { MrmError, yaml, markdown, packageJson } = require('mrm-core');
 
-const uploadCommand = 'bash <(curl -s https://codecov.io/bash)';
 const coverageScript = 'test:coverage';
 
-function task(config) {
-	const { readmeFile, github } = config
-		.defaults({ readmeFile: 'Readme.md', github: gitUsername() })
-		.require('github')
-		.values();
-
-	const travisYml = yaml('.travis.yml');
-
-	// Require .travis.yml
-	if (!travisYml.exists()) {
-		throw new MrmError(
-			`Run travis task first:
-
-  mrm travis`
-		);
-	}
-
+module.exports = function task({ workflowFile, readmeFile }) {
 	const pkg = packageJson();
 
 	// Require coverage npm script
@@ -32,25 +16,60 @@ function task(config) {
 		);
 	}
 
-	// .travis.yml
-	if (!travisYml.get('after_success', []).includes(uploadCommand)) {
-		travisYml
-			.merge({
-				script: [`npm run test -- --coverage`],
-				after_success: [uploadCommand],
-			})
-			.save();
-	}
+	const defaultBranch = gitDefaultBranch();
+
+	// Workflow file
+	yaml(workflowFile)
+		.set({
+			name: 'Codecov',
+			on: {
+				push: { branches: [defaultBranch] },
+				pull_request: { branches: [defaultBranch] },
+			},
+			jobs: {
+				build: {
+					'runs-on': 'ubuntu-latest',
+					steps: [
+						{
+							uses: 'actions/checkout@v2',
+						},
+						{
+							uses: 'actions/setup-node@v1',
+						},
+						{
+							run: 'npm ci',
+						},
+						{
+							run: `npm run ${coverageScript}`,
+						},
+						{
+							uses: 'codecov/codecov-action@v1',
+						},
+					],
+				},
+			},
+		})
+		.save();
 
 	// Add Codecov badge to Readme
-	const url = `https://codecov.io/gh/${github}/${pkg.get('name')}`;
+	const github = packageRepoUrl().replace('https://github.com/', '');
+	const url = `https://codecov.io/gh/${github}`;
 	const readme = markdown(readmeFile);
 	if (readme.exists()) {
-		readme
-			.addBadge(`${url}/branch/master/graph/badge.svg`, url, 'Codecov')
-			.save();
+		readme.addBadge(`${url}/graph/badge.svg`, url, 'Codecov').save();
 	}
-}
+};
 
-task.description = 'Adds Codecov';
-module.exports = task;
+module.exports.description = 'Adds Codecov';
+module.exports.parameters = {
+	workflowFile: {
+		type: 'input',
+		message: 'Enter location of GitHub Actions workflow file',
+		default: '.github/workflows/coverage.yml',
+	},
+	readmeFile: {
+		type: 'input',
+		message: 'Enter filename for the readme',
+		default: 'Readme.md',
+	},
+};

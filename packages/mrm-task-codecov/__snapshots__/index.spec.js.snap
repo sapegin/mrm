@@ -2,17 +2,27 @@
 
 exports[`should add CodeCov 1`] = `
 Object {
-  "/.travis.yml": "language: node_js
-node_js:
-  - 8
-script:
-  - npm run test -- --coverage
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  "/.github/workflows/coverage.yml": "name: Codecov
+on:
+  push:
+    branches:
+      - \\"\\"
+  pull_request:
+    branches:
+      - \\"\\"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm ci
+      - run: npm run test:coverage
+      - uses: codecov/codecov-action@v1
 ",
   "/Readme.md": "# Unicorn
 
-[![Codecov](https://codecov.io/gh/gh/unicorn/branch/master/graph/badge.svg)](https://codecov.io/gh/gh/unicorn)",
+[![Codecov](https://codecov.io/gh/mrm/unicorn/graph/badge.svg)](https://codecov.io/gh/mrm/unicorn)",
   "/package.json": "{
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
