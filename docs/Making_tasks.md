@@ -2,9 +2,11 @@
 
 # Making your own tasks
 
-Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override a default one.
+Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override the default one.
 
-## Basic example
+**Tip:** Tasks could be packaged into presets if you want to share them, see [Making presets](Making_presets.md).
+
+## Basic tasks
 
 The simplest task could look like this:
 
@@ -12,7 +14,7 @@ The simplest task could look like this:
 // Mrm module to work with new line separated text files
 const { lines } = require('mrm-core');
 
-function task() {
+module.exports = function task() {
   // Read .gitignore if it exists
   lines('.gitignore')
     // Add lines that do not exist in a file yet,
@@ -20,10 +22,9 @@ function task() {
     .add(['node_modules/', '.DS_Store'])
     // Update or create a file
     .save();
-}
+};
 
-task.description = 'Adds .gitignore';
-module.exports = task;
+module.exports.description = 'Adds .gitignore';
 ```
 
 Tasks can also be async by adding the `async` keyword or returning a `Promise`.
@@ -37,9 +38,9 @@ function task() {
 }
 ```
 
-## With dependencies
+## Tasks with dependencies
 
-If your tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module and list your dependencies there:
+If your tasks have dependencies (such as `mrm-core`) you should initialize the `mrm` folder as an npm module, and install your dependencies there:
 
 ```bash
 cd ~/.mrm # or cd ~/dotfiles/mrm
@@ -47,14 +48,14 @@ npm init -y
 npm install --save mrm-core
 ```
 
-[mrm-core](https://github.com/sapegin/mrm/tree/master/packages/mrm-core) is an utility library for writing Mrm tasks, it has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
+**Tip:** [mrm-core](https://github.com/sapegin/mrm/tree/master/packages/mrm-core) is a library of utility helpers for writing Mrm tasks, that has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
 
-## With `mrm-core` and parameters
+## Tasks with utility helpers (`mrm-core`) and parameters
 
 Let’s take a look at a more complex task.
 
 ```js
-// Import utility helpers (could use any npm package here).
+// Import utility helpers (could use any npm package here)
 const {
   // JSON files
   json,
@@ -67,55 +68,53 @@ const {
 } = require('mrm-core');
 
 // task() function gets task parameters object as the first argument
-// (see `module.exports.parameters` at the end of the file).
+// (see `module.exports.parameters` at the end of the file)
 module.exports = function task({ eslintPreset }) {
   // Define packages to install.
   const packages = ['eslint'];
 
-  // Append custom eslint-config in case it's defined.
+  // Append custom eslint-config in case it's defined
   if (eslintPreset !== 'eslint:recommended') {
     packages.push(`eslint-config-${eslintPreset}`);
   }
 
-  // Create or load .eslintignore, and set basic ignores.
+  // Create or load .eslintignore, and set basic ignores
   lines('.eslintignore')
     .add(['node_modules/'])
     .save();
 
-  // Create or load package.json.
+  // Create or load package.json
   const pkg = packageJson();
 
   pkg
-    // Set linting script.
+    // Set linting script
     .setScript('lint', 'eslint . --cache --fix')
-    // Set pretest script.
+    // Set pretest script
     .prependScript('pretest', 'npm run lint')
-    // Save changes to package.json.
+    // Save changes to package.json
     .save();
 
-  // Create or load .eslintrc.
+  // Create or load .eslintrc
   const eslintrc = json('.eslintrc');
 
-  // Use Babel parser if the project depends on Babel.
+  // Use Babel parser if the project depends on Babel
   if (pkg.get('devDependencies.babel-core')) {
     const parser = 'babel-eslint';
     packages.push(parser);
     eslintrc.merge({ parser });
   }
 
-  // Configure ESlint preset, if set (defaults to eslint:recommended).
+  // Configure ESlint preset, if set (defaults to eslint:recommended)
   if (eslintPreset) {
     eslintrc.set('extends', eslintPreset);
   }
 
-  // Save changes to .eslintrc.
+  // Save changes to .eslintrc
   eslintrc.save();
 
-  // Install new npm dependencies.
+  // Install new npm dependencies
   install(packages);
 };
-
-// Configure task metadata (used by the `mrm` tool).
 
 // Define task configuration (see "Configuration prompts" section below for details)
 module.exports.parameters = {
@@ -127,15 +126,18 @@ module.exports.parameters = {
     default: 'eslint:recommended'
   }
 };
+
 // Description to show in the task list
 module.exports.description = 'Adds ESLint';
 ```
 
-Have a look at [mrm-core docs](https://github.com/sapegin/mrm/tree/master/packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for reference.
+Have a look at [mrm-core docs](https://github.com/sapegin/mrm/tree/master/packages/mrm-core#api) for more utility helpers, and [the default tasks](../Readme.md#tasks) for examples.
 
-### Configuration prompts
+## Configuration prompts
 
-The example above shows a basic configuration prompt:
+Configuration prompts allows you to configure tasks, by specifying options in the config file, via command line parameters, or via an interactive prompt questions.
+
+Here’s a basic configuration prompt:
 
 ```js
 module.exports.parameters = {
@@ -147,9 +149,9 @@ module.exports.parameters = {
 };
 ```
 
-Mrm supports more complex prompts too — have a look at [Inquirer.js docs](https://github.com/SBoudrias/Inquirer.js#objects).
+**Tip:** Mrm supports more complex prompts too — have a look at [Inquirer.js docs](https://github.com/SBoudrias/Inquirer.js#objects).
 
-We pass all parameters to Inquirer.js, unless they have the `config` type:
+We pass all parameters to Inquirer.js, unless they have the `config` type, which means this parameter could only be difined via the config file. Use it for complex data, like objects.
 
 ```js
 module.exports.parameters = {
@@ -160,7 +162,7 @@ module.exports.parameters = {
 };
 ```
 
-The `default` can be a value, like in the example above, or a function that receives an object with config values and command line overrides:
+The `default` can be a literal value, like in the example above, or a function that receives an object with config values and command line overrides:
 
 ```js
 module.exports.parameters = {
@@ -174,7 +176,7 @@ module.exports.parameters = {
 };
 ```
 
-This is different from the default Inquirer.js behavior and works consistently in interactive and non-interactive modes.
+This is different from the default Inquirer.js behavior and works consistently in Mrm’s interactive and non-interactive modes.
 
 Use the `validate()` method to make a parameter required:
 
@@ -190,11 +192,11 @@ module.exports.parameters = {
 };
 ```
 
-In this case the only ways to override the default walue are a config file or a command line parameter.
+In this case the only ways to override the default walue are a config file, or a command line parameter.
 
 ### Migrating from the legacy parameters to Inquirer.js
 
-Calling `.defaults()`, `.required()` and `.values()` on the parameters object is deprecated in mrm-core X.X.
+Calling `.defaults()`, `.required()` and `.values()` on the parameters object has been deprecated.
 
 ```js
 module.exports = function task(config) {
@@ -212,7 +214,7 @@ module.exports = function task(config) {
 };
 ```
 
-Mrm passes parameters to the task function as a plain object:
+Now, Mrm passes parameters to the task function as a plain object:
 
 ```js
 module.exports = function task({
