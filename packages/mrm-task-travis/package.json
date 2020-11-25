@@ -4,7 +4,7 @@
   "description": "Mrm task that adds Travis CI",
   "author": {
     "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
+    "url": "https://sapegin.me"
   },
   "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-travis",
   "repository": "sapegin/mrm",
@@ -23,9 +23,9 @@
     "travis ci"
   ],
   "dependencies": {
-    "git-username": "^1.0.0",
     "lodash": "^4.17.15",
     "mrm-core": "^4.3.0",
+    "package-repo-url": "^1.0.3",
     "semver-utils": "^1.1.4"
   }
 }

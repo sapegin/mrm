@@ -4,7 +4,7 @@ jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
 
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -31,17 +31,17 @@ afterEach(() => {
 	console.log = console$log;
 });
 
-it('should add Travis CI', () => {
+it('should add Travis CI', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ github: 'gh' }));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add latest Node version if engines field is not defined', () => {
+it('should add latest Node version if engines field is not defined', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({
 			name: 'unicorn',
@@ -51,28 +51,28 @@ it('should add latest Node version if engines field is not defined', () => {
 		}),
 	});
 
-	task(getConfigGetter({ github: 'gh' }));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 });
 
-it('should add latest Node version if engines field is not defined', () => {
+it('should add latest Node version if engines field is not defined', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({ github: 'gh', maxNode: 7 }));
+	task(await getTaskOptions(task, false, { maxNode: 14 }));
 
 	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
 });
 
-it('should add a badge to the Readme', () => {
+it('should add a badge to the Readme', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
 		'/Readme.md': '# Unicorn',
 	});
 
-	task(getConfigGetter({ github: 'gh' }));
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()['/Readme.md']).toMatchSnapshot();
 });
