@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.0.11...mrm-task-travis@2.1.0) (2020-11-25)
+
+
+### Features
+
+* **travis:** Replace deprecated APIs ([f84780c](https://github.com/sapegin/mrm/commit/f84780cb4c370364dcd1e516c8c57f6e502f29d2))
+
+
+
+
+
 ## [2.0.11](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.0.10...mrm-task-travis@2.0.11) (2020-11-04)
 
 **Note:** Version bump only for package mrm-task-travis

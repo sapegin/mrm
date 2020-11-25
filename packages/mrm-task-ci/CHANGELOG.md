@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/sapegin/mrm/compare/mrm-task-ci@0.2.0...mrm-task-ci@0.2.1) (2020-11-25)
+
+
+### Bug Fixes
+
+* **ci:** Detect default Git branch name ([f03647e](https://github.com/sapegin/mrm/commit/f03647ece853d0acd2afe142da716568249a9fe9))
+
+
+
+
+
 # [0.2.0](https://github.com/sapegin/mrm/compare/mrm-task-ci@0.1.1...mrm-task-ci@0.2.0) (2020-11-05)
 
 
