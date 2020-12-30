@@ -14,6 +14,7 @@ const MrmError = require('./error');
  * @typedef Options
  * @property {boolean} [dev]
  * @property {boolean} [yarn]
+ * @property {boolean} [yarnBerry]
  * @property {Record<string, string>} [versions]
  */
 
@@ -33,7 +34,7 @@ const MrmError = require('./error');
  */
 function install(deps, options = {}, exec) {
 	const dev = options.dev !== false;
-	const run = options.yarn || isUsingYarn() ? runYarn : runNpm;
+	const run = getRunFunction(options);
 
 	// options.versions is a min versions mapping,
 	// the list of packages to install will be taken from deps
@@ -74,7 +75,7 @@ function install(deps, options = {}, exec) {
 function uninstall(deps, options = {}, exec) {
 	deps = _.castArray(deps);
 	const dev = options.dev !== false;
-	const run = options.yarn || isUsingYarn() ? runYarn : runNpm;
+	const run = getRunFunction(options);
 
 	const installed = getOwnDependencies({ dev });
 
@@ -88,6 +89,21 @@ function uninstall(deps, options = {}, exec) {
 
 	// eslint-disable-next-line consistent-return
 	return run(newDeps, { remove: true, dev }, exec);
+}
+
+/**
+ * Return suitable run function
+ *
+ * @param {Options} [options]
+ */
+function getRunFunction(options = {}) {
+	if (options.yarnBerry || isUsingYarnBerry()) {
+		return runYarnBerry;
+	} else if (options.yarn || isUsingYarn()) {
+		return runYarn;
+	} else {
+		return runNpm;
+	}
 }
 
 /**
@@ -126,6 +142,27 @@ function runYarn(deps, options = {}, exec) {
 	const add = options.dev
 		? ['add', '--dev', '--ignore-workspace-root-check']
 		: ['add', '--ignore-workspace-root-check'];
+	const remove = ['remove'];
+	const args = (options.remove ? remove : add).concat(deps);
+
+	return execCommand(exec, 'yarn', args, {
+		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
+		cwd: options.cwd,
+	});
+}
+
+/**
+ * Install given Yarn@berry packages
+ *
+ * @param {string[]} deps
+ * @param {RunOptions} [options]
+ * @param {Function} [exec]
+ */
+function runYarnBerry(deps, options = {}, exec) {
+	const add = options.dev
+		? ['add', '--dev']
+		: ['add'];
+
 	const remove = ['remove'];
 	const args = (options.remove ? remove : add).concat(deps);
 
@@ -235,6 +272,13 @@ function getUnsatisfiedDeps(deps, versions, options) {
  */
 function isUsingYarn() {
 	return fs.existsSync('yarn.lock');
+}
+
+/*
+ * Is project using Yarn@berry?
+ */
+function isUsingYarnBerry() {
+	return isUsingYarn() && fs.existsSync('.yarnrc.yml');
 }
 
 module.exports = {
