@@ -70,6 +70,17 @@ describe('install()', () => {
 		);
 	});
 
+	it('should install yarn@berry packages to devDependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(modules, { yarnBerry: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/yarn(\.cmd)?/),
+			['add', '--dev', 'eslint@latest', 'babel-core@latest'],
+			options
+		);
+	});
+
 	it('should install an npm packages to dependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson({}, {});
@@ -97,6 +108,17 @@ describe('install()', () => {
 		);
 	});
 
+	it('should install yarn@berry packages to dependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(modules, { dev: false, yarnBerry: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/yarn(\.cmd)?/),
+			['add', 'eslint@latest', 'babel-core@latest'],
+			options
+		);
+	});
+
 	it('should run Yarn if project is already using Yarn', () => {
 		const spawn = jest.fn();
 		fs.writeFileSync('yarn.lock', '');
@@ -111,6 +133,22 @@ describe('install()', () => {
 				'eslint@latest',
 				'babel-core@latest',
 			],
+			{
+				cwd: undefined,
+				stdio: 'inherit',
+			}
+		);
+	});
+
+	it('should run Yarn Berry if project is already using Yarn Berry', () => {
+		const spawn = jest.fn();
+		fs.writeFileSync('yarn.lock', '');
+		fs.writeFileSync('.yarnrc.yml', '');
+		createPackageJson({}, {});
+		install(modules, undefined, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/yarn(\.cmd)?/),
+			['add', '--dev', 'eslint@latest', 'babel-core@latest'],
 			{
 				cwd: undefined,
 				stdio: 'inherit',
