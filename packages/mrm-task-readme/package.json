@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-readme",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Mrm task that adds a readme file",
   "author": {
     "name": "Artem Sapegin",
@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "git-username": "^1.0.0",
-    "mrm-core": "^4.3.0",
+    "mrm-core": "^4.4.0",
     "package-repo-url": "^1.0.3",
     "parse-author": "^2.0.0",
     "user-meta": "^1.0.0"

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.14](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.13...mrm-task-editorconfig@2.0.14) (2021-02-03)
+
+**Note:** Version bump only for package mrm-task-editorconfig
+
+
+
+
+
 ## [2.0.13](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.12...mrm-task-editorconfig@2.0.13) (2020-11-05)
 
 
