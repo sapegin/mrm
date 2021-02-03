@@ -13,10 +13,12 @@ const DEFAULT_INDENT = 2;
  * @param {string} filename
  * @param {string[]} [defaultValues]
  */
-module.exports = function(filename, defaultValues) {
+module.exports = function(filename, defaultValues, options) {
+	const yamlOptions = _.pick(options, ['version']);
 	const file = base(filename);
 
-	let json = yaml.parse(file.get(), YAML_READ_OPTIONS) || defaultValues || {};
+	const yamlReadOptions = _.defaults(yamlOptions, YAML_READ_OPTIONS);
+	let json = yaml.parse(file.get(), yamlReadOptions) || defaultValues || {};
 
 	return {
 		/** Return true if a file exists */
@@ -71,9 +73,10 @@ module.exports = function(filename, defaultValues) {
 
 		/** Save file */
 		save() {
-			const content = yaml.stringify(json, {
+			const yamlWriteOptions = _.defaults(yamlOptions, {
 				indent: file.getStyle().indent_size || DEFAULT_INDENT,
 			});
+			const content = yaml.stringify(json, yamlWriteOptions);
 			file.save(content);
 			return this;
 		},

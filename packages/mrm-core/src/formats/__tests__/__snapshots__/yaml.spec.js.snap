@@ -16,3 +16,10 @@ foo: 1
 ",
 }
 `;
+
+exports[`yaml() can specify YAML version 1`] = `
+Object {
+  "/test.yml": "bool: true
+string: \\"yes\\"",
+}
+`;
