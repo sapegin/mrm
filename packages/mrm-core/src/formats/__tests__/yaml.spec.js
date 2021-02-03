@@ -51,6 +51,16 @@ describe('yaml()', () => {
 			.get();
 		expect(result).toEqual({ a: 1 });
 	});
+
+	it('can specify YAML version', () => {
+		vol.fromJSON({
+			'/test.yml': 'bool: yes',
+		});
+		const file = yaml(filename, {}, { version: '1.1' });
+		expect(file.get('bool')).toBe(true);
+		file.set('string', 'yes').save();
+		expect(vol.toJSON()).toMatchSnapshot();
+	});
 });
 
 describe('exists()', () => {
