@@ -3,6 +3,7 @@ const path = require('path');
 const meta = require('user-meta');
 const parseAuthor = require('parse-author');
 const { template, packageJson } = require('mrm-core');
+const { template: smplTemplate } = require('smpltmpl');
 
 function getAuthorName(pkg) {
 	const rawName = pkg.get('author.name') || pkg.get('author') || '';
@@ -17,7 +18,12 @@ function task({ license, name, email, licenseFile }) {
 		return;
 	}
 
-	template(licenseFile, templateFile)
+	template(
+		smplTemplate(licenseFile, {
+			license,
+		}),
+		templateFile
+	)
 		.apply({
 			name,
 			email,
