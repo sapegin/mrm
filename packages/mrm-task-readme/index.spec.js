@@ -20,6 +20,9 @@ it('should add a readme', async () => {
 		[`${__dirname}/templates/Readme.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
 			.toString(),
+		[`${__dirname}/templates/Contributing.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Contributing.md'))
+			.toString(),
 		'/package.json': stringify({
 			name: 'unicorn',
 			repository: 'gandalf/unicorn',
