@@ -4,7 +4,7 @@
 
 Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override the default one.
 
-**Tip:** Tasks could be packaged into presets if you want to share them, see [Making presets](Making_presets.md).
+**Tip:** Tasks can be packaged into presets; if you want to share them, see [Making presets](Making_presets.md).
 
 ## Basic tasks
 
@@ -151,7 +151,7 @@ module.exports.parameters = {
 
 **Tip:** Mrm supports more complex prompts too — have a look at [Inquirer.js docs](https://github.com/SBoudrias/Inquirer.js#objects).
 
-We pass all parameters to Inquirer.js, unless they have the `config` type, which means this parameter could only be difined via the config file. Use it for complex data, like objects.
+We pass all parameters to Inquirer.js, unless they have the `config` type, which means this parameter could only be defined via the config file. Use it for complex data, like objects.
 
 ```js
 module.exports.parameters = {
