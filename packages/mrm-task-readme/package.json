@@ -28,6 +28,7 @@
     "mrm-core": "^4.5.0",
     "package-repo-url": "^1.0.3",
     "parse-author": "^2.0.0",
+    "smpltmpl": "^1.0.2",
     "user-meta": "^1.0.0"
   }
 }

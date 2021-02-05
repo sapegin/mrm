@@ -35,9 +35,15 @@ Your site URL.
 
 Name of the Readme file.
 
+### `license` (default: taken from `package.json`, if not found `MIT` is used)
+
+License name (like `MIT`, `Unlicense`). For full list of supported values see: [`/templates`](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-license/templates).
+
+This is only needed if `licenseFile` is used.
+
 ### `licenseFile` (default: `License.md`)
 
-Name of the license file.
+Name of the license file. May use `${license}` within the string to insert the value of `license` dynamically into the name (to maintain this general template independently from the license type, while non-redundant with it).
 
 ## Changelog
 

@@ -26,3 +26,30 @@ MIT License, see the included [License.md](License.md) file.
 }",
 }
 `;
+
+exports[`should add a readme with custom file name 1`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Changelog
+
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Gandalf](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
+
+MIT License, see the included [LICENSE-MIT.md](LICENSE-MIT.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
+}",
+}
+`;
