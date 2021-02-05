@@ -36,6 +36,7 @@ These tasks are [included by default](https://mrm.js.org/docs/mrm-preset-default
 
 <!-- textlint-disable terminology -->
 
+- [ci](https://mrm.js.org/docs/mrm-task-ci)
 - [codecov](https://mrm.js.org/docs/mrm-task-codecov)
 - [contributing](https://mrm.js.org/docs/mrm-task-contributing)
 - [dependabot](https://mrm.js.org/docs/mrm-task-dependabot)
