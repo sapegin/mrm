@@ -1,6 +1,6 @@
 {
   "name": "mrm-preset-default",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Common tasks for Mrm",
   "author": {
     "name": "Artem Sapegin",
@@ -29,7 +29,7 @@
     "mrm-task-codecov": "^3.0.1",
     "mrm-task-contributing": "^2.0.14",
     "mrm-task-dependabot": "^1.2.4",
-    "mrm-task-editorconfig": "^2.0.14",
+    "mrm-task-editorconfig": "^2.0.15",
     "mrm-task-eslint": "^2.0.14",
     "mrm-task-gitignore": "^2.0.13",
     "mrm-task-jest": "^2.0.12",

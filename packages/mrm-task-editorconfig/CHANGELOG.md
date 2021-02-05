@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.15](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.14...mrm-task-editorconfig@2.0.15) (2021-02-05)
+
+
+### Bug Fixes
+
+* Add full EditorConfig URL ([#121](https://github.com/sapegin/mrm/issues/121)) ([0d8b5ac](https://github.com/sapegin/mrm/commit/0d8b5acde1bbd7c5829d5fc4ff39fd4fd03d7b2c))
+
+
+
+
+
 ## [2.0.14](https://github.com/sapegin/mrm/compare/mrm-task-editorconfig@2.0.13...mrm-task-editorconfig@2.0.14) (2021-02-03)
 
 **Note:** Version bump only for package mrm-task-editorconfig
