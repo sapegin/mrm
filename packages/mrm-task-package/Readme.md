@@ -31,7 +31,7 @@ Your name.
 
 Your site URL.
 
-### `minNode` (default: 6.9)
+### `minNode` (default: 10)
 
 Minimum required Node.js version.
 
