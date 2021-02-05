@@ -32,7 +32,7 @@ module.exports = function task({ indent }) {
 	);
 
 	// .editorconfig
-	const editorconfig = ini('.editorconfig', 'editorconfig.org');
+	const editorconfig = ini('.editorconfig', 'https://editorconfig.org');
 	editorconfig.set('_global', { root: true }).set('*', generalRules);
 
 	// Set/update JSON-like section
