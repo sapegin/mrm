@@ -27,7 +27,8 @@ function task({
 	);
 	if (!readme.exists()) {
 		const contributingTemplate = includeContributing
-			? templateFromFile(path.join(__dirname, 'templates/Contributing.md'), {
+			? '\n' +
+			  templateFromFile(path.join(__dirname, 'templates/Contributing.md'), {
 					contributingFile,
 			  })
 			: '';
@@ -40,7 +41,7 @@ function task({
 					license,
 				}),
 				package: packageName,
-				contributing: '\n' + contributingTemplate,
+				contributing: contributingTemplate,
 			})
 			.save();
 	}
