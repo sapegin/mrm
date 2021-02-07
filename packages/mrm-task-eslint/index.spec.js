@@ -267,6 +267,25 @@ it('should turn off TypeScript-specific eslint rules that conflict with Prettier
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
+it('should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed (merge extends array)', async () => {
+	vol.fromJSON({
+		'/.eslintrc.json': stringify({
+			extends: ['ash-nazg'],
+		}),
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				typescript: '*',
+				prettier: '*',
+			},
+		}),
+	});
+
+	task(await getTaskOptions(task, false, {}));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+});
+
 it('should migrate legacy config file', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,

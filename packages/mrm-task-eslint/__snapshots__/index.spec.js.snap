@@ -178,6 +178,40 @@ Object {
 }
 `;
 
+exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed (merge extends array) 1`] = `
+Object {
+  "/.eslintignore": "node_modules/",
+  "/.eslintrc.json": "{
+  \\"extends\\": [
+    \\"eslint:recommended\\",
+    \\"ash-nazg\\",
+    \\"prettier\\",
+    \\"prettier/@typescript-eslint\\"
+  ],
+  \\"parser\\": \\"@typescript-eslint/parser\\",
+  \\"plugins\\": [
+    \\"@typescript-eslint/eslint-plugin\\"
+  ],
+  \\"parserOptions\\": {
+    \\"project\\": \\"./tsconfig.json\\"
+  },
+  \\"rules\\": {}
+}",
+  "/.gitignore": ".eslintcache",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"*\\",
+    \\"prettier\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"lint\\": \\"eslint . --cache --fix --ext .ts,.tsx\\",
+    \\"pretest\\": \\"npm run lint\\"
+  }
+}",
+}
+`;
+
 exports[`should turn on JSX support in TypeScript parser if TypeScript and React are installed 1`] = `
 Object {
   "/.eslintignore": "node_modules/",
