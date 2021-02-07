@@ -10,6 +10,7 @@ const {
 	tryResolve,
 	getConfigFromFile,
 	getConfigFromCommandLine,
+	getConfigGetter,
 	getConfig,
 	getTaskOptions,
 	runTask,
@@ -216,6 +217,41 @@ describe('getConfigFromCommandLine', () => {
 			div: '~/pizza',
 		});
 		expect(result).toEqual({});
+	});
+});
+
+describe('getConfigGetter', () => {
+	it('should return supplied options', () => {
+		const result = getConfigGetter({ option1: true });
+		expect(result.option1).toBe(true);
+	});
+
+	it('should provide deprecated `require` method (passing)', function() {
+		const result = getConfigGetter({ option1: true });
+		result.require('option1');
+	});
+
+	it('should provide deprecated `require` method (failing)', function() {
+		const result = getConfigGetter({ option1: true });
+		expect(() => {
+			result.require('option1', 'option2', 'option3');
+		}).toThrow('Required config options are missed: option2, option3.');
+	});
+
+	it('should provide deprecated `defaults` method', function() {
+		const result = getConfigGetter({ option1: true });
+		result.defaults({ option2: true });
+		const optionsWithDefaults = result.values();
+		expect(optionsWithDefaults.option2).toBe(true);
+		expect(optionsWithDefaults.option3).toBeUndefined();
+	});
+
+	it('should provide deprecated `values` method', function() {
+		const result = getConfigGetter({ option1: true });
+		const valOptions = result.values();
+		expect(valOptions).toMatchObject({
+			option1: true,
+		});
 	});
 });
 
