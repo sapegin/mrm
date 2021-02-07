@@ -39,6 +39,19 @@ it('should add React Styleguidist', () => {
 		[['react', 'react-dom'], { dev: false }],
 		[['react-styleguidist', 'webpack']],
 	]);
+
+	// Check again with already set `start` script
+	task(getConfigGetter({}));
+
+	expect(
+		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
+	).toMatchSnapshot();
+	expect(install.mock.calls).toEqual([
+		[['react', 'react-dom'], { dev: false }],
+		[['react-styleguidist', 'webpack']],
+		[['react', 'react-dom'], { dev: false }],
+		[['react-styleguidist', 'webpack']],
+	]);
 });
 
 it('should use a TypeScript template for a TypeScript project', () => {
