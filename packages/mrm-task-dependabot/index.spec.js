@@ -14,4 +14,9 @@ it('should add a workflow file', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+
+	// Ensure ok when file present
+	task(await getTaskOptions(task));
+
+	expect(vol.toJSON()).toMatchSnapshot();
 });
