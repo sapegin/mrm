@@ -114,6 +114,28 @@ it('should not overwrite Jest setup file', () => {
 	expect(vol.toJSON()['/test/jestsetup.js']).toBe('pizza');
 });
 
+it('should not overwrite Jest setup file (with enzyme)', () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/jestsetup.js`]: fs
+			.readFileSync(path.join(__dirname, 'templates/jestsetup.js'))
+			.toString(),
+		'/test/jestsetup.js': "import Adapter from 'enzyme-adapter-react-16';",
+		'/package.json': stringify({
+			name: 'unicorn',
+			dependencies: {
+				react: '*',
+			},
+		}),
+	});
+
+	task(getConfigGetter({}));
+
+	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
+	expect(vol.toJSON()['/test/jestsetup.js']).toBe(
+		"import Adapter from 'enzyme-adapter-react-16';"
+	);
+});
+
 it('should update or create .eslintignore if projects depends on ESLint', () => {
 	vol.fromJSON({
 		'/package.json': stringify({
@@ -126,6 +148,21 @@ it('should update or create .eslintignore if projects depends on ESLint', () => 
 	});
 
 	task({});
+
+	expect(vol.toJSON()['/.eslintignore']).toMatchSnapshot();
+});
+
+it('should update or create .eslintignore if projects depends on ESLint (no babel-core)', () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
+
+	task(getConfigGetter({}));
 
 	expect(vol.toJSON()['/.eslintignore']).toMatchSnapshot();
 });
