@@ -32,6 +32,38 @@ jobs:
 }
 `;
 
+exports[`should add semantic-release 2`] = `
+Object {
+  "/.github/workflows/release.yml": "name: Semantic Release
+on:
+  push:
+    branches:
+      - master
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+",
+  "/Readme.md": "# Unicorn
+
+[![npm](https://img.shields.io/npm/v/unicorn.svg)](https://www.npmjs.com/package/unicorn)",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {}
+}",
+}
+`;
+
 exports[`should remove custom config from package.json 1`] = `
 "{
   \\"name\\": \\"unicorn\\",
@@ -45,5 +77,13 @@ node_js:
   - 8
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+"
+`;
+
+exports[`should avoid checking semantic-release runner from string \`after_success\` Travis CI config 1`] = `
+"language: node_js
+node_js:
+  - 8
+after_success: npm run semantic-release
 "
 `;
