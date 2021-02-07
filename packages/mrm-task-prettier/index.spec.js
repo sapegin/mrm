@@ -36,6 +36,42 @@ it('should add Prettier', async () => {
 	expect(install).toBeCalledWith({ prettier: '>=2' });
 });
 
+it('should add Prettier with `lint:css`', async () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				'lint:css': 'stylelint "**/*.{css,scss,sass}"',
+				test: 'jest',
+			},
+		}),
+	});
+
+	task(await getTaskOptions(task));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+	expect(install).toBeCalledWith({ prettier: '>=2' });
+});
+
+it('should add Prettier with `typescript` in `devDependencies`', async () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			scripts: {
+				test: 'jest',
+			},
+			devDependencies: {
+				typescript: 'latest',
+			},
+		}),
+	});
+
+	task(await getTaskOptions(task));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+	expect(install).toBeCalledWith({ prettier: '>=2' });
+});
+
 it('should use a custom indent', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
