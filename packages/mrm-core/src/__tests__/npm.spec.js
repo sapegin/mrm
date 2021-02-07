@@ -42,6 +42,13 @@ afterEach(() => {
 });
 
 describe('install()', () => {
+	it('should no-op if called with null `deps`', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(null, undefined, spawn);
+		expect(spawn).not.toHaveBeenCalled();
+	});
+
 	it('should install an npm packages to devDependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson({}, {});
