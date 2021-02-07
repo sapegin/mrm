@@ -210,6 +210,27 @@ describe('appendScript()', () => {
 		});
 	});
 
+	it('should not append a repeated command to a script', () => {
+		const file = packageJson({
+			scripts: {
+				pizza: 'quattro formaggi',
+			},
+		});
+		file.appendScript('pizza', 'salami');
+		expect(file.get()).toEqual({
+			scripts: {
+				pizza: 'quattro formaggi && salami',
+			},
+		});
+
+		file.appendScript('pizza', 'salami');
+		expect(file.get()).toEqual({
+			scripts: {
+				pizza: 'quattro formaggi && salami',
+			},
+		});
+	});
+
 	it('should owervrite a test script if it had a default value', () => {
 		const file = packageJson({
 			scripts: {
