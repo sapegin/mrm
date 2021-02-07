@@ -113,10 +113,10 @@ function getRunFunction(options = {}) {
  * Install or uninstall given npm packages
  *
  * @param {string[]} deps
- * @param {RunOptions} [options]
+ * @param {RunOptions} options
  * @param {Function} [exec]
  */
-function runNpm(deps, options = {}, exec) {
+function runNpm(deps, options, exec) {
 	const args = [
 		options.remove ? 'uninstall' : 'install',
 		options.dev ? '--save-dev' : '--save',
@@ -138,10 +138,10 @@ function runNpm(deps, options = {}, exec) {
  * @see https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-ignore-workspace-root-check-w
  *
  * @param {string[]} deps
- * @param {RunOptions} [options]
+ * @param {RunOptions} options
  * @param {Function} [exec]
  */
-function runYarn(deps, options = {}, exec) {
+function runYarn(deps, options, exec) {
 	const add = options.dev
 		? ['add', '--dev', '--ignore-workspace-root-check']
 		: ['add', '--ignore-workspace-root-check'];
