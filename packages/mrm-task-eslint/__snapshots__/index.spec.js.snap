@@ -145,12 +145,13 @@ exports[`should replace scripts.test.eslint with scripts.lint and scripts.pretes
 }"
 `;
 
-exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed 1`] = `
+exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed (merge extends array) 1`] = `
 Object {
   "/.eslintignore": "node_modules/",
   "/.eslintrc.json": "{
   \\"extends\\": [
     \\"eslint:recommended\\",
+    \\"ash-nazg\\",
     \\"prettier\\",
     \\"prettier/@typescript-eslint\\"
   ],
@@ -178,13 +179,12 @@ Object {
 }
 `;
 
-exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed (merge extends array) 1`] = `
+exports[`should turn off TypeScript-specific eslint rules that conflict with Prettier if prettier is installed 1`] = `
 Object {
   "/.eslintignore": "node_modules/",
   "/.eslintrc.json": "{
   \\"extends\\": [
     \\"eslint:recommended\\",
-    \\"ash-nazg\\",
     \\"prettier\\",
     \\"prettier/@typescript-eslint\\"
   ],
@@ -244,6 +244,16 @@ Object {
   }
 }",
 }
+`;
+
+exports[`should use custom comma-separated preset 1`] = `
+"{
+  \\"extends\\": [
+    \\"eslint-config-airbnb\\",
+    \\"@scoped/eslint-config\\",
+    \\"plugin:abc/recommended\\"
+  ]
+}"
 `;
 
 exports[`should use custom preset \`@scoped/custom-config-name/variant\` 1`] = `
@@ -309,5 +319,29 @@ exports[`should use custom preset \`eslint-config-airbnb/whitespace\` 1`] = `
 exports[`should use custom preset \`eslint-config-airbnb\` 1`] = `
 "{
   \\"extends\\": \\"eslint-config-airbnb\\"
+}"
+`;
+
+exports[`should use custom preset \`plugin:@scoped/alt/variant\` 1`] = `
+"{
+  \\"extends\\": \\"plugin:@scoped/alt/variant\\"
+}"
+`;
+
+exports[`should use custom preset \`plugin:@scoped/alt\` 1`] = `
+"{
+  \\"extends\\": \\"plugin:@scoped/alt\\"
+}"
+`;
+
+exports[`should use custom preset \`plugin:@scoped/name/variant\` 1`] = `
+"{
+  \\"extends\\": \\"plugin:@scoped/name/variant\\"
+}"
+`;
+
+exports[`should use custom preset \`plugin:@scoped/name\` 1`] = `
+"{
+  \\"extends\\": \\"plugin:@scoped/name\\"
 }"
 `;

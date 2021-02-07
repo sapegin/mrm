@@ -13,14 +13,15 @@ const getConfigName = (configName, scope, prefix) => {
 		return `${prefix}-${configName}`;
 	} else if (scope && !configName) {
 		return prefix;
+	} else if (prefix === 'eslint-plugin') {
+		return `${prefix}-${configName}`;
 	} else {
 		return configName;
 	}
 };
 
 const normalizePresetPackageName = presetName => {
-	const prefix = 'eslint-config';
-	const presetNameRegex = /^(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
+	const presetNameRegex = /^(plugin:)?(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
 	const match = presetName.match(presetNameRegex);
 
 	if (!match) {
@@ -29,7 +30,8 @@ const normalizePresetPackageName = presetName => {
 		);
 	}
 
-	const [, scope = '', configNameRaw] = match;
+	const [, isPlugin, scope = '', configNameRaw] = match;
+	const prefix = isPlugin ? 'eslint-plugin' : 'eslint-config';
 	const configName = getConfigName(configNameRaw, scope, prefix);
 
 	const packageName = `${scope ? `${scope}/` : ''}${configName}`;
@@ -38,7 +40,7 @@ const normalizePresetPackageName = presetName => {
 };
 
 module.exports = function task({
-	eslintPreset,
+	eslintPreset: eslintPresetRaw,
 	eslintPeerDependencies = [],
 	eslintObsoleteDependencies = [],
 	eslintRules,
@@ -51,10 +53,13 @@ module.exports = function task({
 	const gitIgnores = ['.eslintcache'];
 	const packages = ['eslint'];
 	const packagesToRemove = ['jslint', 'jshint'];
+	const eslintPresets = eslintPresetRaw.split(/,\s*/);
 
 	// Preset
-	if (eslintPreset !== 'eslint:recommended') {
-		packages.push(normalizePresetPackageName(eslintPreset));
+	for (const eslintPreset of eslintPresets) {
+		if (eslintPreset !== 'eslint:recommended') {
+			packages.push(normalizePresetPackageName(eslintPreset));
+		}
 	}
 
 	// Peer dependencies
@@ -67,15 +72,24 @@ module.exports = function task({
 
 	// .eslintrc.json
 	const eslintrc = json(configFile, legacyConfig);
-	const hasCustomPreset = _.castArray(eslintrc.get('extends', [])).find(x =>
-		x.startsWith(eslintPreset)
-	);
+	const extnds = _.castArray(eslintrc.get('extends', []));
+	const hasCustomPreset =
+		extnds.length &&
+		eslintPresets.every(eslintPreset =>
+			extnds.some(x => x.startsWith(eslintPreset))
+		);
+
 	if (!hasCustomPreset) {
 		const presets = eslintrc.get('extends');
 		if (!presets) {
-			eslintrc.set('extends', eslintPreset);
+			eslintrc.set(
+				'extends',
+				eslintPresets.length > 1 ? eslintPresets : eslintPresets[0]
+			);
 		} else {
-			eslintrc.set('extends', [eslintPreset, ..._.castArray(presets)]);
+			eslintrc.set('extends', [
+				...new Set([...eslintPresets, ..._.castArray(presets)]),
+			]);
 		}
 	}
 	if (eslintRules) {
@@ -121,9 +135,11 @@ module.exports = function task({
 			const extensions = eslintrc.get('extends', []);
 			eslintrc.merge({
 				extends: [
-					...(Array.isArray(extensions) ? extensions : [extensions]),
-					'prettier',
-					'prettier/@typescript-eslint',
+					...new Set([
+						...(Array.isArray(extensions) ? extensions : [extensions]),
+						'prettier',
+						'prettier/@typescript-eslint',
+					]),
 				],
 			});
 		}
@@ -166,14 +182,14 @@ module.exports = function task({
 
 	// Dependencies
 	uninstall([...packagesToRemove, ...eslintObsoleteDependencies]);
-	install(packages);
+	install([...new Set(packages)]);
 };
 
 module.exports.description = 'Adds ESLint';
 module.exports.parameters = {
 	eslintPreset: {
 		type: 'input',
-		message: 'Enter ESLint preset name',
+		message: 'Enter ESLint preset name (or a comma-separated list thereof)',
 		default: 'eslint:recommended',
 	},
 	eslintPeerDependencies: {

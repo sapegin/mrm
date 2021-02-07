@@ -53,6 +53,11 @@ it.each([
 	['@scoped/eslint-config-alt', '@scoped/eslint-config-alt'],
 	['@scoped/eslint-config-alt/variant', '@scoped/eslint-config-alt'],
 	['@scoped/custom-config-name/variant', '@scoped/custom-config-name'],
+	// ['plugin:@scoped', '@scoped/eslint-plugin'], // Not allowed
+	['plugin:@scoped/name', '@scoped/eslint-plugin-name'],
+	['plugin:@scoped/alt', '@scoped/eslint-plugin-alt'],
+	['plugin:@scoped/alt/variant', '@scoped/eslint-plugin-alt'],
+	['plugin:@scoped/name/variant', '@scoped/eslint-plugin-name'],
 ])('should use custom preset `%s`', async (presetName, packageName) => {
 	vol.fromJSON({
 		'/package.json': packageJson,
@@ -295,4 +300,25 @@ it('should migrate legacy config file', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+});
+
+it('should use custom comma-separated preset', async () => {
+	vol.fromJSON({
+		'/package.json': packageJson,
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			eslintPreset:
+				'eslint-config-airbnb,@scoped/eslint-config,plugin:abc/recommended',
+		})
+	);
+
+	expect(vol.toJSON()[configFile]).toMatchSnapshot();
+	expect(install).toBeCalledWith([
+		'eslint',
+		'eslint-config-airbnb',
+		'@scoped/eslint-config',
+		'eslint-plugin-abc',
+	]);
 });
