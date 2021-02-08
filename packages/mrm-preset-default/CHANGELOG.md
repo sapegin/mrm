@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.7](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.6...mrm-preset-default@2.3.7) (2021-02-08)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
 ## [2.3.6](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.5...mrm-preset-default@2.3.6) (2021-02-05)
 
 **Note:** Version bump only for package mrm-preset-default
