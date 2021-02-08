@@ -51,7 +51,7 @@ Name of the Contributing file.
 
 ### `includeContributing` (default: `true`)
 
-Whether to include the Contributing text.
+Whether to include the Contributing section.
 
 ## Changelog
 
