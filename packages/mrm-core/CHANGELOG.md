@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/sapegin/mrm/compare/mrm-core@4.3.0...mrm-core@4.4.0) (2021-02-03)
+
+
+### Features
+
+* Allow to specify Yaml version ([#113](https://github.com/sapegin/mrm/issues/113)) ([e4b203e](https://github.com/sapegin/mrm/commit/e4b203eee58b82a196b9b2bd3ef8e3124a1f36db)), closes [#112](https://github.com/sapegin/mrm/issues/112)
+
+
+
+
+
 # [4.3.0](https://github.com/sapegin/mrm/compare/mrm-core@4.2.2...mrm-core@4.3.0) (2020-11-04)
 
 

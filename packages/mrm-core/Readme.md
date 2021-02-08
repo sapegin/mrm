@@ -107,7 +107,11 @@ API:
 
 ```js
 const { yaml } = require('mrm-core');
-const file = yaml('file name', { default: 'values' });
+const file = yaml(
+  'file name', // File name
+  { default: 'values' }, // Default value
+  { version: '1.2' } // Options
+);
 file.exists(); // File exists?
 file.get(); // Return everything
 file.get('key.subkey', 'default value'); // Return value with given address

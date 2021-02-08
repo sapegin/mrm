@@ -30,7 +30,7 @@ afterEach(() => {
 	console.log = console$log;
 });
 
-it('should add EditorConfig', async () => {
+test('adds a license file with author details', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/MIT.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/MIT.md'))
@@ -39,10 +39,13 @@ it('should add EditorConfig', async () => {
 
 	task(await getTaskOptions(task, false, config));
 
-	expect(vol.toJSON()['/License.md']).toMatchSnapshot();
+	expect(vol.toJSON()['/License.md']).toMatch(/The MIT License/);
+	expect(vol.toJSON()['/License.md']).toMatch(
+		/Copyright 2\d\d\d Gendalf, contributors/
+	);
 });
 
-it('should read license name from package.json', async () => {
+test('reads license name from package.json', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/Apache-2.0.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
@@ -55,10 +58,12 @@ it('should read license name from package.json', async () => {
 
 	task(await getTaskOptions(task, false, config));
 
-	expect(vol.toJSON()['/License.md']).toMatchSnapshot();
+	expect(vol.toJSON()['/License.md']).toMatch(
+		'Apache License, Version 2.0 (Apache-2.0)'
+	);
 });
 
-it('should skip when template not found', async () => {
+test('skips when template not found', async () => {
 	task(
 		await getTaskOptions(task, false, {
 			name: 'Gendalf',
@@ -70,7 +75,7 @@ it('should skip when template not found', async () => {
 	expect(console.log).toBeCalledWith(expect.stringMatching('skipping'));
 });
 
-it('should use license config argument', async () => {
+test('uses the license config argument', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/Unlicense.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Unlicense.md'))
@@ -83,10 +88,12 @@ it('should use license config argument', async () => {
 		})
 	);
 
-	expect(vol.readFileSync('/License.md', 'utf8')).toMatchSnapshot();
+	expect(vol.readFileSync('/License.md', 'utf8')).toMatch(
+		'This is free and unencumbered software released into the public domain'
+	);
 });
 
-it('adds license to package.json if not set', async () => {
+test('adds license to package.json if not set', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/MIT.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/MIT.md'))
@@ -98,7 +105,7 @@ it('adds license to package.json if not set', async () => {
 	expect(json('/package.json').get('license')).toBe('MIT');
 });
 
-it.each([
+test.each([
 	[
 		{ author: 'Barney Rubble <example@name.com> (http://example.com/)' },
 		'Barney Rubble',
@@ -109,7 +116,7 @@ it.each([
 	[{ author: { name: 'Barney Rubble' } }, 'Barney Rubble'],
 	[{ author: undefined }, undefined],
 	[undefined, undefined],
-])('Should get author name form package.json', (field, expected) => {
+])('reads the author name form package.json', (field, expected) => {
 	vol.fromJSON({
 		'/package.json': stringify(Object.assign({}, field)),
 	});

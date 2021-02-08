@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.12](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.0.11...mrm-task-lint-staged@3.0.12) (2021-02-03)
+
+**Note:** Version bump only for package mrm-task-lint-staged
+
+
+
+
+
 ## [3.0.11](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.0.10...mrm-task-lint-staged@3.0.11) (2020-11-04)
 
 **Note:** Version bump only for package mrm-task-lint-staged
