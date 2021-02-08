@@ -30,6 +30,7 @@
     "lodash": "^4.17.15",
     "minimist": "^1.2.0",
     "prop-ini": "^0.0.2",
+    "rc": "^1.2.8",
     "readme-badger": "^0.3.0",
     "semver": "^6.3.0",
     "smpltmpl": "^1.0.2",

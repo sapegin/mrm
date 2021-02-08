@@ -4,21 +4,41 @@ const meta = require('user-meta');
 const gitUsername = require('git-username');
 const { json } = require('mrm-core');
 
-module.exports = function task({ name, url, github, minNode, license }) {
+const rc = require('rc');
+
+// Until may add to core
+function init() {
+	const npm = rc('npm', null, []);
+	return {
+		version: npm['init-version'],
+		license: npm['init-license'],
+	};
+}
+
+module.exports = function task({
+	name,
+	url,
+	github,
+	minNode,
+	license,
+	version,
+}) {
 	const packageName = path.basename(process.cwd());
 	const repository = `${github}/${packageName}`;
 
 	// Create package.json
 	const pkg = json('package.json', {
 		name: packageName,
-		version: '1.0.0',
+		version,
 		description: '',
 		author: {
 			name,
 			url,
 		},
+		contributors: [],
 		homepage: `https://github.com/${repository}`,
-		repository,
+		bugs: `https://github.com/${repository}/issues`,
+		repository: `https://github.com/${repository}`,
 		license,
 		engines: {
 			node: `>=${minNode}`,
@@ -71,9 +91,14 @@ module.exports.parameters = {
 		message: 'Enter minimum supported Node.js version',
 		default: 10,
 	},
+	version: {
+		type: 'input',
+		message: 'Enter project version',
+		default: () => init().version || '1.0.0',
+	},
 	license: {
 		type: 'input',
 		message: 'Enter project license',
-		default: 'MIT',
+		default: () => init().license || 'MIT',
 	},
 };
