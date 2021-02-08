@@ -58,7 +58,7 @@ it('should add a readme with custom file name', async () => {
 		})
 	);
 
-	expect(
-		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
-	).toMatchSnapshot();
+	expect(vol.toJSON()['/Readme.md']).toMatch(
+		'[LICENSE-MIT.md](LICENSE-MIT.md)'
+	);
 });
