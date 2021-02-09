@@ -20,6 +20,9 @@ it('should add a readme', async () => {
 		[`${__dirname}/templates/Readme.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
 			.toString(),
+		[`${__dirname}/templates/Contributing.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Contributing.md'))
+			.toString(),
 		'/package.json': stringify({
 			name: 'unicorn',
 			repository: 'gandalf/unicorn',
@@ -43,6 +46,9 @@ it('should add a readme with custom file name', async () => {
 		[`${__dirname}/templates/Readme.md`]: fs
 			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
 			.toString(),
+		[`${__dirname}/templates/Contributing.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Contributing.md'))
+			.toString(),
 		'/package.json': stringify({
 			name: 'unicorn',
 			repository: 'gandalf/unicorn',
@@ -61,4 +67,55 @@ it('should add a readme with custom file name', async () => {
 	expect(vol.toJSON()['/Readme.md']).toMatch(
 		'[LICENSE-MIT.md](LICENSE-MIT.md)'
 	);
+});
+
+it('should add a readme without contributing', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Readme.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			repository: 'gandalf/unicorn',
+		}),
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			name: 'Gandalf',
+			url: 'https://middleearth.com',
+			includeContributing: false,
+		})
+	);
+
+	expect(
+		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
+	).toMatchSnapshot();
+});
+
+it('should add a readme with custom contributing', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Readme.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
+			.toString(),
+		[`${__dirname}/templates/Contributing.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Contributing.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			repository: 'gandalf/unicorn',
+		}),
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			name: 'Gandalf',
+			url: 'https://middleearth.com',
+			contributingFile: 'CONTRIBUTIONS.md',
+		})
+	);
+
+	expect(
+		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
+	).toMatchSnapshot();
 });
