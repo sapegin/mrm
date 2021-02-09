@@ -424,6 +424,23 @@ describe('uninstall()', () => {
 		);
 	});
 
+	it('should uninstall yarnBerry packages from devDependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson(
+			{},
+			{
+				eslint: '*',
+				'babel-core': '*',
+			}
+		);
+		uninstall(modules, { yarnBerry: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/yarn(\.cmd)?/),
+			['remove', 'eslint', 'babel-core'],
+			options
+		);
+	});
+
 	it('should uninstall pnpm packages from devDependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson(
