@@ -7,7 +7,7 @@ const { json } = require('mrm-core');
 const rc = require('rc');
 
 // Until may add to core
-function init() {
+function config() {
 	const npm = rc('npm', null, []);
 	return {
 		version: npm['init-version'],
@@ -94,11 +94,11 @@ module.exports.parameters = {
 	version: {
 		type: 'input',
 		message: 'Enter project version',
-		default: () => init().version || '1.0.0',
+		default: () => config().version || '1.0.0',
 	},
 	license: {
 		type: 'input',
 		message: 'Enter project license',
-		default: () => init().license || 'MIT',
+		default: () => config().license || 'MIT',
 	},
 };

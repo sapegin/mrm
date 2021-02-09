@@ -266,7 +266,7 @@ function getUnsatisfiedDeps(deps, versions, options) {
 	});
 }
 
-function init() {
+function config() {
 	const npm = rc('npm', null, []);
 	return {
 		version: npm['init-version'],
@@ -289,7 +289,7 @@ function isUsingYarnBerry() {
 }
 
 module.exports = {
-	init,
+	config,
 	install,
 	uninstall,
 };
