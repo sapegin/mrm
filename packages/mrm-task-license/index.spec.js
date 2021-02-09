@@ -45,6 +45,26 @@ test('adds a license file with author details', async () => {
 	);
 });
 
+test('adds a license file with custom, dynamic file name', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/MIT.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/MIT.md'))
+			.toString(),
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			...config,
+			licenseFile: 'LICENSE-${license.toUpperCase()}.md',
+		})
+	);
+
+	expect(vol.toJSON()['/LICENSE-MIT.md']).toMatch(/The MIT License/);
+	expect(vol.toJSON()['/LICENSE-MIT.md']).toMatch(
+		/Copyright 2\d\d\d Gendalf, contributors/
+	);
+});
+
 test('reads license name from package.json', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/Apache-2.0.md`]: fs

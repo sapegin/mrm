@@ -3,13 +3,14 @@ const meta = require('user-meta');
 const parseAuthor = require('parse-author');
 const packageRepoUrl = require('package-repo-url');
 const { template, packageJson } = require('mrm-core');
+const { template: smplTemplate } = require('smpltmpl');
 
 function getAuthorName(pkg) {
 	const rawName = pkg.get('author.name') || pkg.get('author') || '';
 	return parseAuthor(rawName).name;
 }
 
-function task({ packageName, name, url, readmeFile, licenseFile }) {
+function task({ packageName, name, url, readmeFile, licenseFile, license }) {
 	// Create Readme.md (no update)
 	const readme = template(
 		readmeFile,
@@ -21,7 +22,9 @@ function task({ packageName, name, url, readmeFile, licenseFile }) {
 				name,
 				url,
 				github: packageRepoUrl(),
-				license: licenseFile,
+				license: smplTemplate(licenseFile, {
+					license,
+				}),
 				package: packageName,
 			})
 			.save();
@@ -60,6 +63,12 @@ module.exports.parameters = {
 		type: 'input',
 		message: 'Enter filename for the readme',
 		default: 'Readme.md',
+	},
+	license: {
+		type: 'input',
+		message: 'Choose a license',
+		default: () => packageJson().get('license', 'MIT'),
+		choices: ['Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'MIT', 'Unlicense'],
 	},
 	licenseFile: {
 		type: 'input',

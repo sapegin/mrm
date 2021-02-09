@@ -25,7 +25,7 @@ License name (like `MIT`, `Unlicense`). For full list of supported values see: [
 
 ### `licenseFile` (default: `License.md`)
 
-File name.
+File name. May use `${license}` within the string to insert the value of `license` dynamically into the name (to maintain this general template independently from the license type, while non-redundant with it).
 
 ### `name` (default: will try to read from your npm or Git config)
 

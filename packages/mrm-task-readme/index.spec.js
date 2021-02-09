@@ -37,3 +37,28 @@ it('should add a readme', async () => {
 		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
 	).toMatchSnapshot();
 });
+
+it('should add a readme with custom file name', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Readme.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Readme.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			repository: 'gandalf/unicorn',
+		}),
+	});
+
+	task(
+		await getTaskOptions(task, false, {
+			name: 'Gandalf',
+			url: 'https://middleearth.com',
+			license: 'MIT',
+			licenseFile: "${('license-' + license).toUpperCase()}.md",
+		})
+	);
+
+	expect(vol.toJSON()['/Readme.md']).toMatch(
+		'[LICENSE-MIT.md](LICENSE-MIT.md)'
+	);
+});
