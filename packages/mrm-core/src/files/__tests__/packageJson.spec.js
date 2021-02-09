@@ -157,12 +157,14 @@ describe('setScript()', () => {
 	it('should create a prescript before the script', () => {
 		const file = packageJson({
 			scripts: {
+				nonmatch: 'nothing to see here',
 				test: 'quattro formaggi',
 			},
 		});
 		file.setScript('pretest', 'salami');
 		expect(file.get()).toEqual({
 			scripts: {
+				nonmatch: 'nothing to see here',
 				pretest: 'salami',
 				test: 'quattro formaggi',
 			},
@@ -172,12 +174,14 @@ describe('setScript()', () => {
 	it('should create a postscript after the script', () => {
 		const file = packageJson({
 			scripts: {
+				nonmatch: 'nothing to see here',
 				test: 'quattro formaggi',
 			},
 		});
 		file.setScript('posttest', 'salami');
 		expect(file.get()).toEqual({
 			scripts: {
+				nonmatch: 'nothing to see here',
 				test: 'quattro formaggi',
 				posttest: 'salami',
 			},
