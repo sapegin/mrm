@@ -1,6 +1,6 @@
 {
   "name": "mrm-preset-default",
-  "version": "2.3.7",
+  "version": "2.3.8",
   "description": "Common tasks for Mrm",
   "author": {
     "name": "Artem Sapegin",
@@ -33,11 +33,11 @@
     "mrm-task-eslint": "^2.0.15",
     "mrm-task-gitignore": "^2.0.14",
     "mrm-task-jest": "^2.0.13",
-    "mrm-task-license": "^3.1.4",
+    "mrm-task-license": "^3.2.0",
     "mrm-task-lint-staged": "^3.0.13",
     "mrm-task-package": "^2.1.7",
     "mrm-task-prettier": "^3.1.2",
-    "mrm-task-readme": "^2.1.3",
+    "mrm-task-readme": "^2.2.0",
     "mrm-task-semantic-release": "^4.0.3",
     "mrm-task-styleguidist": "^2.0.13",
     "mrm-task-stylelint": "^3.0.14",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/sapegin/mrm/compare/mrm-task-license@3.1.4...mrm-task-license@3.2.0) (2021-02-09)
+
+
+### Features
+
+* Allow to define template-based license file name in license and readme tasks ([#124](https://github.com/sapegin/mrm/issues/124)) ([bf99bca](https://github.com/sapegin/mrm/commit/bf99bca77d01f5554fdd4c115ac21a23c68739a4))
+
+
+
+
+
 ## [3.1.4](https://github.com/sapegin/mrm/compare/mrm-task-license@3.1.3...mrm-task-license@3.1.4) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-license
