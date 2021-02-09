@@ -1,13 +1,11 @@
 // @ts-check
 /* eslint-disable no-console */
-jest.mock('cross-spawn');
 
 const path = require('path');
-const spawn = require('cross-spawn');
 const {
-	firstResult,
+	promiseFirst,
 	tryFile,
-	tryResolve,
+	resolveUsingNpx,
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
@@ -18,8 +16,6 @@ const {
 	getAllAliases,
 	getAllTasks,
 	getPackageName,
-	getGlobalPackageName,
-	installGlobalPackage,
 } = require('../index');
 const configureInquirer = require('../../test/inquirer-mock');
 const task1 = require('../../test/dir1/task1');
@@ -31,13 +27,6 @@ const task5 = require('../../test/dir2/task5');
 const task6 = require('../../test/dir3/task6');
 const task8 = require('../../test/dir5/task8');
 
-const spawnOnErrorMock = jest.fn();
-const spawnOnCloseMock = jest.fn();
-spawnOnErrorMock.mockReturnValue({ on: spawnOnCloseMock });
-spawnOnCloseMock.mockImplementation((_, cb) => {
-	cb();
-});
-
 const configFile = 'config.json';
 const directories = [
 	path.resolve(__dirname, '../../test/dir1'),
@@ -45,6 +34,7 @@ const directories = [
 	path.resolve(__dirname, '../../test/dir3'),
 	path.resolve(__dirname, '../../test/dir4'),
 ];
+const presetDir = [path.resolve(__dirname, '../../test/dir6')];
 const options = {
 	pizza: 'salami',
 };
@@ -63,110 +53,64 @@ const argv = {
 
 const file = name => path.join(__dirname, '../../test', name);
 
-afterEach(() => {
-	spawn.mockClear();
-	spawnOnErrorMock.mockClear();
-	spawnOnCloseMock.mockClear();
-});
-
-describe('firstResult', () => {
-	it('should return the first truthy result', () => {
-		const result = firstResult(
-			[0, undefined, 'pizza', false, 'cappuccino'],
-			a => a
-		);
+describe('promiseFirst', () => {
+	it('should return the first resolving function', async () => {
+		const result = await promiseFirst([
+			() => Promise.reject(),
+			() => Promise.reject(),
+			() => Promise.resolve('pizza'),
+			() => Promise.reject(),
+			() => Promise.reject('cappuccino'),
+		]);
 		expect(result).toMatch('pizza');
 	});
 
-	it('should return undefined if no truthy results found', () => {
-		const result = firstResult([0, undefined, false, ''], a => a);
-		expect(result).toBeFalsy();
+	it('should return reject if no resolving function is found', () => {
+		const result = promiseFirst([
+			() => Promise.reject(),
+			() => Promise.reject(),
+			() => Promise.reject(),
+		]);
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			'None of the 3 thunks resolved.\n\n\n\n'
+		);
 	});
 });
 
 describe('tryFile', () => {
-	it('should return an absolute file path if the file exists', () => {
-		expect(tryFile(directories, 'task1/index.js')).toBe(
-			file('dir1/task1/index.js')
-		);
-		expect(tryFile(directories, 'task3/index.js')).toBe(
-			file('dir2/task3/index.js')
-		);
+	it('should return an absolute file path if the file exists', async () => {
+		let result;
+		result = await tryFile(directories, 'task1/index.js');
+		expect(result).toBe(file('dir1/task1/index.js'));
+		result = await tryFile(directories, 'task3/index.js');
+		expect(result).toBe(file('dir2/task3/index.js'));
 	});
 
 	it('should return undefined if the file doesn’t exist', () => {
 		const result = tryFile([], 'pizza');
-		expect(result).toBeFalsy();
-	});
-});
 
-describe('tryResolve', () => {
-	it('should resolve an npm module if it’s installed', () => {
-		const result = tryResolve('listify');
-		expect(result).toMatch('node_modules/listify/index.js');
-	});
-
-	it('should resolve the first installed npm module', () => {
-		const result = tryResolve('pizza', 'listify');
-		expect(result).toMatch('node_modules/listify/index.js');
-	});
-
-	it('should return undefined if none of the npm mudules are installed', () => {
-		const result = tryResolve('pizza', 'cappuccino');
-		expect(result).toBeFalsy();
-	});
-
-	it('should not throw when undefined was passed instead of a module name', () => {
-		const fn = () => tryResolve(undefined);
-		expect(fn).not.toThrowError();
-	});
-});
-
-describe('installGlobalPackage', () => {
-	it('should resolve to true if able to install the package', async () => {
-		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
-		const pkgName = 'mrm-preset-default';
-		const result = await installGlobalPackage(pkgName);
-		expect(spawn).toBeCalledWith('npm', ['install', '--global', pkgName], {
-			stdio: 'inherit',
-		});
-		expect(result).toBeTruthy();
-	});
-
-	it('should reject if unable able to install the package', () => {
-		spawn.mockReturnValueOnce({ on: spawnOnErrorMock });
-		const error = new Error('failed install');
-		spawnOnErrorMock.mockImplementation((_, cb) => {
-			cb(error);
-		});
-		spawnOnCloseMock.mockImplementation(() => {});
-
-		return expect(installGlobalPackage('mrm-preset-default')).rejects.toThrow(
-			error
+		// ideally we can use toThrowError but that works with >= jest@22
+		// https://github.com/facebook/jest/issues/5076
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			'File “pizza” not found.'
 		);
 	});
 });
 
-describe('getGlobalPackageName', () => {
-	it('should resolve to the package name if selected by the user and it can be installed', async () => {
-		configureInquirer({ pkgName: 'mrm-preset-default' });
-		const result = await getGlobalPackageName(
-			'mrm-preset-default',
-			'pizza',
-			''
+describe('resolveUsingNpx', () => {
+	it('should install an npm module transparently', async () => {
+		const result = await resolveUsingNpx('yarnhook');
+		expect(result).toMatch(/\.npm\/_npx\/\d*\/lib\/node_modules\/yarnhook$/);
+	});
+
+	it('should throw if npm module is not found on the registry', () => {
+		const result = resolveUsingNpx('this-package-is-not-on-npm');
+		return expect(result).rejects.toHaveProperty(
+			'message',
+			`Install for this-package-is-not-on-npm failed with code 1`
 		);
-		expect(result).toMatch('mrm-preset-default');
-	});
-
-	it('should resolve to undefined if none of the packages are selected', async () => {
-		configureInquirer({ pkgName: '' });
-		const result = await getGlobalPackageName('pizza', 'cappuccino');
-		expect(result).toBeFalsy();
-	});
-
-	it('should resolve to undefined if none of the npm modules exist', async () => {
-		const result = await getGlobalPackageName('');
-		expect(result).toBeFalsy();
 	});
 });
 
@@ -190,13 +134,13 @@ describe('getPackageName', () => {
 });
 
 describe('getConfigFromFile', () => {
-	it('should return a config object', () => {
-		const result = getConfigFromFile(directories, configFile);
+	it('should return a config object', async () => {
+		const result = await getConfigFromFile(directories, configFile);
 		expect(result).toMatchObject(options);
 	});
 
-	it('should return an empty object when file not found', () => {
-		const result = getConfigFromFile(directories, 'pizza');
+	it('should return an empty object when file not found', async () => {
+		const result = await getConfigFromFile(directories, 'pizza');
 		expect(result).toEqual({});
 	});
 });
@@ -220,8 +164,8 @@ describe('getConfigFromCommandLine', () => {
 });
 
 describe('getConfig', () => {
-	it('should return a config object', () => {
-		const result = getConfig(directories, configFile, argv);
+	it('should return a config object', async () => {
+		const result = await getConfig(directories, configFile, argv);
 		expect(result).toMatchObject({
 			pizza: 'salami',
 			foo: 42,
@@ -229,13 +173,13 @@ describe('getConfig', () => {
 		});
 	});
 
-	it('should return an empty object when file not found and no CLI options provided', () => {
-		const result = getConfig(directories, 'pizza', {});
+	it('should return an empty object when file not found and no CLI options provided', async () => {
+		const result = await getConfig(directories, 'pizza', {});
 		expect(result).toEqual({});
 	});
 
-	it('CLI options should override options from config file', () => {
-		const result = getConfig(directories, configFile, {
+	it('CLI options should override options from config file', async () => {
+		const result = await getConfig(directories, configFile, {
 			'config:pizza': 'quattro formaggi',
 		});
 		expect(result).toMatchObject({
@@ -397,7 +341,7 @@ describe('runTask', () => {
 			'message',
 			'Task “pizza” not found.'
 		);
-	});
+	}, 20000);
 
 	it('should throw when task module is invalid', () => {
 		const result = runTask('task7', directories, {}, {});
@@ -581,6 +525,17 @@ describe('run', () => {
 					expect(task4).toHaveBeenCalledTimes(1);
 					expect(task5).toHaveBeenCalledTimes(1);
 					expect(stack).toEqual(['Task 2.4', 'Task 2.5']);
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
+
+	it('should run a task in a custom preset', () => {
+		return new Promise((resolve, reject) => {
+			run('task1', presetDir, optionsWithAliases, {})
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
 					resolve();
 				})
 				.catch(reject);

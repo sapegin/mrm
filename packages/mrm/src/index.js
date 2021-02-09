@@ -3,9 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const kleur = require('kleur');
-const requireg = require('requireg');
-const spawn = require('cross-spawn');
-const packageJson = require('package-json');
+const npx = require('libnpx');
 const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
 const {
@@ -138,14 +136,21 @@ function getPackageName(type, packageName) {
  * @param {Object} [argv]
  * @returns {Promise}
  */
-function runTask(taskName, directories, options, argv) {
+async function runTask(taskName, directories, options, argv) {
+	const taskPackageName = getPackageName('task', taskName);
+	let modulePath;
+	try {
+		modulePath = await promiseFirst([
+			() => tryFile(directories, `${taskName}/index.js`),
+			() => require.resolve(taskPackageName),
+			() => require.resolve(taskName),
+			() => resolveUsingNpx(taskPackageName),
+			() => resolveUsingNpx(taskName),
+		]);
+	} catch {
+		modulePath = null;
+	}
 	return new Promise((resolve, reject) => {
-		const taskPackageName = getPackageName('task', taskName);
-		const modulePath = tryResolve(
-			tryFile(directories, `${taskName}/index.js`),
-			taskPackageName,
-			taskName
-		);
 		if (!modulePath) {
 			reject(
 				new MrmUnknownTask(`Task “${taskName}” not found.`, {
@@ -305,12 +310,9 @@ function getConfigGetter(options) {
  * @param {Object} argv
  * @return {Object}
  */
-function getConfig(directories, filename, argv) {
-	return Object.assign(
-		{},
-		getConfigFromFile(directories, filename),
-		getConfigFromCommandLine(argv)
-	);
+async function getConfig(directories, filename, argv) {
+	const configFromFile = await getConfigFromFile(directories, filename);
+	return { ...configFromFile, ...getConfigFromCommandLine(argv) };
 }
 
 /**
@@ -320,12 +322,11 @@ function getConfig(directories, filename, argv) {
  * @param {string} filename
  * @return {Object}
  */
-function getConfigFromFile(directories, filename) {
-	const filepath = tryFile(directories, filename);
+async function getConfigFromFile(directories, filename) {
+	const filepath = await tryFile(directories, filename).catch(() => null);
 	if (!filepath) {
 		return {};
 	}
-
 	return require(filepath);
 }
 
@@ -353,92 +354,52 @@ function getConfigFromCommandLine(argv) {
  * @return {string|undefined} Absolute path or undefined
  */
 function tryFile(directories, filename) {
-	return firstResult(directories, dir => {
-		const filepath = path.resolve(dir, filename);
-		return fs.existsSync(filepath) ? filepath : undefined;
+	return promiseFirst(
+		directories.map(dir => {
+			const filepath = path.resolve(dir, filename);
+			return () => fs.promises.access(filepath).then(() => filepath);
+		})
+	).catch(() => {
+		throw new Error(`File “${filename}” not found.`);
 	});
 }
 
 /**
- * Try to resolve any of the given npm modules. Works with local files, local and global npm modules.
+ * Resolve a module on-the-fly using npx under the hood
  *
- * @param {...string} names
- * @return {string?} resolved package path
- */
-function tryResolve(...names) {
-	return firstResult(names, requireg.resolve);
-}
-
-/**
- * Try to resolve any of the given npm module names, prompting the user for which package they want to use.
- * @param  {...string} packageNames
- * @return {Promise<string?>} package name
- */
-async function getGlobalPackageName(...packageNames) {
-	const possibleGlobals = await Promise.all(
-		packageNames.map(name => packageJson(name).catch(() => null))
-	);
-
-	const choices = possibleGlobals.filter(Boolean);
-
-	if (choices.length === 0) {
-		// No packages found on npm
-		return undefined;
-	}
-
-	const { pkgName } = await inquirer.prompt([
-		{
-			name: 'pkgName',
-			type: 'list',
-			message:
-				'A task or preset you’re trying to run isn’t installed. Would you like to globally install it from npm?',
-			choices: choices
-				.map(({ name }) => ({ name, value: name }))
-				.concat({
-					name: 'Don’t install any packages',
-					value: '',
-				}),
-		},
-	]);
-
-	return pkgName || undefined;
-}
-
-/**
- * Install an npm module globally
- * @param {String} pkgName The package to install globally
- */
-function installGlobalPackage(pkgName) {
-	return new Promise((resolve, reject) =>
-		spawn('npm', ['install', '--global', pkgName], { stdio: 'inherit' })
-			.on('error', err => {
-				reject(err);
-			})
-			.on('close', () => {
-				resolve(true);
-			})
-	);
-}
-
-/**
- * Return the first truthy result of a callback.
+ * @method resolveUsingNpx
  *
- * @param {any[]} items
- * @param {Function} fn
- * @return {any}
+ * @param  {String} packageName
+ * @return {Promise}
  */
-function firstResult(items, fn) {
-	for (const item of items) {
-		if (!item) {
-			continue;
-		}
+async function resolveUsingNpx(packageName) {
+	const npm = path.join(path.dirname(process.execPath), 'npm');
+	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
+	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
+	return packagePath;
+}
 
-		const result = fn(item);
-		if (result) {
-			return result;
+/**
+ * Executes promise-returning thunks in series until one is resolved
+ *
+ * @method promiseFirst
+ *
+ * @param  {Array} thunks
+ * @return {Promise}
+ */
+async function promiseFirst(thunks, errors = []) {
+	if (thunks.length === 0) {
+		throw new Error(`None of the ${errors.length} thunks resolved.
+
+${errors.join('\n')}`);
+	} else {
+		const [thunk, ...rest] = thunks;
+		try {
+			return await thunk();
+		} catch (error) {
+			return promiseFirst(rest, [...errors, error]);
 		}
 	}
-	return undefined;
 }
 
 module.exports = {
@@ -453,9 +414,7 @@ module.exports = {
 	getConfigFromCommandLine,
 	getTaskOptions,
 	tryFile,
-	tryResolve,
-	getGlobalPackageName,
+	resolveUsingNpx,
 	getPackageName,
-	firstResult,
-	installGlobalPackage,
+	promiseFirst,
 };

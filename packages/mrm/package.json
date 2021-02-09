@@ -19,12 +19,12 @@
     "src"
   ],
   "dependencies": {
-    "cross-spawn": "7.0.3",
     "git-username": "^1.0.0",
     "glob": "^7.1.6",
     "inquirer": "^7.0.4",
     "is-directory": "^0.3.1",
     "kleur": "^3.0.3",
+    "libnpx": "^10.2.4",
     "listify": "^1.0.0",
     "lodash": "^4.17.15",
     "longest": "^2.0.1",
@@ -32,8 +32,6 @@
     "minimist": "^1.2.0",
     "mrm-core": "^4.5.0",
     "mrm-preset-default": "^2.3.7",
-    "package-json": "6.5.0",
-    "requireg": "^0.2.2",
     "semver-utils": "^1.1.4",
     "update-notifier": "^4.1.0",
     "user-home": "^2.0.0",

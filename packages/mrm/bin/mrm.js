@@ -15,10 +15,9 @@ const {
 	run,
 	getConfig,
 	getAllTasks,
-	tryResolve,
+	resolveUsingNpx,
 	getPackageName,
-	getGlobalPackageName,
-	installGlobalPackage,
+	promiseFirst,
 } = require('../src/index');
 const {
 	MrmUnknownTask,
@@ -69,7 +68,7 @@ async function main() {
 	const preset = argv.preset || 'default';
 	const isDefaultPreset = preset === 'default';
 	const directories = await resolveDirectories(defaultDirectories);
-	const options = getConfig(directories, 'config.json', argv);
+	const options = await getConfig(directories, 'config.json', argv);
 	if (tasks.length === 0 || tasks[0] === 'help') {
 		commandHelp();
 	} else {
@@ -84,8 +83,10 @@ async function main() {
 						.map(d => `${d}/${taskName}/index.js`)
 						.concat([
 							`“${taskName}” in the default mrm tasks`,
-							`npm install -g mrm-task-${taskName}`,
-							`npm install -g ${taskName}`,
+							`mrm-task-${taskName} package in local node_modules`,
+							`${taskName} package in local node_modules`,
+							`mrm-task-${taskName} package on the npm registry`,
+							`${taskName} package on the npm registry`,
 						]);
 					printError(
 						`${err.message}
@@ -166,26 +167,20 @@ Note that when a preset is specified no default search locations are used.`
 		}
 
 		const presetPackageName = getPackageName('preset', preset);
-		const presetPath = tryResolve(presetPackageName, preset);
-		if (presetPath) {
-			return [path.dirname(presetPath)];
-		}
-
-		const globalPackageToInstall = await getGlobalPackageName(
-			preset,
-			presetPackageName
-		);
-		if (!globalPackageToInstall) {
+		try {
+			const presetPath = await promiseFirst([
+				() => require.resolve(presetPackageName),
+				() => require.resolve(preset),
+				() => resolveUsingNpx(presetPackageName),
+				() => resolveUsingNpx(preset),
+			]);
+			return [...paths, path.dirname(presetPath)];
+		} catch {
 			printError(`Preset “${preset}” not found.
 
-We’ve tried to load “${presetPackageName}” and “${preset}” globally installed npm packages.`);
-			process.exit(1);
+We’ve tried to load “${presetPackageName}” and “${preset}” npm packages.`);
+			return process.exit(1);
 		}
-
-		console.log(kleur.green(`Installing ${globalPackageToInstall}...`));
-		await installGlobalPackage(globalPackageToInstall);
-
-		return resolveDirectories(paths);
 	}
 
 	function commandHelp() {

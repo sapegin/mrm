@@ -159,9 +159,7 @@ function runYarn(deps, options = {}, exec) {
  * @param {Function} [exec]
  */
 function runYarnBerry(deps, options = {}, exec) {
-	const add = options.dev
-		? ['add', '--dev']
-		: ['add'];
+	const add = options.dev ? ['add', '--dev'] : ['add'];
 
 	const remove = ['remove'];
 	const args = (options.remove ? remove : add).concat(deps);

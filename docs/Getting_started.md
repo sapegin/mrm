@@ -41,7 +41,7 @@ Custom config and tasks folder:
 mrm license --dir ~/unicorn
 ```
 
-Run a task from a preset (globally installed `mrm-preset-unicorn` npm package, read more [about presets](./Making_presets.md)):
+Run a task from a preset (`mrm-preset-unicorn` npm package, read more [about presets](./Making_presets.md)):
 
 ```shell
 mrm license --preset unicorn
