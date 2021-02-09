@@ -20,10 +20,6 @@ mrm travis
 
 See [Mrm docs](../../docs/Getting_started.md) for more details.
 
-### `github` (default: extracted from `.git/config` file)
-
-Your GitHub user name.
-
 ### `readmeFile` (default: `Readme.md`)
 
 Name of the Readme file.

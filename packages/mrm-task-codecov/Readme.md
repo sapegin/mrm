@@ -4,6 +4,11 @@
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-travis) task) and a Readme badge.
 
+## What it does
+
+- Creates GitHub Action workflow file
+- Adds a satus badge to the Readme
+
 ## Usage
 
 ```
@@ -15,13 +20,13 @@ mrm codecov
 
 See [Mrm docs](../../docs/Getting_started.md) for more details.
 
+### `workflowFile` (default: `.github/workflows/node.js.yml`)
+
+Location of the GitHub Actions workflow file.
+
 ### `readmeFile` (default: `Readme.md`)
 
 Name of the Readme file.
-
-### `github` (default: extracted from `.git/config` file)
-
-Your GitHub user name.
 
 ## Changelog
 

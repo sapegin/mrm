@@ -2,7 +2,7 @@
 
 exports[`should add EditorConfig 1`] = `
 Object {
-  "/.editorconfig": "# editorconfig.org
+  "/.editorconfig": "# https://editorconfig.org
 root = true
 
 [*]
@@ -21,7 +21,7 @@ indent_size = 2
 
 exports[`should add a single section when indent=2 1`] = `
 Object {
-  "/.editorconfig": "# editorconfig.org
+  "/.editorconfig": "# https://editorconfig.org
 root = true
 
 [*]
@@ -37,7 +37,7 @@ insert_final_newline = true
 
 exports[`should update JSON section 1`] = `
 Object {
-  "/.editorconfig": "# editorconfig.org
+  "/.editorconfig": "# https://editorconfig.org
 root = true
 
 [*]

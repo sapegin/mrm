@@ -4,18 +4,12 @@ jest.mock('mrm-core/src/util/log', () => ({
 	added: jest.fn(),
 }));
 
-const { getConfigGetter } = require('mrm');
+const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
 const stringify = o => JSON.stringify(o, null, '  ');
 
-const config = getConfigGetter({ github: 'gh' });
-
-const travisYml = `language: node_js
-node_js:
-  - 8
-`;
 const packageJson = stringify({
 	name: 'unicorn',
 	scripts: {
@@ -26,50 +20,38 @@ const readmeMd = '# Unicorn';
 
 afterEach(() => vol.reset());
 
-it('should add CodeCov', () => {
+it('should add CodeCov', async () => {
 	vol.fromJSON({
-		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 		'/Readme.md': readmeMd,
 	});
 
-	task(config);
+	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should throw when .travis.yml not found', () => {
+it('should throw when coverage script not found', async () => {
 	vol.fromJSON({
-		'/package.json': packageJson,
-		'/Readme.md': readmeMd,
-	});
-
-	const fn = () => task(config);
-
-	expect(fn).toThrowError('Run travis task');
-});
-
-it('should throw when coverage script not found', () => {
-	vol.fromJSON({
-		'/.travis.yml': travisYml,
 		'/package.json': stringify({
 			name: 'unicorn',
 		}),
 		'/Readme.md': readmeMd,
 	});
 
-	const fn = () => task(config);
+	const options = await getTaskOptions(task);
+	const fn = () => task(options);
 
 	expect(fn).toThrowError('npm script not found');
 });
 
-it('should not throw when readme file not found', () => {
+it('should not throw when readme file not found', async () => {
 	vol.fromJSON({
-		'/.travis.yml': travisYml,
 		'/package.json': packageJson,
 	});
 
-	const fn = () => task(config);
+	const options = await getTaskOptions(task);
+	const fn = () => task(options);
 
 	expect(fn).not.toThrowError();
 });

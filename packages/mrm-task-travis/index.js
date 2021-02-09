@@ -1,15 +1,10 @@
 const fs = require('fs');
 const { range } = require('lodash');
 const semverUtils = require('semver-utils');
-const gitUsername = require('git-username');
+const packageRepoUrl = require('package-repo-url');
 const { yaml, json, markdown } = require('mrm-core');
 
-function task(config) {
-	const { github, readmeFile, maxNode } = config
-		.defaults({ github: gitUsername(), readmeFile: 'Readme.md', maxNode: 9 })
-		.require('github')
-		.values();
-
+module.exports = function task({ readmeFile, maxNode }) {
 	const pkg = json('package.json');
 
 	// .travis.yml
@@ -42,6 +37,7 @@ function task(config) {
 	travisYml.save();
 
 	// Add Travis package badge to Readme
+	const github = packageRepoUrl().replace('https://github.com/', '');
 	const url = `https://travis-ci.org/${github}/${pkg.get('name')}`;
 	const readme = markdown(readmeFile);
 	if (readme.exists()) {
@@ -54,7 +50,18 @@ ${url}
 
 2. Commit and push your changes
 `);
-}
+};
 
-task.description = 'Adds Travis CI';
-module.exports = task;
+module.exports.description = 'Adds Travis CI';
+module.exports.parameters = {
+	readmeFile: {
+		type: 'input',
+		message: 'Enter filename for the readme',
+		default: 'Readme.md',
+	},
+	maxNode: {
+		type: 'input',
+		message: 'Enter the maximum Node.js versions to run tests on',
+		default: 12,
+	},
+};

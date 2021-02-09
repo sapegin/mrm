@@ -10,7 +10,8 @@ node_js:
   - 4
   - 6
   - 8
-  - 9
+  - 10
+  - 12
 ",
   "/package.json": "{
   \\"name\\": \\"unicorn\\",
@@ -27,7 +28,7 @@ node_js:
 exports[`should add a badge to the Readme 1`] = `
 "# Unicorn
 
-[![Build Status](https://travis-ci.org/gh/unicorn.svg)](https://travis-ci.org/gh/unicorn)"
+[![Build Status](https://travis-ci.org/mrm/unicorn/unicorn.svg)](https://travis-ci.org/mrm/unicorn/unicorn)"
 `;
 
 exports[`should add latest Node version if engines field is not defined 1`] = `
@@ -36,7 +37,7 @@ cache:
   directories:
     - node_modules
 node_js:
-  - 9
+  - 12
 "
 `;
 
@@ -48,6 +49,9 @@ cache:
 node_js:
   - 4
   - 6
-  - 7
+  - 8
+  - 10
+  - 12
+  - 14
 "
 `;

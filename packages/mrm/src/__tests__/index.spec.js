@@ -9,7 +9,6 @@ const {
 	getConfigFromFile,
 	getConfigFromCommandLine,
 	getConfig,
-	getConfigGetter,
 	getTaskOptions,
 	runTask,
 	runAlias,
@@ -298,53 +297,6 @@ describe('getTaskOptions', () => {
 				);
 			}
 		});
-	});
-});
-
-describe('getConfigGetter', () => {
-	it('config should return config values', () => {
-		const config = getConfigGetter(options);
-		expect(config).toMatchObject({ pizza: 'salami' });
-	});
-});
-
-describe('getConfigGetter (deprecated)', () => {
-	it('should return an API', () => {
-		const result = getConfigGetter({});
-		expect(result.require).toEqual(expect.any(Function));
-		expect(result.defaults).toEqual(expect.any(Function));
-		expect(result.values).toEqual(expect.any(Function));
-	});
-
-	it('values function should return options object', () => {
-		const opts = { coffee: 'americano' };
-		const config = getConfigGetter(opts);
-		const result = config.values();
-		expect(result).toEqual(opts);
-	});
-
-	it('require function should not throw if all config options are defined', () => {
-		const config = getConfigGetter({ coffee: 'americano' });
-		const fn = () => config.require('coffee');
-		expect(fn).not.toThrowError();
-	});
-
-	it('require function should throw if some config options are not defined', () => {
-		const config = getConfigGetter({ coffee: 'americano' });
-		const fn = () => config.require('pizza', 'coffee');
-		expect(fn).toThrowError('Required config options are missed: pizza');
-	});
-
-	it('require function should throw if some config options are "undefined", "null" or ""', () => {
-		const config = getConfigGetter({ a: undefined, b: null, c: '' });
-		const fn = () => config.require('a', 'b', 'c');
-		expect(fn).toThrowError('Required config options are missed: a, b, c');
-	});
-
-	it('defaults function should update not defined options', () => {
-		const config = getConfigGetter({ coffee: 'americano' });
-		config.defaults({ coffee: 'cappuccino', pizza: 'salami' });
-		expect(config.values()).toEqual({ coffee: 'americano', pizza: 'salami' });
 	});
 });
 

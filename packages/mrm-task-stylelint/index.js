@@ -1,16 +1,10 @@
 const { json, packageJson, install } = require('mrm-core');
 
-function task(config) {
-	config.defaults({
-		stylelintExtensions: '.css',
-		stylelintPreset: 'stylelint-config-standard',
-	});
-	const {
-		stylelintRules,
-		stylelintPreset,
-		stylelintExtensions,
-	} = config.values();
-
+module.exports = function task({
+	stylelintRules,
+	stylelintPreset,
+	stylelintExtensions,
+}) {
 	const packages = ['stylelint'];
 
 	if (stylelintPreset) {
@@ -46,7 +40,21 @@ function task(config) {
 
 	// Dependencies
 	install(packages);
-}
+};
 
-task.description = 'Adds Stylelint';
-module.exports = task;
+module.exports.description = 'Adds Stylelint';
+module.exports.parameters = {
+	stylelintExtensions: {
+		type: 'input',
+		message: 'Enter file extensions to lint',
+		default: '.css',
+	},
+	stylelintPreset: {
+		type: 'input',
+		message: 'Enter Stylelint preset name',
+		default: 'stylelint-config-standard',
+	},
+	stylelintRules: {
+		type: 'config',
+	},
+};

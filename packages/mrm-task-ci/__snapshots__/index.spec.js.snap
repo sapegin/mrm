@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should add GitHub Action workflow 1`] = `
-Object {
-  "/.github/workflows/node.js.yml": "name: Node.js CI
+"name: Node.js CI
 on:
   push:
     branches:
@@ -31,17 +30,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
-",
-  "/package.json": "{
-  \\"name\\": \\"unicorn\\",
-  \\"engines\\": {
-    \\"node\\": 4
-  },
-  \\"scripts\\": {
-    \\"test\\": \\"jest\\"
-  }
-}",
-}
+"
 `;
 
 exports[`should add a badge to the Readme 1`] = `

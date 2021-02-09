@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.14](https://github.com/sapegin/mrm/compare/mrm-task-gitignore@2.0.13...mrm-task-gitignore@2.0.14) (2021-02-08)
+
+**Note:** Version bump only for package mrm-task-gitignore
+
+
+
+
+
+## [2.0.13](https://github.com/sapegin/mrm/compare/mrm-task-gitignore@2.0.12...mrm-task-gitignore@2.0.13) (2021-02-03)
+
+**Note:** Version bump only for package mrm-task-gitignore
+
+
+
+
+
 ## [2.0.12](https://github.com/sapegin/mrm/compare/mrm-task-gitignore@2.0.11...mrm-task-gitignore@2.0.12) (2020-11-04)
 
 **Note:** Version bump only for package mrm-task-gitignore
