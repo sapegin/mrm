@@ -27,6 +27,114 @@ MIT License, see the included [License.md](License.md) file.
 }
 `;
 
+exports[`should add a readme 2`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Changelog
+
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Gandalf](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
+
+MIT License, see the included [License.md](License.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
+}",
+}
+`;
+
+exports[`should add a readme with no name but author.name 1`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Changelog
+
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Frodo](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
+
+MIT License, see the included [License.md](License.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
+}",
+}
+`;
+
+exports[`should add a readme with no name but author 1`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Changelog
+
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Frodo](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
+
+MIT License, see the included [License.md](License.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
+}",
+}
+`;
+
+exports[`should add a readme with no name and no author 1`] = `
+Object {
+  "/Readme.md": "# unicorn
+
+...
+
+## Changelog
+
+The changelog can be found on the [Releases page](https://github.com/gandalf/unicorn/releases).
+
+## Contributing
+
+Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+
+## Authors and license
+
+[Placeholder](https://middleearth.com) and [contributors](https://github.com/gandalf/unicorn/graphs/contributors).
+
+MIT License, see the included [License.md](License.md) file.
+",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"repository\\": \\"gandalf/unicorn\\"
+}",
+}
+`;
+
 exports[`should add a readme without contributing 1`] = `
 Object {
   "/Readme.md": "# unicorn
