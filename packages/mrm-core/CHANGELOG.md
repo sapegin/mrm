@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.6.0](https://github.com/sapegin/mrm/compare/mrm-core@4.5.0...mrm-core@4.6.0) (2021-02-09)
+
+
+### Features
+
+* **readme:** Make contributing conditional by `includeContributing` option and allow `contributingFile` option for a name ([#123](https://github.com/sapegin/mrm/issues/123)) ([481a316](https://github.com/sapegin/mrm/commit/481a3161bc9c1a778a27b73cd746f4a4d756a41d))
+
+
+
+
+
 # [4.5.0](https://github.com/sapegin/mrm/compare/mrm-core@4.4.0...mrm-core@4.5.0) (2021-02-08)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.16](https://github.com/sapegin/mrm/compare/mrm-task-contributing@2.0.15...mrm-task-contributing@2.0.16) (2021-02-09)
+
+**Note:** Version bump only for package mrm-task-contributing
+
+
+
+
+
 ## [2.0.15](https://github.com/sapegin/mrm/compare/mrm-task-contributing@2.0.14...mrm-task-contributing@2.0.15) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-contributing

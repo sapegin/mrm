@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.3](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.1.2...mrm-task-travis@2.1.3) (2021-02-09)
+
+**Note:** Version bump only for package mrm-task-travis
+
+
+
+
+
 ## [2.1.2](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.1.1...mrm-task-travis@2.1.2) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-travis
