@@ -22,7 +22,7 @@
     "format": "prettier --loglevel warn --write \"**/*.{js,md}\""
   },
   "engines": {
-    "node": ">=8.9"
+    "node": ">=10.13"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.149",
