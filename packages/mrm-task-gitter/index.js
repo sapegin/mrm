@@ -1,17 +1,26 @@
 const { markdown, packageJson } = require('mrm-core');
 
-function task(config) {
-	const pkg = packageJson();
-	const { packageName } = config
-		.defaults({ packageName: pkg.get('name') })
-		.require('packageName')
-		.values();
-
+module.exports = function task({ packageName, readme }) {
 	const url = `https://gitter.im/${packageName}`;
-	markdown(config('readme', 'Readme.md'))
-		.addBadge(`https://badges.gitter.im/${packageName}.svg`, url, 'Gitter chat')
+	const badge = `https://badges.gitter.im/${packageName}.svg`;
+	markdown(readme)
+		.addBadge(badge, url, 'Gitter chat')
 		.save();
-}
+};
 
-task.description = 'Adds Gitter badge to the readme';
-module.exports = task;
+module.exports.description = 'Adds Gitter badge to the readme';
+module.exports.parameters = {
+	packageName: {
+		type: 'input',
+		message: 'Enter package name',
+		default: () => packageJson().get('name'),
+		validate(value) {
+			return value ? true : 'Package name is required';
+		},
+	},
+	readme: {
+		type: 'input',
+		message: 'Enter filename for the readme',
+		default: 'Readme.md',
+	},
+};
