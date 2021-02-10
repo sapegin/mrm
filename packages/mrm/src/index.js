@@ -171,7 +171,6 @@ async function runTask(taskName, directories, options, argv) {
 		console.log(kleur.cyan(`Running ${taskName}...`));
 
 		Promise.resolve(getTaskOptions(module, argv.interactive, options))
-			.then(getConfigGetter)
 			.then(config => module(config, argv))
 			.then(resolve)
 			.catch(reject);
@@ -238,69 +237,6 @@ async function getTaskOptions(task, interactive = false, options = {}) {
 	}
 
 	return values;
-}
-
-/**
- * Return a config getter.
- *
- * @param {Object} options
- * @return {any}
- */
-function getConfigGetter(options) {
-	const config = { ...options };
-
-	/**
-	 * Return an object with all config values.
-	 *
-	 * @return {Object}
-	 */
-	function values() {
-		console.warn(
-			'Warning: calling config.values() is deprecated. Access values directly instead'
-		);
-		return options;
-	}
-
-	/**
-	 * Mark config options as required.
-	 *
-	 * @param {...string} names
-	 * @return {Object} this
-	 */
-	function require(...names) {
-		console.warn(
-			'Warning: calling config.require() is deprecated. Use the validate() method instead'
-		);
-		const unknown = names.filter(name => !options[name]);
-		if (unknown.length > 0) {
-			throw new MrmUndefinedOption(
-				`Required config options are missed: ${unknown.join(', ')}.`,
-				{
-					unknown,
-				}
-			);
-		}
-		return config;
-	}
-
-	/**
-	 * Set default values.
-	 *
-	 * @param {Object} defaultOptions
-	 * @return {any}
-	 */
-	function defaults(defaultOptions) {
-		console.warn(
-			'Warning: calling config.defaults() is deprecated. Use the default property instead'
-		);
-		options = Object.assign({}, defaultOptions, options);
-		return config;
-	}
-
-	config.require = require;
-	config.defaults = defaults;
-	config.values = values;
-	return config;
 }
 
 /**
@@ -408,7 +344,6 @@ module.exports = {
 	run,
 	runTask,
 	runAlias,
-	getConfigGetter,
 	getConfig,
 	getConfigFromFile,
 	getConfigFromCommandLine,

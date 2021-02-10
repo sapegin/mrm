@@ -10,7 +10,6 @@ const fs = jest.requireActual('fs');
 const path = require('path');
 const { install } = require('mrm-core');
 const { omitBy } = require('lodash');
-const { getConfigGetter } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -31,7 +30,7 @@ it('should add React Styleguidist', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(
 		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
@@ -57,7 +56,7 @@ it('should use a TypeScript template for a TypeScript project', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/styleguide.config.js']).toMatchSnapshot();
 });
@@ -75,7 +74,7 @@ it('should not install webpack when used with CRA', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(install.mock.calls).toEqual([
 		[['react', 'react-dom'], { dev: false }],
