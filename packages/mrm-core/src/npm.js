@@ -1,7 +1,6 @@
 // @ts-check
 const fs = require('fs-extra');
 const _ = require('lodash');
-const rc = require('rc');
 const semver = require('semver');
 const listify = require('listify');
 const validateNpmPackageName = require('validate-npm-package-name');
@@ -266,14 +265,6 @@ function getUnsatisfiedDeps(deps, versions, options) {
 	});
 }
 
-function config() {
-	const npm = rc('npm', null, []);
-	return {
-		version: npm['init-version'],
-		license: npm['init-license'],
-	};
-}
-
 /*
  * Is project using Yarn?
  */
@@ -289,7 +280,6 @@ function isUsingYarnBerry() {
 }
 
 module.exports = {
-	config,
 	install,
 	uninstall,
 };
