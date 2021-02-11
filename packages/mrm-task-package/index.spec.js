@@ -30,7 +30,64 @@ it('should add package.json', async () => {
 	expect(vol.toJSON()[path.join(__dirname, 'package.json')]).toMatchSnapshot();
 });
 
+it('should add yarn.lock if packageManager is Yarn', async () => {
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'Yarn',
+			})
+		)
+	);
+
+	expect(vol.toJSON()[path.join(__dirname, 'yarn.lock')]).toBeDefined();
+});
+
+it('should add .yarnrc.yml if packageManager is Yarn Berry', async () => {
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'Yarn Berry',
+			})
+		)
+	);
+
+	expect(vol.toJSON()[path.join(__dirname, '.yarnrc.yml')]).toBeDefined();
+});
+
+it('should add pnpm-lock.yaml if packageManager is pnpm', async () => {
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'pnpm',
+			})
+		)
+	);
+
+	expect(vol.toJSON()[path.join(__dirname, 'pnpm-lock.yaml')]).toBeDefined();
+});
+
 it('should set custom Node.js version', async () => {
+	vol.fromJSON({
+		[`${__dirname}/package-lock.json`]: '',
+	});
 	task(
 		await getTaskOptions(
 			task,
@@ -44,6 +101,9 @@ it('should set custom Node.js version', async () => {
 });
 
 it('should set custom license', async () => {
+	vol.fromJSON({
+		[`${__dirname}/package-lock.json`]: '',
+	});
 	task(
 		await getTaskOptions(
 			task,

@@ -1,4 +1,5 @@
 // @ts-check
+const fs = require('fs');
 const path = require('path');
 const meta = require('user-meta');
 const gitUsername = require('git-username');
@@ -21,6 +22,7 @@ module.exports = function task({
 	minNode,
 	license,
 	version,
+	packageManager,
 }) {
 	const packageName = path.basename(process.cwd());
 	const repository = `${github}/${packageName}`;
@@ -49,6 +51,27 @@ module.exports = function task({
 		dependencies: {},
 		devDependencies: {},
 	});
+
+	let lockFileBase;
+	switch (packageManager) {
+		case 'npm':
+			lockFileBase = 'package-lock.json';
+			break;
+		case 'pnpm':
+			lockFileBase = 'pnpm-lock.yaml';
+			break;
+		case 'Yarn':
+			lockFileBase = 'yarn.lock';
+			break;
+		case 'Yarn Berry':
+			lockFileBase = '.yarnrc.yml';
+			break;
+	}
+
+	const lockFile = path.join(__dirname, lockFileBase);
+	if (!fs.existsSync(lockFile)) {
+		fs.closeSync(fs.openSync(lockFile, 'w'));
+	}
 
 	// Update
 	if (pkg.exists()) {
@@ -99,5 +122,11 @@ module.exports.parameters = {
 		type: 'input',
 		message: 'Enter project license',
 		default: () => getConfig().license || 'MIT',
+	},
+	packageManager: {
+		type: 'list',
+		message: 'Enter the package manager to use',
+		choices: ['npm', 'pnpm', 'Yarn', 'Yarn Berry'],
+		default: 'npm',
 	},
 };
