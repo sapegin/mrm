@@ -10,7 +10,6 @@ jest.mock('mrm-core/src/npm', () => ({
 const fs = jest.requireActual('fs');
 const path = require('path');
 const { install, uninstall } = require('mrm-core');
-const { getConfigGetter } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -38,7 +37,7 @@ it('should add Jest', () => {
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith(['jest']);
@@ -54,7 +53,7 @@ it('should add Babel specific configuration if projects depends on Babel', () =>
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith(['jest', 'babel-jest']);
@@ -70,7 +69,7 @@ it('should add TypeScript specific configuration if projects depends on TypeScri
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith(['jest', 'ts-jest', '@types/jest']);
@@ -88,7 +87,7 @@ it('should add React specific configuration if projects depends on React', () =>
 			},
 		}),
 	});
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 	expect(vol.toJSON()['/test/jestsetup.js']).toMatchSnapshot();
@@ -109,7 +108,7 @@ it('should not overwrite Jest setup file', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 	expect(vol.toJSON()['/test/jestsetup.js']).toBe('pizza');
@@ -126,7 +125,7 @@ it('should update or create .eslintignore if projects depends on ESLint', () => 
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/.eslintignore']).toMatchSnapshot();
 });
@@ -142,7 +141,7 @@ it('should add a basic test case when index.js file is present', () => {
 		'/index.js': '',
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/test.js']).toMatchSnapshot();
 });
@@ -155,7 +154,7 @@ it('should not update .npmignore for private packages', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/.npmignore']).toBeUndefined();
 });
@@ -167,7 +166,7 @@ it('should not overwrite test.js', () => {
 		'/test.js': 'still here',
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/test.js']).toMatchSnapshot();
 });
@@ -182,7 +181,7 @@ it('should uninstall other test frameworks', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(uninstall).toBeCalledWith(['mocha', 'chai', 'ava']);
 	expect(console.log).toBeCalledWith(

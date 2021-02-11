@@ -6,7 +6,6 @@ jest.mock('mrm-core/src/npm', () => ({
 	install: jest.fn(),
 }));
 
-const { getConfigGetter } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
 
@@ -26,7 +25,7 @@ it('should add TypeScript', () => {
 		'/package.json': packageJson,
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()).toMatchSnapshot();
 });
