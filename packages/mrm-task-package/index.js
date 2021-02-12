@@ -4,6 +4,7 @@ const path = require('path');
 const meta = require('user-meta');
 const gitUsername = require('git-username');
 const { json } = require('mrm-core');
+const rc = require('rc');
 
 const rc = require('rc');
 
@@ -70,7 +71,10 @@ module.exports = function task({
 
 	const lockFile = path.join(__dirname, lockFileBase);
 	if (!fs.existsSync(lockFile)) {
-		fs.closeSync(fs.openSync(lockFile, 'w'));
+		const npmrc = rc('npm', null, []);
+		if (packageManager !== 'npm' || !npmrc || npmrc['package-lock'] !== false) {
+			fs.closeSync(fs.openSync(lockFile, 'w'));
+		}
 	}
 
 	// Update

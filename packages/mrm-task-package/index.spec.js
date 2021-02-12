@@ -30,6 +30,70 @@ it('should add package.json', async () => {
 	expect(vol.toJSON()[path.join(__dirname, 'package.json')]).toMatchSnapshot();
 });
 
+it('should add package-lock.json if packageManager is npm', async () => {
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'npm',
+			})
+		)
+	);
+
+	expect(vol.toJSON()[path.join(__dirname, 'package-lock.json')]).toBeDefined();
+});
+
+it('should not add package-lock.json if npmrc has false for package-lock.json', async () => {
+	vol.fromJSON({
+		[`${__dirname}/.npmrc`]: 'package-lock=false',
+	});
+
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'npm',
+			})
+		)
+	);
+
+	expect(
+		vol.toJSON()[path.join(__dirname, 'package-lock.json')]
+	).not.toBeDefined();
+});
+
+it('should add package-lock.json if npmrc has true for package-lock.json', async () => {
+	vol.fromJSON({
+		[`${__dirname}/.npmrc`]: 'package-lock=true',
+	});
+
+	// The task will use the folder name as a package name
+	vol.mkdirpSync(__dirname);
+	process.chdir(__dirname);
+
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				packageManager: 'npm',
+			})
+		)
+	);
+
+	expect(vol.toJSON()[path.join(__dirname, 'package-lock.json')]).toBeDefined();
+});
+
 it('should add yarn.lock if packageManager is Yarn', async () => {
 	// The task will use the folder name as a package name
 	vol.mkdirpSync(__dirname);
