@@ -56,7 +56,7 @@ it('should add Prettier if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should add Prettier and ESLint', async () => {
@@ -128,7 +128,7 @@ it('should add ESLint if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should use default JS extension if eslint command has no --ext key', async () => {
@@ -238,7 +238,7 @@ it('should add stylelint if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should use a custom stylelint extension', async () => {
@@ -325,7 +325,7 @@ it('should merge rules with the same pattern', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should remove husky 0.14 config from package.json', async () => {
