@@ -277,7 +277,7 @@ it('should add a custom rule', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should update an existing rule', async () => {
@@ -297,7 +297,7 @@ it('should update an existing rule', async () => {
 	task(await getTaskOptions(task, false));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=4' });
+	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
 });
 
 it('should merge rules with the same pattern', async () => {

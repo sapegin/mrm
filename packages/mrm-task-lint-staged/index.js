@@ -4,7 +4,7 @@ const { castArray } = require('lodash');
 
 const packages = {
 	'lint-staged': '>=10',
-	husky: '>=4',
+	husky: '=4',
 };
 
 /**
