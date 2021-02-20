@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.15](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.0.14...mrm-task-lint-staged@3.0.15) (2021-02-20)
+
+
+### Bug Fixes
+
+* Fix broken lint-staged action by explicitly pining Husky to 4.x ([#146](https://github.com/sapegin/mrm/issues/146)) ([29d2194](https://github.com/sapegin/mrm/commit/29d2194d46c4160d942f559c8511cfbb8b52704e)), closes [#145](https://github.com/sapegin/mrm/issues/145)
+
+
+
+
+
 ## [3.0.14](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.0.13...mrm-task-lint-staged@3.0.14) (2021-02-09)
 
 **Note:** Version bump only for package mrm-task-lint-staged
