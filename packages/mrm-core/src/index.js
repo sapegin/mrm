@@ -19,6 +19,7 @@ module.exports = {
 	copyFiles: fs.copyFiles,
 	deleteFiles: fs.deleteFiles,
 	makeDirs: fs.makeDirs,
+	init: npm.init,
 	install: npm.install,
 	uninstall: npm.uninstall,
 	inferStyle: editorconfig.inferStyle,
