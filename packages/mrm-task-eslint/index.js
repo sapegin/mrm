@@ -74,7 +74,7 @@ module.exports = function task({
 	const eslintrc = json(configFile, legacyConfig);
 	const extendsValue = _.castArray(eslintrc.get('extends', []));
 	const hasCustomPreset =
-		extendsValue.length &&
+		eslintPresets.length &&
 		eslintPresets.every(eslintPreset =>
 			extendsValue.some(x => x.startsWith(eslintPreset))
 		);
