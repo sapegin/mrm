@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.1.3...mrm-task-travis@2.2.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
 ## [2.1.3](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.1.2...mrm-task-travis@2.1.3) (2021-02-09)
 
 **Note:** Version bump only for package mrm-task-travis

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/sapegin/mrm/compare/mrm-task-license@3.3.0...mrm-task-license@3.4.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
 # [3.3.0](https://github.com/sapegin/mrm/compare/mrm-task-license@3.2.0...mrm-task-license@3.3.0) (2021-02-09)
 
 
