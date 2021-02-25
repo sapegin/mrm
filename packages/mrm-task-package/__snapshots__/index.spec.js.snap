@@ -65,8 +65,10 @@ exports[`should set custom Node.js version 2`] = `
     \\"name\\": \\"Gendalf\\",
     \\"url\\": \\"https://middleearth.com\\"
   },
+  \\"contributors\\": [],
   \\"homepage\\": \\"https://github.com/gendalf/\\",
-  \\"repository\\": \\"gendalf/\\",
+  \\"bugs\\": \\"https://github.com/gendalf//issues\\",
+  \\"repository\\": \\"https://github.com/gendalf/\\",
   \\"license\\": \\"MIT\\",
   \\"engines\\": {
     \\"node\\": \\">=9.1\\"
