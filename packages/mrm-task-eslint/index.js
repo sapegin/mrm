@@ -182,7 +182,7 @@ module.exports = function task({
 
 	// Dependencies
 	uninstall([...packagesToRemove, ...eslintObsoleteDependencies]);
-	install([...new Set(packages)]);
+	install(packages);
 };
 
 module.exports.description = 'Adds ESLint';
