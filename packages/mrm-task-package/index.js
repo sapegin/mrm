@@ -6,8 +6,6 @@ const gitUsername = require('git-username');
 const { json } = require('mrm-core');
 const rc = require('rc');
 
-const rc = require('rc');
-
 function getConfig() {
 	const npm = rc('npm', null, []);
 	return {
