@@ -4,7 +4,7 @@ const { castArray } = require('lodash');
 
 const packages = {
 	'lint-staged': '>=10',
-	husky: '=4',
+	'simple-git-hooks': '>=2.0.3',
 };
 
 /**
@@ -172,12 +172,12 @@ module.exports = function task({ lintStagedRules }) {
 	pkg
 		// Remove husky 0.14 config
 		.unset('scripts.precommit')
+		// Remove husky 4 config
+		.unset('husky')
 		// Add new config
 		.merge({
-			husky: {
-				hooks: {
-					'pre-commit': 'lint-staged',
-				},
+			'simple-git-hooks': {
+				'pre-commit': 'npx lint-staged',
 			},
 			'lint-staged': rules,
 		})

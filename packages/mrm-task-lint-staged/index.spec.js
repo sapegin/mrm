@@ -56,7 +56,10 @@ it('should add Prettier if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should add Prettier and ESLint', async () => {
@@ -128,7 +131,10 @@ it('should add ESLint if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should use default JS extension if eslint command has no --ext key', async () => {
@@ -238,7 +244,10 @@ it('should add stylelint if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should use a custom stylelint extension', async () => {
@@ -277,7 +286,10 @@ it('should add a custom rule', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should update an existing rule', async () => {
@@ -297,7 +309,10 @@ it('should update an existing rule', async () => {
 	task(await getTaskOptions(task, false));
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should merge rules with the same pattern', async () => {
@@ -325,7 +340,10 @@ it('should merge rules with the same pattern', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
-	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '=4' });
+	expect(install).toBeCalledWith({
+		'lint-staged': '>=10',
+		'simple-git-hooks': '>=2.0.3',
+	});
 });
 
 it('should remove husky 0.14 config from package.json', async () => {
@@ -334,6 +352,26 @@ it('should remove husky 0.14 config from package.json', async () => {
 			name: 'unicorn',
 			scripts: {
 				precommit: 'lint-staged',
+			},
+			devDependencies: {
+				eslint: '*',
+			},
+		}),
+	});
+
+	task(await getTaskOptions(task));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+});
+
+it('should remove husky 4 config from package.json', async () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			husky: {
+				hooks: {
+					'pre-commit': 'lint-staged',
+				},
 			},
 			devDependencies: {
 				eslint: '*',
