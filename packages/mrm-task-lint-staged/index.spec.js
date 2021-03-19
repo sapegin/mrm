@@ -1,9 +1,10 @@
 jest.mock('fs');
 jest.mock('mrm-core/src/npm', () => ({
+	uninstall: jest.fn(),
 	install: jest.fn(),
 }));
 
-const { install } = require('mrm-core');
+const { install, uninstall } = require('mrm-core');
 const { getTaskOptions } = require('mrm');
 const vol = require('memfs').vol;
 const task = require('./index');
@@ -26,6 +27,7 @@ beforeEach(() => {
 afterEach(() => {
 	vol.reset();
 	install.mockClear();
+	uninstall.mockClear();
 	console.log = console$log;
 });
 
@@ -56,6 +58,7 @@ it('should add Prettier if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith('husky');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
 		'simple-git-hooks': '>=2.0.3',
@@ -131,6 +134,7 @@ it('should add ESLint if project depends on it', async () => {
 	task(await getTaskOptions(task));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith('husky');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
 		'simple-git-hooks': '>=2.0.3',
@@ -286,6 +290,7 @@ it('should add a custom rule', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith('husky');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
 		'simple-git-hooks': '>=2.0.3',
@@ -309,6 +314,7 @@ it('should update an existing rule', async () => {
 	task(await getTaskOptions(task, false));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith('husky');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
 		'simple-git-hooks': '>=2.0.3',
@@ -340,6 +346,7 @@ it('should merge rules with the same pattern', async () => {
 	);
 
 	expect(vol.toJSON()).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith('husky');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
 		'simple-git-hooks': '>=2.0.3',

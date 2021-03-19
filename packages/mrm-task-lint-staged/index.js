@@ -1,5 +1,10 @@
 // @ts-check
-const { packageJson, install, getExtsFromCommand } = require('mrm-core');
+const {
+	packageJson,
+	install,
+	getExtsFromCommand,
+	uninstall,
+} = require('mrm-core');
 const { castArray } = require('lodash');
 
 const packages = {
@@ -183,6 +188,7 @@ module.exports = function task({ lintStagedRules }) {
 		})
 		.save();
 
+	uninstall('husky');
 	// Install dependencies
 	install(packages);
 };
