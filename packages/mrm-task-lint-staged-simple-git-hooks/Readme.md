@@ -17,7 +17,7 @@ This tasks will try to infer extensions from your npm scripts. For example, if y
 ## Usage
 
 ```
-npm install -g mrm mrm-task-lint-staged
+npm install -g mrm mrm-task-lint-staged-simple-git-hooks
 mrm lint-staged
 ```
 
