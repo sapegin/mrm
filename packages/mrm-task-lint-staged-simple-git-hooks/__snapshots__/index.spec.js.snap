@@ -7,10 +7,8 @@ Object {
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.js\\": \\"eslint --cache --fix\\"
@@ -28,10 +26,8 @@ Object {
     \\"eslint\\": \\"4.0.1\\",
     \\"prettier\\": \\"1.9.2\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.js\\": \\"eslint --cache --fix\\",
@@ -48,10 +44,8 @@ Object {
   \\"devDependencies\\": {
     \\"prettier\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,css,md}\\": \\"prettier --write\\"
@@ -67,10 +61,8 @@ Object {
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.js\\": [
@@ -89,10 +81,8 @@ Object {
   \\"devDependencies\\": {
     \\"stylelint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.css\\": \\"stylelint --fix\\"
@@ -110,10 +100,8 @@ exports[`should infer ESLint extension for an npm script 1`] = `
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,jsx}\\": \\"eslint --cache --fix\\"
@@ -130,10 +118,8 @@ exports[`should infer Prettier extensions from an npm script 1`] = `
   \\"devDependencies\\": {
     \\"prettier\\": \\"1.9.2\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,jsx}\\": \\"prettier --write\\"
@@ -156,10 +142,8 @@ Object {
       \\"prettier --write\\"
     ]
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   }
 }",
 }
@@ -173,10 +157,25 @@ Object {
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --cache --fix\\"
+  }
+}",
+}
+`;
+
+exports[`should remove husky 4 config from package.json 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.js\\": \\"eslint --cache --fix\\"
@@ -196,10 +195,8 @@ Object {
     \\"*.md\\": \\"textlint --fix\\",
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   }
 }",
 }
@@ -212,10 +209,8 @@ Object {
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,jsx}\\": \\"eslint --cache --fix\\"
@@ -231,10 +226,8 @@ Object {
   \\"devDependencies\\": {
     \\"stylelint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.scss\\": \\"stylelint --fix\\"
@@ -250,10 +243,8 @@ Object {
   \\"devDependencies\\": {
     \\"prettier\\": \\"1.9.2\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,jsx,mjs}\\": \\"prettier --write\\"
@@ -271,10 +262,8 @@ exports[`should use default JS extension if eslint command has no --ext key 1`] 
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.js\\": \\"eslint --cache --fix\\"
@@ -290,10 +279,8 @@ Object {
     \\"eslint\\": \\"*\\",
     \\"prettier\\": \\"*\\"
   },
-  \\"husky\\": {
-    \\"hooks\\": {
-      \\"pre-commit\\": \\"lint-staged\\"
-    }
+  \\"simple-git-hooks\\": {
+    \\"pre-commit\\": \\"npx lint-staged\\"
   },
   \\"lint-staged\\": {
     \\"*.{js,css,md}\\": \\"prettier --write\\"

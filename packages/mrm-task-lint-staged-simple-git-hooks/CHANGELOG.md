@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.1.0...mrm-task-lint-staged@4.0.0) (2021-03-22)
+
+
+### Features
+
+* Replace husky with simple-git-hooks ([#149](https://github.com/sapegin/mrm/issues/149)) ([8ecd2ce](https://github.com/sapegin/mrm/commit/8ecd2ce0816fb06c395276250fa85dea6f93686d))
+
+
+### BREAKING CHANGES
+
+* The lint-staged task will migrate `husky` to `simple-git-hooks`, the existing `husky` dependency will be removed.
+
+
+
+
+
 # [3.1.0](https://github.com/sapegin/mrm/compare/mrm-task-lint-staged@3.0.15...mrm-task-lint-staged@3.1.0) (2021-02-25)
 
 
