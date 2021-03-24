@@ -1,12 +1,12 @@
 {
-  "name": "mrm-task-lint-staged",
+  "name": "mrm-task-lint-staged-simple-git-hooks",
   "version": "4.0.0",
   "description": "Mrm task that adds lint-staged",
   "author": {
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-lint-staged",
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-lint-staged-simple-git-hooks",
   "repository": "sapegin/mrm",
   "license": "MIT",
   "engines": {

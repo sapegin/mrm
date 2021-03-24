@@ -58,6 +58,12 @@ it('should have lint-staged task', () => {
 	expect(task.description).toMatch('lint-staged');
 });
 
+it('should have lint-staged-simple-git-hooks task', () => {
+	const task = require('./lint-staged-simple-git-hooks/index.js');
+	expect(task).toEqual(expect.any(Function));
+	expect(task.description).toMatch('lint-staged-simple-git-hooks');
+});
+
 it('should have package task', () => {
 	const task = require('./package/index.js');
 	expect(task).toEqual(expect.any(Function));

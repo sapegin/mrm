@@ -3,7 +3,6 @@ const {
 	packageJson,
 	install,
 	getExtsFromCommand,
-	uninstall,
 } = require('mrm-core');
 const { castArray } = require('lodash');
 
@@ -175,11 +174,6 @@ module.exports = function task({ lintStagedRules }) {
 
 	// package.json
 	pkg
-		// Remove husky 0.14 config
-		.unset('scripts.precommit')
-		// Remove husky 4 config
-		.unset('husky')
-		// Add new config
 		.merge({
 			'simple-git-hooks': {
 				'pre-commit': 'npx lint-staged',
@@ -188,12 +182,11 @@ module.exports = function task({ lintStagedRules }) {
 		})
 		.save();
 
-	uninstall('husky');
 	// Install dependencies
 	install(packages);
 };
 
-module.exports.description = 'Adds lint-staged';
+module.exports.description = 'Adds lint-staged-simple-git-hooks';
 module.exports.parameters = {
 	lintStagedRules: {
 		type: 'config',

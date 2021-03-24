@@ -1,6 +1,6 @@
-<!-- lint-staged -->
+<!-- lint-staged-simple-git-hooks -->
 
-# mrm-task-lint-staged
+# mrm-task-lint-staged-simple-git-hooks
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [lint-staged](https://github.com/okonet/lint-staged).
 

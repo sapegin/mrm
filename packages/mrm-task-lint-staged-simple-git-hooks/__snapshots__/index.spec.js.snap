@@ -149,41 +149,6 @@ Object {
 }
 `;
 
-exports[`should remove husky 0.14 config from package.json 1`] = `
-Object {
-  "/package.json": "{
-  \\"name\\": \\"unicorn\\",
-  \\"scripts\\": {},
-  \\"devDependencies\\": {
-    \\"eslint\\": \\"*\\"
-  },
-  \\"simple-git-hooks\\": {
-    \\"pre-commit\\": \\"npx lint-staged\\"
-  },
-  \\"lint-staged\\": {
-    \\"*.js\\": \\"eslint --cache --fix\\"
-  }
-}",
-}
-`;
-
-exports[`should remove husky 4 config from package.json 1`] = `
-Object {
-  "/package.json": "{
-  \\"name\\": \\"unicorn\\",
-  \\"devDependencies\\": {
-    \\"eslint\\": \\"*\\"
-  },
-  \\"simple-git-hooks\\": {
-    \\"pre-commit\\": \\"npx lint-staged\\"
-  },
-  \\"lint-staged\\": {
-    \\"*.js\\": \\"eslint --cache --fix\\"
-  }
-}",
-}
-`;
-
 exports[`should update an existing rule 1`] = `
 Object {
   "/package.json": "{
