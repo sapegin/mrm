@@ -5,6 +5,7 @@ const {
 	getExtsFromCommand,
 	uninstall,
 } = require('mrm-core');
+const { isUsingYarnBerry } = require('mrm-core/src/npm');
 const { castArray } = require('lodash');
 const husky = require('husky');
 
@@ -115,7 +116,7 @@ function isCommandBelongsToRule(ruleCommands, command) {
 	return castArray(ruleCommands).some(x => regExp.test(x));
 }
 
-module.exports = function task({ isYarn2, lintStagedRules }) {
+module.exports = function task({ lintStagedRules }) {
 	const pkg = packageJson();
 	const allRules = mergeRules(defaultRules, lintStagedRules);
 	const existingRules = Object.entries(pkg.get('lint-staged', {}));
@@ -187,7 +188,7 @@ module.exports = function task({ isYarn2, lintStagedRules }) {
 			'lint-staged': rules,
 		});
 
-	if (isYarn2) {
+	if (isUsingYarnBerry()) {
 		// Yarn 2 doesn't support `prepare` lifecycle yet
 		// https://yarnpkg.com/advanced/lifecycle-scripts
 		pkg.appendScript('postinstall', 'husky install');
@@ -217,11 +218,6 @@ module.exports = function task({ isYarn2, lintStagedRules }) {
 
 module.exports.description = 'Adds lint-staged';
 module.exports.parameters = {
-	isYarn2: {
-		type: 'confirm',
-		message: 'Are you using Yarn 2?',
-		default: false,
-	},
 	lintStagedRules: {
 		type: 'config',
 		default: {},

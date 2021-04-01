@@ -282,4 +282,5 @@ function isUsingYarnBerry() {
 module.exports = {
 	install,
 	uninstall,
+	isUsingYarnBerry,
 };
