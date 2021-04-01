@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/sapegin/mrm/compare/mrm-core@4.7.0...mrm-core@5.0.0) (2021-04-01)
+
+
+### Features
+
+* **lint-staged:** Use husky 6 ([#152](https://github.com/sapegin/mrm/issues/152)) ([133fe08](https://github.com/sapegin/mrm/commit/133fe08b0895b0c994c55d39e0f43af0672fe1f9))
+
+
+### BREAKING CHANGES
+
+* **lint-staged:** The lint-staged task will migrate simple-git-hooks back to husky 6, the existing simple-git-hooks dependency will be removed.
+
+
+
+
+
 # [4.7.0](https://github.com/sapegin/mrm/compare/mrm-core@4.6.0...mrm-core@4.7.0) (2021-02-25)
 
 
