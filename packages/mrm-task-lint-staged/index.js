@@ -6,10 +6,11 @@ const {
 	uninstall,
 } = require('mrm-core');
 const { castArray } = require('lodash');
+const husky = require('husky');
 
 const packages = {
 	'lint-staged': '>=10',
-	'simple-git-hooks': '>=2.0.3',
+	husky: '>=6',
 };
 
 /**
@@ -114,7 +115,7 @@ function isCommandBelongsToRule(ruleCommands, command) {
 	return castArray(ruleCommands).some(x => regExp.test(x));
 }
 
-module.exports = function task({ lintStagedRules }) {
+module.exports = function task({ isYarn2, lintStagedRules }) {
 	const pkg = packageJson();
 	const allRules = mergeRules(defaultRules, lintStagedRules);
 	const existingRules = Object.entries(pkg.get('lint-staged', {}));
@@ -179,22 +180,48 @@ module.exports = function task({ lintStagedRules }) {
 		.unset('scripts.precommit')
 		// Remove husky 4 config
 		.unset('husky')
+		// Remove simple-git-hooks
+		.unset('simple-git-hooks')
 		// Add new config
 		.merge({
-			'simple-git-hooks': {
-				'pre-commit': 'npx lint-staged',
-			},
 			'lint-staged': rules,
-		})
-		.save();
+		});
 
-	uninstall('husky');
+	if (isYarn2) {
+		// Yarn 2 doesn't support `prepare` lifecycle yet
+		// https://yarnpkg.com/advanced/lifecycle-scripts
+		pkg.appendScript('postinstall', 'husky install');
+		if (!pkg.get('private')) {
+			// In case package isn't private, pinst ensures that postinstall
+			// is disabled on publish
+			pkg
+				.appendScript('prepublishOnly', 'pinst --disable')
+				.appendScript('postpublish', 'pinst --enable');
+			packages.pinst = '>=2';
+		}
+	} else {
+		// npm, Yarn 1, pnpm
+		pkg.appendScript('prepare', 'husky install');
+	}
+
+	pkg.save();
+
+	uninstall('simple-git-hooks');
 	// Install dependencies
 	install(packages);
+	// Install husky
+	husky.install();
+	// Set lint-staged config
+	husky.add('.husky/pre-commit', 'npx lint-staged');
 };
 
 module.exports.description = 'Adds lint-staged';
 module.exports.parameters = {
+	isYarn2: {
+		type: 'confirm',
+		message: 'Are you using Yarn 2?',
+		default: false,
+	},
 	lintStagedRules: {
 		type: 'config',
 		default: {},
