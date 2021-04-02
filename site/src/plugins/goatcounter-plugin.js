@@ -5,7 +5,7 @@ module.exports = function() {
 			return {
 				headTags: [
 					`<script>
-if ('history' in window) {
+if ('history' in window && 'goatcounter' in window) {
 	function trackView() {
 		window.goatcounter.count({
 			path: location.pathname + location.search,
