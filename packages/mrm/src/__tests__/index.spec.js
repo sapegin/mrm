@@ -333,13 +333,13 @@ describe('runTask', () => {
 	});
 
 	it('should throw when module not found', () => {
-		const pizza = runTask('pizza', directories, {}, {});
+		const pizza = runTask('this-does-not-exist-on-npm', directories, {}, {});
 
 		// ideally we can use toThrowError but that works with >= jest@22
 		// https://github.com/facebook/jest/issues/5076
 		return expect(pizza).rejects.toHaveProperty(
 			'message',
-			'Task “pizza” not found.'
+			'Task “this-does-not-exist-on-npm” not found.'
 		);
 	}, 20000);
 
