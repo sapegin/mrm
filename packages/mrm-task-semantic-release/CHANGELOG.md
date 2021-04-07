@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@4.1.1...mrm-task-semantic-release@5.0.0) (2021-04-07)
+
+
+### Features
+
+* Autoload tasks and presets ([#99](https://github.com/sapegin/mrm/issues/99)) ([b866455](https://github.com/sapegin/mrm/commit/b866455f98c72b7698ec7cc5fb277df3b3f9ce25)), closes [#97](https://github.com/sapegin/mrm/issues/97)
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+* Mrm will no longer load globally installed tasks and presets but will autoload them directly from npm, similar to how npx works (we're actually using npx under the hood).
+
+
+
+
+
 ## [4.1.1](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@4.1.0...mrm-task-semantic-release@4.1.1) (2021-04-01)
 
 **Note:** Version bump only for package mrm-task-semantic-release

@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-package",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Mrm task that adds package.json file",
   "author": {
     "name": "Artem Sapegin",
@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "git-username": "^1.0.0",
-    "mrm-core": "^5.0.0",
+    "mrm-core": "^6.0.0",
     "rc": "^1.2.8",
     "user-meta": "^1.0.0"
   }

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.2.1...mrm-task-travis@3.0.0) (2021-04-07)
+
+
+### Features
+
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+
+
+
+
+
 ## [2.2.1](https://github.com/sapegin/mrm/compare/mrm-task-travis@2.2.0...mrm-task-travis@2.2.1) (2021-04-01)
 
 **Note:** Version bump only for package mrm-task-travis

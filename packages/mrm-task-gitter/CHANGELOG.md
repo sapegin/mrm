@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/sapegin/mrm/compare/mrm-task-gitter@2.1.1...mrm-task-gitter@3.0.0) (2021-04-07)
+
+
+### Bug Fixes
+
+* Migrate gitter task to new config API ([#137](https://github.com/sapegin/mrm/issues/137)) ([7d1821c](https://github.com/sapegin/mrm/commit/7d1821cdc3a831e08f08f0263a994a113040f646))
+
+
+### Features
+
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+
+
+
+
+
 ## [2.1.1](https://github.com/sapegin/mrm/compare/mrm-task-gitter@2.1.0...mrm-task-gitter@2.1.1) (2021-04-01)
 
 **Note:** Version bump only for package mrm-task-gitter

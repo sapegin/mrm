@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-eslint",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "Mrm task that adds ESLint",
   "author": {
     "name": "Artem Sapegin",
@@ -25,6 +25,6 @@
     "javascript"
   ],
   "dependencies": {
-    "mrm-core": "^5.0.0"
+    "mrm-core": "^6.0.0"
   }
 }

@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/sapegin/mrm/compare/mrm@2.6.2...mrm@3.0.0) (2021-04-07)
+
+
+### Features
+
+* Autoload tasks and presets ([#99](https://github.com/sapegin/mrm/issues/99)) ([b866455](https://github.com/sapegin/mrm/commit/b866455f98c72b7698ec7cc5fb277df3b3f9ce25)), closes [#97](https://github.com/sapegin/mrm/issues/97)
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+* Remove default preset from mrm package dependencies ([#136](https://github.com/sapegin/mrm/issues/136)) ([9fdc2e9](https://github.com/sapegin/mrm/commit/9fdc2e9ad77c04d9b1ea8fb9adb5793400518230))
+* Remove old config API ([#139](https://github.com/sapegin/mrm/issues/139)) ([391d2ae](https://github.com/sapegin/mrm/commit/391d2ae3cb37b0dbbbf6d9b7d17c7223104dbc01))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+* The old config API (`.defaults()`, `.required()` and `.values()`) is no longer available.
+* Mrm will no longer load globally installed tasks and presets but will autoload them directly from npm, similar to how npx works (we're actually using npx under the hood).
+
+
+
+
+
 ## [2.6.2](https://github.com/sapegin/mrm/compare/mrm@2.6.1...mrm@2.6.2) (2021-04-01)
 
 **Note:** Version bump only for package mrm

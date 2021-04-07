@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/sapegin/mrm/compare/mrm-task-jest@2.1.1...mrm-task-jest@3.0.0) (2021-04-07)
+
+
+### Features
+
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+* Remove old config API ([#139](https://github.com/sapegin/mrm/issues/139)) ([391d2ae](https://github.com/sapegin/mrm/commit/391d2ae3cb37b0dbbbf6d9b7d17c7223104dbc01))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+* The old config API (`.defaults()`, `.required()` and `.values()`) is no longer available.
+
+
+
+
+
 ## [2.1.1](https://github.com/sapegin/mrm/compare/mrm-task-jest@2.1.0...mrm-task-jest@2.1.1) (2021-04-01)
 
 **Note:** Version bump only for package mrm-task-jest

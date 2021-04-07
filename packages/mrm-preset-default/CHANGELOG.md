@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.4.2...mrm-preset-default@3.0.0) (2021-04-07)
+
+
+### Features
+
+* Increase supported node version from 8 to 10 ([#138](https://github.com/sapegin/mrm/issues/138)) ([224c673](https://github.com/sapegin/mrm/commit/224c67332ee71b9e275dbea1435cd9088852ff6f))
+
+
+### BREAKING CHANGES
+
+* Node 8 or 9 are no longer supported, the minimum supported version is now 10.13.
+
+
+
+
+
 ## [2.4.2](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.4.1...mrm-preset-default@2.4.2) (2021-04-01)
 
 **Note:** Version bump only for package mrm-preset-default
