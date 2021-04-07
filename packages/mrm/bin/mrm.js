@@ -162,10 +162,6 @@ Note that when a preset is specified no default search locations are used.`
 			paths.unshift(dir);
 		}
 
-		if (isDefaultPreset) {
-			return [...paths, path.dirname(require.resolve('mrm-preset-default'))];
-		}
-
 		const presetPackageName = getPackageName('preset', preset);
 		try {
 			const presetPath = await promiseFirst([
