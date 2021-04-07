@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.2](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.4.1...mrm-preset-default@2.4.2) (2021-04-01)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
+## [2.4.1](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.4.0...mrm-preset-default@2.4.1) (2021-03-22)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
+# [2.4.0](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.10...mrm-preset-default@2.4.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
+## [2.3.10](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.9...mrm-preset-default@2.3.10) (2021-02-20)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
+## [2.3.9](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.8...mrm-preset-default@2.3.9) (2021-02-09)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
+## [2.3.8](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.7...mrm-preset-default@2.3.8) (2021-02-09)
+
+**Note:** Version bump only for package mrm-preset-default
+
+
+
+
+
 ## [2.3.7](https://github.com/sapegin/mrm/compare/mrm-preset-default@2.3.6...mrm-preset-default@2.3.7) (2021-02-08)
 
 **Note:** Version bump only for package mrm-preset-default

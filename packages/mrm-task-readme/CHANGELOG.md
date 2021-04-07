@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.4.0...mrm-task-readme@2.4.1) (2021-04-01)
+
+**Note:** Version bump only for package mrm-task-readme
+
+
+
+
+
+# [2.4.0](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.3.0...mrm-task-readme@2.4.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
+# [2.3.0](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.2.0...mrm-task-readme@2.3.0) (2021-02-09)
+
+
+### Features
+
+* **readme:** Make contributing conditional by `includeContributing` option and allow `contributingFile` option for a name ([#123](https://github.com/sapegin/mrm/issues/123)) ([481a316](https://github.com/sapegin/mrm/commit/481a3161bc9c1a778a27b73cd746f4a4d756a41d))
+
+
+
+
+
+# [2.2.0](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.1.3...mrm-task-readme@2.2.0) (2021-02-09)
+
+
+### Features
+
+* Allow to define template-based license file name in license and readme tasks ([#124](https://github.com/sapegin/mrm/issues/124)) ([bf99bca](https://github.com/sapegin/mrm/commit/bf99bca77d01f5554fdd4c115ac21a23c68739a4))
+
+
+
+
+
 ## [2.1.3](https://github.com/sapegin/mrm/compare/mrm-task-readme@2.1.2...mrm-task-readme@2.1.3) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-readme

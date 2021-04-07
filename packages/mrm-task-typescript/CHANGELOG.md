@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.1.0...mrm-task-typescript@2.1.1) (2021-04-01)
+
+**Note:** Version bump only for package mrm-task-typescript
+
+
+
+
+
+# [2.1.0](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.0.14...mrm-task-typescript@2.1.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
+## [2.0.14](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.0.13...mrm-task-typescript@2.0.14) (2021-02-09)
+
+**Note:** Version bump only for package mrm-task-typescript
+
+
+
+
+
 ## [2.0.13](https://github.com/sapegin/mrm/compare/mrm-task-typescript@2.0.12...mrm-task-typescript@2.0.13) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-typescript

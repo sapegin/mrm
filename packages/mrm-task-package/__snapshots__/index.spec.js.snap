@@ -9,8 +9,10 @@ exports[`should add package.json 1`] = `
     \\"name\\": \\"Gendalf\\",
     \\"url\\": \\"https://middleearth.com\\"
   },
+  \\"contributors\\": [],
   \\"homepage\\": \\"https://github.com/gendalf/mrm-task-package\\",
-  \\"repository\\": \\"gendalf/mrm-task-package\\",
+  \\"bugs\\": \\"https://github.com/gendalf/mrm-task-package/issues\\",
+  \\"repository\\": \\"https://github.com/gendalf/mrm-task-package\\",
   \\"license\\": \\"MIT\\",
   \\"engines\\": {
     \\"node\\": \\">=10\\"
@@ -35,8 +37,10 @@ exports[`should set custom Node.js version 1`] = `
     \\"name\\": \\"Gendalf\\",
     \\"url\\": \\"https://middleearth.com\\"
   },
+  \\"contributors\\": [],
   \\"homepage\\": \\"https://github.com/gendalf/\\",
-  \\"repository\\": \\"gendalf/\\",
+  \\"bugs\\": \\"https://github.com/gendalf//issues\\",
+  \\"repository\\": \\"https://github.com/gendalf/\\",
   \\"license\\": \\"MIT\\",
   \\"engines\\": {
     \\"node\\": \\">=9.1\\"
@@ -61,8 +65,10 @@ exports[`should set custom license 1`] = `
     \\"name\\": \\"Gendalf\\",
     \\"url\\": \\"https://middleearth.com\\"
   },
+  \\"contributors\\": [],
   \\"homepage\\": \\"https://github.com/gendalf/\\",
-  \\"repository\\": \\"gendalf/\\",
+  \\"bugs\\": \\"https://github.com/gendalf//issues\\",
+  \\"repository\\": \\"https://github.com/gendalf/\\",
   \\"license\\": \\"BSD\\",
   \\"engines\\": {
     \\"node\\": \\">=10\\"

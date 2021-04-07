@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/sapegin/mrm/compare/mrm-task-codecov@3.1.0...mrm-task-codecov@3.1.1) (2021-04-01)
+
+**Note:** Version bump only for package mrm-task-codecov
+
+
+
+
+
+# [3.1.0](https://github.com/sapegin/mrm/compare/mrm-task-codecov@3.0.3...mrm-task-codecov@3.1.0) (2021-02-25)
+
+
+### Features
+
+* Add more fields to package.json ([#134](https://github.com/sapegin/mrm/issues/134)) ([d80840a](https://github.com/sapegin/mrm/commit/d80840a5e771976ef38cdf8a3b535a412e1097f6))
+
+
+
+
+
+## [3.0.3](https://github.com/sapegin/mrm/compare/mrm-task-codecov@3.0.2...mrm-task-codecov@3.0.3) (2021-02-09)
+
+**Note:** Version bump only for package mrm-task-codecov
+
+
+
+
+
 ## [3.0.2](https://github.com/sapegin/mrm/compare/mrm-task-codecov@3.0.1...mrm-task-codecov@3.0.2) (2021-02-08)
 
 **Note:** Version bump only for package mrm-task-codecov
