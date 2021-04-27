@@ -32,7 +32,7 @@ module.exports = function(filename) {
 		 * @param {string} altText
 		 */
 		addBadge(imageUrl, linkUrl, altText) {
-			if (!content) {
+			if (!file.exists()) {
 				throw new MrmError(`Can’t add badge: file “${filename}” not found.`);
 			}
 
