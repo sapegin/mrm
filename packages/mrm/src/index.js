@@ -6,6 +6,7 @@ const kleur = require('kleur');
 const npx = require('libnpx');
 const { get, forEach, partition } = require('lodash');
 const inquirer = require('inquirer');
+const which = require('which');
 const {
 	MrmUnknownTask,
 	MrmInvalidTask,
@@ -309,7 +310,7 @@ function tryFile(directories, filename) {
  * @return {Promise}
  */
 async function resolveUsingNpx(packageName) {
-	const npm = path.join(path.dirname(process.execPath), 'npm');
+	const npm = which.sync('npm');
 	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
 	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
 	return packagePath;
