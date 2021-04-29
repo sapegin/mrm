@@ -22,8 +22,8 @@ module.exports = function task() {
 
 	// If project uses Yarn, ignore package-lock.json
 	if (fs.existsSync('yarn.lock')) {
-		remove.push('yarn.lock');
-		add.push('package-lock.json');
+		add.push('yarn.lock');
+		remove.push('package-lock.json');
 	}
 
 	// .gitignore
