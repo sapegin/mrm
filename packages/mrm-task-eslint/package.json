@@ -25,6 +25,7 @@
     "javascript"
   ],
   "dependencies": {
-    "mrm-core": "^6.1.2"
+    "mrm-core": "^6.1.2",
+    "lodash": "^4.17.15"
   }
 }
