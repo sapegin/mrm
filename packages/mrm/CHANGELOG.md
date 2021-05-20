@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.2](https://github.com/sapegin/mrm/compare/mrm@3.0.1...mrm@3.0.2) (2021-05-20)
+
+
+### Bug Fixes
+
+* Correct preset loading priority and npm binary resolution ([#163](https://github.com/sapegin/mrm/issues/163)) ([5208741](https://github.com/sapegin/mrm/commit/52087415dd9620153b0caf92898cf6eeb4500bcb)), closes [#159](https://github.com/sapegin/mrm/issues/159)
+
+
+
+
+
 ## [3.0.1](https://github.com/sapegin/mrm/compare/mrm@3.0.0...mrm@3.0.1) (2021-04-07)
 
 **Note:** Version bump only for package mrm
