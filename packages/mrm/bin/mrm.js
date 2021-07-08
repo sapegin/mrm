@@ -78,14 +78,15 @@ async function main() {
 			} else if (err.constructor === MrmUnknownTask) {
 				const { taskName } = err.extra;
 				if (isDefaultPreset) {
+					const taskPackageName = getPackageName('task', taskName);
 					const modules = directories
 						.slice(0, -1)
 						.map(d => `${d}/${taskName}/index.js`)
 						.concat([
 							`“${taskName}” in the default mrm tasks`,
-							`mrm-task-${taskName} package in local node_modules`,
+							`${taskPackageName} package in local node_modules`,
 							`${taskName} package in local node_modules`,
-							`mrm-task-${taskName} package on the npm registry`,
+							`${taskPackageName} package on the npm registry`,
 							`${taskName} package on the npm registry`,
 						]);
 					printError(
