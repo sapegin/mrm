@@ -59,3 +59,13 @@ The package name should should follow this pattern: `mrm-preset-<TASK>`, otherwi
 mrm license --preset unicorn # mrm-preset-unicorn
 mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
 ```
+
+## Default preset
+
+The default preset can be configured in `.mrm/config.json`:
+
+```json
+{
+  "preset": "@mycompany/unicorn"
+}
+```

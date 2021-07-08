@@ -14,6 +14,7 @@ const { random } = require('middleearth-names');
 const {
 	run,
 	getConfig,
+	getConfigFromFile,
 	getAllTasks,
 	resolveUsingNpx,
 	getPackageName,
@@ -64,8 +65,12 @@ async function main() {
 	const binaryName =
 		binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
+	// Load user configuration from default directories first (e.g. `~/.mrm/config.json`).
+	// This does not include configuration from command line arguments, presets or the local project.
+	const userConfig = await getConfigFromFile(defaultDirectories, 'config.json');
+
 	// Preset
-	const preset = argv.preset || 'default';
+	const preset = argv.preset || userConfig.preset || 'default';
 	const isDefaultPreset = preset === 'default';
 	const directories = await resolveDirectories(defaultDirectories);
 	const options = await getConfig(directories, 'config.json', argv);
