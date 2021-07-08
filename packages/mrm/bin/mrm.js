@@ -65,7 +65,8 @@ async function main() {
 		binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
 	// Preset
-	const preset = argv.preset || 'default';
+	const userConfig = await getConfig(defaultDirectories, 'config.json', argv);
+	const preset = argv.preset || userConfig.preset || 'default';
 	const isDefaultPreset = preset === 'default';
 	const directories = await resolveDirectories(defaultDirectories);
 	const options = await getConfig(directories, 'config.json', argv);
