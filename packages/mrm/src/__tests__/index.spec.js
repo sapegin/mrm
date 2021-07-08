@@ -129,9 +129,17 @@ describe('getPackageName', () => {
 		const result = getPackageName('task', '@myorg/pizza');
 		expect(result).toEqual('@myorg/mrm-task-pizza');
 	});
+	it('should resolve scoped default task', () => {
+		const result = getPackageName('task', '@myorg');
+		expect(result).toEqual('@myorg/mrm-task');
+	});
 	it('should resolve scoped preset names', () => {
 		const result = getPackageName('preset', '@myorg/default');
 		expect(result).toEqual('@myorg/mrm-preset-default');
+	});
+	it('should resolve scoped default preset', () => {
+		const result = getPackageName('preset', '@myorg');
+		expect(result).toEqual('@myorg/mrm-preset');
 	});
 });
 
