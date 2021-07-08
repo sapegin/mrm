@@ -312,8 +312,12 @@ function tryFile(directories, filename) {
 async function resolveUsingNpx(packageName) {
 	const npm = which.sync('npm');
 	const { prefix } = await npx._ensurePackages(packageName, { npm, q: true });
-	const packagePath = path.join(prefix, 'lib', 'node_modules', packageName);
-	return packagePath;
+	return require.resolve(packageName, {
+		paths: [
+			path.join(prefix, 'lib', 'node_modules'),
+			path.join(prefix, 'lib64', 'node_modules'),
+		],
+	});
 }
 
 /**
