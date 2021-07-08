@@ -122,10 +122,15 @@ function runAlias(aliasName, directories, options, argv) {
  * @returns {string}
  */
 function getPackageName(type, packageName) {
-	const [scopeOrTask, scopedTaskName] = packageName.split('/');
-	return scopedTaskName
-		? `${scopeOrTask}/mrm-${type}-${scopedTaskName}`
-		: `mrm-${type}-${scopeOrTask}`;
+	const isScoped = packageName.startsWith('@');
+	if (isScoped) {
+		const [scopeOrTask, scopedTaskName] = packageName.split('/');
+		return scopedTaskName
+			? `${scopeOrTask}/mrm-${type}-${scopedTaskName}` // @scope/foo -> @scope/mrm-${type}-foo
+			: `${scopeOrTask}/mrm-${type}`; // @scope -> @scope/mrm-${type}
+	} else {
+		return `mrm-${type}-${packageName}`; // foo -> mrm-${type}-foo
+	}
 }
 
 /**
