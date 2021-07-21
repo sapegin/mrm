@@ -16,6 +16,8 @@ jobs:
           - 12.x
           - 14.x
     steps:
+      - run: git config --global user.name "Mrm Bot"
+      - run: config --global user.email "${BOT_EMAIL}"
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
