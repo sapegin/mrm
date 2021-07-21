@@ -19,6 +19,7 @@ jobs:
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/sapegin/mrm.git"
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          BOT_EMAIL: ${{ secrets.BOT_EMAIL }}
       - name: Set up npm
         run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> ~/.npmrc 2> /dev/null
         env:
