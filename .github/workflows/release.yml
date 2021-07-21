@@ -28,3 +28,6 @@ jobs:
         run: |
           npx lerna version --yes --create-release=github
           npx lerna publish from-git --yes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
