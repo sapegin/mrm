@@ -24,6 +24,6 @@
   ],
   "dependencies": {
     "mrm-core": "^6.0.0",
-    "package-repo-url": "^1.0.3"
+    "package-repo-url": "^1.0.4"
   }
 }
