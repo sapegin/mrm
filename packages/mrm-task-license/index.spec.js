@@ -103,6 +103,53 @@ test('reads license name from package.json', async () => {
 	);
 });
 
+test('uses package.json for author if not supplied in getTaskOptions', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Apache-2.0.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			author: 'Barney Rubble',
+			license: 'Apache-2.0',
+		}),
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const { name, ...configNoAuthor } = config;
+
+	task(
+		await getTaskOptions(task, false, {
+			...configNoAuthor,
+		})
+	);
+
+	expect(vol.toJSON()['/License.md']).toMatch('Barney Rubble, contributors');
+});
+
+test('defaults to meta.name for author if not supplied in getTaskOptions', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Apache-2.0.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			license: 'Apache-2.0',
+		}),
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const { name, ...configNoAuthor } = config;
+
+	task(
+		await getTaskOptions(task, false, {
+			...configNoAuthor,
+		})
+	);
+
+	expect(vol.toJSON()['/License.md']).toMatch(/\w, contributors/);
+});
+
 test('skips when template not found', async () => {
 	task(
 		await getTaskOptions(task, false, {
