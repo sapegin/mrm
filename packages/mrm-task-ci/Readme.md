@@ -15,8 +15,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-ci
-mrm ci
+npx mrm ci
 ```
 
 ## Options

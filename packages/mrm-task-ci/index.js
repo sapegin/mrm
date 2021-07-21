@@ -51,7 +51,7 @@ module.exports = async function task({ workflowFile, readmeFile }) {
 						},
 						{
 							name: 'Use Node.js ${{ matrix.node-version }}',
-							uses: 'actions/setup-node@v1',
+							uses: 'actions/setup-node@v2',
 							with: {
 								'node-version': '${{ matrix.node-version }}',
 							},
