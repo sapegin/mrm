@@ -23,8 +23,6 @@ const MrmError = require('./error');
  * @typedef RunOptions
  * @property {boolean} [dev]
  * @property {boolean} [remove]
- * @property {boolean} [stdio]
- * @property {string} [cwd]
  */
 
 /**
@@ -95,9 +93,9 @@ function uninstall(deps, options = {}, exec) {
 /**
  * Return suitable run function
  *
- * @param {Options} [options]
+ * @param {Options} options
  */
-function getRunFunction(options = {}) {
+function getRunFunction(options) {
 	if (options.yarnBerry || isUsingYarnBerry()) {
 		return runYarnBerry;
 	} else if (options.yarn || isUsingYarn()) {
@@ -113,18 +111,18 @@ function getRunFunction(options = {}) {
  * Install or uninstall given npm packages
  *
  * @param {string[]} deps
- * @param {RunOptions} [options]
+ * @param {RunOptions} options
  * @param {Function} [exec]
  */
-function runNpm(deps, options = {}, exec) {
+function runNpm(deps, options, exec) {
 	const args = [
 		options.remove ? 'uninstall' : 'install',
 		options.dev ? '--save-dev' : '--save',
 	].concat(deps);
 
 	return execCommand(exec, 'npm', args, {
-		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
-		cwd: options.cwd,
+		stdio: 'inherit',
+		cwd: undefined,
 	});
 }
 
@@ -138,10 +136,10 @@ function runNpm(deps, options = {}, exec) {
  * @see https://classic.yarnpkg.com/en/docs/cli/add/#toc-yarn-add-ignore-workspace-root-check-w
  *
  * @param {string[]} deps
- * @param {RunOptions} [options]
+ * @param {RunOptions} options
  * @param {Function} [exec]
  */
-function runYarn(deps, options = {}, exec) {
+function runYarn(deps, options, exec) {
 	const add = options.dev
 		? ['add', '--dev', '--ignore-workspace-root-check']
 		: ['add', '--ignore-workspace-root-check'];
@@ -149,8 +147,8 @@ function runYarn(deps, options = {}, exec) {
 	const args = (options.remove ? remove : add).concat(deps);
 
 	return execCommand(exec, 'yarn', args, {
-		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
-		cwd: options.cwd,
+		stdio: 'inherit',
+		cwd: undefined,
 	});
 }
 
@@ -158,18 +156,18 @@ function runYarn(deps, options = {}, exec) {
  * Install or uninstall given Yarn@berry packages
  *
  * @param {string[]} deps
- * @param {RunOptions} [options]
+ * @param {RunOptions} options
  * @param {Function} [exec]
  */
-function runYarnBerry(deps, options = {}, exec) {
+function runYarnBerry(deps, options, exec) {
 	const add = options.dev ? ['add', '--dev'] : ['add'];
 
 	const remove = ['remove'];
 	const args = (options.remove ? remove : add).concat(deps);
 
 	return execCommand(exec, 'yarn', args, {
-		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
-		cwd: options.cwd,
+		stdio: 'inherit',
+		cwd: undefined,
 	});
 }
 
@@ -180,14 +178,14 @@ function runYarnBerry(deps, options = {}, exec) {
  * @param {RunOptions} [options]
  * @param {Function} [exec]
  */
-function runPnpm(deps, options = {}, exec) {
+function runPnpm(deps, options, exec) {
 	const args = [
 		options.remove ? 'uninstall' : 'install',
 		options.dev ? '--save-dev' : '--save',
 	].concat(deps);
 
 	return execCommand(exec, 'pnpm', args, {
-		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
+		stdio: 'inherit',
 		cwd: options.cwd,
 	});
 }

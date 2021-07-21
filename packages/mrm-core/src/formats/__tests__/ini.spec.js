@@ -163,6 +163,14 @@ bar=42
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
+	it('should default to prettify format regarding spaces around =', () => {
+		vol.fromJSON(json);
+		ini(filename)
+			.set('foo', { bar: 'xxx' })
+			.save({ withSpaces: undefined });
+		expect(vol.toJSON()).toMatchSnapshot();
+	});
+
 	it('should print a message that file was created', () => {
 		ini(filename)
 			.set('foo', { bar: 'xxx' })

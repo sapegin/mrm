@@ -46,6 +46,15 @@ bar=42
 }
 `;
 
+exports[`save() should default to prettify format regarding spaces around = 1`] = `
+Object {
+  "/test.ini": "
+[foo]
+bar = xxx
+",
+}
+`;
+
 exports[`save() should update file 1`] = `
 Object {
   "/test.ini": "

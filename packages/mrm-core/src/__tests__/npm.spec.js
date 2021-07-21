@@ -42,6 +42,13 @@ afterEach(() => {
 });
 
 describe('install()', () => {
+	it('should no-op if called with null `deps`', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(null, undefined, spawn);
+		expect(spawn).not.toHaveBeenCalled();
+	});
+
 	it('should install an npm packages to devDependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson({}, {});
@@ -410,6 +417,23 @@ describe('uninstall()', () => {
 			}
 		);
 		uninstall(modules, { yarn: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/yarn(\.cmd)?/),
+			['remove', 'eslint', 'babel-core'],
+			options
+		);
+	});
+
+	it('should uninstall yarnBerry packages from devDependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson(
+			{},
+			{
+				eslint: '*',
+				'babel-core': '*',
+			}
+		);
+		uninstall(modules, { yarnBerry: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/yarn(\.cmd)?/),
 			['remove', 'eslint', 'babel-core'],

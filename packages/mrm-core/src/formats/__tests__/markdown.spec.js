@@ -141,6 +141,13 @@ describe('removeBadge()', () => {
 		expect(normalizeNewLines(file.get())).toBe(normalizeNewLines(md));
 	});
 
+	it('should not modify file if predicate does not find', () => {
+		vol.fromJSON(jsonWithBadge);
+		const file = markdown(filename);
+		file.removeBadge(() => false);
+		expect(file.get()).toBe(mdWithBadge);
+	});
+
 	it('should not do anything if file not found', () => {
 		const file = markdown(filename);
 		const fn = () => file.removeBadge(() => true);
