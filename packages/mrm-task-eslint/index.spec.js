@@ -71,6 +71,15 @@ it('should throw when given a file path for the preset name', async () => {
 	expect(() => task(options)).toThrow();
 });
 
+it('should not throw when given no `eslintPeerDependencies` or `eslintObsoleteDependencies`', async () => {
+	const options = await getTaskOptions(task, false, {
+		eslintPreset: 'eslint-config-airbnb',
+	});
+	delete options.eslintPeerDependencies;
+	delete options.eslintObsoleteDependencies;
+	expect(() => task(options)).not.toThrow();
+});
+
 it('should not add a custom preset if it’s already there', async () => {
 	vol.fromJSON({
 		'/package.json': packageJson,
