@@ -128,7 +128,7 @@ it('should not overwrite Jest setup file (with enzyme)', () => {
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
 	expect(vol.toJSON()['/test/jestsetup.js']).toBe(
@@ -162,7 +162,7 @@ it('should update or create .eslintignore if projects depends on ESLint (no babe
 		}),
 	});
 
-	task(getConfigGetter({}));
+	task({});
 
 	expect(vol.toJSON()['/.eslintignore']).toMatchSnapshot();
 });

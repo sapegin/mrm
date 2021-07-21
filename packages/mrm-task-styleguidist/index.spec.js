@@ -41,7 +41,7 @@ it('should add React Styleguidist', () => {
 	]);
 
 	// Check again with already set `start` script
-	task(getConfigGetter({}));
+	task({});
 
 	expect(
 		omitBy(vol.toJSON(), (v, k) => k.startsWith(__dirname))
