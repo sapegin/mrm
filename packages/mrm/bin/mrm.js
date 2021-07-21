@@ -65,14 +65,15 @@ async function main() {
 		binaryPath && binaryPath.endsWith('/npx') ? 'npx mrm' : 'mrm';
 
 	// Preset
-	const preset = argv.preset || 'default';
+	const userConfig = await getConfig(defaultDirectories, 'config.json', argv);
+	const preset = argv.preset || userConfig.preset || 'default';
 	const isDefaultPreset = preset === 'default';
 	const directories = await resolveDirectories(defaultDirectories);
 	const options = await getConfig(directories, 'config.json', argv);
 	if (tasks.length === 0 || tasks[0] === 'help') {
 		commandHelp();
 	} else {
-		run(tasks, directories, options, argv).catch(err => {
+		run(tasks, directories, preset, options, argv).catch(err => {
 			if (err.constructor === MrmUnknownAlias) {
 				printError(err.message);
 			} else if (err.constructor === MrmUnknownTask) {
