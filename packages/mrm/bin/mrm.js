@@ -208,7 +208,7 @@ We’ve tried to load “${presetPackageName}” and “${preset}” npm package
 	function getTasksList() {
 		const allTasks = getAllTasks(directories, options);
 		const names = sortBy(Object.keys(allTasks));
-		const nameColWidth = longest(names).length;
+		const nameColWidth = names.length > 0 ? longest(names).length : 0;
 
 		return names
 			.map(name => {
