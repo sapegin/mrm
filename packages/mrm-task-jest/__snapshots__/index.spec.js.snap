@@ -138,7 +138,29 @@ exports[`should not overwrite Jest setup file 1`] = `
 }"
 `;
 
+exports[`should not overwrite Jest setup file (with enzyme) 1`] = `
+"{
+  \\"name\\": \\"unicorn\\",
+  \\"dependencies\\": {
+    \\"react\\": \\"*\\"
+  },
+  \\"scripts\\": {
+    \\"test:jest\\": \\"jest\\",
+    \\"test:watch\\": \\"jest --watch\\",
+    \\"test:coverage\\": \\"jest --coverage\\",
+    \\"test\\": \\"npm run test:jest --\\"
+  },
+  \\"jest\\": {
+    \\"snapshotSerializers\\": [
+      \\"enzyme-to-json/serializer\\"
+    ]
+  }
+}"
+`;
+
 exports[`should not overwrite test.js 1`] = `"still here"`;
+
+exports[`should update or create .eslintignore if projects depends on ESLint (no babel-core) 1`] = `"coverage/*"`;
 
 exports[`should update or create .eslintignore if projects depends on ESLint 1`] = `
 "coverage/*

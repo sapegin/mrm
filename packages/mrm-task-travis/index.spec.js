@@ -41,6 +41,17 @@ it('should add Travis CI', async () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
+it('should add Travis CI, with yarn.lock', async () => {
+	vol.fromJSON({
+		'/yarn.lock': '',
+		'/package.json': packageJson,
+	});
+
+	task(await getTaskOptions(task));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+});
+
 it('should add latest Node version if engines field is not defined', async () => {
 	vol.fromJSON({
 		'/package.json': stringify({

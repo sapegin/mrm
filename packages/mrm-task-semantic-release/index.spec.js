@@ -43,6 +43,16 @@ it('should add semantic-release', async () => {
 	task(await getTaskOptions(task, false, {}));
 
 	expect(vol.toJSON()).toMatchSnapshot();
+
+	// Repeat with existing Yaml workflow file
+	vol.fromJSON({
+		'/package.json': packageJson,
+		'/Readme.md': readmeMd,
+	});
+
+	task(await getTaskOptions(task, false, {}));
+
+	expect(vol.toJSON()).toMatchSnapshot();
 });
 
 it('should remove custom config from package.json', async () => {
@@ -72,6 +82,22 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
   - npm run semantic-release
   - npx semantic-release
+`,
+		'/package.json': packageJson,
+	});
+
+	task(await getTaskOptions(task, false, {}));
+
+	expect(vol.toJSON()['/.travis.yml']).toMatchSnapshot();
+	expect(uninstall).toBeCalledWith(['semantic-release', 'travis-deploy-once']);
+});
+
+it('should avoid checking semantic-release runner from string `after_success` Travis CI config', async () => {
+	vol.fromJSON({
+		'/.travis.yml': `language: node_js
+node_js:
+  - 8
+after_success: npm run semantic-release
 `,
 		'/package.json': packageJson,
 	});

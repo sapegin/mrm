@@ -30,6 +30,26 @@ afterEach(() => {
 	console.log = console$log;
 });
 
+it('should throw when bad `name`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			name: '',
+			email: 'gendalf@middleearth.com',
+			url: 'https://middleearth.com',
+		})
+	).rejects.toThrow('Missing required config options: name.');
+});
+
+it('should throw when bad `email`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			name: 'Gendalf',
+			email: '',
+			url: 'https://middleearth.com',
+		})
+	).rejects.toThrow('Missing required config options: email.');
+});
+
 test('adds a license file with author details', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/MIT.md`]: fs

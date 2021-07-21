@@ -55,7 +55,9 @@ function install(deps, options = {}, exec) {
 		dependencies = Object.keys(deps);
 	}
 
-	const newDeps = getUnsatisfiedDeps(dependencies, versions, { dev });
+	const newDeps = getUnsatisfiedDeps([...new Set(dependencies)], versions, {
+		dev,
+	});
 	if (newDeps.length === 0) {
 		return;
 	}
