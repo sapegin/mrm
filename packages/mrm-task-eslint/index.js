@@ -39,8 +39,8 @@ const normalizePresetPackageName = presetName => {
 
 module.exports = function task({
 	eslintPreset,
-	eslintPeerDependencies,
-	eslintObsoleteDependencies,
+	eslintPeerDependencies = [],
+	eslintObsoleteDependencies = [],
 	eslintRules,
 }) {
 	let exts = '';
