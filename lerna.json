@@ -11,6 +11,7 @@
     "publish": {
       "conventionalCommits": true,
       "ignoreChanges": [
+        "packages/mrm-preset-default",
         "package-lock.json",
         "Readme.md",
         "Changelog.md",
