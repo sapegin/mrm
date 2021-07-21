@@ -10,6 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Git
+        run: |
+          git config --global user.name "Mrm Bot"
+          git config --global user.email "${BOT_EMAIL}"
+        env:
+          BOT_EMAIL: ${{ secrets.BOT_EMAIL }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: npm ci
