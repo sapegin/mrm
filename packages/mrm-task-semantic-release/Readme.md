@@ -12,8 +12,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-semantic-release
-mrm semantic-release
+npx mrm semantic-release
 ```
 
 ## Options
