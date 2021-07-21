@@ -17,7 +17,7 @@ it('should add .gitignore', async () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add package-lock.json, if yarn.lock exists', async () => {
+it('should add package-lock.json and pnpm-lock.yaml, if yarn.lock exists', async () => {
 	vol.fromJSON({
 		'/yarn.lock': '',
 	});
@@ -27,9 +27,19 @@ it('should add package-lock.json, if yarn.lock exists', async () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 });
 
-it('should add yarn.lock, if package-lock.json exists', async () => {
+it('should add yarn.lock and pnpm-lock.yaml, if package-lock.json exists', async () => {
 	vol.fromJSON({
 		'/package-lock.json': '',
+	});
+
+	task(await getTaskOptions(task, false, {}));
+
+	expect(vol.toJSON()).toMatchSnapshot();
+});
+
+it('should add package-lock.json and yarn.lock, if pnpm-lock.yaml exists', async () => {
+	vol.fromJSON({
+		'/pnpm-lock.yaml': '',
 	});
 
 	task(await getTaskOptions(task, false, {}));

@@ -88,6 +88,8 @@ interface CopyFilesOptions {
 interface NpmOptions {
 	dev?: boolean;
 	yarn?: boolean;
+	yarnBerry?: boolean;
+	pnpm?: boolean;
 	versions?: Dependencies;
 }
 

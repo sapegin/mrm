@@ -15,6 +15,7 @@ const MrmError = require('./error');
  * @property {boolean} [dev]
  * @property {boolean} [yarn]
  * @property {boolean} [yarnBerry]
+ * @property {boolean} [pnpm]
  * @property {Record<string, string>} [versions]
  */
 
@@ -101,13 +102,15 @@ function getRunFunction(options = {}) {
 		return runYarnBerry;
 	} else if (options.yarn || isUsingYarn()) {
 		return runYarn;
+	} else if (options.pnpm || isUsingPnpm()) {
+		return runPnpm;
 	} else {
 		return runNpm;
 	}
 }
 
 /**
- * Install given npm packages
+ * Install or uninstall given npm packages
  *
  * @param {string[]} deps
  * @param {RunOptions} [options]
@@ -126,7 +129,7 @@ function runNpm(deps, options = {}, exec) {
 }
 
 /**
- * Install given Yarn packages
+ * Install or uninstall given Yarn packages
  *
  * This will use yarn's `--ignore-workspace-root-check` to allow additions of packages
  * inside a repository that is using yarn's workspaces feature. If the current
@@ -152,7 +155,7 @@ function runYarn(deps, options = {}, exec) {
 }
 
 /**
- * Install given Yarn@berry packages
+ * Install or uninstall given Yarn@berry packages
  *
  * @param {string[]} deps
  * @param {RunOptions} [options]
@@ -165,6 +168,25 @@ function runYarnBerry(deps, options = {}, exec) {
 	const args = (options.remove ? remove : add).concat(deps);
 
 	return execCommand(exec, 'yarn', args, {
+		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
+		cwd: options.cwd,
+	});
+}
+
+/**
+ * Install or uninstall given pnpm packages
+ *
+ * @param {string[]} deps
+ * @param {RunOptions} [options]
+ * @param {Function} [exec]
+ */
+function runPnpm(deps, options = {}, exec) {
+	const args = [
+		options.remove ? 'uninstall' : 'install',
+		options.dev ? '--save-dev' : '--save',
+	].concat(deps);
+
+	return execCommand(exec, 'pnpm', args, {
 		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
 		cwd: options.cwd,
 	});
@@ -277,6 +299,13 @@ function isUsingYarn() {
  */
 function isUsingYarnBerry() {
 	return isUsingYarn() && fs.existsSync('.yarnrc.yml');
+}
+
+/*
+ * Is project using pnpm?
+ */
+function isUsingPnpm() {
+	return fs.existsSync('pnpm-lock.yaml');
 }
 
 module.exports = {

@@ -13,7 +13,7 @@ Thumbs.db
 }
 `;
 
-exports[`should add package-lock.json, if yarn.lock exists 1`] = `
+exports[`should add package-lock.json and pnpm-lock.yaml, if yarn.lock exists 1`] = `
 Object {
   "/.gitignore": "node_modules/
 .DS_Store
@@ -23,12 +23,13 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 *.log
-package-lock.json",
+package-lock.json
+pnpm-lock.yaml",
   "/yarn.lock": "",
 }
 `;
 
-exports[`should add yarn.lock, if package-lock.json exists 1`] = `
+exports[`should add yarn.lock and pnpm-lock.yaml, if package-lock.json exists 1`] = `
 Object {
   "/.gitignore": "node_modules/
 .DS_Store
@@ -38,7 +39,24 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 *.log
-yarn.lock",
+yarn.lock
+pnpm-lock.yaml",
   "/package-lock.json": "",
+}
+`;
+
+exports[`should add package-lock.json and yarn.lock, if pnpm-lock.yaml exists 1`] = `
+Object {
+  "/.gitignore": "node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.log
+yarn.lock
+package-lock.json",
+  "/pnpm-lock.yaml": "",
 }
 `;

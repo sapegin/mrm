@@ -81,6 +81,17 @@ describe('install()', () => {
 		);
 	});
 
+	it('should install a pnpm packages to devDependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(modules, { pnpm: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/pnpm(\.cmd)?/),
+			['install', '--save-dev', 'eslint@latest', 'babel-core@latest'],
+			options
+		);
+	});
+
 	it('should install an npm packages to dependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson({}, {});
@@ -115,6 +126,17 @@ describe('install()', () => {
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/yarn(\.cmd)?/),
 			['add', 'eslint@latest', 'babel-core@latest'],
+			options
+		);
+	});
+
+	it('should install a pnpm packages to dependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson({}, {});
+		install(modules, { dev: false, pnpm: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/pnpm(\.cmd)?/),
+			['install', '--save', 'eslint@latest', 'babel-core@latest'],
 			options
 		);
 	});
@@ -361,7 +383,7 @@ describe('install()', () => {
 });
 
 describe('uninstall()', () => {
-	it('should uninstall an npm packages from devDependencies', () => {
+	it('should uninstall npm packages from devDependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson(
 			{},
@@ -395,7 +417,24 @@ describe('uninstall()', () => {
 		);
 	});
 
-	it('should uninstall an npm packages from dependencies', () => {
+	it('should uninstall pnpm packages from devDependencies', () => {
+		const spawn = jest.fn();
+		createPackageJson(
+			{},
+			{
+				eslint: '*',
+				'babel-core': '*',
+			}
+		);
+		uninstall(modules, { pnpm: true }, spawn);
+		expect(spawn).toBeCalledWith(
+			expect.stringMatching(/npm(\.cmd)?/),
+			['uninstall', '--save-dev', 'eslint', 'babel-core'],
+			options
+		);
+	});
+
+	it('should uninstall npm packages from dependencies', () => {
 		const spawn = jest.fn();
 		createPackageJson(
 			{

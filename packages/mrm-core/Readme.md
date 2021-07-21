@@ -317,7 +317,7 @@ makeDirs('dir name'); // Create folder
 makeDirs(['dir name 1', 'dir name 2']); // Create folders
 ```
 
-### Install and uninstall npm or Yarn packages
+### Install and uninstall npm, Yarn, or pnpm packages
 
 Installs npm package(s) and saves them to `package.json` if they aren’t installed yet or not satisfying range.
 
@@ -350,6 +350,8 @@ const { install, uninstall } = require('mrm-core');
 uninstall(['eslint'], { yarn: true });
 install(['standard'], { yarn: true });
 ```
+
+With Yarn Berry, pass `yarnBerry: true` and for pnpm, pass `pnpm: true`.
 
 ### Utilities
 
