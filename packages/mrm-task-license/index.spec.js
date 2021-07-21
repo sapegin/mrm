@@ -30,6 +30,26 @@ afterEach(() => {
 	console.log = console$log;
 });
 
+it('should throw when bad `name`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			name: '',
+			email: 'gendalf@middleearth.com',
+			url: 'https://middleearth.com',
+		})
+	).rejects.toThrow('Missing required config options: name.');
+});
+
+it('should throw when bad `email`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			name: 'Gendalf',
+			email: '',
+			url: 'https://middleearth.com',
+		})
+	).rejects.toThrow('Missing required config options: email.');
+});
+
 test('adds a license file with author details', async () => {
 	vol.fromJSON({
 		[`${__dirname}/templates/MIT.md`]: fs
@@ -81,6 +101,53 @@ test('reads license name from package.json', async () => {
 	expect(vol.toJSON()['/License.md']).toMatch(
 		'Apache License, Version 2.0 (Apache-2.0)'
 	);
+});
+
+test('uses package.json for author if not supplied in getTaskOptions', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Apache-2.0.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			author: 'Barney Rubble',
+			license: 'Apache-2.0',
+		}),
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const { name, ...configNoAuthor } = config;
+
+	task(
+		await getTaskOptions(task, false, {
+			...configNoAuthor,
+		})
+	);
+
+	expect(vol.toJSON()['/License.md']).toMatch('Barney Rubble, contributors');
+});
+
+test('defaults to meta.name for author if not supplied in getTaskOptions', async () => {
+	vol.fromJSON({
+		[`${__dirname}/templates/Apache-2.0.md`]: fs
+			.readFileSync(path.join(__dirname, 'templates/Apache-2.0.md'))
+			.toString(),
+		'/package.json': stringify({
+			name: 'unicorn',
+			license: 'Apache-2.0',
+		}),
+	});
+
+	// eslint-disable-next-line no-unused-vars
+	const { name, ...configNoAuthor } = config;
+
+	task(
+		await getTaskOptions(task, false, {
+			...configNoAuthor,
+		})
+	);
+
+	expect(vol.toJSON()['/License.md']).toMatch(/\w, contributors/);
 });
 
 test('skips when template not found', async () => {

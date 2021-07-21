@@ -20,6 +20,22 @@ afterEach(() => {
 	process.chdir('/');
 });
 
+it('should throw when bad `name`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			name: '',
+		})
+	).rejects.toThrow('Missing required config options: name.');
+});
+
+it('should throw when bad `github`', () => {
+	expect(
+		getTaskOptions(task, false, {
+			github: '',
+		})
+	).rejects.toThrow('Missing required config options: github.');
+});
+
 it('should add package.json', async () => {
 	// The task will use the folder name as a package name
 	vol.mkdirpSync(__dirname);
@@ -152,6 +168,18 @@ it('should set custom Node.js version', async () => {
 	vol.fromJSON({
 		[`${__dirname}/package-lock.json`]: '',
 	});
+	task(
+		await getTaskOptions(
+			task,
+			false,
+			Object.assign({}, options, {
+				minNode: '9.1',
+			})
+		)
+	);
+	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
+
+	// Ok with already-existing
 	task(
 		await getTaskOptions(
 			task,

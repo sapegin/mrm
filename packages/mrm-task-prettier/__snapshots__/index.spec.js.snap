@@ -34,6 +34,78 @@ Object {
 }
 `;
 
+exports[`should add Prettier with \`lint:css\` 1`] = `
+Object {
+  "/.prettierrc": "{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
+      }
+    }
+  ]
+}",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"lint:css\\": \\"stylelint \\\\\\"**/*.{css,scss,sass}\\\\\\"\\",
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\",
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{js,css,scss,sass,md}\\\\\\"\\"
+  }
+}",
+}
+`;
+
+exports[`should add Prettier with \`typescript\` in \`devDependencies\` 1`] = `
+Object {
+  "/.prettierrc": "{
+  \\"useTabs\\": true,
+  \\"overrides\\": [
+    {
+      \\"files\\": \\"*.md\\",
+      \\"options\\": {
+        \\"printWidth\\": 70,
+        \\"useTabs\\": false,
+        \\"trailingComma\\": \\"none\\",
+        \\"arrowParens\\": \\"avoid\\",
+        \\"proseWrap\\": \\"never\\"
+      }
+    },
+    {
+      \\"files\\": \\"*.{json,babelrc,eslintrc,remarkrc,prettierrc}\\",
+      \\"options\\": {
+        \\"useTabs\\": false
+      }
+    }
+  ]
+}",
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {
+    \\"test\\": \\"jest\\",
+    \\"posttest\\": \\"npm run format\\",
+    \\"format\\": \\"prettier --loglevel warn --write \\\\\\"**/*.{ts,tsx,css,md}\\\\\\"\\"
+  },
+  \\"devDependencies\\": {
+    \\"typescript\\": \\"latest\\"
+  }
+}",
+}
+`;
+
 exports[`should extend a custom pattern defined in a package.json script 1`] = `
 "{
   \\"name\\": \\"unicorn\\",
