@@ -104,6 +104,7 @@ test('uses the license config argument', async () => {
 
 	task(
 		await getTaskOptions(task, false, {
+			...config,
 			license: 'Unlicense',
 		})
 	);
