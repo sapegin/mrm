@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-contributing
-mrm contributing
+npx mrm contributing
 ```
 
 ## Options

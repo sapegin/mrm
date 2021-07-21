@@ -17,8 +17,7 @@ Supports Babel (via [babel-jest](https://github.com/facebook/jest/tree/master/pa
 ## Usage
 
 ```
-npm install -g mrm mrm-task-jest
-mrm jest
+npx mrm jest
 ```
 
 ## Changelog

@@ -13,8 +13,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-stylelint
-mrm stylelint
+npx mrm stylelint
 ```
 
 ## Options

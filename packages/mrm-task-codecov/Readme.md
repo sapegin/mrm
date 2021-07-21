@@ -12,8 +12,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-codecov
-mrm codecov
+npx mrm codecov
 ```
 
 ## Options

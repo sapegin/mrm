@@ -1,6 +1,8 @@
 <!-- Travis CI -->
 
-# mrm-task-travis
+# [DEPRECATED] mrm-task-travis
+
+**Use the [ci](../ci/Readme.md) task instead.**
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Travis CI](https://travis-ci.org/).
 
@@ -12,8 +14,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-travis
-mrm travis
+npx mrm travis
 ```
 
 ## Options

@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-package
-mrm package
+npx mrm package
 ```
 
 ## Options

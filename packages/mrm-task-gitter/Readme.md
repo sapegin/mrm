@@ -5,8 +5,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-gitter
-mrm gitter
+npx mrm gitter
 ```
 
 ## Options

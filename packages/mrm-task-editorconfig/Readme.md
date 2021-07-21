@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-editorconfig
-mrm editorconfig
+npx mrm editorconfig
 ```
 
 ## Options

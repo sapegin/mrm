@@ -1,6 +1,8 @@
 <!-- Default -->
 
-# mrm-preset-default
+# [DEPRECATED] mrm-preset-default
+
+**This preset is deprecated and no longer needed. Mrm installs tasks automatically.**
 
 Default tasks for [Mrm](https://github.com/sapegin/mrm). You don’t have to install this module, these tasks are included by default.
 

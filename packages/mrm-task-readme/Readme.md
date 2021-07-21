@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-readme
-mrm readme
+npx mrm readme
 ```
 
 ## Options

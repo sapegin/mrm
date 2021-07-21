@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-gitignore
-mrm gitignore
+npx mrm gitignore
 ```
 
 ## Changelog

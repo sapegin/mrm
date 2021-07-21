@@ -15,8 +15,7 @@ Supports JavaScript and TypeScript.
 ## Usage
 
 ```
-npm install -g mrm mrm-task-eslint
-mrm eslint
+npx mrm eslint
 ```
 
 ## Options

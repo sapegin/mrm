@@ -12,8 +12,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-styleguidist
-mrm styleguidist
+npx mrm styleguidist
 ```
 
 ## Changelog

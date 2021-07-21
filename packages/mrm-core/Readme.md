@@ -60,7 +60,7 @@ addEslint(getConfig);
 ## Installation
 
 ```
-npm install --save-dev mrm-core
+npm install mrm-core
 ```
 
 ## API

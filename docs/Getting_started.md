@@ -49,7 +49,7 @@ mrm license --preset unicorn
 
 ## Usage via npx
 
-If you have npm 5.3 or newer you can use mrm without installation:
+You don’t need to install Mrm:
 
 ```shell
 npx mrm

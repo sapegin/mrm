@@ -1,6 +1,6 @@
 <!-- Dependabot -->
 
-# mrm-task-dependabot
+# [DEPRECATED] mrm-task-dependabot
 
 [Mrm](https://github.com/sapegin/mrm) task that adds GitHub Actions workflow to automerge [Dependabot](https://dependabot.com/) pull requests.
 
@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-dependabot
-mrm dependabot
+npx mrm dependabot
 ```
 
 ## Options

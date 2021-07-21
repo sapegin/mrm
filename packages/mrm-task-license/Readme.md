@@ -11,8 +11,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-license
-mrm license
+npx mrm license
 ```
 
 ## Options

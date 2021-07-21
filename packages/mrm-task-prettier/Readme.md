@@ -13,8 +13,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-prettier
-mrm prettier
+npx mrm prettier
 ```
 
 Now run:

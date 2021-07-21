@@ -13,8 +13,7 @@
 ## Usage
 
 ```
-npm install -g mrm mrm-task-typescript
-mrm typescript
+npx mrm typescript
 ```
 
 ## Changelog

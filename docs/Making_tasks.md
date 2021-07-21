@@ -45,7 +45,7 @@ If your tasks have dependencies (such as `mrm-core`) you should initialize the `
 ```bash
 cd ~/.mrm # or cd ~/dotfiles/mrm
 npm init -y
-npm install --save mrm-core
+npm install mrm-core
 ```
 
 **Tip:** [mrm-core](https://github.com/sapegin/mrm/tree/master/packages/mrm-core) is a library of utility helpers for writing Mrm tasks, that has functions to work with common config files (JSON, YAML, INI, Markdown), npm dependencies, etc.
