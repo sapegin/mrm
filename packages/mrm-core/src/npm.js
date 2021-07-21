@@ -178,14 +178,14 @@ function runYarnBerry(deps, options, exec) {
  * @param {RunOptions} [options]
  * @param {Function} [exec]
  */
-function runPnpm(deps, options = {}, exec) {
+function runPnpm(deps, options, exec) {
 	const args = [
 		options.remove ? 'uninstall' : 'install',
 		options.dev ? '--save-dev' : '--save',
 	].concat(deps);
 
 	return execCommand(exec, 'pnpm', args, {
-		stdio: options.stdio === undefined ? 'inherit' : options.stdio,
+		stdio: 'inherit',
 		cwd: options.cwd,
 	});
 }
