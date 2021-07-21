@@ -1,6 +1,6 @@
 # Mrm
 
-[![Build Status](https://travis-ci.org/sapegin/mrm.svg)](https://travis-ci.org/sapegin/mrm) [![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm) [![Codecov](https://codecov.io/gh/sapegin/mrm/branch/master/graph/badge.svg)](https://codecov.io/gh/sapegin/mrm)
+[![npm](https://img.shields.io/npm/v/mrm.svg)](https://www.npmjs.com/package/mrm) [![Codecov](https://codecov.io/gh/sapegin/mrm/branch/master/graph/badge.svg)](https://codecov.io/gh/sapegin/mrm) [![Node.js CI status](https://github.com/sapegin/mrm/workflows/Node.js%20CI/badge.svg)](https://github.com/sapegin/mrm/actions)
 
 Command line tool to help you keep configuration (`package.json`, `.gitignore`, `.eslintrc`, etc.) of your open source projects in sync.
 
