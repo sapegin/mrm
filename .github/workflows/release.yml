@@ -10,13 +10,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: git config --global user.name "Mrm Bot"
-      - run: git config --global user.email "${BOT_EMAIL}"
-      - run: git remote set-url origin "https://${GH_TOKEN}@github.com/sapegin/mrm.git" > /dev/null 2>&1
-      - run: git checkout master
-      - run: git reset --hard
+      - name: Set up Git
+        run: |
+          git config --global user.name "Mrm Bot"
+          git config --global user.email "${BOT_EMAIL}"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/sapegin/mrm.git"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Set up npm
+        run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> ~/.npmrc 2> /dev/null
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm ci
-      - run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
-      - run: npx lerna version --yes --create-release=github
-      - run: npx lerna publish from-git --yes
+      - name: Publish
+        run: |
+          npx lerna version --yes --create-release=github
+          npx lerna publish from-git --yes
