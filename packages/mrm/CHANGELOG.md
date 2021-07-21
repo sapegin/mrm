@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.3](https://github.com/sapegin/mrm/compare/mrm@3.0.2...mrm@3.0.3) (2021-07-21)
+
+
+### Bug Fixes
+
+* `Cannot read property 'length' of undefined` when listing tasks ([#184](https://github.com/sapegin/mrm/issues/184)) ([0a33730](https://github.com/sapegin/mrm/commit/0a33730820f6da573c32725e8d8ba1852a696d5d)), closes [#160](https://github.com/sapegin/mrm/issues/160) [#178](https://github.com/sapegin/mrm/issues/178)
+
+
+
+
+
 ## [3.0.2](https://github.com/sapegin/mrm/compare/mrm@3.0.1...mrm@3.0.2) (2021-05-20)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-stylelint",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Mrm task that adds stylelint",
   "author": {
     "name": "Artem Sapegin",
@@ -25,6 +25,6 @@
     "lint"
   ],
   "dependencies": {
-    "mrm-core": "^6.0.0"
+    "mrm-core": "^6.1.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-codecov",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Mrm task that adds Codecov to Travis CI config",
   "author": {
     "name": "Artem Sapegin",
@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "git-default-branch": "^1.0.0",
-    "mrm-core": "^6.0.0",
+    "mrm-core": "^6.1.0",
     "package-repo-url": "^1.0.3"
   }
 }

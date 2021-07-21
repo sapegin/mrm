@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/sapegin/mrm/compare/mrm-task-eslint@3.0.0...mrm-task-eslint@3.0.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* **eslint:** Make optional options actually optional ([#165](https://github.com/sapegin/mrm/issues/165)) ([a05bc17](https://github.com/sapegin/mrm/commit/a05bc17c4dd896d65c80ed9a14bf384751687915))
+
+
+
+
+
 # [3.0.0](https://github.com/sapegin/mrm/compare/mrm-task-eslint@2.1.1...mrm-task-eslint@3.0.0) (2021-04-07)
 
 

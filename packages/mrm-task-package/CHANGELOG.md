@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/sapegin/mrm/compare/mrm-task-package@3.0.0...mrm-task-package@3.1.0) (2021-07-21)
+
+
+### Features
+
+* Add pnpm support (option or auto-detect) ([#143](https://github.com/sapegin/mrm/issues/143)) ([8d976d8](https://github.com/sapegin/mrm/commit/8d976d89a8c184e183edb96d281af0a823530010)), closes [#114](https://github.com/sapegin/mrm/issues/114)
+
+
+
+
+
 # [3.0.0](https://github.com/sapegin/mrm/compare/mrm-task-package@2.2.1...mrm-task-package@3.0.0) (2021-04-07)
 
 

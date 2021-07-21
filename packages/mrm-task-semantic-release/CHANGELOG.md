@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@5.0.0...mrm-task-semantic-release@5.1.0) (2021-07-21)
+
+
+### Bug Fixes
+
+* **semantic-release:** Fix the URL of the repository settings page ([b2b1085](https://github.com/sapegin/mrm/commit/b2b1085075bcd4e8c3131d4b44a67dfee63e2431))
+
+
+### Features
+
+* **semantic-release:** Use LTS version of Node.js, update setup-node action ([b95c5c7](https://github.com/sapegin/mrm/commit/b95c5c7e3278453d6255ed3abb18da883ab73cd1))
+
+
+
+
+
 # [5.0.0](https://github.com/sapegin/mrm/compare/mrm-task-semantic-release@4.1.1...mrm-task-semantic-release@5.0.0) (2021-04-07)
 
 

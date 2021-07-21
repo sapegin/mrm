@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/sapegin/mrm/compare/mrm-task-ci@1.0.0...mrm-task-ci@1.0.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* **ci:** Update setup-node action ([7fe85aa](https://github.com/sapegin/mrm/commit/7fe85aa83cc00c1a0e4c1b110a02d4bc07ee41a9))
+
+
+
+
+
 # [1.0.0](https://github.com/sapegin/mrm/compare/mrm-task-ci@0.3.1...mrm-task-ci@1.0.0) (2021-04-07)
 
 

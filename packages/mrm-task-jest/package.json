@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-jest",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Mrm task that adds Jest",
   "author": {
     "name": "Artem Sapegin",
@@ -26,6 +26,6 @@
   ],
   "dependencies": {
     "lodash": "^4.17.15",
-    "mrm-core": "^6.0.0"
+    "mrm-core": "^6.1.0"
   }
 }

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.1.0](https://github.com/sapegin/mrm/compare/mrm-core@6.0.0...mrm-core@6.1.0) (2021-07-21)
+
+
+### Bug Fixes
+
+* Don't crash on adding badges to an empty file ([#162](https://github.com/sapegin/mrm/issues/162)) ([f52524d](https://github.com/sapegin/mrm/commit/f52524d3930c92bf46f501feef19c5abbfef562e))
+
+
+### Features
+
+* Add pnpm support (option or auto-detect) ([#143](https://github.com/sapegin/mrm/issues/143)) ([8d976d8](https://github.com/sapegin/mrm/commit/8d976d89a8c184e183edb96d281af0a823530010)), closes [#114](https://github.com/sapegin/mrm/issues/114)
+
+
+
+
+
 # [6.0.0](https://github.com/sapegin/mrm/compare/mrm-core@5.0.0...mrm-core@6.0.0) (2021-04-07)
 
 
