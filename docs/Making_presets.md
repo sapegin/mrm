@@ -53,9 +53,15 @@ For example, if you want to use `mrm-task-gitignore` task, you need to create a 
 module.exports = require('mrm-task-gitignore');
 ```
 
-The package name should should follow this pattern: `mrm-preset-<TASK>`, otherwise you’ll have to type full package name when you run a task:
+The package name should should follow this pattern: `mrm-preset-<PRESET>`, otherwise you’ll have to type full package name when you run a task:
 
 ```
+# shorthand
 mrm license --preset unicorn # mrm-preset-unicorn
-mrm license --preset @mycompany/unicorn-preset # @mycompany/unicorn-preset
+mrm license --preset @mycompany # @mycompany/mrm-preset
+mrm license --preset @mycompany/unicorn # @mycompany/mrm-preset-unicorn
+
+# full package name
+mym license --preset my-unicorn-preset # my-unicorn-preset
+mrm license --preset @mycompany/my-unicorn-preset # @mycompany/my-unicorn-preset
 ```
