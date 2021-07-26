@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const { existsSync } = require('fs');
 const {
 	json,
 	packageJson,
@@ -52,6 +53,10 @@ module.exports = function task({
 	const packages = ['eslint'];
 	const packagesToRemove = ['jslint', 'jshint'];
 
+	if (existsSync('.eslintrc.js')) {
+		throw new Error('ERROR: Please migrate .eslintrc.js to .eslintrc.json');
+	}
+
 	// Preset
 	if (eslintPreset !== 'eslint:recommended') {
 		packages.push(normalizePresetPackageName(eslintPreset));
@@ -83,6 +88,7 @@ module.exports = function task({
 			rules: eslintRules,
 		});
 	}
+	const rules = eslintrc.get('rules', {});
 
 	const pkg = packageJson();
 
@@ -95,9 +101,29 @@ module.exports = function task({
 	// 	eslintrc.set('parser', 'babel-eslint');
 	// }
 
+	// Jest
+	if (pkg.get('devDependencies.jest')) {
+		eslintrc.merge({
+			env: {
+				jest: true,
+			},
+			plugins: ['jest'],
+		});
+		packages.push('eslint-plugin-jest');
+	}
+
+	let extendList = eslintrc.get('extends', []);
+	let vueParser = false;
+
 	// TypeScript
 	if (pkg.get('devDependencies.typescript')) {
-		const parser = '@typescript-eslint/parser';
+		if (extendList.indexOf('plugin:@typescript-eslint/recommended') === -1) {
+			extendList.push('plugin:@typescript-eslint/recommended');
+		}
+
+		const parser = eslintrc.get('parser');
+		vueParser = parser === 'vue-eslint-parser';
+
 		const plugin = '@typescript-eslint/eslint-plugin';
 		packages.push(parser, plugin);
 		eslintrc.merge({
@@ -114,20 +140,33 @@ module.exports = function task({
 			},
 			rules: eslintRules || {},
 		});
-		exts = ' --ext .ts,.tsx';
-
-		if (pkg.get('devDependencies.prettier')) {
-			packages.push('eslint-config-prettier');
-			const extensions = eslintrc.get('extends', []);
-			eslintrc.merge({
-				extends: [
-					...(Array.isArray(extensions) ? extensions : [extensions]),
-					'prettier',
-					'prettier/@typescript-eslint',
-				],
-			});
-		}
+		exts = ' --ext .ts,.tsx && tsc --noEmit';
+		eslintrc.set('rules', _.omit(rules, 'prettier/prettier'));
 	}
+
+	const versions = {};
+	if (pkg.get('devDependencies.prettier')) {
+		packages.push('eslint-config-prettier');
+		versions['eslint-config-prettier'] = '^8.3.0';
+		extendList = extendList.filter(e => {
+			if (e.indexOf('prettier') > -1) {
+				console.log(`Removing old extends: ${e}`);
+				return false;
+			}
+			return true;
+		});
+		const rules = eslintrc.get('rules', {});
+		if (
+			rules['prettier/prettier'] &&
+			!pkg.get('devDependencies.eslint-plugin-prettier')
+		) {
+			// This breaks in the upgrade
+			eslintrc.set('rules', _.omit(rules, 'prettier/prettier'));
+		}
+		extendList.push('prettier');
+	}
+
+	eslintrc.set('extends', extendList);
 
 	eslintrc.save();
 
@@ -143,15 +182,24 @@ module.exports = function task({
 		.save();
 
 	// Keep custom extensions
-	const lintScript =
-		pkg.getScript('lint', 'eslint') || pkg.getScript('test', 'eslint');
+	let lintScript =
+		pkg.getScript('lint', 'eslint') ||
+		pkg.getScript('test', 'eslint') ||
+		pkg.getScript('lint', 'vue-cli-service lint');
 	if (lintScript) {
-		const lintExts = getExtsFromCommand(lintScript, 'ext');
-		if (lintExts && lintExts.toString() !== 'js') {
-			const extsPattern = lintExts.map(x => `.${x}`).join(',');
-			exts = ` --ext ${extsPattern}`;
+		if (!vueParser) {
+			const lintExts = getExtsFromCommand(lintScript, 'ext');
+			if (lintExts && lintExts.toString() !== 'js') {
+				const extsPattern = lintExts.map(x => `.${x}`).join(',');
+				exts = ` --ext ${extsPattern}`;
+			}
 		}
+	} else {
+		lintScript = 'eslint . --cache --fix' + exts;
 	}
+	const script = vueParser ? lintScript : 'eslint . --cache --fix' + exts;
+
+	const pkgManager = existsSync('yarn.lock') ? 'yarn' : 'npm run';
 
 	pkg
 		// Remove existing JS linters
@@ -159,14 +207,14 @@ module.exports = function task({
 		.removeScript('test', / (lint|lint:js|eslint|jshint|jslint)( |$)/) // npm run jest && npm run lint
 		.removeScript('test', /\beslint|jshint|jslint\b/) // jest && eslint
 		// Add lint script
-		.setScript('lint', 'eslint . --cache --fix' + exts)
+		.setScript('lint', script)
 		// Add pretest script
-		.prependScript('pretest', 'npm run lint')
+		.prependScript('pretest', `${pkgManager} lint`)
 		.save();
 
 	// Dependencies
 	uninstall([...packagesToRemove, ...eslintObsoleteDependencies]);
-	install(packages);
+	install(packages, { yarn: existsSync('yarn.lock'), dev: true, versions });
 };
 
 module.exports.description = 'Adds ESLint';
