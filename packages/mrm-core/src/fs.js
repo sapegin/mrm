@@ -16,7 +16,10 @@ const read = file => (fs.existsSync(file) ? readFile(file).trim() : '');
  * @param {string} filename
  */
 function readFile(filename) {
-	return stripBom(fs.readFileSync(filename, 'utf8'));
+	if (fs.existsSync(filename)) {
+		return stripBom(fs.readFileSync(filename, 'utf8'));
+	}
+	return '';
 }
 
 /**
