@@ -161,7 +161,7 @@ declare module 'mrm-core' {
 	function lines(filename: string, defaultValue?: string[]): Lines;
 	function markdown(filename: string): Markdown;
 	function template(filename: string, templateFile: string): Template;
-	function yaml(filename: string, defaultValue?: object): Yaml;
+	function yaml(filename: string, defaultValue?: object, options?: {version?: string}): Yaml;
 
 	// Special files
 	function packageJson(defaultValue?: object): PackageJson;
