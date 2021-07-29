@@ -1,111 +1,111 @@
-interface File {
-	exists(): boolean;
-	get(): string;
-	getStyle(): EditorConfigStyle;
-	getIndent(): string;
-	save(content: string): this;
-	delete(): void;
-}
-
-interface Ini {
-	exists(): boolean;
-	get(): any;
-	get(section?: string): any;
-	set(section: string, value: any): this;
-	unset(section: string): this;
-	save(): this;
-	delete(): void;
-}
-
-interface Json {
-	exists(): boolean;
-	get(): any;
-	get(address: string | string[], defaultValue?: any): any;
-	set(address: string | string[], value: any): this;
-	set(value: any): this;
-	unset(address: string | string[]): this;
-	merge(value: object): this;
-	save(): this;
-	delete(): void;
-}
-
-interface Lines {
-	exists(): boolean;
-	get(): string[];
-	set(values: string[]): this;
-	add(values: string | string[]): this;
-	remove(values: string | string[]): this;
-	save(): this;
-	delete(): void;
-}
-
-interface Markdown {
-	exists(): boolean;
-	get(): string;
-	addBadge(imageUrl: string, linkUrl: string, altText?: string): this;
-	removeBadge(
-		predicate: (badge: {
-			imageUrl: string;
-			linkUrl: string;
-			altText: string;
-		}) => boolean
-	): this;
-	save(): this;
-	delete(): void;
-}
-
-interface Template {
-	exists(): boolean;
-	get(): string;
-	apply(...args: object[]): this;
-	save(): this;
-	delete(): void;
-}
-
-interface Yaml {
-	exists(): boolean;
-	get(): any;
-	get(address: string | string[], defaultValue?: any): any;
-	set(address: string | string[], value: any): this;
-	unset(address: string | string[]): this;
-	merge(value: object): this;
-	save(): this;
-	delete(): void;
-}
-
-interface PackageJson extends Json {
-	getScript(name: string, subcommand?: string): string;
-	setScript(name: string, command: string): this;
-	appendScript(name: string, command: string): this;
-	prependScript(name: string, command: string): this;
-	removeScript(name: RegExp | string, match?: RegExp | string): this;
-}
-
-interface CopyFilesOptions {
-	overwrite?: boolean;
-}
-
-interface NpmOptions {
-	dev?: boolean;
-	yarn?: boolean;
-	yarnBerry?: boolean;
-	pnpm?: boolean;
-	versions?: Dependencies;
-}
-
-interface EditorConfigStyle {
-	indent_style?: 'tab' | 'space' | 'unset';
-	indent_size?: number | 'tab' | 'unset';
-	insert_final_newline?: true | false | 'unset';
-}
-
-interface Dependencies {
-	[key: string]: string;
-}
-
 declare module 'mrm-core' {
 	import * as child_process from 'child_process';
 
+	interface File {
+		exists(): boolean;
+		get(): string;
+		getStyle(): EditorConfigStyle;
+		getIndent(): string;
+		save(content: string): this;
+		delete(): void;
+	}
+	
+	interface Ini {
+		exists(): boolean;
+		get(): any;
+		get(section?: string): any;
+		set(section: string, value: any): this;
+		unset(section: string): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface Json {
+		exists(): boolean;
+		get(): any;
+		get(address: string | string[], defaultValue?: any): any;
+		set(address: string | string[], value: any): this;
+		set(value: any): this;
+		unset(address: string | string[]): this;
+		merge(value: object): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface Lines {
+		exists(): boolean;
+		get(): string[];
+		set(values: string[]): this;
+		add(values: string | string[]): this;
+		remove(values: string | string[]): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface Markdown {
+		exists(): boolean;
+		get(): string;
+		addBadge(imageUrl: string, linkUrl: string, altText?: string): this;
+		removeBadge(
+			predicate: (badge: {
+				imageUrl: string;
+				linkUrl: string;
+				altText: string;
+			}) => boolean
+		): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface Template {
+		exists(): boolean;
+		get(): string;
+		apply(...args: object[]): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface Yaml {
+		exists(): boolean;
+		get(): any;
+		get(address: string | string[], defaultValue?: any): any;
+		set(address: string | string[], value: any): this;
+		unset(address: string | string[]): this;
+		merge(value: object): this;
+		save(): this;
+		delete(): void;
+	}
+	
+	interface PackageJson extends Json {
+		getScript(name: string, subcommand?: string): string;
+		setScript(name: string, command: string): this;
+		appendScript(name: string, command: string): this;
+		prependScript(name: string, command: string): this;
+		removeScript(name: RegExp | string, match?: RegExp | string): this;
+	}
+	
+	interface CopyFilesOptions {
+		overwrite?: boolean;
+	}
+	
+	interface NpmOptions {
+		dev?: boolean;
+		yarn?: boolean;
+		yarnBerry?: boolean;
+		pnpm?: boolean;
+		versions?: Dependencies;
+	}
+	
+	interface EditorConfigStyle {
+		indent_style?: 'tab' | 'space' | 'unset';
+		indent_size?: number | 'tab' | 'unset';
+		insert_final_newline?: true | false | 'unset';
+	}
+	
+	interface Dependencies {
+		[key: string]: string;
+	}
+	
 	class MrmError extends Error {
 		constructor(message: string, extra?: any);
 	}
