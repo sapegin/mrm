@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.0.4 (2021-08-02)
+
+
+### Bug Fixes
+
+* **eslint:** Add missing lodash dependency ([#164](https://github.com/sapegin/mrm/issues/164)) ([cea24d8](https://github.com/sapegin/mrm/commit/cea24d80d031c835519db595a3da6a16556be28f))
+
+
+
+
+
 ## 3.0.3 (2021-07-21)
 
 **Note:** Version bump only for package mrm-preset-default
