@@ -11,7 +11,8 @@ const DEFAULT_INDENT = 2;
 
 /**
  * @param {string} filename
- * @param {string[]} [defaultValues]
+ * @param {{}} [defaultValues]
+ * @param {{}} [options]
  */
 module.exports = function(filename, defaultValues, options) {
 	const yamlOptions = _.pick(options, ['version']);
