@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { range } = require('lodash');
 const got = require('got');
 const packageRepoUrl = require('package-repo-url');
@@ -23,6 +24,10 @@ async function getNodeVersionsRange(pkg) {
 	return range(Number(minNodeVersion), Number(ltsVersion) + 1).filter(
 		v => v % 2 === 0
 	);
+}
+
+function isUsingYarn() {
+	return fs.existsSync('yarn.lock');
 }
 
 module.exports = async function task({ workflowFile, readmeFile }) {
@@ -57,7 +62,7 @@ module.exports = async function task({ workflowFile, readmeFile }) {
 							},
 						},
 						{
-							run: 'npm ci',
+							run: isUsingYarn() ? 'yarn' : 'npm ci',
 						},
 						{
 							run: 'npm run build --if-present',
