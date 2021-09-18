@@ -18,7 +18,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           BOT_EMAIL: ${{ secrets.BOT_EMAIL }}
       - name: Set up npm
-        run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> ~/.npmrc 2> /dev/null
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc 2> /dev/null
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm ci
