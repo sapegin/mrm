@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-contributing",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "Mrm task that adds contributing guidelines",
   "author": {
     "name": "Artem Sapegin",
@@ -25,6 +25,6 @@
   ],
   "dependencies": {
     "git-username": "^1.0.0",
-    "mrm-core": "^6.1.6"
+    "mrm-core": "^6.1.7"
   }
 }
