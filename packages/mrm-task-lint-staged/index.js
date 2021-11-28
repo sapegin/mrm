@@ -213,7 +213,7 @@ module.exports = function task({ lintStagedRules }) {
 	// Install husky
 	husky.install();
 	// Set lint-staged config
-	husky.add('.husky/pre-commit', 'npx lint-staged');
+	husky.add('.husky/pre-commit', '$(npm bin)lint-staged');
 };
 
 module.exports.description = 'Adds lint-staged';
