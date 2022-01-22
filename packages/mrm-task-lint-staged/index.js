@@ -11,7 +11,7 @@ const husky = require('husky');
 
 const packages = {
 	'lint-staged': '>=10',
-	husky: '>=6',
+	husky: '>=7',
 };
 
 /**
