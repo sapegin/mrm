@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 2.0.0 (2022-03-22)
+
+
+### Features
+
+* **lint-staged:** Husky upgrade v6 to v7 ([#206](https://github.com/sapegin/mrm/issues/206)) ([87779e8](https://github.com/sapegin/mrm/commit/87779e891efbd61ec10b59f7c41ac66b4263d6ce)), closes [#205](https://github.com/sapegin/mrm/issues/205) [#192](https://github.com/sapegin/mrm/issues/192)
+
+
+### BREAKING CHANGES
+
+* **lint-staged:** Node 10 support was dropped from Husky v7
+
+
+
+
+
 ## 1.0.8 (2021-10-14)
 
 **Note:** Version bump only for package mrm-task-ci
