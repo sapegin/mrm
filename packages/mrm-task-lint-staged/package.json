@@ -24,7 +24,7 @@
     "lint"
   ],
   "dependencies": {
-    "husky": "^6.0.0",
+    "husky": "^7.0.4",
     "lodash": "^4.17.15",
     "mrm-core": "^6.1.7"
   }
