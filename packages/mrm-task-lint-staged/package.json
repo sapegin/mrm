@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-lint-staged",
-  "version": "6.0.3",
+  "version": "7.0.0",
   "description": "Mrm task that adds lint-staged",
   "author": {
     "name": "Artem Sapegin",
@@ -24,8 +24,8 @@
     "lint"
   ],
   "dependencies": {
-    "husky": "^6.0.0",
+    "husky": "^7.0.4",
     "lodash": "^4.17.15",
-    "mrm-core": "^6.1.2"
+    "mrm-core": "^7.0.0"
   }
 }

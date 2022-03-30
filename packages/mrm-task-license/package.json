@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-license",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "description": "Mrm task that adds a license file",
   "author": {
     "name": "Artem Sapegin",
@@ -24,7 +24,7 @@
     "license"
   ],
   "dependencies": {
-    "mrm-core": "^6.1.2",
+    "mrm-core": "^7.0.0",
     "parse-author": "^2.0.0",
     "smpltmpl": "^1.0.2",
     "user-meta": "^1.0.0"

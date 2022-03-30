@@ -3,6 +3,68 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 6.0.0 (2022-03-22)
+
+
+### Features
+
+* **lint-staged:** Husky upgrade v6 to v7 ([#206](https://github.com/sapegin/mrm/issues/206)) ([87779e8](https://github.com/sapegin/mrm/commit/87779e891efbd61ec10b59f7c41ac66b4263d6ce)), closes [#205](https://github.com/sapegin/mrm/issues/205) [#192](https://github.com/sapegin/mrm/issues/192)
+
+
+### BREAKING CHANGES
+
+* **lint-staged:** Node 10 support was dropped from Husky v7
+
+
+
+
+
+## 5.1.7 (2021-10-14)
+
+**Note:** Version bump only for package mrm-task-semantic-release
+
+
+
+
+
+## 5.1.6 (2021-09-18)
+
+**Note:** Version bump only for package mrm-task-semantic-release
+
+
+
+
+
+## 5.1.5 (2021-08-03)
+
+**Note:** Version bump only for package mrm-task-semantic-release
+
+
+
+
+
+## 5.1.4 (2021-08-03)
+
+
+### Bug Fixes
+
+* **core:** Fix types of yaml method ([#190](https://github.com/sapegin/mrm/issues/190)) ([7cdd216](https://github.com/sapegin/mrm/commit/7cdd216681155e44a3d17f4d734a2d6f91fede4c))
+
+
+
+
+
+## 5.1.3 (2021-08-02)
+
+
+### Bug Fixes
+
+* **eslint:** Add missing lodash dependency ([#164](https://github.com/sapegin/mrm/issues/164)) ([cea24d8](https://github.com/sapegin/mrm/commit/cea24d80d031c835519db595a3da6a16556be28f))
+
+
+
+
+
 ## 5.1.2 (2021-07-21)
 
 **Note:** Version bump only for package mrm-task-semantic-release
