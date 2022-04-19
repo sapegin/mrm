@@ -66,15 +66,16 @@ function promiseSeries(items, iterator) {
  *
  * @param {string|string[]} name
  * @param {string[]} directories
+ * @param {string} preset
  * @param {Object} options
  * @param {Object} argv
  * @returns {Promise}
  */
-function run(name, directories, options, argv) {
+function run(name, directories, preset, options, argv) {
 	if (Array.isArray(name)) {
 		return new Promise((resolve, reject) => {
 			promiseSeries(name, n => {
-				return run(n, directories, options, argv);
+				return run(n, directories, preset, options, argv);
 			})
 				.then(() => resolve())
 				.catch(reject);
@@ -82,9 +83,9 @@ function run(name, directories, options, argv) {
 	}
 
 	if (getAllAliases(options)[name]) {
-		return runAlias(name, directories, options, argv);
+		return runAlias(name, directories, preset, options, argv);
 	}
-	return runTask(name, directories, options, argv);
+	return runTask(name, directories, preset, options, argv);
 }
 
 /**
@@ -92,11 +93,12 @@ function run(name, directories, options, argv) {
  *
  * @param {string} aliasName
  * @param {string[]} directories
+ * @param {string} preset
  * @param {Object} options
  * @param {Object} [argv]
  * @returns {Promise}
  */
-function runAlias(aliasName, directories, options, argv) {
+function runAlias(aliasName, directories, preset, options, argv) {
 	return new Promise((resolve, reject) => {
 		const tasks = getAllAliases(options)[aliasName];
 		if (!tasks) {
@@ -107,7 +109,7 @@ function runAlias(aliasName, directories, options, argv) {
 		console.log(kleur.yellow(`Running alias ${aliasName}...`));
 
 		promiseSeries(tasks, name => {
-			return runTask(name, directories, options, argv);
+			return runTask(name, directories, preset, options, argv);
 		})
 			.then(() => resolve())
 			.catch(reject);
@@ -133,11 +135,12 @@ function getPackageName(type, packageName) {
  *
  * @param {string} taskName
  * @param {string[]} directories
+ * @param {string} preset
  * @param {Object} options
  * @param {Object} [argv]
  * @returns {Promise}
  */
-async function runTask(taskName, directories, options, argv) {
+async function runTask(taskName, directories, preset, options, argv) {
 	const taskPackageName = getPackageName('task', taskName);
 	let modulePath;
 	try {
@@ -169,7 +172,13 @@ async function runTask(taskName, directories, options, argv) {
 			return;
 		}
 
-		console.log(kleur.cyan(`Running ${taskName}...`));
+		if (preset === 'default') {
+			console.log(kleur.cyan(`Running ${taskName}...`));
+		} else {
+			console.log(
+				kleur.cyan(`Running ${taskName} (from preset "${preset}")...`)
+			);
+		}
 
 		Promise.resolve(getTaskOptions(module, argv.interactive, options))
 			.then(config => module(config, argv))
