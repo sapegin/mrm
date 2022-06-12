@@ -6,7 +6,7 @@
     "name": "Artem Sapegin",
     "url": "http://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-editorconfig",
+  "homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-editorconfig#readme",
   "repository": "sapegin/mrm",
   "license": "MIT",
   "engines": {
