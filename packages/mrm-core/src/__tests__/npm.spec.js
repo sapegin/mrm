@@ -87,7 +87,7 @@ describe('install()', () => {
 		install(modules, { pnpm: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/pnpm(\.cmd)?/),
-			['install', '--save-dev', 'eslint@latest', 'babel-core@latest'],
+			['add', '--save-dev', 'eslint@latest', 'babel-core@latest'],
 			options
 		);
 	});
@@ -136,7 +136,7 @@ describe('install()', () => {
 		install(modules, { dev: false, pnpm: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/pnpm(\.cmd)?/),
-			['install', '--save', 'eslint@latest', 'babel-core@latest'],
+			['add', '--save-prod', 'eslint@latest', 'babel-core@latest'],
 			options
 		);
 	});
@@ -429,7 +429,7 @@ describe('uninstall()', () => {
 		uninstall(modules, { pnpm: true }, spawn);
 		expect(spawn).toBeCalledWith(
 			expect.stringMatching(/npm(\.cmd)?/),
-			['uninstall', '--save-dev', 'eslint', 'babel-core'],
+			['remove', '--save-dev', 'eslint', 'babel-core'],
 			options
 		);
 	});
