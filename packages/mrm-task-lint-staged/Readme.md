@@ -21,8 +21,7 @@ npx mrm lint-staged
 ```
 
 ## Options
-
-See [Mrm docs](../../docs/Getting_started.md) and [lint-staged docs](https://github.com/okonet/lint-staged/blob/master/README.md) for more details.
+See [Mrm docs](../../docs/Getting_started.md) and [lint-staged docs](https://github.com/okonet/lint-staged/blob/master/README.md#-lint-staged---) for more details.
 
 ### `lintStagedRules` (default: infer)
 
