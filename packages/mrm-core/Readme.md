@@ -187,6 +187,7 @@ file.add('new'); // Add new line
 file.add(['new', 'lines']); // Add multiple news lines
 file.remove('new'); // Remove line
 file.remove(['new', 'lines']); // Remove multiple lines
+file.removeMatch(/lines/); // Remove all lines that match a regexp
 file.save(); // Save file
 file.delete(); // Delete file
 ```

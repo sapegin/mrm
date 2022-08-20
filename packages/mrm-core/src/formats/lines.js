@@ -54,6 +54,15 @@ module.exports = function(filename, defaultValue) {
 			return this;
 		},
 
+		/**
+		 *  Remove all lines that match a regexp
+		 * @param {RegExp} match
+		 */
+		removeMatch(match) {
+			lines = lines.filter(value => !value.match(match));
+			return this;
+		},
+
 		/** Save file */
 		save() {
 			const content = lines.join('\n');
