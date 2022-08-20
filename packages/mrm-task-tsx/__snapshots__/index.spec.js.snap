@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add tsx and the start script 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"tacos\\",
+  \\"scripts\\": {
+    \\"test\\": \\"jest\\",
+    \\"start\\": \\"tsx ./src/index.ts\\"
+  }
+}",
+}
+`;

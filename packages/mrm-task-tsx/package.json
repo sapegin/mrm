@@ -1,0 +1,29 @@
+{
+  "name": "mrm-task-tsx",
+  "version": "1.0.0",
+  "description": "Mrm task that adds a tsx",
+  "author": {
+    "name": "Kevin Hill",
+    "email": "kevinkhill@pm.me"
+  },
+  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-tsx",
+  "repository": "sapegin/mrm",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.13"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "templates"
+  ],
+  "scripts": {},
+  "keywords": [
+    "mrm",
+    "mrm-task",
+    "tsx"
+  ],
+  "dependencies": {
+    "mrm-core": "^7.0.0"
+  }
+}
