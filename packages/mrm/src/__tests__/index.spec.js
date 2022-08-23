@@ -42,6 +42,7 @@ const optionsWithAliases = {
 	aliases: {
 		alias1: ['task1', 'task3', 'task4'],
 		alias2: ['task4', 'task5'],
+		alias3: ['task1', 'alias2'],
 	},
 };
 const argv = {
@@ -466,6 +467,19 @@ describe('runAlias', () => {
 				.catch(reject);
 		});
 	});
+
+	it('should run alias when referencing another alias', () => {
+		return new Promise((resolve, reject) => {
+			runAlias('alias3', directories, optionsWithAliases, { stack: [] })
+				.then(() => {
+					expect(task1).toHaveBeenCalledTimes(1);
+					expect(task4).toHaveBeenCalledTimes(1);
+					expect(task5).toHaveBeenCalledTimes(1);
+					resolve();
+				})
+				.catch(reject);
+		});
+	});
 });
 
 describe('run', () => {
@@ -551,6 +565,7 @@ describe('getAllAliases', () => {
 		expect(result).toEqual({
 			alias1: ['task1', 'task3', 'task4'],
 			alias2: ['task4', 'task5'],
+			alias3: ['task1', 'alias2'],
 		});
 	});
 
@@ -566,6 +581,7 @@ describe('getAllTasks', () => {
 		expect(result).toEqual({
 			alias1: ['task1', 'task3', 'task4'],
 			alias2: ['task4', 'task5'],
+			alias3: ['task1', 'alias2'],
 			task1: 'Taks 1.1',
 			task2: 'Taks 1.2',
 			task3: 'Taks 2.3',

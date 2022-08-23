@@ -107,7 +107,12 @@ function runAlias(aliasName, directories, options, argv) {
 		console.log(kleur.yellow(`Running alias ${aliasName}...`));
 
 		promiseSeries(tasks, name => {
-			return runTask(name, directories, options, argv);
+			const isAlias = getAllAliases(options)[name];
+			if (isAlias) {
+				return runAlias(name, directories, options, argv);
+			} else {
+				return runTask(name, directories, options, argv);
+			}
 		})
 			.then(() => resolve())
 			.catch(reject);
