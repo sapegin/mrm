@@ -4,6 +4,7 @@
 	 container */
 
 .extra {
+	min-height: 9rem;
 	padding: 1rem 1.5rem;
 }
 
@@ -21,11 +22,10 @@
 		overflow-y: auto;
 		position: sticky;
 		top: 0;
-		padding-top: var(--ifm-navbar-height);
 	}
 
 	/* HACK: Remove styles from the theme sidebar container */
-	.sidebar > *:first-child {
+	.sidebar > *:first-child + * {
 		height: initial;
 		overflow: initial;
 		position: initial;
@@ -52,6 +52,8 @@
 	}
 
 	.extra {
+		min-height: 17.2rem;
 		padding: 0.5rem;
+		padding-top: calc(0.5rem + var(--ifm-navbar-height));
 	}
 }

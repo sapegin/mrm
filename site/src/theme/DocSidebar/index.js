@@ -15,8 +15,8 @@ function Extra() {
 function DocSidebar({ showExtra, ...props }) {
 	return (
 		<div className={styles.sidebar}>
-			<DocSidebarBase {...props} />
 			{showExtra && <Extra key={props.path} />}
+			<DocSidebarBase {...props} />
 		</div>
 	);
 }
