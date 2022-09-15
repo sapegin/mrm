@@ -21,8 +21,8 @@ const getEditUrl = relativePath =>
 
 const template = ({ id, title, sidebarLabel, editUrl, contents }) => `---
 id: ${id}
-title: ${title}
-sidebar_label: ${sidebarLabel}
+title: "${title}"
+sidebar_label: "${sidebarLabel}"
 custom_edit_url: ${getEditUrl(editUrl)}
 ---
 

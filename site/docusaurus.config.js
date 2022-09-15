@@ -24,13 +24,7 @@ module.exports = {
 					position: 'left',
 				},
 				{
-					to: 'docs/mrm-preset-default',
-					activeBasePath: 'docs',
-					label: 'Presets',
-					position: 'left',
-				},
-				{
-					to: 'docs/mrm-task-codecov',
+					to: 'docs/mrm-task-ci',
 					activeBasePath: 'docs',
 					label: 'Tasks',
 					position: 'left',
