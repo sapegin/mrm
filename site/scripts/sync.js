@@ -60,6 +60,11 @@ packages.forEach(filepath => {
 	const [, package] = getTitle(contents);
 	const title = package.replace('mrm-taks-', '').replace('mrm-preset-', '');
 	const [, sidebarLabel = title] = getSidebarTitle(contents);
+
+	if (title.startsWith('[DEPRECATED]')) {
+		return;
+	}
+
 	const id = kebabCase(package);
 	write(
 		id,
