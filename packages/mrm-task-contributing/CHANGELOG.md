@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.1.5 (2022-09-15)
+
+
+### Bug Fixes
+
+* Pass correct parameters to pnpm ([#235](https://github.com/sapegin/mrm/issues/235)) ([92cb61c](https://github.com/sapegin/mrm/commit/92cb61c03c02559269cfaadaa391a069ef9add08))
+
+
+
+
+
 ## 4.1.4 (2022-09-15)
 
 **Note:** Version bump only for package mrm-task-contributing
