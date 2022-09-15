@@ -71,7 +71,7 @@ it('should add Prettier if project depends on it', async () => {
 	expect(uninstall).toBeCalledWith('simple-git-hooks');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 	expect(husky.install).toHaveBeenCalled();
 	expect(husky.add).toBeCalledWith('.husky/pre-commit', 'npx lint-staged');
@@ -149,7 +149,7 @@ it('should add ESLint if project depends on it', async () => {
 	expect(uninstall).toBeCalledWith('simple-git-hooks');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 });
 
@@ -262,7 +262,7 @@ it('should add stylelint if project depends on it', async () => {
 	expect(vol.toJSON()).toMatchSnapshot();
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 });
 
@@ -305,7 +305,7 @@ it('should add a custom rule', async () => {
 	expect(uninstall).toBeCalledWith('simple-git-hooks');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 });
 
@@ -329,7 +329,7 @@ it('should update an existing rule', async () => {
 	expect(uninstall).toBeCalledWith('simple-git-hooks');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 });
 
@@ -361,7 +361,7 @@ it('should merge rules with the same pattern', async () => {
 	expect(uninstall).toBeCalledWith('simple-git-hooks');
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 });
 
@@ -419,7 +419,7 @@ it('should use Yarn 2 specific lifecycle', async () => {
 
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 	});
 	expect(vol.toJSON()).toMatchSnapshot();
 });
@@ -439,7 +439,7 @@ it('should use Yarn 2 specific lifecycle (public)', async () => {
 
 	expect(install).toBeCalledWith({
 		'lint-staged': '>=10',
-		husky: '>=6',
+		husky: '>=7',
 		pinst: '>=2',
 	});
 	expect(vol.toJSON()).toMatchSnapshot();
