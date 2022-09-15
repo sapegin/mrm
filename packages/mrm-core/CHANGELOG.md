@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 7.1.4 (2022-09-15)
+
+**Note:** Version bump only for package mrm-core
+
+
+
+
+
 ## 7.1.3 (2022-09-15)
 
 **Note:** Version bump only for package mrm-core
