@@ -2,11 +2,11 @@
 
 # mrm-task-codecov
 
-[Mrm](https://github.com/sapegin/mrm) task that adds [Codecov](https://codecov.io/) to Travis CI config (see [travis](https://github.com/sapegin/mrm/tree/master/packages/mrm-task-travis) task) and a Readme badge.
+[Mrm](https://github.com/sapegin/mrm) task that adds [Codecov](https://codecov.io/) as a GitHub Actions workflow and a Readme badge.
 
 ## What it does
 
-- Creates GitHub Action workflow file
+- Creates GitHub Actions workflow file
 - Adds a satus badge to the Readme
 
 ## Usage
