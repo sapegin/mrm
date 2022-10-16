@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 10.x
-          - 12.x
           - 14.x
+          - 16.x
+          - 18.x
     steps:
       - name: Set up Git
         run: |
