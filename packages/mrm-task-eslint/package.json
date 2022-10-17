@@ -1,6 +1,6 @@
 {
   "name": "mrm-task-eslint",
-  "version": "4.1.7",
+  "version": "4.1.8",
   "description": "Mrm task that adds ESLint",
   "author": {
     "name": "Artem Sapegin",
@@ -26,6 +26,6 @@
   ],
   "dependencies": {
     "lodash": "^4.17.15",
-    "mrm-core": "^7.1.7"
+    "mrm-core": "^7.1.8"
   }
 }
