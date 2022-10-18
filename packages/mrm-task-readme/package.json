@@ -1,34 +1,34 @@
 {
-  "name": "mrm-task-readme",
-  "version": "4.1.9",
-  "description": "Mrm task that adds a readme file",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "https://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-readme",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "index.js",
-  "files": [
-    "index.js",
-    "templates"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "readme"
-  ],
-  "dependencies": {
-    "git-username": "^1.0.0",
-    "mrm-core": "^7.1.9",
-    "package-repo-url": "^1.0.3",
-    "parse-author": "^2.0.0",
-    "smpltmpl": "^1.0.2",
-    "user-meta": "^1.0.0"
-  }
+	"name": "mrm-task-readme",
+	"version": "4.1.10",
+	"description": "Mrm task that adds a readme file",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "https://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-readme",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"templates"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"readme"
+	],
+	"dependencies": {
+		"git-username": "^1.0.0",
+		"mrm-core": "^7.1.10",
+		"package-repo-url": "^1.0.3",
+		"parse-author": "^2.0.0",
+		"smpltmpl": "^1.0.2",
+		"user-meta": "^1.0.0"
+	}
 }

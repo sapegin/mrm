@@ -1,57 +1,57 @@
 {
-  "name": "mrm",
-  "version": "4.1.9",
-  "description": "Codemods for your project config files",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "main": "src/index.js",
-  "bin": "bin/mrm.js",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "files": [
-    "bin",
-    "src"
-  ],
-  "dependencies": {
-    "git-username": "^1.0.0",
-    "glob": "^7.1.6",
-    "inquirer": "^7.0.4",
-    "is-directory": "^0.3.1",
-    "kleur": "^3.0.3",
-    "libnpx": "^10.2.4",
-    "listify": "^1.0.0",
-    "lodash": "^4.17.15",
-    "longest": "^2.0.1",
-    "middleearth-names": "^1.1.0",
-    "minimist": "^1.2.0",
-    "mrm-core": "^7.1.9",
-    "semver-utils": "^1.1.4",
-    "update-notifier": "^4.1.0",
-    "user-home": "^2.0.0",
-    "user-meta": "^1.0.0",
-    "which": "^2.0.2"
-  },
-  "keywords": [
-    "boilerplate",
-    "cli",
-    "codemod",
-    "command line",
-    "generate",
-    "generator",
-    "ini",
-    "json",
-    "markdown",
-    "runner",
-    "scaffold",
-    "task",
-    "template",
-    "tool",
-    "yaml"
-  ]
+	"name": "mrm",
+	"version": "4.1.10",
+	"description": "Codemods for your project config files",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "http://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"main": "src/index.js",
+	"bin": "bin/mrm.js",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"files": [
+		"bin",
+		"src"
+	],
+	"dependencies": {
+		"git-username": "^1.0.0",
+		"glob": "^7.1.6",
+		"inquirer": "^7.0.4",
+		"is-directory": "^0.3.1",
+		"kleur": "^3.0.3",
+		"libnpx": "^10.2.4",
+		"listify": "^1.0.0",
+		"lodash": "^4.17.15",
+		"longest": "^2.0.1",
+		"middleearth-names": "^1.1.0",
+		"minimist": "^1.2.0",
+		"mrm-core": "^7.1.10",
+		"semver-utils": "^1.1.4",
+		"update-notifier": "^4.1.0",
+		"user-home": "^2.0.0",
+		"user-meta": "^1.0.0",
+		"which": "^2.0.2"
+	},
+	"keywords": [
+		"boilerplate",
+		"cli",
+		"codemod",
+		"command line",
+		"generate",
+		"generator",
+		"ini",
+		"json",
+		"markdown",
+		"runner",
+		"scaffold",
+		"task",
+		"template",
+		"tool",
+		"yaml"
+	]
 }

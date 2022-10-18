@@ -1,30 +1,30 @@
 {
-  "name": "mrm-task-gitter",
-  "version": "4.1.9",
-  "description": "Mrm task that adds Gitter badge to the readme",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-gitter",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "gitter",
-    "readme",
-    "badge"
-  ],
-  "dependencies": {
-    "mrm-core": "^7.1.9"
-  }
+	"name": "mrm-task-gitter",
+	"version": "4.1.10",
+	"description": "Mrm task that adds Gitter badge to the readme",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "http://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-gitter",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"gitter",
+		"readme",
+		"badge"
+	],
+	"dependencies": {
+		"mrm-core": "^7.1.10"
+	}
 }

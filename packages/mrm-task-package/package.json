@@ -1,33 +1,33 @@
 {
-  "name": "mrm-task-package",
-  "version": "4.1.9",
-  "description": "Mrm task that adds package.json file",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-package",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "package",
-    "package.json",
-    "npm"
-  ],
-  "dependencies": {
-    "git-username": "^1.0.0",
-    "mrm-core": "^7.1.9",
-    "rc": "^1.2.8",
-    "user-meta": "^1.0.0"
-  }
+	"name": "mrm-task-package",
+	"version": "4.1.10",
+	"description": "Mrm task that adds package.json file",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "http://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-package",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"package",
+		"package.json",
+		"npm"
+	],
+	"dependencies": {
+		"git-username": "^1.0.0",
+		"mrm-core": "^7.1.10",
+		"rc": "^1.2.8",
+		"user-meta": "^1.0.0"
+	}
 }

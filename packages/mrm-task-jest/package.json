@@ -1,31 +1,31 @@
 {
-  "name": "mrm-task-jest",
-  "version": "4.1.9",
-  "description": "Mrm task that adds Jest",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "http://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-jest",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "index.js",
-  "files": [
-    "index.js",
-    "templates"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "jest",
-    "testing"
-  ],
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "mrm-core": "^7.1.9"
-  }
+	"name": "mrm-task-jest",
+	"version": "4.1.10",
+	"description": "Mrm task that adds Jest",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "http://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-jest",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js",
+		"templates"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"jest",
+		"testing"
+	],
+	"dependencies": {
+		"lodash": "^4.17.15",
+		"mrm-core": "^7.1.10"
+	}
 }

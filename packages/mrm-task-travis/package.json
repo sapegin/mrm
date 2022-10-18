@@ -1,31 +1,31 @@
 {
-  "name": "mrm-task-travis",
-  "version": "4.1.9",
-  "description": "Mrm task that adds Travis CI",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "https://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-travis",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "travis ci"
-  ],
-  "dependencies": {
-    "lodash": "^4.17.15",
-    "mrm-core": "^7.1.9",
-    "package-repo-url": "^1.0.3",
-    "semver-utils": "^1.1.4"
-  }
+	"name": "mrm-task-travis",
+	"version": "4.1.10",
+	"description": "Mrm task that adds Travis CI",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "https://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-travis",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "index.js",
+	"files": [
+		"index.js"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"travis ci"
+	],
+	"dependencies": {
+		"lodash": "^4.17.15",
+		"mrm-core": "^7.1.10",
+		"package-repo-url": "^1.0.3",
+		"semver-utils": "^1.1.4"
+	}
 }

@@ -1,47 +1,47 @@
 {
-  "name": "mrm-preset-default",
-  "version": "4.1.9",
-  "description": "Common tasks for Mrm",
-  "author": {
-    "name": "Artem Sapegin",
-    "url": "https://sapegin.me"
-  },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-preset-default",
-  "repository": "sapegin/mrm",
-  "license": "MIT",
-  "engines": {
-    "node": ">=10.13"
-  },
-  "main": "config.json",
-  "files": [
-    "config.json",
-    "*/index.js"
-  ],
-  "scripts": {},
-  "keywords": [
-    "mrm",
-    "mrm-task",
-    "mrm-preset"
-  ],
-  "dependencies": {
-    "mrm-core": "^7.1.9",
-    "mrm-task-ci": "^2.1.9",
-    "mrm-task-codecov": "^5.1.9",
-    "mrm-task-contributing": "^4.1.9",
-    "mrm-task-dependabot": "^3.1.9",
-    "mrm-task-editorconfig": "^4.1.9",
-    "mrm-task-eslint": "^4.1.9",
-    "mrm-task-gitignore": "^4.1.9",
-    "mrm-task-jest": "^4.1.9",
-    "mrm-task-license": "^5.1.9",
-    "mrm-task-lint-staged": "^7.1.9",
-    "mrm-task-package": "^4.1.9",
-    "mrm-task-prettier": "^5.1.9",
-    "mrm-task-readme": "^4.1.9",
-    "mrm-task-semantic-release": "^6.1.9",
-    "mrm-task-styleguidist": "^4.1.9",
-    "mrm-task-stylelint": "^5.1.9",
-    "mrm-task-travis": "^4.1.9",
-    "mrm-task-typescript": "^4.1.9"
-  }
+	"name": "mrm-preset-default",
+	"version": "4.1.10",
+	"description": "Common tasks for Mrm",
+	"author": {
+		"name": "Artem Sapegin",
+		"url": "https://sapegin.me"
+	},
+	"homepage": "https://github.com/sapegin/mrm/packages/mrm-preset-default",
+	"repository": "sapegin/mrm",
+	"license": "MIT",
+	"engines": {
+		"node": ">=10.13"
+	},
+	"main": "config.json",
+	"files": [
+		"config.json",
+		"*/index.js"
+	],
+	"scripts": {},
+	"keywords": [
+		"mrm",
+		"mrm-task",
+		"mrm-preset"
+	],
+	"dependencies": {
+		"mrm-core": "^7.1.10",
+		"mrm-task-ci": "^2.1.10",
+		"mrm-task-codecov": "^5.1.10",
+		"mrm-task-contributing": "^4.1.10",
+		"mrm-task-dependabot": "^3.1.10",
+		"mrm-task-editorconfig": "^4.1.10",
+		"mrm-task-eslint": "^4.1.10",
+		"mrm-task-gitignore": "^4.1.10",
+		"mrm-task-jest": "^4.1.10",
+		"mrm-task-license": "^5.1.10",
+		"mrm-task-lint-staged": "^7.1.10",
+		"mrm-task-package": "^4.1.10",
+		"mrm-task-prettier": "^5.1.10",
+		"mrm-task-readme": "^4.1.10",
+		"mrm-task-semantic-release": "^6.1.10",
+		"mrm-task-styleguidist": "^4.1.10",
+		"mrm-task-stylelint": "^5.1.10",
+		"mrm-task-travis": "^4.1.10",
+		"mrm-task-typescript": "^4.1.10"
+	}
 }
