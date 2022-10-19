@@ -13,7 +13,7 @@ Add ESLint to your project:
 ```js
 const { json, lines, packageJson, install } = require('mrm-core');
 
-module.exports = function(config) {
+module.exports = function (config) {
   const preset = config('preset', 'tamia');
   const packages = ['eslint', `eslint-config-${preset}`];
 
@@ -24,9 +24,7 @@ module.exports = function(config) {
   }
 
   // .eslintignore
-  lines('.eslintignore')
-    .add('node_modules')
-    .save();
+  lines('.eslintignore').add('node_modules').save();
 
   // package.json
   const pkg = packageJson()
@@ -194,9 +192,7 @@ file.delete(); // Delete file
 Example:
 
 ```js
-lines('.eslintignore')
-  .add('node_modules')
-  .save();
+lines('.eslintignore').add('node_modules').save();
 ```
 
 #### Markdown
@@ -299,9 +295,7 @@ file.delete(); // Delete file
 Example:
 
 ```js
-packageJson()
-  .appendScript('lint', 'eslint . --ext .js --fix')
-  .save();
+packageJson().appendScript('lint', 'eslint . --ext .js --fix').save();
 ```
 
 ### File system helpers

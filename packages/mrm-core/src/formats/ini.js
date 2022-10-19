@@ -32,7 +32,7 @@ function detectWithSpaces(content) {
  * @param {string} filename
  * @param {string} [comment]
  */
-module.exports = function(filename, comment) {
+module.exports = function (filename, comment) {
 	const file = base(filename);
 
 	const ini = propIni.createInstance({});

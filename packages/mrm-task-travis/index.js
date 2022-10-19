@@ -30,7 +30,7 @@ module.exports = function task({ readmeFile, maxNode }) {
 
 	// Only LTS or latest
 	const nodeVersions = range(minNodeVersion, maxNode + 1).filter(
-		ver => ver % 2 === 0 || ver === maxNode
+		(ver) => ver % 2 === 0 || ver === maxNode
 	);
 	travisYml.set('node_js', nodeVersions);
 

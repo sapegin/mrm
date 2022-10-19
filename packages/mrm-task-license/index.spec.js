@@ -13,7 +13,7 @@ const { json } = require('mrm-core');
 
 const console$log = console.log;
 
-const stringify = o => JSON.stringify(o, null, '  ');
+const stringify = (o) => JSON.stringify(o, null, '  ');
 
 const config = {
 	name: 'Gendalf',

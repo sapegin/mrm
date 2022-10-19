@@ -8,7 +8,7 @@ const base = require('./file');
  * @param {string} filename
  * @param {{}} [defaultValues]
  */
-module.exports = function(filename, defaultValues) {
+module.exports = function (filename, defaultValues) {
 	const file = base(filename);
 	let json = file.get() ? commentsJson.parse(file.get()) : defaultValues || {};
 

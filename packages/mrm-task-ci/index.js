@@ -10,7 +10,7 @@ const NODE_DIST_URL = 'https://nodejs.org/dist/index.json';
 async function getNodeVersionsRange(pkg) {
 	// Fetch current LTS version
 	const allNodeVersions = await got(NODE_DIST_URL).json();
-	const ltsVersionRaw = allNodeVersions.find(v => v.lts);
+	const ltsVersionRaw = allNodeVersions.find((v) => v.lts);
 	const ltsVersion = semverUtils.parseRange(ltsVersionRaw.version)[0].major;
 
 	// Minimum supported version
@@ -21,7 +21,7 @@ async function getNodeVersionsRange(pkg) {
 
 	// Range of LTS versions from min to current LTS
 	return range(Number(minNodeVersion), Number(ltsVersion) + 1).filter(
-		v => v % 2 === 0
+		(v) => v % 2 === 0
 	);
 }
 
@@ -42,7 +42,7 @@ module.exports = async function task({ workflowFile, readmeFile }) {
 					'runs-on': 'ubuntu-latest',
 					strategy: {
 						matrix: {
-							'node-version': nodeVersions.map(v => `${v}.x`),
+							'node-version': nodeVersions.map((v) => `${v}.x`),
 						},
 					},
 					steps: [

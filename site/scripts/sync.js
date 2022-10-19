@@ -6,14 +6,15 @@ const { kebabCase } = require('lodash');
 
 const DEST_DIR = 'docs';
 
-const read = file => readFileSync(file, 'utf8');
+const read = (file) => readFileSync(file, 'utf8');
 const write = (file, contents) =>
 	writeFileSync(`${DEST_DIR}/${file}.md`, contents);
 
-const getTitle = contents => contents.match(/^#\s*(.*?)$/m) || [];
-const getSidebarTitle = contents => contents.match(/^<!--\s*(.*?)\s*-->/) || [];
-const stripTitle = contents => contents.replace(/^#.*?$/m, '');
-const getEditUrl = relativePath =>
+const getTitle = (contents) => contents.match(/^#\s*(.*?)$/m) || [];
+const getSidebarTitle = (contents) =>
+	contents.match(/^<!--\s*(.*?)\s*-->/) || [];
+const stripTitle = (contents) => contents.replace(/^#.*?$/m, '');
+const getEditUrl = (relativePath) =>
 	`https://github.com/sapegin/mrm/edit/master/${relativePath.replace(
 		'../',
 		''
@@ -33,7 +34,7 @@ emptyDirSync(DEST_DIR);
 console.log('Syncing docs...');
 
 const docs = glob.sync('../docs/*.md');
-docs.forEach(filepath => {
+docs.forEach((filepath) => {
 	console.log(`👉 ${filepath}`);
 	const contents = read(filepath);
 	const [, title] = getTitle(contents);
@@ -54,7 +55,7 @@ docs.forEach(filepath => {
 console.log('\nSyncing packages...');
 
 const packages = glob.sync('../packages/*/Readme.md');
-packages.forEach(filepath => {
+packages.forEach((filepath) => {
 	console.log(`👉 ${filepath}`);
 	const contents = read(filepath);
 	const [, package] = getTitle(contents);

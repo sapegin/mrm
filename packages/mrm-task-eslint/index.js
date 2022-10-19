@@ -18,9 +18,10 @@ const getConfigName = (configName, scope, prefix) => {
 	}
 };
 
-const normalizePresetPackageName = presetName => {
+const normalizePresetPackageName = (presetName) => {
 	const prefix = 'eslint-config';
-	const presetNameRegex = /^(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
+	const presetNameRegex =
+		/^(?:(@[^/]+)\/?)?((?:eslint-config-)?[^/]*)(?:\/[^/]+)?$/;
 	const match = presetName.match(presetNameRegex);
 
 	if (!match) {
@@ -67,7 +68,7 @@ module.exports = function task({
 
 	// .eslintrc.json
 	const eslintrc = json(configFile, legacyConfig);
-	const hasCustomPreset = _.castArray(eslintrc.get('extends', [])).find(x =>
+	const hasCustomPreset = _.castArray(eslintrc.get('extends', [])).find((x) =>
 		x.startsWith(eslintPreset)
 	);
 	if (!hasCustomPreset) {
@@ -132,15 +133,10 @@ module.exports = function task({
 	eslintrc.save();
 
 	// .eslintignore
-	lines('.eslintignore')
-		.remove(ignoresToRemove)
-		.add(ignores)
-		.save();
+	lines('.eslintignore').remove(ignoresToRemove).add(ignores).save();
 
 	// .gitignore
-	lines('.gitignore')
-		.add(gitIgnores)
-		.save();
+	lines('.gitignore').add(gitIgnores).save();
 
 	// Keep custom extensions
 	const lintScript =
@@ -148,7 +144,7 @@ module.exports = function task({
 	if (lintScript) {
 		const lintExts = getExtsFromCommand(lintScript, 'ext');
 		if (lintExts && lintExts.toString() !== 'js') {
-			const extsPattern = lintExts.map(x => `.${x}`).join(',');
+			const extsPattern = lintExts.map((x) => `.${x}`).join(',');
 			exts = ` --ext ${extsPattern}`;
 		}
 	}

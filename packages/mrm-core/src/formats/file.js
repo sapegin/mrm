@@ -6,7 +6,7 @@ const editorconfig = require('../editorconfig');
  * Base file reader / writer
  * @param {string} filename
  */
-module.exports = function(filename) {
+module.exports = function (filename) {
 	let exists = true;
 	let originalContent = '';
 	try {

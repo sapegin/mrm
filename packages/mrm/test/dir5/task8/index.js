@@ -4,7 +4,7 @@ module.exports.parameters = {
 	'interactive-config': {
 		type: 'input',
 		message: 'Please, fulfil this first interactive input',
-		validate: value => (value === 'pizza' ? true : 'Invalid!'),
+		validate: (value) => (value === 'pizza' ? true : 'Invalid!'),
 	},
 	'static-config': {
 		type: 'config',

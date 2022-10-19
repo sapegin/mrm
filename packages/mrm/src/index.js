@@ -27,7 +27,7 @@ function getAllTasks(directories, options) {
 	const allTasks = getAllAliases(options);
 	for (const dir of directories) {
 		const tasks = glob.sync(`${dir}/*/index.js`);
-		tasks.forEach(filename => {
+		tasks.forEach((filename) => {
 			const taskName = path.basename(path.dirname(filename));
 			if (!allTasks[taskName]) {
 				const module = require(filename);
@@ -73,7 +73,7 @@ function promiseSeries(items, iterator) {
 function run(name, directories, options, argv) {
 	if (Array.isArray(name)) {
 		return new Promise((resolve, reject) => {
-			promiseSeries(name, n => {
+			promiseSeries(name, (n) => {
 				return run(n, directories, options, argv);
 			})
 				.then(() => resolve())
@@ -106,7 +106,7 @@ function runAlias(aliasName, directories, options, argv) {
 
 		console.log(kleur.yellow(`Running alias ${aliasName}...`));
 
-		promiseSeries(tasks, name => {
+		promiseSeries(tasks, (name) => {
 			const isAlias = getAllAliases(options)[name];
 			if (isAlias) {
 				return runAlias(name, directories, options, argv);
@@ -177,7 +177,7 @@ async function runTask(taskName, directories, options, argv) {
 		console.log(kleur.cyan(`Running ${taskName}...`));
 
 		Promise.resolve(getTaskOptions(module, argv.interactive, options))
-			.then(config => module(config, argv))
+			.then((config) => module(config, argv))
 			.then(resolve)
 			.catch(reject);
 	});
@@ -216,11 +216,11 @@ async function getTaskOptions(task, interactive = false, options = {}) {
 	// Split interactive and static options
 	const [prompts, statics] = partition(
 		allOptions,
-		option => interactive && option.type !== 'config'
+		(option) => interactive && option.type !== 'config'
 	);
 
 	// Validate static options
-	const invalid = statics.filter(param =>
+	const invalid = statics.filter((param) =>
 		param.validate ? param.validate(param.default) !== true : false
 	);
 	if (invalid.length > 0) {
@@ -297,7 +297,7 @@ function getConfigFromCommandLine(argv) {
  */
 function tryFile(directories, filename) {
 	return promiseFirst(
-		directories.map(dir => {
+		directories.map((dir) => {
 			const filepath = path.resolve(dir, filename);
 			return () => fs.promises.access(filepath).then(() => filepath);
 		})

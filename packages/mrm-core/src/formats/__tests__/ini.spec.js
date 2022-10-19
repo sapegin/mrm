@@ -41,11 +41,7 @@ describe('ini()', () => {
 	});
 
 	it('methods should be chainable', () => {
-		const result = ini(filename)
-			.set('foo', { b: 1 })
-			.unset('foo')
-			.save()
-			.get();
+		const result = ini(filename).set('foo', { b: 1 }).unset('foo').save().get();
 		expect(result).toEqual([]);
 	});
 });
@@ -111,32 +107,24 @@ describe('save()', () => {
 	});
 
 	it('should create file', () => {
-		ini(filename)
-			.set('foo', { bar: 'xxx' })
-			.save();
+		ini(filename).set('foo', { bar: 'xxx' }).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
 	it('should create file with a comment', () => {
-		ini(filename, 'comment')
-			.set('foo', { bar: 'xxx' })
-			.save();
+		ini(filename, 'comment').set('foo', { bar: 'xxx' }).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
 	it('should update file', () => {
 		vol.fromJSON(json);
-		ini(filename)
-			.set('foo', { bar: 'xxx' })
-			.save();
+		ini(filename).set('foo', { bar: 'xxx' }).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
 	it('should change prettify format to remove spaces around =', () => {
 		vol.fromJSON(json);
-		ini(filename)
-			.set('foo', { bar: 'xxx' })
-			.save({ withSpaces: false });
+		ini(filename).set('foo', { bar: 'xxx' }).save({ withSpaces: false });
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
@@ -164,17 +152,13 @@ bar=42
 	});
 
 	it('should print a message that file was created', () => {
-		ini(filename)
-			.set('foo', { bar: 'xxx' })
-			.save();
+		ini(filename).set('foo', { bar: 'xxx' }).save();
 		expect(log.added).toBeCalledWith('Create /test.ini');
 	});
 
 	it('should print a message that file was updated', () => {
 		vol.fromJSON(json);
-		ini(filename)
-			.set('foo', { bar: 'xxx' })
-			.save();
+		ini(filename).set('foo', { bar: 'xxx' }).save();
 		expect(log.added).toBeCalledWith('Update /test.ini');
 	});
 

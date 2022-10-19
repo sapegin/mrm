@@ -22,7 +22,7 @@ function task() {
 		},
 	});
 
-	const needsMigration = oldPackages.some(name =>
+	const needsMigration = oldPackages.some((name) =>
 		pkg.get(`devDependencies.${name}`)
 	);
 	const hasBabel = pkg.get('devDependencies.babel-core');
@@ -77,9 +77,7 @@ function task() {
 					setupFiles: [jestSetupFile],
 				},
 			});
-			template(jestSetupFile, templateFile)
-				.apply()
-				.save();
+			template(jestSetupFile, templateFile).apply().save();
 		} else {
 			const contents = fs.readFileSync(jestSetupFile, 'utf8');
 			if (!contents.includes('enzyme-adapter-react-')) {
@@ -105,15 +103,11 @@ http://blog.sapegin.me/all/react-jest
 	pkg.save();
 
 	// .gitignore
-	lines('.gitignore')
-		.add('coverage/')
-		.save();
+	lines('.gitignore').add('coverage/').save();
 
 	// .npmignore
 	if (!pkg.get('private')) {
-		lines('.npmignore')
-			.add('__tests__/')
-			.save();
+		lines('.npmignore').add('__tests__/').save();
 	}
 
 	// ESLint

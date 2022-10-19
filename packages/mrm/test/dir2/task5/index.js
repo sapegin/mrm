@@ -1,5 +1,5 @@
 module.exports = jest.fn((options, params) => {
-	return new Promise(resolve => {
+	return new Promise((resolve) => {
 		setTimeout(() => {
 			params.stack.push('Task 2.5');
 			resolve();

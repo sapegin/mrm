@@ -61,7 +61,7 @@ function install(deps, options = {}, exec) {
 	}
 
 	log.info(`Installing ${listify(newDeps)}...`);
-	const versionedDeps = newDeps.map(dep => getVersionedDep(dep, versions));
+	const versionedDeps = newDeps.map((dep) => getVersionedDep(dep, versions));
 
 	// eslint-disable-next-line consistent-return
 	return run(versionedDeps, { dev }, exec);
@@ -80,7 +80,7 @@ function uninstall(deps, options = {}, exec) {
 
 	const installed = getOwnDependencies({ dev });
 
-	const newDeps = deps.filter(dep => installed[dep]);
+	const newDeps = deps.filter((dep) => installed[dep]);
 
 	if (newDeps.length === 0) {
 		return;
@@ -248,7 +248,7 @@ function getInstalledVersion(name) {
 function getUnsatisfiedDeps(deps, versions, options) {
 	const ownDependencies = getOwnDependencies(options);
 
-	return deps.filter(dep => {
+	return deps.filter((dep) => {
 		const required = versions[dep];
 
 		// Handle non-registry packages (github, bitbucket, etc.)

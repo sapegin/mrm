@@ -28,7 +28,7 @@ const defaultRules = [
 	// ESLint
 	{
 		name: 'eslint',
-		condition: pkg => !!pkg.get('devDependencies.eslint'),
+		condition: (pkg) => !!pkg.get('devDependencies.eslint'),
 		extensions: ['js'],
 		script: 'lint',
 		param: 'ext',
@@ -37,7 +37,7 @@ const defaultRules = [
 	// Stylelint
 	{
 		name: 'stylelint',
-		condition: pkg => !!pkg.get('devDependencies.stylelint'),
+		condition: (pkg) => !!pkg.get('devDependencies.stylelint'),
 		extensions: ['css'],
 		script: 'lint:css',
 		command: 'stylelint --fix',
@@ -45,7 +45,7 @@ const defaultRules = [
 	// Prettier
 	{
 		name: 'prettier',
-		condition: pkg =>
+		condition: (pkg) =>
 			!!pkg.get('devDependencies.prettier') &&
 			!pkg.get('devDependencies.eslint-plugin-prettier'),
 		extensions: ['js', 'css', 'md'],
@@ -62,14 +62,14 @@ const defaultRules = [
  */
 function mergeRules(defaults, overrides) {
 	// Overrides for default rules
-	const rulesWithOverrides = defaults.map(rule => ({
+	const rulesWithOverrides = defaults.map((rule) => ({
 		...rule,
 		...overrides[rule.name],
 	}));
 
 	// Custom rules
 	return Object.entries(overrides).reduce((acc, [name, rule]) => {
-		if (acc.some(x => x.name === name)) {
+		if (acc.some((x) => x.name === name)) {
 			return acc;
 		}
 		return [...acc, rule];
@@ -113,7 +113,7 @@ function getRuleRegExp(command) {
  */
 function isCommandBelongsToRule(ruleCommands, command) {
 	const regExp = getRuleRegExp(command);
-	return castArray(ruleCommands).some(x => regExp.test(x));
+	return castArray(ruleCommands).some((x) => regExp.test(x));
 }
 
 module.exports = function task({ lintStagedRules }) {
@@ -122,11 +122,11 @@ module.exports = function task({ lintStagedRules }) {
 	const existingRules = Object.entries(pkg.get('lint-staged', {}));
 
 	// Remove exising rules that run any of default commands
-	const commandsToRemove = allRules.map(rule => rule.command);
+	const commandsToRemove = allRules.map((rule) => rule.command);
 	const existingRulesToKeep = existingRules.filter(([, ruleCommands]) =>
 		commandsToRemove
-			.map(command => isCommandBelongsToRule(ruleCommands, command))
-			.every(x => x === false)
+			.map((command) => isCommandBelongsToRule(ruleCommands, command))
+			.every((x) => x === false)
 	);
 
 	// New rules
@@ -166,7 +166,7 @@ module.exports = function task({ lintStagedRules }) {
 	});
 
 	if (Object.keys(rules).length === 0) {
-		const names = defaultRules.map(rule => rule.name);
+		const names = defaultRules.map((rule) => rule.name);
 		console.log(
 			`\nCannot add lint-staged: only ${names.join(
 				', '

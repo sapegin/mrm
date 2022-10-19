@@ -36,10 +36,7 @@ module.exports = function task() {
 	}
 
 	// .gitignore
-	lines('.gitignore')
-		.remove(remove)
-		.add(add)
-		.save();
+	lines('.gitignore').remove(remove).add(add).save();
 };
 
 module.exports.description = 'Adds .gitignore';

@@ -48,8 +48,7 @@ module.exports = {
 						},
 						{
 							label: 'Contributing',
-							href:
-								'https://github.com/sapegin/mrm/blob/master/Contributing.md',
+							href: 'https://github.com/sapegin/mrm/blob/master/Contributing.md',
 						},
 					],
 				},

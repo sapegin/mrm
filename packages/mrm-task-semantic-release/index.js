@@ -67,7 +67,7 @@ module.exports = function task({ workflowFile, readmeFile }) {
 		if (Array.isArray(afterSuccess)) {
 			travisYml.set(
 				'after_success',
-				afterSuccess.filter(cmd => !cmd.includes('semantic-release'))
+				afterSuccess.filter((cmd) => !cmd.includes('semantic-release'))
 			);
 		}
 		travisYml.save();

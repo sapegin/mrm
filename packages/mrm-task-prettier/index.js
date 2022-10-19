@@ -108,10 +108,10 @@ module.exports = function task({
 	const prettierrc = json('.prettierrc');
 
 	// Get existing overrides and remove the ones we're going to add
-	const overridePatterns = overrides.map(override => override.files);
+	const overridePatterns = overrides.map((override) => override.files);
 	const oldOverrides = prettierrc
 		.get('overrides', [])
-		.filter(override => !overridePatterns.includes(override.files));
+		.filter((override) => !overridePatterns.includes(override.files));
 
 	// Merge existing overrides with new ones
 	const newOverrides = [...oldOverrides, ...overrides];

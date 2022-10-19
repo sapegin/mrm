@@ -8,7 +8,9 @@ const isWindows = require('./isWindows');
  * @param {string[]} strings
  */
 function escapeArguments(strings) {
-	return isWindows() ? strings.map(arg => arg.replace(/\^/g, '^^^^')) : strings;
+	return isWindows()
+		? strings.map((arg) => arg.replace(/\^/g, '^^^^'))
+		: strings;
 }
 
 module.exports = escapeArguments;

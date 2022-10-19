@@ -10,7 +10,7 @@ const task = require('./index');
 
 const console$log = console.log;
 
-const stringify = o => JSON.stringify(o, null, '  ');
+const stringify = (o) => JSON.stringify(o, null, '  ');
 
 const packageJson = stringify({
 	name: 'unicorn',

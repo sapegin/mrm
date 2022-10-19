@@ -79,9 +79,7 @@ module.exports = function task({ eslintPreset }) {
   }
 
   // Create or load .eslintignore, and set basic ignores
-  lines('.eslintignore')
-    .add(['node_modules/'])
-    .save();
+  lines('.eslintignore').add(['node_modules/']).save();
 
   // Create or load package.json
   const pkg = packageJson();

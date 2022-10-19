@@ -11,13 +11,13 @@ const REPLACEMENTS = {
 const PACKAGES_URL_PREFIX =
 	'https://github.com/sapegin/mrm/tree/master/packages/';
 
-const getDocUrl = url =>
+const getDocUrl = (url) =>
 	url
 		.replace(/(\w+)(?:\.md)/, (_, $1) => kebabCase($1))
 		.replace(/^\.\.\/\.\.\/docs\//, '/docs/')
 		.replace(/^\.\//, '/docs/');
 
-const getPacakgeUrl = url => `/docs/${url.replace(PACKAGES_URL_PREFIX, '')}`;
+const getPacakgeUrl = (url) => `/docs/${url.replace(PACKAGES_URL_PREFIX, '')}`;
 
 /*
  * Fix links:
@@ -25,8 +25,8 @@ const getPacakgeUrl = url => `/docs/${url.replace(PACKAGES_URL_PREFIX, '')}`;
  * https://github.com/sapegin/mrm/tree/master/packages/mrm-task-eslint -> /docs/mrm-task-eslint
  */
 function link() {
-	return ast =>
-		visit(ast, 'link', node => {
+	return (ast) =>
+		visit(ast, 'link', (node) => {
 			if (IGNORES.includes(node.url)) {
 				return;
 			}

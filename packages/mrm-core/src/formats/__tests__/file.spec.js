@@ -28,9 +28,7 @@ describe('file()', () => {
 	});
 
 	it('methods should be chainable', () => {
-		const result = file(filename)
-			.save('coffee')
-			.exists();
+		const result = file(filename).save('coffee').exists();
 		expect(result).toBeFalsy();
 	});
 });

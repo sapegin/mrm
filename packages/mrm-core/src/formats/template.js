@@ -6,7 +6,7 @@ const base = require('./file');
  * @param {string} filename
  * @param {string} templateFile
  */
-module.exports = function(filename, templateFile) {
+module.exports = function (filename, templateFile) {
 	const file = base(filename);
 
 	let content = file.get();

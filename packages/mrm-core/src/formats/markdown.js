@@ -9,7 +9,7 @@ const BADGE_REGEXP = /\s?\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)/g;
 /**
  * @param {string} filename
  */
-module.exports = function(filename) {
+module.exports = function (filename) {
 	const file = base(filename);
 
 	let content = file.get();

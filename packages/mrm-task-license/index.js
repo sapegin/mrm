@@ -31,9 +31,7 @@ function task({ license, name, email, licenseFile }) {
 		})
 		.save();
 
-	packageJson()
-		.set('license', license)
-		.save();
+	packageJson().set('license', license).save();
 }
 
 module.exports = task;

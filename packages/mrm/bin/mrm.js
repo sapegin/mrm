@@ -47,7 +47,7 @@ const EXAMPLES = [
 const pkg = require('../package.json');
 updateNotifier({ pkg }).notify();
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
 	if (err.constructor.name === 'MrmError') {
 		printError(err.message);
 		process.exit(1);
@@ -72,7 +72,7 @@ async function main() {
 	if (tasks.length === 0 || tasks[0] === 'help') {
 		commandHelp();
 	} else {
-		run(tasks, directories, options, argv).catch(err => {
+		run(tasks, directories, options, argv).catch((err) => {
 			if (err.constructor === MrmUnknownAlias) {
 				printError(err.message);
 			} else if (err.constructor === MrmUnknownTask) {
@@ -80,7 +80,7 @@ async function main() {
 				if (isDefaultPreset) {
 					const modules = directories
 						.slice(0, -1)
-						.map(d => `${d}/${taskName}/index.js`)
+						.map((d) => `${d}/${taskName}/index.js`)
 						.concat([
 							`“${taskName}” in the default mrm tasks`,
 							`mrm-task-${taskName} package in local node_modules`,
@@ -106,7 +106,7 @@ Note that when a preset is specified no default search locations are used.`);
 Make sure your task module exports a function.`);
 			} else if (err.constructor === MrmUndefinedOption) {
 				const { unknown } = err.extra;
-				const values = unknown.map(name => [name, random()]);
+				const values = unknown.map((name) => [name, random()]);
 				const heading = `Required config options are missed: ${listify(
 					unknown
 				)}.`;
@@ -191,7 +191,7 @@ We’ve tried to load “${presetPackageName}” and “${preset}” npm package
 	}
 
 	function getUsage() {
-		const commands = EXAMPLES.map(x => x[0] + x[1]);
+		const commands = EXAMPLES.map((x) => x[0] + x[1]);
 		const commandsWidth = longest(commands).length;
 		return EXAMPLES.map(([command, opts, description]) =>
 			[
@@ -211,7 +211,7 @@ We’ve tried to load “${presetPackageName}” and “${preset}” npm package
 		const nameColWidth = names.length > 0 ? longest(names).length : 0;
 
 		return names
-			.map(name => {
+			.map((name) => {
 				const description = Array.isArray(allTasks[name])
 					? `Runs ${listify(allTasks[name])}`
 					: allTasks[name];

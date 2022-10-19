@@ -47,10 +47,7 @@ describe('template()', () => {
 		vol.fromJSON({
 			'/tmpl.txt': '',
 		});
-		const result = template('/text.txt', '/tmpl.txt')
-			.apply({})
-			.save()
-			.get();
+		const result = template('/text.txt', '/tmpl.txt').apply({}).save().get();
 		expect(result).toEqual('');
 	});
 });
@@ -123,9 +120,7 @@ describe('save()', () => {
 			'/tmpl.txt': 'Hello, ${foo}!',
 			'/text.txt': 'Text',
 		});
-		template('/text.txt', '/tmpl.txt')
-			.apply({ foo: 'Bar' })
-			.save();
+		template('/text.txt', '/tmpl.txt').apply({ foo: 'Bar' }).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
@@ -133,9 +128,7 @@ describe('save()', () => {
 		vol.fromJSON({
 			'/tmpl.txt': 'Hello, ${foo}!',
 		});
-		template('/text.txt', '/tmpl.txt')
-			.apply({ foo: 'Bar' })
-			.save();
+		template('/text.txt', '/tmpl.txt').apply({ foo: 'Bar' }).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
@@ -148,9 +141,7 @@ describe('save()', () => {
 		vol.fromJSON({
 			'/tmpl.txt': 'Hello',
 		});
-		template('/text.txt', '/tmpl.txt')
-			.apply({})
-			.save();
+		template('/text.txt', '/tmpl.txt').apply({}).save();
 		expect(log.added).toBeCalledWith('Create /text.txt');
 	});
 
@@ -159,9 +150,7 @@ describe('save()', () => {
 			'/tmpl.txt': 'Hello',
 			'/text.txt': 'Bye',
 		});
-		template('/text.txt', '/tmpl.txt')
-			.apply({})
-			.save();
+		template('/text.txt', '/tmpl.txt').apply({}).save();
 		expect(log.added).toBeCalledWith('Update /text.txt');
 	});
 
@@ -170,9 +159,7 @@ describe('save()', () => {
 			'/tmpl.txt': 'Hello, ${foo}!',
 			'/text.txt': 'Hello, Bar!',
 		});
-		template('/text.txt', '/tmpl.txt')
-			.apply({ foo: 'Bar' })
-			.save();
+		template('/text.txt', '/tmpl.txt').apply({ foo: 'Bar' }).save();
 		expect(log.added).toHaveBeenCalledTimes(0);
 	});
 });

@@ -37,11 +37,7 @@ describe('lines()', () => {
 	});
 
 	it('methods should be chainable', () => {
-		const result = lines(filename)
-			.add(['a'])
-			.remove(['a'])
-			.save()
-			.get();
+		const result = lines(filename).add(['a']).remove(['a']).save().get();
 		expect(result).toEqual([]);
 	});
 });
@@ -152,48 +148,36 @@ describe('save()', () => {
 	});
 
 	it('should create file', () => {
-		lines(filename)
-			.add(['foo', 'bar'])
-			.save();
+		lines(filename).add(['foo', 'bar']).save();
 		expect(vol.toJSON()[filename]).toBe('foo\nbar');
 	});
 
 	it('should save file with empty lines', () => {
 		vol.fromJSON({ '/new.lines': 'one\n\n\ntwo\n' });
-		lines('/new.lines')
-			.add(['foo', 'bar'])
-			.save();
+		lines('/new.lines').add(['foo', 'bar']).save();
 		expect(vol.toJSON()['/new.lines']).toMatchSnapshot();
 	});
 
 	it('should keep new line at the end of file', () => {
 		vol.fromJSON({ '/new.lines': 'one\ntwo\n' });
-		lines('/new.lines')
-			.add(['foo', 'bar'])
-			.save();
+		lines('/new.lines').add(['foo', 'bar']).save();
 		expect(vol.toJSON()['/new.lines']).toMatch(/\n$/);
 	});
 
 	it('should print a message that file was created', () => {
-		lines(filename)
-			.add(['foo'])
-			.save();
+		lines(filename).add(['foo']).save();
 		expect(log.added).toBeCalledWith('Create /test.lines');
 	});
 
 	it('should print a message that file was updated', () => {
 		vol.fromJSON(json);
-		lines(filename)
-			.add(['foo'])
-			.save();
+		lines(filename).add(['foo']).save();
 		expect(log.added).toBeCalledWith('Update /test.lines');
 	});
 
 	it('should not print a message if file was not changed', () => {
 		vol.fromJSON(json);
-		lines(filename)
-			.add(['one'])
-			.save();
+		lines(filename).add(['one']).save();
 		expect(log.added).toHaveBeenCalledTimes(0);
 	});
 });

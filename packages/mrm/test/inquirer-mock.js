@@ -2,9 +2,9 @@
 /* eslint-disable no-await-in-loop */
 const inquirer = require('inquirer');
 
-const isNumber = i => typeof i === 'number';
-const isFunction = i => typeof i === 'function';
-const isUndefined = i => typeof i === 'undefined';
+const isNumber = (i) => typeof i === 'number';
+const isFunction = (i) => typeof i === 'function';
+const isUndefined = (i) => typeof i === 'undefined';
 
 /**
  * @param  {Object} prompt
@@ -93,7 +93,7 @@ function inquirerHandler(inputs) {
 	 * @param  {Object} prompts
 	 * @return {Promise.<Object>}
 	 */
-	return async prompts => {
+	return async (prompts) => {
 		const answers = {};
 		for (const prompt of [].concat(prompts)) {
 			answers[prompt.name] = await promptHandler(
@@ -114,7 +114,7 @@ function mock(inputs) {
 	}
 
 	const promptOriginal = inquirer.prompt;
-	const promptMock = async function(questions) {
+	const promptMock = async function (questions) {
 		try {
 			const answers = await inquirerHandler(inputs)(questions);
 			inquirer.prompt = promptOriginal;

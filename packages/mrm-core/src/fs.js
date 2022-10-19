@@ -9,7 +9,7 @@ const MrmError = require('./error');
 /**
  * @param {string} file
  */
-const read = file => (fs.existsSync(file) ? readFile(file).trim() : '');
+const read = (file) => (fs.existsSync(file) ? readFile(file).trim() : '');
 
 /**
  * Read a text file as UTF-8
@@ -39,7 +39,7 @@ function updateFile(filename, content, exists) {
 function copyFiles(sourceDir, files, options = {}) {
 	const { overwrite = true, errorOnExist } = options;
 
-	_.castArray(files).forEach(file => {
+	_.castArray(files).forEach((file) => {
 		const sourcePath = path.resolve(sourceDir, file);
 		if (!fs.existsSync(sourcePath)) {
 			throw new MrmError(`copyFiles: source file not found: ${sourcePath}`);
@@ -69,7 +69,7 @@ function copyFiles(sourceDir, files, options = {}) {
  * @param {string|string[]} files
  */
 function deleteFiles(files) {
-	_.castArray(files).forEach(file => {
+	_.castArray(files).forEach((file) => {
 		if (!fs.existsSync(file)) {
 			return;
 		}
@@ -84,7 +84,7 @@ function deleteFiles(files) {
  * @param {string|string[]} dirs
  */
 function makeDirs(dirs) {
-	_.castArray(dirs).forEach(dir => {
+	_.castArray(dirs).forEach((dir) => {
 		if (fs.existsSync(dir)) {
 			return;
 		}

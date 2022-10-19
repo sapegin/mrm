@@ -21,9 +21,7 @@ function task() {
 		.save();
 
 	// package.json
-	packageJson()
-		.appendScript('pretest', 'tsc --noEmit')
-		.save();
+	packageJson().appendScript('pretest', 'tsc --noEmit').save();
 
 	// Dependencies
 	install(packages);

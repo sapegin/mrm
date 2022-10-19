@@ -152,56 +152,42 @@ describe('save()', () => {
 	});
 
 	it('should create file', () => {
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
 	it('should update file', () => {
 		vol.fromJSON(fsJson);
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(vol.toJSON()).toMatchSnapshot();
 	});
 
 	it('should keep new line at the end of file', () => {
 		vol.fromJSON({ '/test.json': JSON.stringify(object, null, '  ') + '\n' });
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(vol.toJSON()[filename]).toMatch(/\n$/);
 	});
 
 	it('should keep indentation', () => {
 		vol.fromJSON({ '/test.json': JSON.stringify(object, null, '\t') });
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(vol.toJSON()[filename]).toMatchSnapshot();
 	});
 
 	it('should keep comments', () => {
 		vol.fromJSON({ '/test.json': '{\n// pizza\n"bar": 42\n/* pasta */ }' });
-		json(filename)
-			.set('bar', 43)
-			.save();
+		json(filename).set('bar', 43).save();
 		expect(vol.toJSON()[filename]).toMatchSnapshot();
 	});
 
 	it('should print a message that file was created', () => {
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(log.added).toBeCalledWith('Create /test.json');
 	});
 
 	it('should print a message that file was updated', () => {
 		vol.fromJSON(fsJson);
-		json(filename)
-			.set('foo', 1)
-			.save();
+		json(filename).set('foo', 1).save();
 		expect(log.added).toBeCalledWith('Update /test.json');
 	});
 

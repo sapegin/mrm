@@ -9,7 +9,7 @@ jest.mock('mrm-core/src/npm', () => ({
 const vol = require('memfs').vol;
 const task = require('./index');
 
-const stringify = o => JSON.stringify(o, null, '  ');
+const stringify = (o) => JSON.stringify(o, null, '  ');
 
 const packageJson = stringify({
 	name: 'unicorn',

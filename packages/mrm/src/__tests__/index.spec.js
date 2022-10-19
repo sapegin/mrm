@@ -52,7 +52,7 @@ const argv = {
 	'config:bar': 'coffee',
 };
 
-const file = name => path.join(__dirname, '../../test', name);
+const file = (name) => path.join(__dirname, '../../test', name);
 
 describe('promiseFirst', () => {
 	it('should return the first resolving function', async () => {

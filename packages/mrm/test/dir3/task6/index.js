@@ -14,12 +14,9 @@ module.exports.parameters = {
 		type: 'input',
 		message: 'Please, fulfil this third interactive input',
 		default: jest.fn(
-			values =>
+			(values) =>
 				values['second-config'] &&
-				values['second-config']
-					.split('')
-					.reverse()
-					.join('')
+				values['second-config'].split('').reverse().join('')
 		),
 	},
 };

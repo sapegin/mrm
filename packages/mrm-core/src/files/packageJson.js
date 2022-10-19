@@ -6,7 +6,7 @@ const FILENAME = 'package.json';
 const isDefaultTest = (name, command) =>
 	name === 'test' && command === DEFAULT_TEST;
 
-const splitSubcommands = script => script.split(/\s*&&\s*/);
+const splitSubcommands = (script) => script.split(/\s*&&\s*/);
 
 /**
  * @param {Object} pkg
@@ -27,13 +27,13 @@ function updateScript(pkg, name, command, fn) {
 }
 
 function insertScript(pkg, name, command) {
-	const get = s => pkg.get(['scripts', s]);
+	const get = (s) => pkg.get(['scripts', s]);
 	const scripts = pkg.get('scripts');
 	const baseName = name.replace(/^(pre|post)/, '');
 	if (/^pre/.test(name) && !get(name) && get(baseName)) {
 		// Insert prescript before script
 		const newScripts = {};
-		Object.keys(scripts).forEach(n => {
+		Object.keys(scripts).forEach((n) => {
 			if (n === baseName) {
 				newScripts[name] = command;
 			}
@@ -43,7 +43,7 @@ function insertScript(pkg, name, command) {
 	} else if (/^post/.test(name) && !get(name) && get(baseName)) {
 		// Insert postscript after script
 		const newScripts = {};
-		Object.keys(scripts).forEach(n => {
+		Object.keys(scripts).forEach((n) => {
 			newScripts[n] = scripts[n];
 			if (n === baseName) {
 				newScripts[name] = command;
@@ -59,7 +59,7 @@ function insertScript(pkg, name, command) {
  * @param {Object} defaultValue
  * @returns {any}
  */
-module.exports = function(defaultValue) {
+module.exports = function (defaultValue) {
 	const pkg = json(FILENAME, defaultValue);
 
 	return Object.assign(pkg, {
@@ -69,7 +69,7 @@ module.exports = function(defaultValue) {
 
 			if (script && subcommand) {
 				const regExp = new RegExp(`\\b${subcommand}\\b`);
-				return splitSubcommands(script).find(s => s.match(regExp));
+				return splitSubcommands(script).find((s) => s.match(regExp));
 			}
 
 			return script;
@@ -83,7 +83,7 @@ module.exports = function(defaultValue) {
 
 		/** Append a given command to a script */
 		appendScript(name, command) {
-			updateScript(pkg, name, command, prevCommand =>
+			updateScript(pkg, name, command, (prevCommand) =>
 				[prevCommand, command].join(' && ')
 			);
 			return this;
@@ -91,7 +91,7 @@ module.exports = function(defaultValue) {
 
 		/** Prepend a script with a given command */
 		prependScript(name, command) {
-			updateScript(pkg, name, command, prevCommand =>
+			updateScript(pkg, name, command, (prevCommand) =>
 				[command, prevCommand].join(' && ')
 			);
 			return this;
@@ -109,7 +109,7 @@ module.exports = function(defaultValue) {
 				} else {
 					// Remove all scripts with names matching a regexp
 					const scriptNames = Object.keys(pkg.get('scripts', {}));
-					scriptNames.forEach(script => {
+					scriptNames.forEach((script) => {
 						if (script.match(name)) {
 							pkg.unset(['scripts', script]);
 						}
@@ -126,7 +126,7 @@ module.exports = function(defaultValue) {
 
 			// Remove a subcommand from a script
 			const newCommand = splitSubcommands(command)
-				.filter(cmd => !cmd.match(match))
+				.filter((cmd) => !cmd.match(match))
 				.join(' && ');
 			pkg.set(['scripts', name], newCommand);
 			return this;

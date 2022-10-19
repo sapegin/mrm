@@ -8,7 +8,7 @@ const vol = require('memfs').vol;
 const log = require('../../util/log');
 const markdown = require('../markdown');
 
-const normalizeNewLines = s => s.replace(/\n{1,}/g, '\n');
+const normalizeNewLines = (s) => s.replace(/\n{1,}/g, '\n');
 
 const md = `
 # Foo
@@ -24,7 +24,7 @@ const mdWithBadge = `
 Hello.
 `;
 
-const addBadge = file =>
+const addBadge = (file) =>
 	file.addBadge(
 		'http://example.com/badge.svg',
 		'http://example.com/',

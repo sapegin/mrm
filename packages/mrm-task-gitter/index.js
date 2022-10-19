@@ -3,9 +3,7 @@ const { markdown, packageJson } = require('mrm-core');
 module.exports = function task({ packageName, readme }) {
 	const url = `https://gitter.im/${packageName}`;
 	const badge = `https://badges.gitter.im/${packageName}.svg`;
-	markdown(readme)
-		.addBadge(badge, url, 'Gitter chat')
-		.save();
+	markdown(readme).addBadge(badge, url, 'Gitter chat').save();
 };
 
 module.exports.description = 'Adds Gitter badge to the readme';

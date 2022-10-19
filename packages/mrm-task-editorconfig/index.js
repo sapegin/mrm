@@ -36,7 +36,9 @@ module.exports = function task({ indent }) {
 	editorconfig.set('_global', { root: true }).set('*', generalRules);
 
 	// Set/update JSON-like section
-	const jsonSection = editorconfig.get().find(section => /json/.test(section));
+	const jsonSection = editorconfig
+		.get()
+		.find((section) => /json/.test(section));
 	if (jsonSection) {
 		editorconfig.unset(jsonSection);
 	}

@@ -7,7 +7,7 @@ const base = require('./file');
  * @param {string} filename
  * @param {string[]} [defaultValue]
  */
-module.exports = function(filename, defaultValue) {
+module.exports = function (filename, defaultValue) {
 	const file = base(filename);
 
 	/** @type string[] */
@@ -39,7 +39,7 @@ module.exports = function(filename, defaultValue) {
 		 */
 		add(values) {
 			values = _.castArray(values);
-			const newValues = values.filter(value => lines.indexOf(value) === -1);
+			const newValues = values.filter((value) => lines.indexOf(value) === -1);
 			lines = lines.concat(newValues);
 			return this;
 		},
@@ -50,7 +50,7 @@ module.exports = function(filename, defaultValue) {
 		 */
 		remove(values) {
 			values = _.castArray(values);
-			lines = lines.filter(value => values.indexOf(value.trim()) === -1);
+			lines = lines.filter((value) => values.indexOf(value.trim()) === -1);
 			return this;
 		},
 
