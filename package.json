@@ -58,7 +58,12 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/templates/"
-    ]
+    ],
+    "snapshotFormat": {
+      "escapeString": true,
+      "printBasicPrototype": true
+    }
+
   },
   "lint-staged": {
     "*.js": [
