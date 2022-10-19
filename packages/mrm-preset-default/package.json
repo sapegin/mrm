@@ -1,6 +1,7 @@
 {
 	"name": "mrm-preset-default",
 	"version": "4.1.11",
+	"private": true,
 	"description": "Common tasks for Mrm",
 	"author": {
 		"name": "Artem Sapegin",

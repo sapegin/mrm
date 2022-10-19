@@ -1,4 +1,4 @@
-# mrm-task-gitter
+# [DEPRECATED] mrm-task-gitter
 
 [Mrm](https://github.com/sapegin/mrm) task that adds [Gitter](https://gitter.im/) badge to the readme.
 

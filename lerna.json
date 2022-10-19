@@ -1,24 +1,20 @@
 {
-  "packages": [
-    "packages/*"
-  ],
   "version": "independent",
+  "useWorkspaces": true,
   "command": {
     "version": {
       "allowBranch": "master",
-      "message": "chore: Publish :shipit: [skip ci]"
-    },
-    "publish": {
       "conventionalCommits": true,
-      "ignoreChanges": [
-        "packages/mrm-preset-default",
-        "package-lock.json",
-        "Readme.md",
-        "Changelog.md",
-        "CHANGELOG.md",
-        "*.spec.js",
-        "*.snap"
-      ]
+      "noPrivate": true,
+      "message": "chore: Publish :shipit: [skip ci]"
     }
-  }
+  },
+  "ignoreChanges": [
+    "package-lock.json",
+    "Readme.md",
+    "Changelog.md",
+    "CHANGELOG.md",
+    "*.spec.js",
+    "*.snap"
+  ]
 }

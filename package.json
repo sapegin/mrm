@@ -9,6 +9,9 @@
   "homepage": "https://github.com/sapegin/mrm",
   "repository": "sapegin/mrm",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "pretest": "npm run lint",

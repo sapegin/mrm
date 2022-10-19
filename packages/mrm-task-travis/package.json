@@ -1,6 +1,7 @@
 {
 	"name": "mrm-task-travis",
 	"version": "4.1.11",
+	"private": true,
 	"description": "Mrm task that adds Travis CI",
 	"author": {
 		"name": "Artem Sapegin",
