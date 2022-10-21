@@ -25,7 +25,8 @@
 				"ms-vscode.powershell",
 				"esbenp.prettier-vscode",
 				"redhat.vscode-yaml",
-				"vivaxy.vscode-conventional-commits"
+				"vivaxy.vscode-conventional-commits",
+				"GitHub.vscode-pull-request-github"
 			]
 		}
 	},
