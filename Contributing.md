@@ -23,6 +23,10 @@ I love pull requests. And following this simple guidelines will make your pull r
 - Install [EditorConfig](http://editorconfig.org/) plugin for your code editor.
 - Feel free to [ask me](http://sapegin.me) anything you need.
 
+## Windows & Visual Studio Code Devcontainer
+
+While mrm operates on Windows, there are a number of developer tests which fail because the tests depend on Linux style file paths. The simplest way avoid compatiability problems is to use Visual Studio Code _[Devcontainer](https://code.visualstudio.com/docs/remote/containers#_getting-started)_ to deploy a preconfigured Docker development container running Linux. See the link about for requirements and installation requirements. To get good performance, in vscode: press F1 and the **Dev Containers: Clone Repository in Container Volume...** option. Then provide the location of your fork when prompted.
+
 ## Building and running tests
 
 _Run these commands in the root folder of the repository._

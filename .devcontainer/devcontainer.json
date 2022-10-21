@@ -24,7 +24,8 @@
 				"Orta.vscode-jest",
 				"ms-vscode.powershell",
 				"esbenp.prettier-vscode",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"vivaxy.vscode-conventional-commits"
 			]
 		}
 	},
