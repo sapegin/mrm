@@ -6,7 +6,7 @@
 		"name": "Artem Sapegin",
 		"url": "http://sapegin.me"
 	},
-	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-typescript",
+	"homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-typescript",
 	"repository": "sapegin/mrm",
 	"license": "MIT",
 	"engines": {

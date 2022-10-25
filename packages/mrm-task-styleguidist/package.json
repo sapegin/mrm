@@ -6,7 +6,7 @@
 		"name": "Artem Sapegin",
 		"url": "http://sapegin.me"
 	},
-	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-styleguidist",
+	"homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-styleguidist",
 	"repository": "sapegin/mrm",
 	"license": "MIT",
 	"engines": {
