@@ -2,7 +2,7 @@
 const os = require('os');
 
 /**
- * Rerturn true when we are in a win32 environement
+ * Return true when we are in a win32 environment
  */
 function isWindows() {
 	return os.platform() === 'win32';
