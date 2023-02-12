@@ -28,7 +28,7 @@
 	],
 	"dependencies": {
 		"git-default-branch": "^1.0.0",
-		"got": "^11.8.0",
+		"got": "^12.5.3",
 		"lodash": "^4.17.20",
 		"mrm-core": "^7.1.13",
 		"package-repo-url": "^1.0.3",
