@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.14 (2023-03-10)
+
+**Note:** Version bump only for package mrm-task-dependabot
+
 ## 3.1.13 (2022-10-19)
 
 **Note:** Version bump only for package mrm-task-dependabot
