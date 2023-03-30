@@ -184,7 +184,7 @@ function runPnpm(deps, options = {}, exec) {
 	const args = [
 		options.remove ? 'remove' : 'add',
 		options.dev ? '--save-dev' : '--save-prod',
-		isInPnpmWorkspaceRoot() ? '-W' : '',
+		isInPnpmWorkspaceRoot() ? '--ignore-workspace-root-check' : '',
 	].concat(deps);
 
 	return execCommand(exec, 'pnpm', args, {
