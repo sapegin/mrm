@@ -29,6 +29,8 @@ const {
 const defaultDirectories = [
 	path.resolve(userHome, 'dotfiles/mrm'),
 	path.resolve(userHome, '.mrm'),
+	path.resolve(process.env.XDG_CONFIG_HOME, 'mrm'),
+	path.resolve(userHome, '.config/mrm'),
 ];
 
 const EXAMPLES = [
