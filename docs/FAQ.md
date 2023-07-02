@@ -45,6 +45,8 @@ module.exports = function task(config) {
 - `<DIR>/config.json` if `--dir <DIR>` command line option was passed
 - `$HOME/dotfiles/mrm/config.json`
 - `$HOME/.mrm/config.json`
+- `$XDG_CONFIG_HOME/mrm/config.json`
+- `$HOME/.config/mrm/config.json`
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
 
@@ -55,6 +57,8 @@ if you’re passing a `--preset <PRESET>` command line option, then the only tas
 - `<DIR>/<TASK>/index.js` if `--dir <DIR>` command line option was passed
 - `$HOME/dotfiles/mrm/<TASK>/index.js`
 - `$HOME/.mrm/<TASK>/index.js`
+- `$XDG_CONFIG_HOME/mrm/<TASK>/index.js`
+- `$HOME/.config/mrm/<TASK>/index.js`
 - `mrm-task-<TASK>/index.js`, where `mrm-task-<TASK>` is an npm package name
 
 if you’re passing a `--preset <PRESET>` command line option, then the only task directory will be:
