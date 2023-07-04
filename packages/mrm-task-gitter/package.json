@@ -7,7 +7,7 @@
 		"name": "Artem Sapegin",
 		"url": "http://sapegin.me"
 	},
-	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-gitter",
+	"homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-gitter",
 	"repository": "sapegin/mrm",
 	"license": "MIT",
 	"engines": {

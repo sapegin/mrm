@@ -7,7 +7,7 @@
 		"name": "Artem Sapegin",
 		"url": "https://sapegin.me"
 	},
-	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-dependabot",
+	"homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-dependabot",
 	"repository": "sapegin/mrm",
 	"license": "MIT",
 	"engines": {

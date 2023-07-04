@@ -6,7 +6,7 @@
 		"name": "Artem Sapegin",
 		"url": "https://sapegin.me"
 	},
-	"homepage": "https://github.com/sapegin/mrm/packages/mrm-task-license",
+	"homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-license",
 	"repository": "sapegin/mrm",
 	"license": "MIT",
 	"engines": {

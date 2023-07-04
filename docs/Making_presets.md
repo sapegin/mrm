@@ -27,7 +27,7 @@ And the `package.json` would look like this:
     "name": "Artem Sapegin",
     "url": "https://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-preset-default",
+  "homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-preset-default",
   "repository": "sapegin/mrm",
   "license": "MIT",
   "engines": {

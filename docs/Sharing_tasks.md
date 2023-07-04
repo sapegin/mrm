@@ -21,7 +21,7 @@ The basic file structure of a shared task looks like this:
     "name": "Artem Sapegin",
     "url": "https://sapegin.me"
   },
-  "homepage": "https://github.com/sapegin/mrm/packages/mrm-task-unicorn",
+  "homepage": "https://github.com/sapegin/mrm/tree/master/packages/mrm-task-unicorn",
   "repository": "sapegin/mrm",
   "license": "MIT",
   "engines": {
