@@ -1,6 +1,6 @@
 {
 	"name": "mrm-task-typescript",
-	"version": "4.1.16",
+	"version": "4.1.17",
 	"description": "Mrm task that adds TypeScript",
 	"author": {
 		"name": "Artem Sapegin",
@@ -23,6 +23,6 @@
 		"typescript"
 	],
 	"dependencies": {
-		"mrm-core": "^7.1.16"
+		"mrm-core": "^7.1.17"
 	}
 }
