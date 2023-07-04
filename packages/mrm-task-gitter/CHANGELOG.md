@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 4.1.16 (2023-07-04)
+
+**Note:** Version bump only for package mrm-task-gitter
+
 ## 4.1.15 (2023-07-04)
 
 **Note:** Version bump only for package mrm-task-gitter
