@@ -1,6 +1,6 @@
 {
 	"name": "mrm-task-dependabot",
-	"version": "3.1.19",
+	"version": "3.1.20",
 	"private": true,
 	"description": "Mrm task that adds GitHub Actions workflow to automerge Dependabot pull requests",
 	"author": {
@@ -24,6 +24,6 @@
 		"dependabot"
 	],
 	"dependencies": {
-		"mrm-core": "^7.1.19"
+		"mrm-core": "^7.1.20"
 	}
 }

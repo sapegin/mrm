@@ -1,6 +1,6 @@
 {
 	"name": "mrm-task-travis",
-	"version": "4.1.19",
+	"version": "4.1.20",
 	"private": true,
 	"description": "Mrm task that adds Travis CI",
 	"author": {
@@ -25,7 +25,7 @@
 	],
 	"dependencies": {
 		"lodash": "^4.17.15",
-		"mrm-core": "^7.1.19",
+		"mrm-core": "^7.1.20",
 		"package-repo-url": "^1.0.3",
 		"semver-utils": "^1.1.4"
 	}
