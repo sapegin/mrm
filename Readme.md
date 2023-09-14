@@ -61,9 +61,15 @@ These tasks are [included by default](https://mrm.js.org/docs/mrm-preset-default
 
 The changelog can be found on the [Releases page](https://github.com/sapegin/mrm/releases).
 
+## Sponsoring
+
+This software has been developed with lots of coffee, buy me one more cup to keep it going.
+
+<a href="https://www.buymeacoffee.com/sapegin" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-orange.png" alt="Buy Me A Coffee" height="51" width="217"></a>
+
 ## Contributing
 
-Everyone is welcome to contribute. Please take a moment to review the [contributing guidelines](Contributing.md).
+Bug fixes are welcome, but not new features. Please take a moment to review the [contributing guidelines](Contributing.md).
 
 ## Authors and license
 
