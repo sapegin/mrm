@@ -184,6 +184,7 @@ function runPnpm(deps, options = {}, exec) {
 	const args = [
 		options.remove ? 'remove' : 'add',
 		options.dev ? '--save-dev' : '--save-prod',
+		isInPnpmWorkspaceRoot() ? '--ignore-workspace-root-check' : '',
 	].concat(deps);
 
 	return execCommand(exec, 'pnpm', args, {
@@ -306,6 +307,13 @@ function isUsingYarnBerry() {
  */
 function isUsingPnpm() {
 	return fs.existsSync('pnpm-lock.yaml');
+}
+
+/*
+ * Is in pnpm workspace root?
+ */
+function isInPnpmWorkspaceRoot() {
+	return fs.existsSync('pnpm-workspace.yaml');
 }
 
 module.exports = {
