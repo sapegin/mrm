@@ -103,9 +103,12 @@ describe('tryFile', () => {
 describe('resolveUsingNpx', () => {
 	it('should install an npm module transparently', async () => {
 		const result = await resolveUsingNpx('yarnhook');
-		expect(result).toMatch(
-			/\.npm\/_npx\/\d*\/lib(64)?\/node_modules\/yarnhook\/index\.js$/
-		);
+		const npmCacheDir = process.env.NPM_CONFIG_CACHE || '.npm';
+		const pattern = `
+			${npmCacheDir}/_npx/\\d*/lib(64)?/node_modules/yarnhook/index.js$
+		`.trim();
+		const regex = new RegExp(pattern);
+		expect(result).toMatch(regex);
 	});
 
 	it('should throw if npm module is not found on the registry', () => {

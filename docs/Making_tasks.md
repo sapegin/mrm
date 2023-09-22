@@ -2,7 +2,14 @@
 
 # Making your own tasks
 
-Create either `~/.mrm/<TASK>/index.js` or `~/dotfiles/mrm/<TASK>/index.js`. If `<TASK>` is the same as one of the default tasks your task will override the default one.
+In Unix systems, you can create an `index.js` file in one of the following directories:
+
+- `$HOME/dotfiles/mrm/<TASK>`
+- `$HOME/.mrm/<TASK>`
+- `$XDG_CONFIG_HOME/mrm/<TASK>`
+- `$HOME/.config/mrm/<TASK>`
+
+**Replace** `<TASK>` with the **desired task name**. If `<TASK>` is the same as one of the default tasks, your task will _override_ the default one.
 
 **Tip:** Tasks can be packaged into presets; if you want to share them, see [Making presets](Making_presets.md).
 

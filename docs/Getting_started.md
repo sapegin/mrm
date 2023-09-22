@@ -99,20 +99,29 @@ This will ultimately set the `name` config for this single task execution.
 
 ### Config files
 
-Create `~/.mrm/config.json` or `~/dotfiles/mrm/config.json`:
+In Unix systems, you can create a `config.json` file in one of the following directories:
 
-```json5
+- `$HOME/dotfiles/mrm`
+- `$HOME/.mrm`
+- `$XDG_CONFIG_HOME/mrm`
+- `$HOME/.config/mrm`
+
+Example:
+
+```json
 {
-  indent: 'tab', // "tab" or number of spaces
-  readmeFile: 'Readme.md', // Name of readme file
-  licenseFile: 'License.md', // Name of license file
-  aliases: {
+  "indent": "tab", // "tab" or number of spaces
+  "readmeFile": "Readme.md", // Name of readme file
+  "licenseFile": "License.md", // Name of license file
+  "aliases": {
     // Aliases to run multiple tasks at once
-    node: ['license', 'readme', 'editorconfig', 'gitignore'],
+    "node": ["license", "readme", "editorconfig", "gitignore"],
     // You can reference another alias has been defined.
-    frontend: ['node', 'eslint', 'typescript']
+    "frontend": ["node", "eslint", "typescript"]
   }
 }
 ```
+
+> Note: Make sure to delete all comments from the config file.
 
 **When to use:** when you often use the same configuration (usually when you scaffold new projects frequently); when you want to define sets of default task aliases.
