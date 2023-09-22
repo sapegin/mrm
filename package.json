@@ -22,7 +22,8 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint . --cache --fix",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --loglevel warn --write \"**/*.{js,md}\""
+    "format": "prettier --loglevel warn --write \"**/*.{js,md}\"",
+    "local": "bash to-local.sh"
   },
   "engines": {
     "node": ">=10.13"
