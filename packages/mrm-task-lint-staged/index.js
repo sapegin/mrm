@@ -11,7 +11,7 @@ const husky = require('husky');
 
 const packages = {
 	'lint-staged': '>=10',
-	husky: '>=7',
+	husky: '>=9',
 };
 
 /**
@@ -191,7 +191,7 @@ module.exports = function task({ lintStagedRules }) {
 	if (isUsingYarnBerry()) {
 		// Yarn 2 doesn't support `prepare` lifecycle yet
 		// https://yarnpkg.com/advanced/lifecycle-scripts
-		pkg.appendScript('postinstall', 'husky install');
+		pkg.appendScript('postinstall', 'husky');
 		if (!pkg.get('private')) {
 			// In case package isn't private, pinst ensures that postinstall
 			// is disabled on publish
@@ -202,7 +202,7 @@ module.exports = function task({ lintStagedRules }) {
 		}
 	} else {
 		// npm, Yarn 1, pnpm
-		pkg.appendScript('prepare', 'husky install');
+		pkg.appendScript('prepare', 'husky');
 	}
 
 	pkg.save();

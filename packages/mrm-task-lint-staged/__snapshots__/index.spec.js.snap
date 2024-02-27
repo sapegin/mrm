@@ -11,7 +11,7 @@ Object {
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -22,7 +22,7 @@ Object {
   "/package.json": "{
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   },
   \\"devDependencies\\": {
     \\"eslint\\": \\"4.0.1\\",
@@ -47,7 +47,7 @@ Object {
     \\"*.{js,css,md}\\": \\"prettier --write\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -67,7 +67,7 @@ Object {
     ]
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -84,7 +84,7 @@ Object {
     \\"*.css\\": \\"stylelint --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -95,7 +95,7 @@ exports[`should infer ESLint extension for an npm script 1`] = `
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
     \\"lint\\": \\"eslint --fix --ext .js,.jsx\\",
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   },
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
@@ -111,7 +111,7 @@ exports[`should infer Prettier extensions from an npm script 1`] = `
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
     \\"format\\": \\"prettier --write '**/*.{js,jsx}'\\",
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   },
   \\"devDependencies\\": {
     \\"prettier\\": \\"1.9.2\\"
@@ -138,7 +138,7 @@ Object {
     ]
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -149,7 +149,7 @@ Object {
   "/package.json": "{
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   },
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
@@ -172,7 +172,7 @@ Object {
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -190,7 +190,7 @@ Object {
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -207,7 +207,7 @@ Object {
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"postinstall\\": \\"husky install\\",
+    \\"postinstall\\": \\"husky\\",
     \\"prepublishOnly\\": \\"pinst --disable\\",
     \\"postpublish\\": \\"pinst --enable\\"
   }
@@ -227,7 +227,7 @@ Object {
     \\"*.js\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"postinstall\\": \\"husky install\\"
+    \\"postinstall\\": \\"husky\\"
   }
 }",
 }
@@ -244,7 +244,7 @@ Object {
     \\"*.{js,jsx}\\": \\"eslint --cache --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -261,7 +261,7 @@ Object {
     \\"*.scss\\": \\"stylelint --fix\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -278,7 +278,7 @@ Object {
     \\"*.{js,jsx,mjs}\\": \\"prettier --write\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
@@ -289,7 +289,7 @@ exports[`should use default JS extension if eslint command has no --ext key 1`] 
   \\"name\\": \\"unicorn\\",
   \\"scripts\\": {
     \\"lint\\": \\"eslint --fix\\",
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   },
   \\"devDependencies\\": {
     \\"eslint\\": \\"*\\"
@@ -312,7 +312,7 @@ Object {
     \\"*.{js,css,md}\\": \\"prettier --write\\"
   },
   \\"scripts\\": {
-    \\"prepare\\": \\"husky install\\"
+    \\"prepare\\": \\"husky\\"
   }
 }",
 }
