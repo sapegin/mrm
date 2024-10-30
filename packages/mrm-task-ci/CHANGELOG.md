@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2.1.23 (2024-10-30)
+
+**Note:** Version bump only for package mrm-task-ci
+
 ## 2.1.22 (2023-09-14)
 
 **Note:** Version bump only for package mrm-task-ci

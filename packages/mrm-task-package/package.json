@@ -1,6 +1,6 @@
 {
 	"name": "mrm-task-package",
-	"version": "4.1.22",
+	"version": "4.1.23",
 	"description": "Mrm task that adds package.json file",
 	"author": {
 		"name": "Artem Sapegin",
@@ -26,7 +26,7 @@
 	],
 	"dependencies": {
 		"git-username": "^1.0.0",
-		"mrm-core": "^7.1.22",
+		"mrm-core": "^7.1.23",
 		"rc": "^1.2.8",
 		"user-meta": "^1.0.0"
 	}
